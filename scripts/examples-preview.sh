@@ -1,5 +1,6 @@
 #!/bin/bash
 
+chmod -R 777 ./packages
 cd ./examples/svelte-app && npm ci && npm run build
 cd ../..
 cd ./examples/react-app && npm ci && npm run build
