@@ -15,3 +15,4 @@ cp -R ./examples/svelte-app/dist ./storybook-static/svelte-app/
 cp -R ./examples/vue-app/dist ./storybook-static/vue-app/
 cp -R ./examples/react-app/dist ./storybook-static/react-app/
 cp -R ./examples/angular-app/dist/angular-app/browser ./storybook-static/angular-app/
+ls -l ./packages/dev-kit-italia/dist
