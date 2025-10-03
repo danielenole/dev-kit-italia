@@ -1,6 +1,7 @@
-import{j as e,M as t}from"./index-a6WM3-ks.js";import{useMDXComponents as l}from"./index-C1EbfRbw.js";import"./iframe-BJMmF07V.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-CfOrKyLd.js";import"./index-DrFu-skq.js";function a(n){const i={a:"a",code:"code",h2:"h2",h4:"h4",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...l(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(t,{title:"Welcome"}),`
+import{j as e,M as t}from"./index-B_hiYuk1.js";import{useMDXComponents as l}from"./index-CrOHUdc5.js";import"./iframe-Bt5dub1B.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-CfOrKyLd.js";import"./index-DrFu-skq.js";function a(n){const i={a:"a",code:"code",h2:"h2",h4:"h4",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...l(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(t,{title:"Welcome"}),`
 `,e.jsxs("div",{class:"mb-4",children:[e.jsx("h1",{class:"visually-hidden",children:"Dev Kit Italia"}),e.jsx("div",{children:e.jsx("img",{src:"./logo.png",width:"500px",alt:".italia dev kit"})}),e.jsx("p",{class:"lead mb-5",children:e.jsxs(i.p,{children:["Dev Kit Italia è un set di Web components che implementa il Design system .italia e i componenti presenti su ",e.jsx(i.a,{href:"https://github.com/italia/design-ui-kit",rel:"nofollow",children:`UI Kit
-Italia`}),"."]})})]}),`
+Italia`}),"."]})}),e.jsx("p",{class:"lead mb-5",children:e.jsxs("b",{children:[`⚠️ Attenzione: questo repository e i relativi pacchetti sono in lavorazione.
+`,e.jsx("br",{}),"Attualmente sono pubblicati per permetterne lo sviluppo, non sono consigliati per l'utilizzo in ambienti di produzione."]})})]}),`
 `,e.jsx(i.h2,{id:"come-iniziare",children:"Come iniziare"}),`
 `,e.jsxs(i.p,{children:["Per iniziare, è sufficiente installare il pacchetto ",e.jsx(i.code,{children:"npm"})," attraverso il seguente comando:"]}),`
 `,e.jsx(i.pre,{children:e.jsx(i.code,{className:"language-bash",children:`npm install @italia/dev-kit-italia --save
@@ -82,4 +83,4 @@ npm run dev
 `,e.jsx(i.pre,{children:e.jsx(i.code,{className:"language-bash",children:`cd apps/angular-app
 npm install # Per copiare nella node_modules la versione compilata di dev-kit-italia
 ng serve
-`})})]})}function h(n={}){const{wrapper:i}={...l(),...n.components};return i?e.jsx(i,{...n,children:e.jsx(a,{...n})}):a(n)}export{h as default};
+`})})]})}function m(n={}){const{wrapper:i}={...l(),...n.components};return i?e.jsx(i,{...n,children:e.jsx(a,{...n})}):a(n)}export{m as default};

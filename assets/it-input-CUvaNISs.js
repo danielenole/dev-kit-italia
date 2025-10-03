@@ -1,22 +1,12 @@
-import{e as P,i as R}from"./directive-CJw_OlP2.js";import{i as L,x as g,E as x,a as j}from"./lit-element-DvQWNfDj.js";import{o as m,n as c,t as I}from"./property-DPMN11qy.js";import{e as O,r as f}from"./query-Dd0DvlgZ.js";/**
+import{e as M,i as F,t as f}from"./directive-CvdRHFdJ.js";import{T as z,E as k,i as U,x as p,a as D}from"./lit-element-DvQWNfDj.js";import{r as m,e as N,n as d,o as h,t as H}from"./query-Bx2OwlQ7.js";import{f as Z,m as W}from"./directive-helpers-Bd0d1ZrF.js";/**
  * @license
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function _(o,t,e){return o?t(o):e==null?void 0:e(o)}function l(o,t,e,r){var i=arguments.length,a=i<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,e):r,b;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")a=Reflect.decorate(o,t,e,r);else for(var p=o.length-1;p>=0;p--)(b=o[p])&&(a=(i<3?b(a):i>3?b(t,e,a):b(t,e))||a);return i>3&&a&&Object.defineProperty(t,e,a),a}function n(o,t){if(typeof Reflect=="object"&&typeof Reflect.metadata=="function")return Reflect.metadata(o,t)}/**
+ */function _(r,t,e){return r?t(r):e==null?void 0:e(r)}/**
  * @license
- *
- * Copyright IBM Corp. 2020, 2022
- *
- * This source code is licensed under the Apache-2.0 license found in the
- * LICENSE file in the root directory of this source tree.
- */const N=o=>{class t extends o{connectedCallback(){var r;super.connectedCallback(),this.closest("form")&&((r=this.closest("form"))==null||r.addEventListener("formdata",this._handleFormdata.bind(this)))}disconnectedCallback(){super.disconnectedCallback()}}return t};/**
- * @license
- *
- * Copyright IBM Corp. 2020, 2022
- *
- * This source code is licensed under the Apache-2.0 license found in the
- * LICENSE file in the root directory of this source tree.
- */var d;(function(o){o.NO_ERROR="",o.INVALID="invalid",o.ERROR_REQUIRED="required",o.PATTERN="pattern",o.MINLENGTH="minlength",o.MAXLENGTH="maxlength"})(d||(d={}));const T=o=>{class t extends o{constructor(){super(...arguments),this._touched=!1}_getValidityMessage(r,i){return{[d.NO_ERROR]:"",[d.INVALID]:i[d.INVALID],[d.ERROR_REQUIRED]:i[d.ERROR_REQUIRED],[d.PATTERN]:i[d.PATTERN],[d.MINLENGTH]:i[d.MINLENGTH].replace("{minlength}",this.minlength.toString()),[d.MAXLENGTH]:i[d.MAXLENGTH].replace("{maxlength}",this.maxlength.toString())}[r]}_checkValidity(r,i=!0){if(this.customValidation)return;let a=i,b=a?this._getValidityMessage(d.NO_ERROR,r):this._getValidityMessage(d.INVALID,r);return(this.required||this._value&&(this.pattern||this.minlength>0||this.maxlength>0))&&(this.pattern&&(a=new RegExp(`^${this.pattern}$`,"u").test(this._value.toString()),a||(b=this._getValidityMessage(d.PATTERN,r))),typeof this.minlength<"u"&&this.minlength>0&&(a=a&&this._value.toString().length>=this.minlength,a||(b=this._getValidityMessage(d.MINLENGTH,r))),typeof this.maxlength<"u"&&this.maxlength>0&&(a=a&&this._value.toString().length<=this.maxlength,a||(b=this._getValidityMessage(d.MAXLENGTH,r))),this.required&&!this._value&&(a=!1,b=this._getValidityMessage(d.ERROR_REQUIRED,r))),this.invalid=!a,this.validityMessage=b,a}setCustomValidity(r){this.invalid=!!r,this.validityMessage=r}_handleBlur(){this._touched=!0,this.dispatchEvent(new FocusEvent("blur",{bubbles:!0,composed:!0}))}_handleFocus(){this.dispatchEvent(new FocusEvent("focus",{bubbles:!0,composed:!0}))}_handleClick(){this.dispatchEvent(new MouseEvent("click",{bubbles:!0,composed:!0}))}_handleChange(r){const i=r.target;let a;if(i instanceof HTMLInputElement)switch(i.type){case"checkbox":case"radio":a=i.checked;break;case"file":a=i.files;break;default:a=i.value}else i instanceof HTMLSelectElement&&i.multiple?a=Array.from(i.selectedOptions).map(b=>b.value):a=i.value;this.dispatchEvent(new CustomEvent("change",{detail:{value:a,el:i},bubbles:!0,composed:!0}))}}return t};class V extends R{update(t,[e]){const r=t.element;for(const[i,a]of Object.entries(e))a!=null?r.setAttribute(i,a):r.removeAttribute(i);return null}render(t){return null}}const E=P(V);function q(o){var t,e,r="";if(typeof o=="string"||typeof o=="number")r+=o;else if(typeof o=="object")if(Array.isArray(o)){var i=o.length;for(t=0;t<i;t++)o[t]&&(e=q(o[t]))&&(r&&(r+=" "),r+=e)}else for(e in o)o[e]&&(r&&(r+=" "),r+=e);return r}function A(){for(var o,t,e=0,r="",i=arguments.length;e<i;e++)(o=arguments[e])&&(t=q(o))&&(r&&(r+=" "),r+=t);return r}const y=new Set;window&&!window.translations&&(window.translations=new Map);const{translations:u}=window;let h,k="ltr",$="en";const C=typeof MutationObserver<"u"&&typeof document<"u"&&typeof document.documentElement<"u";function M(){C&&(k=document.documentElement.dir||"ltr",$=document.documentElement.lang||navigator.language),[...y.keys()].forEach(o=>{const t=o;typeof t.requestUpdate=="function"&&t.requestUpdate()})}if(C){const o=new MutationObserver(M);k=document.documentElement.dir||"ltr",$=document.documentElement.lang||navigator.language,o.observe(document.documentElement,{attributes:!0,attributeFilter:["dir","lang"]})}function S(...o){o.forEach(t=>{const e=t.$code.toLowerCase();u.has(e)?u.set(e,{...u.get(e),...t}):u.set(e,t),h||(h=t)}),M()}window.registerTranslation=S;class B{constructor(t){this.host=t,this.host.addController(this)}hostConnected(){y.add(this.host)}hostDisconnected(){y.delete(this.host)}dir(){return`${this.host.dir||k}`.toLowerCase()}lang(){return`${this.host.lang||$}`.toLowerCase()}getTranslationData(t){var p;const e=new Intl.Locale(t.replace(/_/g,"-")),r=e==null?void 0:e.language.toLowerCase(),i=((p=e==null?void 0:e.region)==null?void 0:p.toLowerCase())??"",a=u.get(`${r}-${i}`),b=u.get(r);return{locale:e,language:r,region:i,primary:a,secondary:b}}exists(t,e){const{primary:r,secondary:i}=this.getTranslationData(e.lang??this.lang()),a={includeFallback:!1,...e};return!!(r&&r[t]||i&&i[t]||a.includeFallback&&h&&h[t])}term(t,...e){const{primary:r,secondary:i}=this.getTranslationData(this.lang());let a;if(r&&r[t])a=r[t];else if(i&&i[t])a=i[t];else if(h&&h[t])a=h[t];else return console.error(`No translation found for: ${String(t)}`),String(t);return typeof a=="function"?a(...e):a}date(t,e){const r=new Date(t);return new Intl.DateTimeFormat(this.lang(),e).format(r)}number(t,e){const r=Number(t);return Number.isNaN(r)?"":new Intl.NumberFormat(this.lang(),e).format(r)}relativeTime(t,e,r){return new Intl.RelativeTimeFormat(this.lang(),r).format(t,e)}}const F=o=>class extends o{constructor(){super(...arguments),this.localize=new B(this)}get $localize(){return this.localize}$t(t){return this.localize.term(t)}$d(t,e){return this.localize.date(t,e)}$n(t,e){return this.localize.number(t,e)}};class D{constructor(t){this.tag=t}format(t,e){return[`[${this.tag}] ${e}`]}warn(t){console.warn(...this.format("warn",t))}error(t){console.error(...this.format("error",t))}info(t){console.info(...this.format("info",t))}}class H extends j{constructor(){super(),this.composeClass=A,this.logger=new D(this.tagName.toLowerCase())}get _ariaAttributes(){const t={};for(const e of this.getAttributeNames())e==="it-role"?t.role=this.getAttribute(e):e.startsWith("it-aria-")&&(t[e.replace(/^it-/,"")]=this.getAttribute(e));return t}generateId(t){return`${t}-${Math.random().toString(36).slice(2)}`}addFocus(t){}getActiveElement(){let t=document.activeElement;for(;t&&t.shadowRoot&&t.shadowRoot.activeElement;)t=t.shadowRoot.activeElement;return t}connectedCallback(){var e;super.connectedCallback();const t=((e=this.id)==null?void 0:e.length)>0?this.id:this.tagName.toLowerCase();this._id=this.generateId(t)}}const U=F(H),v=(o,t)=>{let e="",r=!1;for(let i=0;i<t.length;i+=1){r=!0;for(let a=0;a<o&&a+i+o<t.length;a+=1)r=r&&t.charAt(a+i)===t.charAt(a+i+o);r?(i+=o-1,r=!1):e+=t.charAt(i)}return e},G=(o,t)=>{let e=0;if(o.trim().length===0)return-2;if(o.length<t)return-1;e+=o.length*4,e+=v(1,o).length-o.length,e+=v(2,o).length-o.length,e+=v(3,o).length-o.length,e+=v(4,o).length-o.length,o.match(/(.*[0-9].*[0-9].*[0-9])/)&&(e+=5);const r=/(.*[!,@,#,$,%,^,&,*,?,_,~].*[!,@,#,$,%,^,&,*,?,_,~])/;return o.match(r)&&(e+=5),o.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)&&(e+=10),o.match(/([a-zA-Z])/)&&o.match(/([0-9])/)&&(e+=15),o.match(/([!,@,#,$,%,^,&,*,?,_,~])/)&&o.match(/([0-9])/)&&(e+=15),o.match(/([!,@,#,$,%,^,&,*,?,_,~])/)&&o.match(/([a-zA-Z])/)&&(e+=15),(o.match(/^\w+$/)||o.match(/^\d+$/))&&(e-=10),e>100&&(e=100),e<0&&(e=0),e},Z=o=>o===-1||o===-2||o<26?"danger":o<51?"warning":(o<76,"success"),Q=(o,t)=>o===-1?t.shortPass:o===-2?"":o<26||o<51?t.badPass:o<76?t.goodPass:t.strongPass,w=[{key:"length",text:o=>o.suggestionLength.replace("{minLength}",o.minimumLength.toString()),test:(o,t)=>o.length>=t.minimumLength},{key:"uppercase",text:o=>o.suggestionUppercase,test:o=>/[A-Z]/.test(o)},{key:"lowercase",text:o=>o.suggestionLowercase,test:o=>/[a-z]/.test(o)},{key:"number",text:o=>o.suggestionNumber,test:o=>/[0-9]/.test(o)},{key:"special",text:o=>o.suggestionSpecial,test:o=>/[^A-Za-z0-9]/.test(o)}],X=(o,t,e)=>{let r=0;const i=o.length;return o.forEach(a=>{a.test(t,e)&&(r+=1)}),{completedCount:r,totalCount:i}},W={$code:"it",$name:"Italiano",$dir:"ltr",showHidePassword:"Mostra/Nascondi Password.",shortPass:"Password troppo breve.",badPass:"Password debole.",goodPass:"Password abbastanza sicura.",strongPass:"Password sicura.",ariaLabelPasswordMeter:"Robustezza della password",passwordSuggestionsLabel:"Suggerimenti per una buona password:",passwordSuggestionLength:"Almeno {minLength} caratteri.",passwordSuggestionUppercase:"Una o più maiuscole.",passwordSuggestionLowercase:"Una o più minuscole.",passwordSuggestionNumber:"Uno o più numeri.",passwordSuggestionSpecial:"Uno o più caratteri speciali.",passwordSuggestionFollowed:"suggerimenti seguiti",passwordSuggestionFollowedPlural:"suggerimenti seguiti",passwordSuggestionOf:"di",passwordSuggestionMetLabel:"Soddisfatto:",validityRequired:"Questo campo è obbligatorio.",validityInvalid:"Il valore non è corretto.",validityPattern:"Il valore non corrisponde al formato richiesto.",validityMinlength:"Il valore deve essere lungo almeno {minlength} caratteri.",validityMaxlength:"Il valore deve essere lungo al massimo {maxlength} caratteri."};var J=L`@charset "UTF-8";
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const j=M(class extends F{constructor(r){if(super(r),r.type!==f.PROPERTY&&r.type!==f.ATTRIBUTE&&r.type!==f.BOOLEAN_ATTRIBUTE)throw Error("The `live` directive is not allowed on child or event bindings");if(!Z(r))throw Error("`live` bindings can only contain a single expression")}render(r){return r}update(r,[t]){if(t===z||t===k)return t;const e=r.element,o=r.name;if(r.type===f.PROPERTY){if(t===e[o])return z}else if(r.type===f.BOOLEAN_ATTRIBUTE){if(!!t===e.hasAttribute(o))return z}else if(r.type===f.ATTRIBUTE&&e.getAttribute(o)===t+"")return z;return W(r),t}});function s(r,t,e,o){var i=arguments.length,a=i<3?t:o,l;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")a=Reflect.decorate(r,t,e,o);else for(var u=r.length-1;u>=0;u--)(l=r[u])&&(a=(i<3?l(a):i>3?l(t,e,a):l(t,e))||a);return i>3&&a&&Object.defineProperty(t,e,a),a}function n(r,t){if(typeof Reflect=="object"&&typeof Reflect.metadata=="function")return Reflect.metadata(r,t)}class Y extends F{update(t,[e]){const o=t.element;for(const[i,a]of Object.entries(e))a!=null?o.setAttribute(i,a):o.removeAttribute(i);return null}render(t){return null}}const O=M(Y);function T(r){var t,e,o="";if(typeof r=="string"||typeof r=="number")o+=r;else if(typeof r=="object")if(Array.isArray(r)){var i=r.length;for(t=0;t<i;t++)r[t]&&(e=T(r[t]))&&(o&&(o+=" "),o+=e)}else for(e in r)r[e]&&(o&&(o+=" "),o+=e);return o}function Q(){for(var r,t,e=0,o="",i=arguments.length;e<i;e++)(r=arguments[e])&&(t=T(r))&&(o&&(o+=" "),o+=t);return o}const V=new Set;window&&!window.translations&&(window.translations=new Map);const{translations:x}=window;let g,P="ltr",A="en";const B=typeof MutationObserver<"u"&&typeof document<"u"&&typeof document.documentElement<"u";function R(){B&&(P=document.documentElement.dir||"ltr",A=document.documentElement.lang||navigator.language),[...V.keys()].forEach(r=>{const t=r;typeof t.requestUpdate=="function"&&t.requestUpdate()})}if(B){const r=new MutationObserver(R);P=document.documentElement.dir||"ltr",A=document.documentElement.lang||navigator.language,r.observe(document.documentElement,{attributes:!0,attributeFilter:["dir","lang"]})}function L(...r){r.forEach(t=>{const e=t.$code.toLowerCase();x.has(e)?x.set(e,{...x.get(e),...t}):x.set(e,t),g||(g=t)}),R()}window.registerTranslation=L;class X{constructor(t){this.host=t,this.host.addController(this)}hostConnected(){V.add(this.host)}hostDisconnected(){V.delete(this.host)}dir(){return`${this.host.dir||P}`.toLowerCase()}lang(){return`${this.host.lang||A}`.toLowerCase()}getTranslationData(t){var u;const e=new Intl.Locale(t.replace(/_/g,"-")),o=e==null?void 0:e.language.toLowerCase(),i=((u=e==null?void 0:e.region)==null?void 0:u.toLowerCase())??"",a=x.get(`${o}-${i}`),l=x.get(o);return{locale:e,language:o,region:i,primary:a,secondary:l}}exists(t,e){const{primary:o,secondary:i}=this.getTranslationData(e.lang??this.lang()),a={includeFallback:!1,...e};return!!(o&&o[t]||i&&i[t]||a.includeFallback&&g&&g[t])}term(t,...e){const{primary:o,secondary:i}=this.getTranslationData(this.lang());let a;if(o&&o[t])a=o[t];else if(i&&i[t])a=i[t];else if(g&&g[t])a=g[t];else return console.error(`No translation found for: ${String(t)}`),String(t);return typeof a=="function"?a(...e):a}date(t,e){const o=new Date(t);return new Intl.DateTimeFormat(this.lang(),e).format(o)}number(t,e){const o=Number(t);return Number.isNaN(o)?"":new Intl.NumberFormat(this.lang(),e).format(o)}relativeTime(t,e,o){return new Intl.RelativeTimeFormat(this.lang(),o).format(t,e)}}const G=r=>class extends r{constructor(){super(...arguments),this.localize=new X(this)}get $localize(){return this.localize}$t(t){return this.localize.term(t)}$d(t,e){return this.localize.date(t,e)}$n(t,e){return this.localize.number(t,e)}};class J{constructor(t){this.tag=t}format(t,e){return[`[${this.tag}] ${e}`]}warn(t){console.warn(...this.format("warn",t))}error(t){console.error(...this.format("error",t))}info(t){console.info(...this.format("info",t))}}class K extends D{constructor(){super(),this.composeClass=Q,this.logger=new J(this.tagName.toLowerCase())}get _ariaAttributes(){const t={};for(const e of this.getAttributeNames())e==="it-role"?t.role=this.getAttribute(e):e.startsWith("it-aria-")&&(t[e.replace(/^it-/,"")]=this.getAttribute(e));return t}generateId(t){return`${t}-${Math.random().toString(36).slice(2)}`}addFocus(t){}getActiveElement(){let t=document.activeElement;for(;t&&t.shadowRoot&&t.shadowRoot.activeElement;)t=t.shadowRoot.activeElement;return t}connectedCallback(){var e;super.connectedCallback();const t=((e=this.id)==null?void 0:e.length)>0?this.id:this.tagName.toLowerCase();this._id=this.generateId(t)}}const tt=G(K),v=new WeakMap,w=new WeakMap,y=new WeakMap,S=new WeakSet,C=new WeakMap;class et{constructor(t,e){this.handleFormData=o=>{const i=this.options.disabled(this.host),a=this.options.name(this.host),l=this.options.value(this.host),u=this.host.tagName.toLowerCase()==="it-button";this.host.isConnected&&!i&&!u&&typeof a=="string"&&a.length>0&&typeof l<"u"&&(Array.isArray(l)?l.forEach($=>{o.formData.append(a,$.toString())}):o.formData.append(a,l.toString()))},this.handleFormSubmit=o=>{var l;const i=this.options.disabled(this.host),a=this.options.reportValidity;this.form&&!this.form.noValidate&&((l=v.get(this.form))==null||l.forEach(u=>{this.setUserInteracted(u,!0)})),this.form&&!this.form.noValidate&&!i&&!a(this.host)&&o.preventDefault()},this.handleFormReset=()=>{this.options.setValue(this.host,""),this.setUserInteracted(this.host,!1),C.set(this.host,[])},this.handleInteraction=o=>{const i=C.get(this.host);i.includes(o.type)||i.push(o.type),i.length===this.options.assumeInteractionOn.length&&this.setUserInteracted(this.host,!0)},this.checkFormValidity=()=>{if(this.form&&!this.form.noValidate){const o=this.form.querySelectorAll("*");for(const i of o)if(typeof i.checkValidity=="function"&&!i.checkValidity())return!1}return!0},this.reportFormValidity=()=>{if(this.form&&!this.form.noValidate){const o=this.form.querySelectorAll("*");for(const i of o)if(typeof i.reportValidity=="function"&&!i.reportValidity())return!1}return!0},(this.host=t).addController(this),this.options={form:o=>{const i=o.form;if(i){const l=o.getRootNode().querySelector(`#${i}`);if(l)return l}return o.closest("form")},name:o=>o.name,value:o=>o.value,disabled:o=>o.disabled??!1,reportValidity:o=>typeof o.reportValidity=="function"?o.reportValidity():!0,checkValidity:o=>typeof o.checkValidity=="function"?o.checkValidity():!0,setValue:(o,i)=>{o.value=i},assumeInteractionOn:["it-input"],...e}}hostConnected(){const t=this.options.form(this.host);t&&this.attachForm(t),C.set(this.host,[]),this.options.assumeInteractionOn.forEach(e=>{this.host.addEventListener(e,this.handleInteraction)})}hostDisconnected(){this.detachForm(),C.delete(this.host),this.options.assumeInteractionOn.forEach(t=>{this.host.removeEventListener(t,this.handleInteraction)})}hostUpdated(){const t=this.options.form(this.host);t||this.detachForm(),t&&this.form!==t&&(this.detachForm(),this.attachForm(t)),this.host.hasUpdated&&this.setValidity(this.host.validity.valid)}attachForm(t){t?(this.form=t,v.has(this.form)?v.get(this.form).add(this.host):v.set(this.form,new Set([this.host])),this.form.addEventListener("formdata",this.handleFormData),this.form.addEventListener("submit",this.handleFormSubmit),this.form.addEventListener("reset",this.handleFormReset),w.has(this.form)||(w.set(this.form,this.form.reportValidity),this.form.reportValidity=()=>this.reportFormValidity()),y.has(this.form)||(y.set(this.form,this.form.checkValidity),this.form.checkValidity=()=>this.checkFormValidity())):this.form=void 0}detachForm(){if(!this.form)return;const t=v.get(this.form);t&&(t.delete(this.host),t.size<=0&&(this.form.removeEventListener("formdata",this.handleFormData),this.form.removeEventListener("submit",this.handleFormSubmit),this.form.removeEventListener("reset",this.handleFormReset),w.has(this.form)&&(this.form.reportValidity=w.get(this.form),w.delete(this.form)),y.has(this.form)&&(this.form.checkValidity=y.get(this.form),y.delete(this.form)),this.form=void 0))}setUserInteracted(t,e){e?S.add(t):S.delete(t),t.requestUpdate()}doAction(t,e){if(this.form){const o=document.createElement("button");o.type=t,o.style.position="absolute",o.style.width="0",o.style.height="0",o.style.clipPath="inset(50%)",o.style.overflow="hidden",o.style.whiteSpace="nowrap",e&&(o.name=e.name,o.value=e.value,["formaction","formenctype","formmethod","formnovalidate","formtarget"].forEach(i=>{e.hasAttribute(i)&&o.setAttribute(i,e.getAttribute(i))})),this.form.append(o),o.click(),o.remove()}}getForm(){return this.form??null}reset(t){this.doAction("reset",t)}submit(t){this.doAction("submit",t)}setValidity(t){const e=this.host,o=!!S.has(e),i=!!e.required;e.toggleAttribute("data-required",i),e.toggleAttribute("data-optional",!i),e.toggleAttribute("data-invalid",!t),e.toggleAttribute("data-valid",t),e.toggleAttribute("data-user-invalid",!t&&o),e.toggleAttribute("data-user-valid",t&&o)}updateValidity(){const t=this.host;this.setValidity(t.validity.valid)}emitInvalidEvent(t){const e=new CustomEvent("it-invalid",{bubbles:!1,composed:!1,cancelable:!0,detail:{}});t||e.preventDefault(),this.host.dispatchEvent(e)||t==null||t.preventDefault()}}const ot={$code:"it",$name:"Italiano",$dir:"ltr",validityRequired:"Questo campo è obbligatorio.",validityPattern:"Il valore non corrisponde al formato richiesto.",validityMinlength:"Il valore deve essere lungo almeno {minlength} caratteri.",validityMaxlength:"Il valore deve essere lungo al massimo {maxlength} caratteri."};L(ot);class b extends tt{constructor(){super(...arguments),this.formControlController=new et(this,{assumeInteractionOn:["it-input","it-blur","it-change"]}),this._touched=!1,this.name="",this.value="",this.disabled=!1,this.form="",this.customValidation=!1,this.validationText="",this.step="any",this.minlength=-1,this.maxlength=-1,this.required=!1,this.validationMessage=""}get validity(){var t;return(t=this.inputElement)==null?void 0:t.validity}checkValidity(){var e;return((e=this.inputElement)==null?void 0:e.checkValidity())??!0}getForm(){return this.formControlController.getForm()}reportValidity(){const t=this.inputElement.checkValidity();return this.handleValidationMessages(),t}setCustomValidity(t){this.inputElement.setCustomValidity(t),this.validationMessage=this.inputElement.validationMessage,this.formControlController.updateValidity()}_handleReady(){requestAnimationFrame(()=>{this.dispatchEvent(new CustomEvent("it-input-ready",{bubbles:!0,detail:{el:this.inputElement}}))})}_handleInput(t){this.handleValidationMessages(),this.dispatchEvent(new CustomEvent("it-input",{detail:{value:this.inputElement.value,el:this.inputElement},bubbles:!0,composed:!0}))}_handleBlur(t){this._touched=!0,this.handleValidationMessages(),this.dispatchEvent(new FocusEvent("it-blur",{bubbles:!0,composed:!0}))}_handleFocus(t){this.dispatchEvent(new FocusEvent("it-focus",{bubbles:!0,composed:!0}))}_handleClick(t){this.dispatchEvent(new MouseEvent("it-click",{bubbles:!0,composed:!0}))}handleValidationMessages(){if(!this.customValidation){const t=this.inputElement.validity;t.valueMissing?this.setCustomValidity(this.$t("validityRequired")):t.patternMismatch?this.setCustomValidity(this.$t("validityPattern")):t.tooShort?this.setCustomValidity(this.$t("validityMinlength").replace("{minlength}",this.minlength.toString())):t.tooLong?this.setCustomValidity(this.$t("validityMaxlength").replace("{maxlength}",this.maxlength.toString())):t.typeMismatch||t.rangeUnderflow||t.rangeOverflow||t.stepMismatch||t.badInput||this.setCustomValidity("")}this.validationMessage=this.inputElement.validationMessage}_handleInvalid(t){this.formControlController.setValidity(!1),this.formControlController.emitInvalidEvent(t)}_handleChange(t){const e=t.target;let o;if(e instanceof HTMLInputElement)switch(e.type){case"checkbox":case"radio":o=e.checked;break;case"file":o=e.files;break;default:o=e.value}else e instanceof HTMLSelectElement&&e.multiple?o=Array.from(e.selectedOptions).map(i=>i.value):o=e.value;this.dispatchEvent(new CustomEvent("it-change",{detail:{value:o,el:e},bubbles:!0,composed:!0}))}updated(t){var e;(e=super.updated)==null||e.call(this,t),this.customValidation?this.setCustomValidity(this.validationText??""):this.formControlController.updateValidity()}}s([m(),n("design:type",Object)],b.prototype,"_touched",void 0);s([N(".it-form__control"),n("design:type",HTMLInputElement)],b.prototype,"inputElement",void 0);s([d({type:String,reflect:!0}),n("design:type",Object)],b.prototype,"name",void 0);s([d({reflect:!0}),n("design:type",Object)],b.prototype,"value",void 0);s([d({type:Boolean,reflect:!0}),n("design:type",Object)],b.prototype,"disabled",void 0);s([d({reflect:!0,type:String}),n("design:type",Object)],b.prototype,"form",void 0);s([d({type:Boolean,reflect:!0,attribute:"custom-validation"}),n("design:type",Object)],b.prototype,"customValidation",void 0);s([d({attribute:"validity-message",reflect:!0}),n("design:type",String)],b.prototype,"validationText",void 0);s([d(),n("design:type",String)],b.prototype,"pattern",void 0);s([d(),n("design:type",Object)],b.prototype,"min",void 0);s([d(),n("design:type",Object)],b.prototype,"max",void 0);s([d(),n("design:type",Object)],b.prototype,"step",void 0);s([d({type:Number}),n("design:type",Object)],b.prototype,"minlength",void 0);s([d({type:Number}),n("design:type",Object)],b.prototype,"maxlength",void 0);s([d({type:Boolean,reflect:!0}),n("design:type",Object)],b.prototype,"required",void 0);s([m(),n("design:type",Object)],b.prototype,"validationMessage",void 0);const E=(r,t)=>{let e="",o=!1;for(let i=0;i<t.length;i+=1){o=!0;for(let a=0;a<r&&a+i+r<t.length;a+=1)o=o&&t.charAt(a+i)===t.charAt(a+i+r);o?(i+=r-1,o=!1):e+=t.charAt(i)}return e},rt=(r,t)=>{let e=0;if(r.trim().length===0)return-2;if(r.length<t)return-1;e+=r.length*4,e+=E(1,r).length-r.length,e+=E(2,r).length-r.length,e+=E(3,r).length-r.length,e+=E(4,r).length-r.length,r.match(/(.*[0-9].*[0-9].*[0-9])/)&&(e+=5);const o=/(.*[!,@,#,$,%,^,&,*,?,_,~].*[!,@,#,$,%,^,&,*,?,_,~])/;return r.match(o)&&(e+=5),r.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)&&(e+=10),r.match(/([a-zA-Z])/)&&r.match(/([0-9])/)&&(e+=15),r.match(/([!,@,#,$,%,^,&,*,?,_,~])/)&&r.match(/([0-9])/)&&(e+=15),r.match(/([!,@,#,$,%,^,&,*,?,_,~])/)&&r.match(/([a-zA-Z])/)&&(e+=15),(r.match(/^\w+$/)||r.match(/^\d+$/))&&(e-=10),e>100&&(e=100),e<0&&(e=0),e},it=r=>r===-1||r===-2||r<26?"danger":r<51?"warning":(r<76,"success"),at=(r,t)=>r===-1?t.shortPass:r===-2?"":r<26||r<51?t.badPass:r<76?t.goodPass:t.strongPass,q=[{key:"length",text:r=>r.suggestionLength.replace("{minLength}",r.minimumLength.toString()),test:(r,t)=>r.length>=t.minimumLength},{key:"uppercase",text:r=>r.suggestionUppercase,test:r=>/[A-Z]/.test(r)},{key:"lowercase",text:r=>r.suggestionLowercase,test:r=>/[a-z]/.test(r)},{key:"number",text:r=>r.suggestionNumber,test:r=>/[0-9]/.test(r)},{key:"special",text:r=>r.suggestionSpecial,test:r=>/[^A-Za-z0-9]/.test(r)}],st=(r,t,e)=>{let o=0;const i=r.length;return r.forEach(a=>{a.test(t,e)&&(o+=1)}),{completedCount:o,totalCount:i}},nt={$code:"it",$name:"Italiano",$dir:"ltr",showHidePassword:"Mostra/Nascondi Password.",shortPass:"Password troppo breve.",badPass:"Password debole.",goodPass:"Password abbastanza sicura.",strongPass:"Password sicura.",ariaLabelPasswordMeter:"Robustezza della password",passwordSuggestionsLabel:"Suggerimenti per una buona password:",passwordSuggestionLength:"Almeno {minLength} caratteri.",passwordSuggestionUppercase:"Una o più maiuscole.",passwordSuggestionLowercase:"Una o più minuscole.",passwordSuggestionNumber:"Uno o più numeri.",passwordSuggestionSpecial:"Uno o più caratteri speciali.",passwordSuggestionFollowed:"suggerimenti seguiti",passwordSuggestionFollowedPlural:"suggerimenti seguiti",passwordSuggestionOf:"di",passwordSuggestionMetLabel:"Soddisfatto:"};var lt=U`@charset "UTF-8";
 /***************************** 1 ****************************************/
 /***************************** 2 ****************************************/
 /***************************** 1 ****************************************/
@@ -142,9 +132,8 @@ a {
   text-decoration-skip-ink: auto;
   text-underline-offset: 2px;
 }
-a:hover:not(.btn) {
+a:hover {
   color: var(--bs-color-link-hover);
-  text-decoration: underline;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -280,23 +269,6 @@ fieldset {
   padding: 0;
   margin: 0;
   border: 0;
-}
-
-legend {
-  float: left;
-  width: 100%;
-  padding: 0;
-  margin-bottom: 0.5rem;
-  font-size: calc(1.275rem + 0.3vw);
-  line-height: inherit;
-}
-@media (min-width: 1200px) {
-  legend {
-    font-size: 1.5rem;
-  }
-}
-legend + * {
-  clear: left;
 }
 
 ::-webkit-datetime-edit-fields-wrapper,
@@ -648,12 +620,50 @@ a.btn-outline-danger:active {
 .bg-dark .btn-link {
   --bs-btn-text-color: var(--bs-color-text-inverse);
 }
+.bg-dark a.btn-primary,
+.bg-dark .btn-primary {
+  --bs-btn-text-color: var(--bs-color-text-primary);
+  --bs-btn-background: var(--bs-color-background-inverse);
+}
+.bg-dark a.btn-primary:hover,
+.bg-dark .btn-primary:hover {
+  --bs-btn-background: color-mix(in srgb, var(--bs-color-background-inverse) 85%, black);
+}
+.bg-dark a.btn-primary:active,
+.bg-dark .btn-primary:active {
+  --bs-btn-background: color-mix(in srgb, var(--bs-color-background-inverse) 80%, black);
+}
+.bg-dark a.btn-secondary,
+.bg-dark .btn-secondary {
+  --bs-btn-text-color: var(--bs-color-text-inverse);
+  --bs-btn-background: var(--bs-color-background-secondary);
+}
+.bg-dark a.btn-secondary:hover, .bg-dark a.btn-secondary:active,
+.bg-dark .btn-secondary:hover,
+.bg-dark .btn-secondary:active {
+  --bs-btn-background: color-mix(in srgb, var(--bs-color-background-secondary) 85%, black);
+}
 .bg-dark .btn-outline-primary,
-.bg-dark a.btn-outline-primary,
-.bg-dark .btn-outline-secondary,
-.bg-dark a.btn-outline-secondary {
+.bg-dark a.btn-outline-primary {
   --bs-btn-outline-border-color: var(--bs-color-border-inverse);
   --bs-btn-text-color: var(--bs-color-text-inverse);
+}
+.bg-dark .btn-outline-primary:hover,
+.bg-dark a.btn-outline-primary:hover {
+  --bs-btn-boxshadow-color-darken: color-mix(in srgb, var(--bs-color-border-inverse) 80%, black);
+  --bs-btn-boxshadow-color-desaturated: color-mix(in srgb, var(--bs-btn-boxshadow-color-darken) 80%, gray);
+  --bs-btn-outline-border-color: var(--bs-btn-boxshadow-color-desaturated);
+}
+.bg-dark .btn-outline-secondary,
+.bg-dark a.btn-outline-secondary {
+  --bs-btn-text-color: var(--bs-color-text-inverse);
+}
+.bg-dark .btn-outline-secondary:hover, .bg-dark .btn-outline-secondary:active,
+.bg-dark a.btn-outline-secondary:hover,
+.bg-dark a.btn-outline-secondary:active {
+  --bs-btn-boxshadow-color-darken: color-mix(in srgb, var(--bs-color-background-secondary) 80%, black);
+  --bs-btn-boxshadow-color-desaturated: color-mix(in srgb, var(--bs-btn-boxshadow-color-darken) 80%, gray);
+  --bs-btn-outline-border-color: var(--bs-btn-boxshadow-color-desaturated);
 }
 
 .btn-close {
@@ -2439,8 +2449,8 @@ blockquote.blockquote-card.dark .blockquote-footer,
   --bs-form-control-border-color: var(--bs-color-border-secondary);
   --bs-form-control-border-radius: var(--bs-radius-smooth);
   --bs-form-control-placeholder-color: var(--bs-color-text-muted);
-  --bs-form-control-label-color: var(--bs-color-text-secondary);
-  --bs-form-control-text-color: var(--bs-color-text-base);
+  --bs-form-control-label-color: var(--bs-color-text-base);
+  --bs-form-control-text-color: var(--bs-color-text-secondary);
   --bs-form-control-font-size: var(--bs-body-font-size);
   --bs-form-group-spacing-y: var(--bs-spacing-m);
   --bs-form-checkbox-border-color: var(--bs-color-border-secondary);
@@ -2584,20 +2594,12 @@ input[type=time] {
 }
 
 fieldset legend {
-  z-index: 1;
-  display: block;
-  width: auto;
-  max-width: 100%;
-  margin-bottom: 0;
+  margin-bottom: var(--bs-spacing-s);
   padding: 0 var(--bs-form-input-spacing-x);
-  float: none;
   background-color: transparent;
-  color: var(--bs-form-input-color);
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: calc(2.5rem - 1px);
-  transition: 0.2s ease-out;
-  cursor: text;
+  color: var(--bs-form-control-text-color);
+  font-size: var(--bs-label-sm);
+  font-weight: var(--bs-font-weight-solid);
 }
 
 ::placeholder {
@@ -2663,8 +2665,8 @@ input::-webkit-datetime-edit {
 
 .form-check {
   position: relative;
-  margin-bottom: var(--bs-spacing-s);
   padding-left: 0;
+  align-items: center;
 }
 .form-check + .form-check {
   margin-top: var(--bs-spacing-s);
@@ -2682,11 +2684,11 @@ input::-webkit-datetime-edit {
   position: relative;
   display: flex;
   align-items: center;
-  padding-left: 26px;
+  padding-left: 28px;
   font-size: var(--bs-label-font-size);
   font-weight: var(--bs-font-weight-solid);
-  line-height: 1;
   cursor: pointer;
+  margin-bottom: 0;
   user-select: none;
 }
 @media (min-width: 576px) {
@@ -2843,6 +2845,13 @@ input::-webkit-datetime-edit {
   z-index: 0;
   border-color: var(--bs-form-checked-color);
   background-color: var(--bs-form-checked-color);
+}
+
+.form-check-inline {
+  display: inline-block;
+}
+.form-check-inline:not(:last-child) {
+  margin-right: var(--bs-spacing-m);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3162,6 +3171,92 @@ select.just-validate-success-field {
   border: 1px solid var(--bs-color-border-success);
 }
 
+.input-number {
+  position: relative;
+}
+.input-number.input-number-adaptive {
+  width: fit-content;
+}
+.input-number.input-number-adaptive input[type=number] {
+  width: auto;
+  transition: all va(--bs-transition-instant);
+}
+.input-number input[type=number] {
+  appearance: textfield;
+  border-right: 0;
+}
+.input-number input[type=number]::-webkit-inner-spin-button, .input-number input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+.input-number input[type=number]::-ms-clear {
+  display: none;
+}
+.input-number input[type=number]:not(:disabled) {
+  border-left: 1px solid var(--bs-form-control-border-color);
+}
+.input-number.disabled button {
+  pointer-events: none;
+}
+.input-number.disabled button:hover {
+  cursor: not-allowed;
+}
+.input-number .input-group-text.align-buttons {
+  padding-right: var(--bs-form-control-spacing);
+  border-left: 0;
+  border-right-width: 1px;
+}
+.input-number .input-group-text button {
+  position: relative;
+  transition: opacity 0.1s;
+  padding: 0;
+  border: none;
+  height: 50%;
+  width: 16px;
+  background: transparent;
+}
+.input-number .input-group-text button:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.input-number .input-group-text button:focus.input-number-add:after, .input-number .input-group-text button:hover.input-number-add:after {
+  border-color: transparent transparent hsl(210, 54%, 20%) transparent;
+}
+.input-number .input-group-text button:focus.input-number-sub:after, .input-number .input-group-text button:hover.input-number-sub:after {
+  border-color: hsl(210, 54%, 20%) transparent transparent transparent;
+}
+.input-number .input-group-text button:focus:not([data-focus-mouse=true]) {
+  opacity: 1;
+}
+.input-number .input-group-text button.input-number-add:after {
+  border-width: 0 5px 6px 5px;
+  border-color: transparent transparent hsl(210, 17.6470588235%, 43.35%) transparent;
+}
+.input-number .input-group-text button.input-number-sub:after {
+  border-width: 6px 5px 0 5px;
+  border-color: hsl(210, 17.6470588235%, 43.35%) transparent transparent transparent;
+}
+.input-number .input-group-text button:hover {
+  cursor: pointer;
+}
+
+.input-number .input-group-text + input[type=number] {
+  border-left: 0;
+}
+
+@media (min-width: 1200px) {
+  .input-number button {
+    opacity: 0;
+  }
+  .input-number:hover button {
+    opacity: 1;
+  }
+}
 .position-absolute {
   position: absolute !important;
 }
@@ -3391,7 +3486,11 @@ select.just-validate-success-field {
 .password-icon {
   top: calc(var(--bs-form-control-spacing) * 5);
   --bs-icon-default: var(--bs-icon-primary);
-}`;S(W);let s=class extends T(N(U)){constructor(){super(...arguments),this.internals=this.attachInternals(),this.slotted=!1,this.invalid=!1,this.customValidation=!1,this.required=!1,this.validationText="",this.label="",this.labelHidden=!1,this.type="text",this.name="",this.placeholder="",this.supportText="",this.disabled=!1,this.plaintext=!1,this.readonly=!1,this.passwordStrengthMeter=!1,this.suggestions=!1,this.minlength=-1,this.maxlength=-1,this._passwordVisible=!1,this._strengthInfos="",this._score=0,this._value="",this._touched=!1,this.validityMessage=""}static get formAssociated(){return!0}get value(){return this._inputElement?this._inputElement.value:this._value}set value(t){const e=this._value;this._value=t,this.internals.setFormValue(t),this.requestUpdate("value",e),this._inputElement&&this._inputElement.value!==t&&(this._inputElement.value=t)}get inputElement(){var t;return(t=this.shadowRoot)==null?void 0:t.querySelector("input")}_handleFormdata(t){if(!this.disabled){const{formData:e}=t;e.append(this.name,this._value)}}_handleInput(t){const e=t.target;this.value=e.value,this.passwordStrengthMeter&&this._checkPasswordStrength(e.value),this.dispatchEvent(new CustomEvent("on-input",{detail:{value:e.value,el:e},bubbles:!0,composed:!0}))}checkValidity(){if(!this.customValidation){const t=this._inputElement?this._inputElement.checkValidity():!0;this._checkValidity({[d.INVALID]:this.$t("validityInvalid"),[d.ERROR_REQUIRED]:this.$t("validityRequired"),[d.PATTERN]:this.$t("validityPattern"),[d.MINLENGTH]:this.$t("validityMinlength"),[d.MAXLENGTH]:this.$t("validityMaxlength")},t)}}_handleBlur(){super._handleBlur(),this.checkValidity()}firstUpdated(){var r,i;const t=(r=this.shadowRoot)==null?void 0:r.querySelector('slot[name="icon"]'),e=(i=this.shadowRoot)==null?void 0:i.querySelector('slot[name="append"]');t==null||t.addEventListener("slotchange",()=>{this.requestUpdate()}),e==null||e.addEventListener("slotchange",()=>{this.requestUpdate()})}connectedCallback(){var e;(e=super.connectedCallback)==null||e.call(this);const t=this.getAttribute("value");t!==null&&(this.value=t),this.type==="password"&&this.minlength<0&&(this.minlength=8),requestAnimationFrame(()=>{this.dispatchEvent(new CustomEvent("input-ready",{bubbles:!0,detail:{el:this.inputElement}}))})}updated(t){var e,r,i;if((e=super.updated)==null||e.call(this,t),this.customValidation&&this.setCustomValidity(this.validationText),this.invalid){const a=((r=this.validationText)==null?void 0:r.length)>0?this.validationText:this.validityMessage??"Campo non valido";this.internals.setValidity({customError:this.invalid},a)}this.passwordStrengthMeter&&this.type!=="password"&&this.logger.warn("The strength-meter property is enabled, but type isn't password. Please, remove strength-meter property."),this.suggestions&&this.type!=="password"&&this.logger.warn("The suggestions property is enabled, but type isn't password. Please, remove suggestions this property."),(!this.label||((i=this.label)==null?void 0:i.length)===0)&&this.logger.warn(`Label is required to ensure accessibility. Please, define a label for <it-input name="${this.name}" ... /> . Set attribute label-hidden="true" if you don't want to show label.`)}_togglePasswordVisibility(){this._passwordVisible=!this._passwordVisible,this._inputElement&&(this._inputElement.type=this._passwordVisible?"text":"password")}_checkPasswordStrength(t){this._score=G(t,this.minlength),this._updateStrengthInfos()}_getPasswordConfig(){return{minimumLength:this.minlength,showHidePassword:this.$t("showHidePassword"),shortPass:this.$t("shortPass"),badPass:this.$t("badPass"),goodPass:this.$t("goodPass"),strongPass:this.$t("strongPass"),ariaLabelPasswordMeter:this.$t("ariaLabelPasswordMeter"),suggestionsLabel:this.$t("passwordSuggestionsLabel"),suggestionLength:this.$t("passwordSuggestionLength"),suggestionUppercase:this.$t("passwordSuggestionUppercase"),suggestionLowercase:this.$t("passwordSuggestionLowercase"),suggestionNumber:this.$t("passwordSuggestionNumber"),suggestionSpecial:this.$t("passwordSuggestionSpecial"),suggestionFollowed:this.$t("passwordSuggestionFollowed"),suggestionFollowedPlural:this.$t("passwordSuggestionFollowedPlural"),suggestionOf:this.$t("passwordSuggestionOf")}}_updateStrengthInfos(){let t=Q(this._score,{shortPass:this.$t("shortPass"),badPass:this.$t("badPass"),goodPass:this.$t("goodPass"),strongPass:this.$t("strongPass")});if(w){const{completedCount:e,totalCount:r}=X(w,this.value,this._getPasswordConfig()),i=e===1?this.$t("passwordSuggestionFollowed"):this.$t("passwordSuggestionFollowedPlural");t+=` ${e} ${this.$t("passwordSuggestionOf")} ${r} ${i}.`}this._strengthInfos=t}_renderTogglePasswordButton(){return this.type==="password"?g`
+}
+
+.input-number input[type=number]:not(:disabled) {
+  border-right: 1px solid var(--bs-form-control-border-color);
+}`;L(nt);let c=class extends b{constructor(){super(...arguments),this._slotPrepend=null,this._slotAppend=null,this.type="text",this.adaptive=!1,this.label="",this.labelHidden=!1,this.placeholder="",this.supportText="",this.plaintext=!1,this.readonly=!1,this.passwordStrengthMeter=!1,this.suggestions=!1,this._passwordVisible=!1,this._strengthInfos="",this._score=0}get slotted(){return this._slotPrepend||this._slotAppend}firstUpdated(){var t,e;this._slotPrepend=this.querySelector('[slot="prepend"]'),this._slotAppend=this.querySelector('[slot="append"]'),(t=this._slotPrepend)==null||t.addEventListener("slotchange",()=>{this.requestUpdate()}),(e=this._slotAppend)==null||e.addEventListener("slotchange",()=>{this.requestUpdate()})}connectedCallback(){var t;(t=super.connectedCallback)==null||t.call(this),this.type==="password"&&this.minlength<0&&(this.minlength=8),this._handleReady()}updated(t){var e,o;(e=super.updated)==null||e.call(this,t),this.passwordStrengthMeter&&this.type!=="password"&&this.logger.warn("The strength-meter property is enabled, but type isn't password. Please, remove strength-meter property."),this.suggestions&&this.type!=="password"&&this.logger.warn("The suggestions property is enabled, but type isn't password. Please, remove suggestions this property."),(!this.label||((o=this.label)==null?void 0:o.length)===0)&&this.logger.warn(`Label is required to ensure accessibility. Please, define a label for <it-input name="${this.name}" ... /> . Set attribute label-hidden="true" if you don't want to show label.`)}_handleInput(t){this.value=this.inputElement.value,this.passwordStrengthMeter&&this._checkPasswordStrength(this.inputElement.value),super._handleInput(t)}_togglePasswordVisibility(){this._passwordVisible=!this._passwordVisible,this.inputElement&&(this.inputElement.type=this._passwordVisible?"text":"password")}_checkPasswordStrength(t){this._score=rt(t,this.minlength),this._updateStrengthInfos()}_getPasswordConfig(){return{minimumLength:this.minlength,showHidePassword:this.$t("showHidePassword"),shortPass:this.$t("shortPass"),badPass:this.$t("badPass"),goodPass:this.$t("goodPass"),strongPass:this.$t("strongPass"),ariaLabelPasswordMeter:this.$t("ariaLabelPasswordMeter"),suggestionsLabel:this.$t("passwordSuggestionsLabel"),suggestionLength:this.$t("passwordSuggestionLength"),suggestionUppercase:this.$t("passwordSuggestionUppercase"),suggestionLowercase:this.$t("passwordSuggestionLowercase"),suggestionNumber:this.$t("passwordSuggestionNumber"),suggestionSpecial:this.$t("passwordSuggestionSpecial"),suggestionFollowed:this.$t("passwordSuggestionFollowed"),suggestionFollowedPlural:this.$t("passwordSuggestionFollowedPlural"),suggestionOf:this.$t("passwordSuggestionOf")}}_updateStrengthInfos(){let t=at(this._score,{shortPass:this.$t("shortPass"),badPass:this.$t("badPass"),goodPass:this.$t("goodPass"),strongPass:this.$t("strongPass")});if(q){const{completedCount:e,totalCount:o}=st(q,this.value,this._getPasswordConfig()),i=e===1?this.$t("passwordSuggestionFollowed"):this.$t("passwordSuggestionFollowedPlural");t+=` ${e} ${this.$t("passwordSuggestionOf")} ${o} ${i}.`}this._strengthInfos=t}_renderTogglePasswordButton(){return this.type==="password"?p`
         <button
           type="button"
           class="password-icon btn"
@@ -3406,36 +3505,36 @@ select.just-validate-success-field {
             size="sm"
           ></it-icon>
         </button>
-      `:x}_renderSuggestions(){return this.suggestions?g`<div class="strength-meter-suggestions small form-text text-muted">
+      `:k}_renderSuggestions(){return this.suggestions?p`<div class="strength-meter-suggestions small form-text text-muted">
           <label class="visually-hidden" for="suggestions">${this.$t("passwordSuggestionsLabel")}</label>
           <div class="password-suggestions">
-            ${w.map(t=>{const e=t.test(this.value,this._getPasswordConfig());return g`
+            ${q.map(t=>{const e=t.test(this.value,this._getPasswordConfig());return p`
                 <div class="suggestion">
-                  ${e?g` <svg
+                  ${e?p` <svg
                         class="icon icon-xs me-1"
                         aria-label="${this.$t("passwordSuggestionMetLabel")}"
                         viewBox="0 0 24 24"
                         style="width: 1em; height: 1em;"
                       >
                         <path d="M9.6 16.9 4 11.4l.8-.7 4.8 4.8 8.5-8.4.7.7-9.2 9.1z"></path>
-                      </svg>`:x}
+                      </svg>`:k}
                   <span>${t.text(this._getPasswordConfig())}</span>
                 </div>
               `})}
           </div>
-        </div>`:x}_renderpasswordStrengthMeter(){var t;if(this.type==="password"&&this.passwordStrengthMeter){const e=this._score<0?0:this._score,r=((t=this._value)==null?void 0:t.length)===0?"muted":Z(this._score);return g`<div class="password-strength-meter">
+        </div>`:k}_renderpasswordStrengthMeter(){var t;if(this.type==="password"&&this.passwordStrengthMeter){const e=this._score<0?0:this._score,o=((t=this.value)==null?void 0:t.length)===0?"muted":it(this._score);return p`<div class="password-strength-meter">
         ${this._renderSuggestions()}
 
         <p
           id=${`strengthMeterInfo_${this._id}`}
-          class="${`strength-meter-info small form-text pt-0 text-${r}`}"
+          class="${`strength-meter-info small form-text pt-0 text-${o}`}"
           aria-live="polite"
         >
           ${this._strengthInfos}
         </p>
         <div class="password-meter progress rounded-0 position-absolute">
           <div
-            class="${this.composeClass("progress-bar",`bg-${r}`)}"
+            class="${this.composeClass("progress-bar",`bg-${o}`)}"
             style="width: ${e}%"
             role="progressbar"
             aria-valuenow="${e}"
@@ -3451,75 +3550,89 @@ select.just-validate-success-field {
             </div>
           </div>
         </div>
-      </div>`}return x}_renderInput(t){var a,b,p,z;const e=this.composeClass(((a=this.supportText)==null?void 0:a.length)>0?t:"",this.passwordStrengthMeter?`strengthMeterInfo_${this._id}`:"",((b=this._ariaAttributes["aria-describedby"])==null?void 0:b.length)>0?this._ariaAttributes["aria-describedby"]:"",((p=this.validityMessage)==null?void 0:p.length)>0?`invalid-feedback-${this._id}`:""),r=this.composeClass(this.plaintext?"form-control-plaintext":"form-control",this.size?`form-control-${this.size}`:"",this.invalid?"is-invalid":"",!this.invalid&&this._touched?"just-validate-success-field":"");let i;return this.type==="textarea"?i=g`
+      </div>`}return k}_renderInput(t,e,o){var u,$;const i=this.composeClass(((u=this.supportText)==null?void 0:u.length)>0?t:"",this.passwordStrengthMeter?`strengthMeterInfo_${this._id}`:"",(($=this._ariaAttributes["aria-describedby"])==null?void 0:$.length)>0?this._ariaAttributes["aria-describedby"]:"",(o==null?void 0:o.length)>0?`invalid-feedback-${this._id}`:""),a=this.composeClass("it-form__control",this.plaintext?"form-control-plaintext":"form-control",this.size?`form-control-${this.size}`:"",e?"is-invalid":"",!e&&this._touched&&!this.readonly?"just-validate-success-field":"");let l;if(this.type==="textarea")l=p`
         <textarea
           part="textarea focusable"
-          ${E(this._ariaAttributes)}
-          aria-describedby=${m(e||void 0)}
-          ?aria-invalid=${this.invalid}
+          ${O(this._ariaAttributes)}
+          aria-describedby=${h(i||void 0)}
+          ?aria-invalid=${e}
           @input="${this._handleInput}"
           @blur=${this._handleBlur}
           @focus=${this._handleFocus}
           @click=${this._handleClick}
           @change=${this._handleChange}
+          @invalid=${this._handleInvalid}
           id="${this._id}"
           name="${this.name}"
           ?disabled=${this.disabled}
           ?readonly=${this.readonly}
           ?required=${this.required}
-          .value="${this._value}"
-          placeholder=${m(this.placeholder||void 0)}
-          class="${r}"
+          minlength=${h(this.minlength)}
+          maxlength=${h(this.maxlength)}
+          pattern=${h(this.pattern)}
+          ?formNoValidate=${this.customValidation}
+          .value="${j(this.value)}"
+          placeholder=${h(this.placeholder||void 0)}
+          class="${a}"
         ></textarea>
-      `:i=g`
+      `;else{let I=null;this.type==="number"&&this.adaptive&&(I=`width: calc(${this.value.toString().length}ch + 70px);`),l=p`
         <input
           part="input focusable"
-          ${E(this._ariaAttributes)}
-          aria-describedby=${m(e||void 0)}
-          ?aria-invalid=${this.invalid}
+          ${O(this._ariaAttributes)}
+          aria-describedby=${h(i||void 0)}
+          ?aria-invalid=${e}
           @input="${this._handleInput}"
           @blur=${this._handleBlur}
           @focus=${this._handleFocus}
           @click=${this._handleClick}
           @change=${this._handleChange}
+          @invalid=${this._handleInvalid}
           type="${this.type}"
           id="${this._id}"
           name="${this.name}"
           ?disabled=${this.disabled}
           ?readonly=${this.readonly}
           ?required=${this.required}
-          .value="${this._value}"
-          placeholder=${m(this.placeholder||void 0)}
-          class="${r}"
+          minlength=${h(this.minlength)}
+          maxlength=${h(this.maxlength)}
+          min=${h(this.min)}
+          max=${h(this.max)}
+          step=${h(this.step)}
+          pattern=${h(this.pattern)}
+          ?formNoValidate=${this.customValidation}
+          .value="${j(this.value)}"
+          placeholder=${h(this.placeholder||void 0)}
+          class="${a}"
+          style=${h(I)}
         />${this._renderTogglePasswordButton()}
-      `,i=g`
-      ${i}
-      <div
-        role="alert"
-        id="invalid-feedback-${this._id}"
-        class="invalid-feedback form-feedback form-text form-feedback just-validate-error-label"
-        ?hidden=${!(((z=this.validityMessage)==null?void 0:z.length)>0)}
-      >
-        <span class="visually-hidden">${this.label}: </span>${this.validityMessage}
-      </div>
-    `,i}render(){const t=`${this._id}-support-text`,e=g` ${_(this.supportText,()=>g` <small class="form-text" id="${t}">${this.supportText}</small> `)}`;return g`
+      `}return l}render(){var l;const t=`${this._id}-support-text`,e=p` ${_(this.supportText,()=>p` <small class="form-text" id="${t}">${this.supportText}</small> `)}`,o=this.validationMessage??"",i=(o==null?void 0:o.length)>0||!this.customValidation&&((l=this.inputElement)==null?void 0:l.checkValidity())===!1,a=p`<div
+      role="alert"
+      id="invalid-feedback-${this._id}"
+      class="invalid-feedback form-feedback form-text form-feedback just-validate-error-label"
+      ?hidden=${!((o==null?void 0:o.length)>0)}
+    >
+      <span class="visually-hidden">${this.label}: </span>${o}
+    </div>`;return p`
       <div class="form-group" part="input-wrapper">
         <label
-          for="${m(this._id||void 0)}"
+          for="${h(this._id||void 0)}"
           part="label"
           class="${this.composeClass("active",this.labelHidden?"visually-hidden":"")}"
           >${this.label}</label
         >
 
-        ${_(this.slotted,()=>g` <div class="input-group">
-                <span class="input-group-text">
-                  <slot name="icon" @slotchange=${()=>this.requestUpdate()}></slot
-                ></span>
-                ${this._renderInput(t)}
-                <div class="input-group-append">
-                  <slot name="append" @slotchange=${()=>this.requestUpdate()}></slot>
-                </div>
+        ${_(this.slotted||this.type==="number",()=>p`<div
+                class="${this.composeClass("input-group ",this.type==="number"?"input-number":"",this.type==="number"&&this.adaptive?"input-number-adaptive":"")}"
+              >
+                ${_(this._slotPrepend,()=>p` <span class="input-group-text">
+                      <slot name="prepend" @slotchange=${()=>this.requestUpdate()}></slot
+                    ></span>`)}
+                ${this._renderInput(t,i,o)}
+                ${_(this._slotAppend,()=>p` <div class="input-group-append">
+                      <slot name="append" @slotchange=${()=>this.requestUpdate()}></slot>
+                    </div>`)}
               </div>
-              ${e} ${this._renderpasswordStrengthMeter()}`,()=>g` ${this._renderInput(t)} ${e} ${this._renderpasswordStrengthMeter()}`)}
+              ${a} ${e} ${this._renderpasswordStrengthMeter()}`,()=>p` ${this._renderInput(t,i,o)} ${a}
+            ${e} ${this._renderpasswordStrengthMeter()}`)}
       </div>
-    `}};s.styles=J;l([c(),n("design:type",Object)],s.prototype,"internals",void 0);l([c({type:Boolean}),n("design:type",Object)],s.prototype,"slotted",void 0);l([c({type:Boolean,reflect:!0}),n("design:type",Object)],s.prototype,"invalid",void 0);l([c({type:Boolean,reflect:!0,attribute:"custom-validation"}),n("design:type",Object)],s.prototype,"customValidation",void 0);l([c({type:Boolean,reflect:!0}),n("design:type",Object)],s.prototype,"required",void 0);l([c({attribute:"validity-message"}),n("design:type",String)],s.prototype,"validationText",void 0);l([O("input"),n("design:type",HTMLInputElement)],s.prototype,"_inputElement",void 0);l([c({type:String}),n("design:type",Object)],s.prototype,"size",void 0);l([c({type:String}),n("design:type",Object)],s.prototype,"label",void 0);l([c({type:Boolean,attribute:"label-hidden"}),n("design:type",Object)],s.prototype,"labelHidden",void 0);l([c({type:String}),n("design:type",String)],s.prototype,"type",void 0);l([c({type:String}),n("design:type",Object)],s.prototype,"name",void 0);l([c({type:String}),n("design:type",Object)],s.prototype,"placeholder",void 0);l([c({type:String,attribute:"support-text"}),n("design:type",Object)],s.prototype,"supportText",void 0);l([c({type:Boolean}),n("design:type",Object)],s.prototype,"disabled",void 0);l([c({type:Boolean}),n("design:type",Object)],s.prototype,"plaintext",void 0);l([c({type:Boolean}),n("design:type",Object)],s.prototype,"readonly",void 0);l([c({type:Boolean,attribute:"strength-meter"}),n("design:type",Object)],s.prototype,"passwordStrengthMeter",void 0);l([c({type:Boolean}),n("design:type",Object)],s.prototype,"suggestions",void 0);l([c({type:Number}),n("design:type",Object)],s.prototype,"minlength",void 0);l([c({type:Number}),n("design:type",Object)],s.prototype,"maxlength",void 0);l([c({type:String}),n("design:type",String)],s.prototype,"pattern",void 0);l([f(),n("design:type",Object)],s.prototype,"_passwordVisible",void 0);l([f(),n("design:type",Object)],s.prototype,"_strengthInfos",void 0);l([f(),n("design:type",Object)],s.prototype,"_score",void 0);l([f(),n("design:type",Object)],s.prototype,"_value",void 0);l([f(),n("design:type",Object)],s.prototype,"_touched",void 0);l([c({type:String}),n("design:type",String)],s.prototype,"validityMessage",void 0);l([c({reflect:!0}),n("design:type",Object),n("design:paramtypes",[Object])],s.prototype,"value",null);s=l([I("it-input")],s);
+    `}};c.styles=lt;s([m(),n("design:type",Object)],c.prototype,"_slotPrepend",void 0);s([m(),n("design:type",Object)],c.prototype,"_slotAppend",void 0);s([d({type:String}),n("design:type",String)],c.prototype,"type",void 0);s([d(),n("design:type",Object)],c.prototype,"size",void 0);s([d({type:Boolean}),n("design:type",Object)],c.prototype,"adaptive",void 0);s([d({type:String}),n("design:type",Object)],c.prototype,"label",void 0);s([d({type:Boolean,attribute:"label-hidden"}),n("design:type",Object)],c.prototype,"labelHidden",void 0);s([d({type:String}),n("design:type",Object)],c.prototype,"placeholder",void 0);s([d({type:String,attribute:"support-text"}),n("design:type",Object)],c.prototype,"supportText",void 0);s([d({type:Boolean}),n("design:type",Object)],c.prototype,"plaintext",void 0);s([d({type:Boolean}),n("design:type",Object)],c.prototype,"readonly",void 0);s([d({type:Boolean,attribute:"strength-meter"}),n("design:type",Object)],c.prototype,"passwordStrengthMeter",void 0);s([d({type:Boolean}),n("design:type",Object)],c.prototype,"suggestions",void 0);s([m(),n("design:type",Object)],c.prototype,"_passwordVisible",void 0);s([m(),n("design:type",Object)],c.prototype,"_strengthInfos",void 0);s([m(),n("design:type",Object)],c.prototype,"_score",void 0);c=s([H("it-input")],c);

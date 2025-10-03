@@ -1,4 +1,4 @@
-import{j as n,M as l}from"./index-a6WM3-ks.js";import{useMDXComponents as a}from"./index-C1EbfRbw.js";import"./iframe-BJMmF07V.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-CfOrKyLd.js";import"./index-DrFu-skq.js";function t(i){const e={code:"code",h1:"h1",h2:"h2",p:"p",pre:"pre",...a(),...i.components};return n.jsxs(n.Fragment,{children:[n.jsx(l,{title:"i18n - Internazionalizzazione"}),`
+import{j as n,M as l}from"./index-B_hiYuk1.js";import{useMDXComponents as a}from"./index-CrOHUdc5.js";import"./iframe-Bt5dub1B.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-CfOrKyLd.js";import"./index-DrFu-skq.js";function t(i){const e={code:"code",h1:"h1",h2:"h2",p:"p",pre:"pre",...a(),...i.components};return n.jsxs(n.Fragment,{children:[n.jsx(l,{title:"i18n - Internazionalizzazione"}),`
 `,n.jsx(e.h1,{id:"internazionalizzazione",children:"Internazionalizzazione"}),`
 `,n.jsxs(e.p,{children:["L'internazionalizzazione dei componenti si basa sul package indipendente @italia/i18n. L'unica lingua fornita di default è l'italiano.",n.jsx("br",{}),`
 Se vi è necessità di avere traduzioni in altre lingue, è compito dello sviluppatore implementarle.`]}),`

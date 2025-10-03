@@ -1,4 +1,4 @@
-import{x as i}from"./lit-element-DvQWNfDj.js";import{o as l}from"./property-DPMN11qy.js";import"./it-button-DGMbvwhA.js";import"./it-icon-CeoUM-NU.js";import"./directive-CJw_OlP2.js";import"./query-Dd0DvlgZ.js";import"./iframe-BJMmF07V.js";const G=["lg","sm","xs"],M=["primary","secondary","success","danger","warning","link"],t=(e,n="")=>{var s;const a=((s=e.slot)==null?void 0:s.length)>0?e.slot:n;return i`
+import{x as i}from"./lit-element-DvQWNfDj.js";import{o as l}from"./query-Bx2OwlQ7.js";import"./it-button-BjN_fu7P.js";import"./it-icon-FbjACWbu.js";import"./directive-CvdRHFdJ.js";import"./iframe-Bt5dub1B.js";const G=["lg","sm","xs"],M=["primary","secondary","success","danger","warning","link"],t=(e,n="")=>{var s;const a=((s=e.slot)==null?void 0:s.length)>0?e.slot:n;return i`
     <it-button
       variant="${l(e.variant)}"
       ?outline="${e.outline}"
@@ -20,7 +20,7 @@ import{x as i}from"./lit-element-DvQWNfDj.js";import{o as l}from"./property-DPMN
   </div>`},z=(e,n)=>i`<div class="flex">
     ${t({...e,variant:"primary"},`Primary ${n}`)}
     ${t({...e,variant:"secondary"},`Secondary ${n}`)}
-  </div>`,g={title:"Componenti/Button",tags:["autodocs"],component:"it-button",args:{slot:"Testo del pulsante",variant:"primary",size:void 0,block:!1,outline:!1,disabled:!1,icon:!1,type:"button",value:""},argTypes:{variant:{control:"select",description:"Varianti di colore",options:M},size:{control:"select",description:"Dimensione del pulsante",options:G},block:{control:"boolean",type:"boolean",description:"Quando abilitato, estende il componente Button fino a prendere tutta la larghezza disponibile",table:{defaultValue:{summary:"false"}}},disabled:{control:"boolean",type:"boolean",name:"it-aria-disabled",table:{defaultValue:{summary:"false"}}},outline:{control:"boolean",type:"boolean",description:"Applica il colore solamente al bordo, usando il colore di sfondo come colore interno del pulsante.",table:{defaultValue:{summary:"false"}}},icon:{control:"boolean",type:"boolean",description:"Se il pulsante mostra un'icona, è necessario aggiungere questo attributo.",table:{defaultValue:{summary:"false"}}},slot:{control:"text",description:"Testo del pulsante"},type:{control:"select",description:"Tipologia di pulsante",options:["button","submit","reset"],table:{defaultValue:{summary:"button"}}},value:{control:"text"}},parameters:{docs:{description:{component:`
+  </div>`,g={title:"Componenti/Button",tags:["autodocs"],component:"it-button",args:{slot:"Testo del pulsante",variant:"primary",size:void 0,block:!1,outline:!1,disabled:!1,icon:!1,type:"button",value:"","aria-label":"Aria label"},argTypes:{variant:{control:"select",description:"Varianti di colore",options:M},size:{control:"select",description:"Dimensione del pulsante",options:G},block:{control:"boolean",type:"boolean",description:"Quando abilitato, estende il componente Button fino a prendere tutta la larghezza disponibile",table:{defaultValue:{summary:"false"}}},disabled:{control:"boolean",type:"boolean",name:"it-aria-disabled",table:{defaultValue:{summary:"false"}}},outline:{control:"boolean",type:"boolean",description:"Applica il colore solamente al bordo, usando il colore di sfondo come colore interno del pulsante.",table:{defaultValue:{summary:"false"}}},icon:{control:"boolean",type:"boolean",description:"Se il pulsante mostra un'icona, è necessario aggiungere questo attributo.",table:{defaultValue:{summary:"false"}}},slot:{control:"text",description:"Testo del pulsante"},"aria-label":{control:"text",description:"Testo aria-label del pulsante"},type:{control:"select",description:"Tipologia di pulsante",options:["button","submit","reset"],table:{defaultValue:{summary:"button"}}},value:{control:"text"}},parameters:{docs:{description:{component:`
 <Description>Pulsante con etichetta di testo o icona che al click inizia un'azione o un evento.</Description>
 
 Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del design-system](https://designers.italia.it/design-system/componenti/buttons/).
@@ -207,7 +207,7 @@ Per la personalizzazione degli stili si può usare il selettore \\\`::part\\\` p
     }
   },
   render: () => html\`<div class="hide-preview"></div>\`
-}`,...(S=(x=c.parameters)==null?void 0:x.docs)==null?void 0:S.source}}};var P,V,C;d.parameters={...d.parameters,docs:{...(P=d.parameters)==null?void 0:P.docs,source:{originalSource:`{
+}`,...(S=(x=c.parameters)==null?void 0:x.docs)==null?void 0:S.source}}};var P,V,T;d.parameters={...d.parameters,docs:{...(P=d.parameters)==null?void 0:P.docs,source:{originalSource:`{
   name: 'Varianti di colore',
   args: {
     slot: ''
@@ -278,7 +278,7 @@ I pulsanti disabilitati dovranno avere l'attributo \\\`aria-disabled="true"\\\` 
     variant: 'link'
   }, 'Pulsante link')}
   \`
-}`,...(C=(V=d.parameters)==null?void 0:V.docs)==null?void 0:C.source}}};var L,T,D;u.parameters={...u.parameters,docs:{...(L=u.parameters)==null?void 0:L.docs,source:{originalSource:`{
+}`,...(T=(V=d.parameters)==null?void 0:V.docs)==null?void 0:T.source}}};var C,L,D;u.parameters={...u.parameters,docs:{...(C=u.parameters)==null?void 0:C.docs,source:{originalSource:`{
   name: 'Varianti di dimensione',
   args: {
     slot: ''
@@ -337,7 +337,7 @@ Utilizzando invece l'attributo \\\`block\\\` si ottengono pulsanti che prendono 
   }, 'Secondary Block')}
     </div>
   \`
-}`,...(D=(T=u.parameters)==null?void 0:T.docs)==null?void 0:D.source}}};var w,B,E;p.parameters={...p.parameters,docs:{...(w=p.parameters)==null?void 0:w.docs,source:{originalSource:`{
+}`,...(D=(L=u.parameters)==null?void 0:L.docs)==null?void 0:D.source}}};var w,A,B;p.parameters={...p.parameters,docs:{...(w=p.parameters)==null?void 0:w.docs,source:{originalSource:`{
   ...meta,
   // name: 'Tipologie',
   args: {
@@ -362,7 +362,7 @@ Utilizzando invece l'attributo \\\`block\\\` si ottengono pulsanti che prendono 
   })}
     </div>
   \`
-}`,...(E=(B=p.parameters)==null?void 0:B.docs)==null?void 0:E.source}}};var A,N,I;b.parameters={...b.parameters,docs:{...(A=b.parameters)==null?void 0:A.docs,source:{originalSource:`{
+}`,...(B=(A=p.parameters)==null?void 0:A.docs)==null?void 0:B.source}}};var E,N,I;b.parameters={...b.parameters,docs:{...(E=b.parameters)==null?void 0:E.docs,source:{originalSource:`{
   name: 'Sfondo scuro',
   args: {
     slot: ''
@@ -602,4 +602,4 @@ La dimensione dell'icona deve sempre essere \\\`xs\\\`, quindi \\\`<it-icon>\\\`
       </it-button>
     \`;
   }
-}`,...(R=(O=v.parameters)==null?void 0:O.docs)==null?void 0:R.source}}};const X=["EsempioInterattivo","PersonalizzazioneDegliStili","VariantiColore","VariantiDimensione","Tipologie","SfondoScuro","ConIcona","ConIconaCerchiata"];export{m as ConIcona,v as ConIconaCerchiata,r as EsempioInterattivo,c as PersonalizzazioneDegliStili,b as SfondoScuro,p as Tipologie,d as VariantiColore,u as VariantiDimensione,X as __namedExportsOrder,g as default};
+}`,...(R=(O=v.parameters)==null?void 0:O.docs)==null?void 0:R.source}}};const K=["EsempioInterattivo","PersonalizzazioneDegliStili","VariantiColore","VariantiDimensione","Tipologie","SfondoScuro","ConIcona","ConIconaCerchiata"];export{m as ConIcona,v as ConIconaCerchiata,r as EsempioInterattivo,c as PersonalizzazioneDegliStili,b as SfondoScuro,p as Tipologie,d as VariantiColore,u as VariantiDimensione,K as __namedExportsOrder,g as default};

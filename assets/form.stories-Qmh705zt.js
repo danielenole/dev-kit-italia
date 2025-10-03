@@ -1,4 +1,4 @@
-import{x as e}from"./lit-element-DvQWNfDj.js";import"./it-input-ByGAoqf3.js";import"./it-button-DGMbvwhA.js";import"./directive-CJw_OlP2.js";import"./property-DPMN11qy.js";import"./query-Dd0DvlgZ.js";var u=Object.freeze,O=Object.defineProperty,U=(m,B)=>u(O(m,"raw",{value:u(m.slice())})),p;const i={title:"Componenti/Form",tags:["autodocs"],parameters:{docs:{description:{component:`
+import{x as e}from"./lit-element-DvQWNfDj.js";import"./it-input-CUvaNISs.js";import"./it-button-BjN_fu7P.js";import"./directive-CvdRHFdJ.js";import"./query-Bx2OwlQ7.js";import"./directive-helpers-Bd0d1ZrF.js";var u=Object.freeze,U=Object.defineProperty,Z=(c,N)=>u(U(c,"raw",{value:u(N||c.slice())})),p;const i={title:"Componenti/Form",tags:["autodocs"],parameters:{docs:{description:{component:`
 Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del design-system](https://designers.italia.it/design-system/componenti/form/).
 `}}}},t={name:"Elementi e stili per la creazione di form accessibili e responsivi.",tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:"\nNella visualizzazione predefinita di un form gli elementi sono distribuiti verticalmente, ma è possibile utilizzare classi aggiuntive per variare questo tipo di layout.\n\nBootstrap Italia applica automaticamente a tutti i form `display: block` e `width: 100%`.\n"}}},render:()=>e`<div class="hide-preview"></div>`},a={...i,name:"Dimensionamento delle colonne",render:()=>e` <form>
       <div class="row">
@@ -26,7 +26,7 @@ Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del desi
     </form>`},n={...i,name:"Auto-dimensionamento",parameters:{docs:{description:{story:"\nL’esempio seguente usa una delle [utilità di flexbox](https://italia.github.io/bootstrap-italia/docs/organizzare-gli-spazi/flex/) per centrare verticalmente dal breakpoint `lg` in su il contenuto e cambiando `.col` con `.col-auto` in modo che le colonne occupino solo lo spazio necessario.\nIn altre parole, la colonna si dimensiona in base al contenuto.\n\nÈ possibile usarlo anche quando sono presenti altre colonne con dimensioni specifiche (es.: `col-sm-3`)."}}},render:()=>e` <form>
       <div class="row align-itmes-center">
         <it-input class="col-md-6 col-lg-auto" label="Nome" id="nome" label-hidden placeholder="Nome e cognome"></it-input>
-        <it-input class="col-md-6 col-lg-auto" label="Username" id="username" label-hidden placeholder="username" slotted><span slot="icon">@</span></it-input>
+        <it-input class="col-md-6 col-lg-auto" label="Username" id="username" label-hidden placeholder="username"><span slot="icon">@</span></it-input>
         <div class="col-6 col-md-3 col-lg-auto d-flex justify-content-end">
           <it-button type="submit" variant="primary">Invia</button>
         </div>
@@ -51,7 +51,7 @@ Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del desi
           </div>
         </div>
       </fieldset>
-    </form>`},l={...i,parameters:{docs:{description:{story:'\nDi base, i componenti che implementano widget utilizzabili nelle form, come ad esempio `<it-input>`, forniscono la validazione standard del browser a seconda del tipo di campo e/o degli attributi `minlength`, `maxlength`, `pattern` e `required`.\n\n#### Validazione custom\n\nIn alternativa, è possibile eseguire una propria validazione (lato server, o con js), impostando l\' attributo `custom-validation="true"`. In questo modo la validazione di default effettuata internamente al componente è disabilitata.\n\nNel caso il campo non sia valido, è necessario invalidare il campo impostando il messaggio di errore da visualizzare attraverso l\'attributo `validity-message="Messaggio di errore"`.\n'}}},render:()=>e` <form>
+    </form>`},l={...i,parameters:{docs:{description:{story:'\nDi base, i componenti che implementano widget utilizzabili nelle form, come ad esempio `<it-input>`, forniscono la validazione standard del browser a seconda del tipo di campo e/o degli attributi `minlength`, `maxlength`, `pattern` e `required`.\n\n#### Validazione custom\n\nIn alternativa, è possibile eseguire una propria validazione (lato server, o con js), impostando l\' attributo `custom-validation="true"`. In questo modo la validazione di default effettuata internamente al componente è disabilitata.\n\nNel caso il campo non sia valido, è necessario invalidare il campo impostando il messaggio di errore da visualizzare attraverso l\'attributo `validity-message="Messaggio di errore"`.\n'}}},render:()=>e` <form action="/prova">
       <div class="row">
         <it-input
           class="col-md-6"
@@ -80,15 +80,15 @@ Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del desi
 
       // evento scatenato quando il web-component ha effettutato il primo render, e l'input è disonibile nel DOM
       all_input.forEach(input=>{
-        input.addEventListener('input-ready', (event) => {
+        input.addEventListener('it-input-ready', (event) => {
           const input = event.detail.el;
           // il tuo codice qui.
         });
       });
 
-      // evento scatenato quando l'input riceve l'evento di 'on-input' (ad esempio, durante l'inserimento di testo da parte dell'utente)
+      // evento scatenato quando l'input riceve l'evento di 'it-input' (ad esempio, durante l'inserimento di testo da parte dell'utente)
       all_input.forEach(i=>{
-        i.addEventListener('on-input', (event) => {
+        i.addEventListener('it-input', (event) => {
           const input = event.detail.el;
           // il tuo codice qui.
         });
@@ -102,7 +102,7 @@ Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del desi
 \`\`\`
 `}}},render:()=>e`<div class="hide-preview"></div>`},d={...i,name:"Esempio di validazione via JS con plugin JustValidate",tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:`
 Ecco qui un esempio di implementazione della validazione con il plugin [JustValidate](https://just-validate.dev/).
-`}}},render:()=>e(p||(p=U([`<script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"><\/script>
+`}}},render:()=>e(p||(p=Z([`<script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"><\/script>
       <script>
         window.addEventListener('DOMContentLoaded', () => {
           const formEl = document.querySelector('#form-validation-example');
@@ -126,7 +126,7 @@ Ecco qui un esempio di implementazione della validazione con il plugin [JustVali
               {
                 validator: () => {
                   const value = getItInputValue('it-input[id="email"]');
-                  return /^[^s@]+@[^s@]+.[^s@]+$/.test(value);
+                  return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/.test(value);
                 },
                 errorMessage: 'Formato email non valido',
               },
@@ -181,7 +181,86 @@ Ecco qui un esempio di implementazione della validazione con il plugin [JustVali
           support-text="Inserisci il tuo messaggio" custom-validation></it-input>
         <!-- <it-input id="password"  label="Password" type="password" minlength="10" suggestions strength-meter></it-input> -->
         <it-button type="submit" variant="primary" block>Invia</it-button></form>
-      </form>`])))},c={name:"Tipologie di campi",tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:"\nI singoli campi di tipo `<it-input>`, `<it-checkbox>`, `<it-radio>`, `<it-toggle>`, ecc. sono trattati in pagine separate della documentazione.\n"}}},render:()=>e`<div class="hide-preview"></div>`};var v,b,g;t.parameters={...t.parameters,docs:{...(v=t.parameters)==null?void 0:v.docs,source:{originalSource:`{
+      </form>`],[`<script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"><\/script>
+      <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          const formEl = document.querySelector('#form-validation-example');
+
+          // Inizializziamo JustValidate senza selettore, passando il form element
+          const validate = new JustValidate(formEl);
+
+          // Funzione helper per leggere valore da <it-input>
+          const getItInputValue = (selector) => {
+            const el = formEl.querySelector(selector);
+            return el?.value || ''; // .value dovrebbe essere esposto dal tuo componente
+          };
+
+          // Aggiungiamo regole
+          validate
+            .addField('it-input[id="email"]', [
+              {
+                rule: 'required',
+                errorMessage: 'Email obbligatoria',
+              },
+              {
+                validator: () => {
+                  const value = getItInputValue('it-input[id="email"]');
+                  return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/.test(value);
+                },
+                errorMessage: 'Formato email non valido',
+              },
+            ])
+            .addField('it-input[id="messaggio"]', [
+              {
+                validator: () => {
+                  const value = getItInputValue('it-input[id="messaggio"]');
+                  return value.length > 10;
+                },
+                errorMessage: 'Inserire almeno 10 caratteri',
+              },
+            ]);
+
+          validate.onValidate((props) => {
+            const { fields } = props;
+
+            // Rimuovi TUTTI i messaggi creati da JustValidate (questi sono quelli prima del bottone submit)
+            document.querySelectorAll('.just-validate-error-label').forEach((el) => el.remove());
+            // aggiorna il Web Component
+            Object.keys(fields).forEach((k) => {
+              const f = fields[k];
+              const wc = f.elem;
+              if (wc) {
+                wc.validationText = f.isValid ? '' : f.errorMessage;
+              }
+            });
+          });
+
+          formEl.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (validate.isValid) {
+              console.log('Form valido!');
+              // gestire qui il submit della form
+              // fetch('/submit', { method: 'POST', body: ... })
+            }
+          });
+          // oppure
+          // validate.onSuccess(( event ) => {
+          //  submit della form
+          //   event.currentTarget.submit();
+          // });
+        });
+      <\/script>
+
+      <form id="form-validation-example">
+        <it-input id="nome" name="nome" label="Nome"></it-input>
+        <it-input id="cognome" name="cognome" label="Cogome"></it-input>
+        <it-input id="email" name="email" label="E-mail" type="email" support-text="Inserisci la tua email"
+          custom-validation></it-input>
+        <it-input id="messaggio" name="messaggio" label="Messaggio" type="textarea"
+          support-text="Inserisci il tuo messaggio" custom-validation></it-input>
+        <!-- <it-input id="password"  label="Password" type="password" minlength="10" suggestions strength-meter></it-input> -->
+        <it-button type="submit" variant="primary" block>Invia</it-button></form>
+      </form>`])))},m={name:"Tipologie di campi",tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:"\nI singoli campi di tipo `<it-input>`, `<it-checkbox>`, `<it-radio>`, `<it-toggle>`, ecc. sono trattati in pagine separate della documentazione.\n"}}},render:()=>e`<div class="hide-preview"></div>`};var v,g,b;t.parameters={...t.parameters,docs:{...(v=t.parameters)==null?void 0:v.docs,source:{originalSource:`{
   name: 'Elementi e stili per la creazione di form accessibili e responsivi.',
   tags: ['!dev'],
   parameters: {
@@ -203,7 +282,7 @@ Bootstrap Italia applica automaticamente a tutti i form \\\`display: block\\\` e
     }
   },
   render: () => html\`<div class="hide-preview"></div>\`
-}`,...(g=(b=t.parameters)==null?void 0:b.docs)==null?void 0:g.source}}};var f,h,z;a.parameters={...a.parameters,docs:{...(f=a.parameters)==null?void 0:f.docs,source:{originalSource:`{
+}`,...(b=(g=t.parameters)==null?void 0:g.docs)==null?void 0:b.source}}};var f,h,z;a.parameters={...a.parameters,docs:{...(f=a.parameters)==null?void 0:f.docs,source:{originalSource:`{
   ...meta,
   name: 'Dimensionamento delle colonne',
   render: () => html\` <form>
@@ -247,13 +326,13 @@ In altre parole, la colonna si dimensiona in base al contenuto.
   render: () => html\` <form>
       <div class="row align-itmes-center">
         <it-input class="col-md-6 col-lg-auto" label="Nome" id="nome" label-hidden placeholder="Nome e cognome"></it-input>
-        <it-input class="col-md-6 col-lg-auto" label="Username" id="username" label-hidden placeholder="username" slotted><span slot="icon">@</span></it-input>
+        <it-input class="col-md-6 col-lg-auto" label="Username" id="username" label-hidden placeholder="username"><span slot="icon">@</span></it-input>
         <div class="col-6 col-md-3 col-lg-auto d-flex justify-content-end">
           <it-button type="submit" variant="primary">Invia</button>
         </div>
 
     </form>\`
-}`,...(E=(w=n.parameters)==null?void 0:w.docs)==null?void 0:E.source}}};var S,q,I;o.parameters={...o.parameters,docs:{...(S=o.parameters)==null?void 0:S.docs,source:{originalSource:`{
+}`,...(E=(w=n.parameters)==null?void 0:w.docs)==null?void 0:E.source}}};var I,S,q;o.parameters={...o.parameters,docs:{...(I=o.parameters)==null?void 0:I.docs,source:{originalSource:`{
   ...meta,
   name: 'Disabilitazione di campi',
   parameters: {
@@ -273,7 +352,7 @@ Aggiungi l’attributo booleano \\\`disabled\\\` su un widget per impedire le in
         disabled
       ></it-input>
     </form>\`
-}`,...(I=(q=o.parameters)==null?void 0:q.docs)==null?void 0:I.source}}};var V,C,x;s.parameters={...s.parameters,docs:{...(V=s.parameters)==null?void 0:V.docs,source:{originalSource:`{
+}`,...(q=(S=o.parameters)==null?void 0:S.docs)==null?void 0:q.source}}};var V,x,C;s.parameters={...s.parameters,docs:{...(V=s.parameters)==null?void 0:V.docs,source:{originalSource:`{
   ...meta,
   name: 'Disabilitazione di un intero form o gruppo di campi',
   parameters: {
@@ -307,7 +386,7 @@ if (fieldset.disabled) {
         </div>
       </fieldset>
     </form>\`
-}`,...(x=(C=s.parameters)==null?void 0:C.docs)==null?void 0:x.source}}};var D,M,j;l.parameters={...l.parameters,docs:{...(D=l.parameters)==null?void 0:D.docs,source:{originalSource:`{
+}`,...(C=(x=s.parameters)==null?void 0:x.docs)==null?void 0:C.source}}};var M,D,A;l.parameters={...l.parameters,docs:{...(M=l.parameters)==null?void 0:M.docs,source:{originalSource:`{
   ...meta,
   parameters: {
     docs: {
@@ -324,7 +403,7 @@ Nel caso il campo non sia valido, è necessario invalidare il campo impostando i
       }
     }
   },
-  render: () => html\` <form>
+  render: () => html\` <form action="/prova">
       <div class="row">
         <it-input
           class="col-md-6"
@@ -344,7 +423,7 @@ Nel caso il campo non sia valido, è necessario invalidare il campo impostando i
         ></it-input>
       </div>
     </form>\`
-}`,...(j=(M=l.parameters)==null?void 0:M.docs)==null?void 0:j.source}}};var J,A,L;r.parameters={...r.parameters,docs:{...(J=r.parameters)==null?void 0:J.docs,source:{originalSource:`{
+}`,...(A=(D=l.parameters)==null?void 0:D.docs)==null?void 0:A.source}}};var j,J,L;r.parameters={...r.parameters,docs:{...(j=r.parameters)==null?void 0:j.docs,source:{originalSource:`{
   ...meta,
   name: 'Validazione via JS',
   tags: ['!dev'],
@@ -368,15 +447,15 @@ Nel caso il campo non sia valido, è necessario invalidare il campo impostando i
 
       // evento scatenato quando il web-component ha effettutato il primo render, e l'input è disonibile nel DOM
       all_input.forEach(input=>{
-        input.addEventListener('input-ready', (event) => {
+        input.addEventListener('it-input-ready', (event) => {
           const input = event.detail.el;
           // il tuo codice qui.
         });
       });
 
-      // evento scatenato quando l'input riceve l'evento di 'on-input' (ad esempio, durante l'inserimento di testo da parte dell'utente)
+      // evento scatenato quando l'input riceve l'evento di 'it-input' (ad esempio, durante l'inserimento di testo da parte dell'utente)
       all_input.forEach(i=>{
-        i.addEventListener('on-input', (event) => {
+        i.addEventListener('it-input', (event) => {
           const input = event.detail.el;
           // il tuo codice qui.
         });
@@ -393,7 +472,7 @@ Nel caso il campo non sia valido, è necessario invalidare il campo impostando i
     }
   },
   render: () => html\`<div class="hide-preview"></div>\`
-}`,...(L=(A=r.parameters)==null?void 0:A.docs)==null?void 0:L.source}}};var P,k,F;d.parameters={...d.parameters,docs:{...(P=d.parameters)==null?void 0:P.docs,source:{originalSource:`{
+}`,...(L=(J=r.parameters)==null?void 0:J.docs)==null?void 0:L.source}}};var k,F,T;d.parameters={...d.parameters,docs:{...(k=d.parameters)==null?void 0:k.docs,source:{originalSource:`{
   ...meta,
   name: 'Esempio di validazione via JS con plugin JustValidate',
   tags: ['!dev'],
@@ -437,7 +516,7 @@ Ecco qui un esempio di implementazione della validazione con il plugin [JustVali
               {
                 validator: () => {
                   const value = getItInputValue('it-input[id="email"]');
-                  return /^[^s@]+@[^s@]+.[^s@]+$/.test(value);
+                  return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/.test(value);
                 },
                 errorMessage: 'Formato email non valido',
               },
@@ -493,7 +572,7 @@ Ecco qui un esempio di implementazione della validazione con il plugin [JustVali
         <!-- <it-input id="password"  label="Password" type="password" minlength="10" suggestions strength-meter></it-input> -->
         <it-button type="submit" variant="primary" block>Invia</it-button></form>
       </form>\`
-}`,...(F=(k=d.parameters)==null?void 0:k.docs)==null?void 0:F.source}}};var _,N,T;c.parameters={...c.parameters,docs:{...(_=c.parameters)==null?void 0:_.docs,source:{originalSource:`{
+}`,...(T=(F=d.parameters)==null?void 0:F.docs)==null?void 0:T.source}}};var P,_,O;m.parameters={...m.parameters,docs:{...(P=m.parameters)==null?void 0:P.docs,source:{originalSource:`{
   name: 'Tipologie di campi',
   tags: ['!dev'],
   parameters: {
@@ -513,4 +592,4 @@ I singoli campi di tipo \\\`<it-input>\\\`, \\\`<it-checkbox>\\\`, \\\`<it-radio
     }
   },
   render: () => html\`<div class="hide-preview"></div>\`
-}`,...(T=(N=c.parameters)==null?void 0:N.docs)==null?void 0:T.source}}};const K=["ElementiEStili","DimensionamentoColonne","Autodimensionamento","DisabilitazioneCampi","DisabilitazioneForm","Validazione","ValidazioneJS","EsempioJustValidate","SingoliCampi"];export{n as Autodimensionamento,a as DimensionamentoColonne,o as DisabilitazioneCampi,s as DisabilitazioneForm,t as ElementiEStili,d as EsempioJustValidate,c as SingoliCampi,l as Validazione,r as ValidazioneJS,K as __namedExportsOrder,i as default};
+}`,...(O=(_=m.parameters)==null?void 0:_.docs)==null?void 0:O.source}}};const H=["ElementiEStili","DimensionamentoColonne","Autodimensionamento","DisabilitazioneCampi","DisabilitazioneForm","Validazione","ValidazioneJS","EsempioJustValidate","SingoliCampi"];export{n as Autodimensionamento,a as DimensionamentoColonne,o as DisabilitazioneCampi,s as DisabilitazioneForm,t as ElementiEStili,d as EsempioJustValidate,m as SingoliCampi,l as Validazione,r as ValidazioneJS,H as __namedExportsOrder,i as default};

@@ -1,4 +1,4 @@
-import{j as t,M as a}from"./index-a6WM3-ks.js";import{useMDXComponents as l}from"./index-C1EbfRbw.js";import"./iframe-BJMmF07V.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-CfOrKyLd.js";import"./index-DrFu-skq.js";function n(o){const i={code:"code",h1:"h1",h2:"h2",p:"p",pre:"pre",...l(),...o.components};return t.jsxs(t.Fragment,{children:[t.jsx(a,{title:"Font"}),`
+import{j as t,M as a}from"./index-B_hiYuk1.js";import{useMDXComponents as l}from"./index-CrOHUdc5.js";import"./iframe-Bt5dub1B.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-CfOrKyLd.js";import"./index-DrFu-skq.js";function n(o){const i={code:"code",h1:"h1",h2:"h2",p:"p",pre:"pre",...l(),...o.components};return t.jsxs(t.Fragment,{children:[t.jsx(a,{title:"Font"}),`
 `,t.jsx(i.h1,{id:"font",children:"Font"}),`
 `,t.jsxs(i.p,{children:["È necessario anche includere i file relativi ai caratteri tipografici referenziati nel CSS della libreria. L’inclusione dei font può avvenire includendo il bundle fornito dal pacchetto ",t.jsx(i.code,{children:"@italia/dev-kit-italia"}),", oppure utilizzando CSS."]}),`
 `,t.jsx(i.h2,{id:"carica-via-bundle",children:"Carica via bundle"}),`
