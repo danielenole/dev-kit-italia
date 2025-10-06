@@ -6,7 +6,7 @@ cd ./examples/svelte-app && npm ci && npm run build
 cd ../..
 cd ./examples/react-app && npm ci && npm run build
 cd ../..
-cd ./examples/angular-app && npm ci && npm run build
+cd ./examples/angular-app && npm ci && npm run build-doc
 cd ../..
 cd ./examples/vue-app && npm ci && npm run build
 cd ../..
