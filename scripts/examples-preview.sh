@@ -2,6 +2,12 @@
 
 ls -l ./packages/dev-kit-italia/dist
 chmod -R 777 ./packages
+
+until [ -f ./packages/dev-kit-italia/dist/styles.css ]
+do
+     sleep 5
+done
+
 cd ./examples/svelte-app && npm ci && npm run build
 cd ../..
 cd ./examples/react-app && npm ci && npm run build
