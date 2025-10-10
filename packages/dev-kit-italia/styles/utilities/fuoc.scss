@@ -78,7 +78,10 @@ $it-components: (
   'it-checkbox': (
     height: 20px,
     attr: 'label',
-    margin: 0 0 1rem 0,
+  ),
+  'it-input': (
+    height: 74px,
+    attr: 'label',
   ),
 );
 
