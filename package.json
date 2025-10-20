@@ -26,7 +26,7 @@
     "test:setup": "pnpm exec playwright install",
     "test:setup:ci": "pnpm exec playwright install --with-deps --only-shell",
     "test": "turbo run test --concurrency 1",
-    "storybook:build": "pnpm build && ls -l ./packages/dev-kit-italia/dist && storybook build && sh ./scripts/examples-preview.sh",
+    "storybook:build": "pnpm build && ls -l ./packages/dev-kit-italia/dist && storybook build",
     "storybook:deploy": "pnpm dlx gh-pages -d storybook-static -m 'chore: update documentation [ci skip]' --nojekyll",
     "storybook": "storybook dev -p 6006",
     "reinstall": "pnpm clean && pnpm install && pnpm build"
