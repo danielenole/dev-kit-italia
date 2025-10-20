@@ -12,6 +12,11 @@ cd ../..
 cd ./examples/vue-app && npm ci && npm run build
 cd ../..
 
+rm -rf ./storybook-static/svelte-app/
+rm -rf ./storybook-static/vue-app/
+rm -rf ./storybook-static/react-app/
+rm -rf ./storybook-static/angular-app/
+
 cp -R ./examples/svelte-app/dist ./storybook-static/svelte-app/
 cp -R ./examples/vue-app/dist ./storybook-static/vue-app/
 cp -R ./examples/react-app/dist ./storybook-static/react-app/
