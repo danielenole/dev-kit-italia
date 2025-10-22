@@ -151,7 +151,7 @@ describe('Collapse component', () => {
         </it-collapse>
       `);
 
-      const button = el.shadowRoot?.querySelector('button');
+      const button = el?.querySelector('button');
       expect(button?.getAttribute('aria-expanded')).to.equal('false');
 
       button?.click();
@@ -168,7 +168,7 @@ describe('Collapse component', () => {
         </it-collapse>
       `);
 
-      const button = el.shadowRoot?.querySelector('button');
+      const button = el?.querySelector('button');
       const content = el.shadowRoot?.querySelector('.collapse-content');
 
       expect(button?.getAttribute('aria-controls')).to.equal(content?.id);
@@ -181,7 +181,7 @@ describe('Collapse component', () => {
         </it-collapse>
       `);
 
-      const button = el.shadowRoot?.querySelector('button');
+      const button = el?.querySelector('button');
       const content = el.shadowRoot?.querySelector('.collapse-content');
 
       expect(button?.getAttribute('aria-controls')).to.equal(content?.id);
