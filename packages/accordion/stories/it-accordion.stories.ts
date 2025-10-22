@@ -111,6 +111,8 @@ const meta: Meta<AccordionProps> = {
 <Description>Costruisci accordion collassabili verticalmente.</Description>
 Per ottimizzare l'ingombro dei contenuti di una pagina a volte è necessario usare degli elementi richiudibili (in gergo definiti collassabili o collapse), che possono essere attivati indipendentemente l'uno dall'altro oppure in modo esclusivo con l'attivazione di solo un blocco alla volta (in gergo definiti fisarmoniche o accordion).
 
+Il componente Accordion è basato su [Collapse](?path=/docs/componenti-collapse--documentazione).
+
 <div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità</span></div>
 <p>
 L'accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 accordion pattern](https://www.w3.org/TR/wai-aria-practices-1.1/#accordion) per garantire piena accessibilità:\n
@@ -120,6 +122,30 @@ L'accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 acco
 • Heading semantici configurabili per una corretta struttura del documento\n
 • Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni di apertura/chiusura
 </p></div></div>
+
+### Differenza tra Collapse, Accordion e Tabs
+
+I componenti Accordion, Tabs e Collapse funzionano tutti nascondendo sezioni di contenuto che l’utente può scegliere di visualizzare. Evitare di usare questi componenti l’uno all’interno dell’altro.
+
+Se decidi di usare uno di questi componenti, considera quanto segue:
+
+- L’utente ha bisogno di visualizzare più di una sezione alla volta? L’accordion può mostrare più sezioni contemporaneamente, a differenza dei tabs.
+
+- L’utente deve passare rapidamente tra le sezioni? I tabs permettono di cambiare contenuto senza spostare le altre sezioni nella pagina, a differenza dell’accordion.
+
+- Ci sono molte sezioni di contenuto? L’accordion può contenere più sezioni perché sono disposte verticalmente, mentre i tabs sono disposti orizzontalmente.
+
+- Ci sono solo uno o due contenuti brevi e meno importanti? Il componente Collapse è più adatto perché visivamente più piccolo e meno prominente rispetto a un accordion o ai tabs.
+
+<br/>
+
+| Componente | Contenuti multipli | Visibilità | Esclusività | Uso tipico | Esempi |
+|----------|--------------------|-------------|--------------|-------------|---------|
+| **Collapse** | No | Singolo contenuto mostrato o nascosto | N/A | Mostrare o nascondere dettagli secondari | “Mostra dettagli”, “Visualizza termini” |
+| **Accordion** | Sì | Più sezioni espandibili | Solo una aperta alla volta *(consigliato)* | Raggruppare contenuti correlati in blocchi espandibili | FAQ, elenchi informativi |
+| **Tabs** | Sì | Una sezione visibile alla volta | Sempre esclusiva | Organizzare viste equivalenti o alternative | Schede di impostazioni, pannelli di dati |
+
+
 ### Gruppi di elementi richiudibili
 Gli elementi richiudibili sono molto spesso mostrati in gruppo, tipicamente usati per approfondire voci o argomenti mostrati nelle singole barre cliccabili.
 `,

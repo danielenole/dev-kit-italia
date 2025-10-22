@@ -27,56 +27,56 @@
 
 .sbdocs-content description:not(.docs-story description):not(.docs-story * description),
 .sbdocs-content p.lead:not(.docs-story p.lead):not(.docs-story * p.lead) {
+  margin-bottom: 2rem !important;
   font-size: var(--bs-lead-font-size) !important; /* 1.25rem mobile, 1.5rem desktop */
   font-weight: var(--bs-lead-font-weight) !important;
   line-height: var(--bs-lead-line-height) !important;
-  margin-bottom: 2rem !important;
 }
 
 /* Tipografia Bootstrap Italia usando variabili CSS native */
 /* Applica SOLO al contenuto della documentazione, non alle preview */
 /* Gli h1-h6 nelle preview (.docs-story) NON devono essere toccati */
 .sbdocs-content h1:not(.docs-story h1):not(.docs-story * h1) {
+  margin-bottom: 1.5rem;
   font-size: var(--bs-heading-1-font-size); /* Mobile: 40px, Desktop: 48px */
   font-weight: var(--bs-heading-font-weight); /* 700 */
-  line-height: var(--bs-heading-line-height); /* 120% */
   letter-spacing: var(--bs-font-tracking-narrow, -1px);
-  margin-bottom: 1.5rem;
+  line-height: var(--bs-heading-line-height); /* 120% */
 }
 
 .sbdocs-content h2:not(.docs-story h2):not(.docs-story * h2) {
+  margin-bottom: 1.25rem;
   font-size: var(--bs-heading-2-font-size); /* Mobile: 32px, Desktop: 40px */
   font-weight: var(--bs-heading-font-weight);
   line-height: var(--bs-heading-line-height);
-  margin-bottom: 1.25rem;
 }
 
 .sbdocs-content h3:not(.docs-story h3):not(.docs-story * h3) {
+  margin-bottom: 1rem;
   font-size: var(--bs-heading-3-font-size); /* Mobile: 28px, Desktop: 32px */
   font-weight: var(--bs-heading-font-weight);
   line-height: var(--bs-heading-line-height);
-  margin-bottom: 1rem;
 }
 
 .sbdocs-content h4:not(.docs-story h4):not(.docs-story * h4) {
+  margin-bottom: 0.875rem;
   font-size: var(--bs-heading-4-font-size); /* Mobile: 24px, Desktop: 28px */
   font-weight: var(--bs-heading-font-weight-weak); /* 600 */
   line-height: var(--bs-heading-line-height);
-  margin-bottom: 0.875rem;
 }
 
 .sbdocs-content h5:not(.docs-story h5):not(.docs-story * h5) {
+  margin-bottom: 0.75rem;
   font-size: var(--bs-heading-5-font-size); /* Mobile: 20px, Desktop: 24px */
   font-weight: var(--bs-heading-font-weight-weak);
   line-height: var(--bs-heading-line-height);
-  margin-bottom: 0.75rem;
 }
 
 .sbdocs-content h6:not(.docs-story h6):not(.docs-story * h6) {
+  margin-bottom: 0.625rem;
   font-size: var(--bs-heading-6-font-size); /* Mobile: 16px, Desktop: 18px */
   font-weight: var(--bs-heading-font-weight-weak);
   line-height: var(--bs-heading-line-height);
-  margin-bottom: 0.625rem;
 }
 
 /* Margin top solo per il primo h3 nella documentazione principale, non nelle preview */
@@ -86,10 +86,10 @@
 
 .sbdocs-content p:not(.docs-story p):not(.docs-story * p),
 .sbdocs-content li:not(.toc-list-item):not(.docs-story li):not(.docs-story * li) {
-  font-size: var(--bs-body-font-size); /* Mobile: 16px, Desktop: 18px */
-  line-height: var(--bs-body-line-height); /* 150% */
-  font-weight: var(--bs-body-font-weight); /* 400 */
   max-width: 75ch;
+  font-size: var(--bs-body-font-size); /* Mobile: 16px, Desktop: 18px */
+  font-weight: var(--bs-body-font-weight); /* 400 */
+  line-height: var(--bs-body-line-height); /* 150% */
 }
 
 .sbdocs-content .callout:not(.docs-story .callout):not(.docs-story * .callout) {

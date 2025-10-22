@@ -1,6 +1,6 @@
 {
-  "name": "@italia/accordion",
-  "description": "Web component it-accordion del Design system .italia",
+  "name": "@italia/collapse",
+  "description": "Web component it-collapse del Design system .italia",
   "version": "0.0.0",
   "publishConfig": {
     "access": "public"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/italia/dev-kit-italia.git",
-    "directory": "packages/accordion"
+    "directory": "packages/collapse"
   },
   "author": "Presidenza del Consiglio dei Ministri",
   "homepage": "https://italia.github.io/dev-kit-italia",
@@ -19,11 +19,11 @@
   "type": "module",
   "main": "./dist/src/index.js",
   "module": "./dist/src/index.js",
-  "types": "./dist/src/it-accordion.d.ts",
+  "types": "./dist/src/it-collapse.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./it-accordion.js": "./dist/src/it-accordion.js",
-    "./it-accordion-item.js": "./dist/src/it-accordion-item.js",
+    "./it-collapse.js": "./dist/src/it-collapse.js",
+    "./it-collapse-base.js": "./dist/src/it-collapse-base.js",
     "./styles/*": "./styles/*"
   },
   "files": [
@@ -43,29 +43,25 @@
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
-    "@italia/collapse": "workspace:^",
-    "@italia/icon": "workspace:^",
-    "@italia/button": "workspace:^",
     "@italia/globals": "workspace:^",
+    "@italia/button": "workspace:^",
     "bootstrap-italia": "catalog:",
     "lit": "catalog:"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@italia/test-config": "workspace:^",
+    "@italia/icon": "workspace:^",
     "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "catalog:",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/mocha": "catalog:",
     "@web/test-runner": "catalog:",
-    "@web/test-runner-commands": "catalog:",
-    "rimraf": "^6.0.1",
     "rollup": "^4.42.0",
     "rollup-plugin-scss-lit": "^2.1.0",
     "sass": "catalog:",
     "tslib": "^2.6.3",
     "typescript": "catalog:"
-  },
-  "customElements": "custom-elements.json"
+  }
 }

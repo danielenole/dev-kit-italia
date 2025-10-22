@@ -108,6 +108,7 @@ $it-components: (
     height: var(--it-videojs-default-height),
     width: var(--it-videojs-default-width),
   ),
+  'it-collapse': (),
 );
 
 @each $tag, $params in $it-components {
