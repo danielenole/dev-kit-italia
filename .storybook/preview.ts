@@ -39,7 +39,7 @@ const preview: Preview = {
       },
     },
     options: {
-      storySort: (a, b) => {
+      storySort: (a: { id: string; title: string }, b: { id: string; title: string }) => {
         const order = [
           'Introduzione',
           'Personalizzazione degli stili',
