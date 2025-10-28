@@ -17,7 +17,7 @@ export class ItCollapseBase extends BaseComponent {
     delegatesFocus: true,
   };
 
-  @property({ type: String, reflect: true }) private variant = '';
+  @property({ type: String, reflect: true }) private variant = 'primary';
 
   @property({ type: String, reflect: true }) private size = '';
 
@@ -168,8 +168,8 @@ export class ItCollapseBase extends BaseComponent {
         buttonElement.id = this._triggerId;
         buttonElement.setAttribute('aria-expanded', String(this.expanded));
         buttonElement.setAttribute('aria-controls', this._contentId);
-        buttonElement.addEventListener('click', this.handleTriggerAction);
-        buttonElement.addEventListener('keydown', this.handleTriggerAction);
+        buttonElement.addEventListener('click', this.handleTriggerAction.bind(this));
+        buttonElement.addEventListener('keyup', this.handleTriggerAction.bind(this));
         if (!this.expanded) {
           buttonElement.classList.add('collapsed');
         } else {
@@ -271,13 +271,13 @@ export class ItCollapseBase extends BaseComponent {
     const defaultButtonElement = html`<button
       type="button"
       part="${part}"
-      variant="primary"
+      variant="${this.variant}"
       class="${buttonClasses}"
       aria-expanded="${this.expanded}"
       aria-controls="${this._contentId}"
       id="${this._triggerId}"
       @click=${this.handleTriggerAction}
-      @keydown=${this.handleTriggerAction}
+      @keyup=${this.handleTriggerAction}
     >
       <slot name="label"></slot>
     </button>`;
@@ -289,7 +289,7 @@ export class ItCollapseBase extends BaseComponent {
     const Tag = unsafeStatic(tagName);
 
     return html`${staticHtml`<${Tag} part="${part}" role="button" aria-expanded="${this.expanded}" aria-controls="${this._contentId}" id="${this._triggerId}"  @click=${this.handleTriggerAction}
-      @keydown=${this.handleTriggerAction} tabindex="0" class="${buttonClasses}"><slot name="label"></slot></${Tag}>`}`;
+      @keyup=${this.handleTriggerAction} tabindex="0" class="${buttonClasses}"><slot name="label"></slot></${Tag}>`}`;
   }
 
   private hasSlottedTrigger(): boolean {

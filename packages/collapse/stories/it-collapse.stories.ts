@@ -5,6 +5,7 @@ import '@italia/icon';
 import '@italia/button';
 import { type Variants, type Sizes, BUTTON_VARIANTS, BUTTON_SIZES } from '@italia/button';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { CollapsibleOrHiddenContentGuidelines } from '@italia/globals';
 
 interface CollapseProps {
   label: string;
@@ -40,16 +41,16 @@ const renderComponent = (params: Partial<CollapseProps & { slot?: any }>) => htm
 
 const meta: Meta<CollapseProps> = {
   title: 'Componenti/Collapse',
-  tags: ['autodocs'],
+  // tags: ['autodocs'],
   component: 'it-collapse',
   args: {
     // label: 'Toggle collapse',
-    expanded: false,
     defaultOpen: false,
     content: CONTENT,
     variant: 'primary',
     size: '',
     outline: false,
+    as: 'button',
   },
   argTypes: {
     as: {
@@ -89,63 +90,13 @@ const meta: Meta<CollapseProps> = {
   },
   parameters: {
     layout: 'padded',
-    docs: {
-      description: {
-        component: `
-<Description>Per mostrare e nascondere contenuti secondari con un'animazione fluida.</Description>
-
-Per ottimizzare l’ingombro dei contenuti di una pagina si possono usare degli elementi richiudibili (in gergo definiti collassabili o collapse), che possono essere attivati indipendentemente l’uno dall’altro oppure in modo esclusivo con l’attivazione di solo un blocco alla volta (in gergo definiti fisarmoniche o accordion).
-
-Il componente [Accordion](?path=/docs/componenti-accordion--documentazione) è basato su Collapse.
-
-<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità</span></div>
-<p>
-Il componente implementa le best practices per l'accessibilità:
-<br/>
-• Attributi ARIA appropriati (<code>aria-expanded</code>, <code>aria-controls</code>) per comunicare lo stato
-<br/>
-• Supporto completo per navigazione da tastiera (<code>Enter</code>, <code>Space</code>)
-<br/>
-• Relazione semantica tra trigger e contenuto tramite ID univoci
-<br/>
-• Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni
-</p></div></div>
-
-### Differenza tra Collapse, Accordion e Tabs
-
-I componenti Accordion, Tabs e Collapse funzionano tutti nascondendo sezioni di contenuto che l’utente può scegliere di visualizzare. Evitare di usare questi componenti l’uno all’interno dell’altro.
-
-Se decidi di usare uno di questi componenti, considera quanto segue:
-
-- L’utente ha bisogno di visualizzare più di una sezione alla volta? L’accordion può mostrare più sezioni contemporaneamente, a differenza dei tabs.
-
-- L’utente deve passare rapidamente tra le sezioni? I tabs permettono di cambiare contenuto senza spostare le altre sezioni nella pagina, a differenza dell’accordion.
-
-- Ci sono molte sezioni di contenuto? L’accordion può contenere più sezioni perché sono disposte verticalmente, mentre i tabs sono disposti orizzontalmente.
-
-- Ci sono solo uno o due contenuti brevi e meno importanti? Il componente Collapse è più adatto perché visivamente più piccolo e meno prominente rispetto a un accordion o ai tabs.
-
-<br/>
-
-| Componente | Contenuti multipli | Visibilità | Esclusività | Uso tipico | Esempi |
-|----------|--------------------|-------------|--------------|-------------|---------|
-| **Collapse** | No | Singolo contenuto mostrato o nascosto | N/A | Mostrare o nascondere dettagli secondari | “Mostra dettagli”, “Visualizza termini” |
-| **Accordion** | Sì | Più sezioni espandibili | Solo una aperta alla volta *(consigliato)* | Raggruppare contenuti correlati in blocchi espandibili | FAQ, elenchi informativi |
-| **Tabs** | Sì | Una sezione visibile alla volta | Sempre esclusiva | Organizzare viste equivalenti o alternative | Schede di impostazioni, pannelli di dati |
-
-
-### Utilizzo base
-Il componente può essere utilizzato in due modalità:
-- Con **trigger di default**:  inserendo un elemento nello slot \`label\` per definire il testo del pulsante
-- Con **trigger personalizzato**: inserendo un elemento nello slot \`trigger\`
-`,
-      },
-    },
   },
 };
 
 export default meta;
 type Story = StoryObj<CollapseProps>;
+
+export const Info: Story = { ...CollapsibleOrHiddenContentGuidelines(), tags: ['!dev'] };
 
 export const EsempioInterattivo: Story = {
   name: 'Esempio interattivo',
@@ -315,7 +266,7 @@ export const TriggerPersonalizzato: Story = {
 È possibile utilizzare un trigger personalizzato inserendo un elemento nello slot \`trigger\`. Questo elemento diventa il controllo per aprire e chiudere il collapse.
 
 
-**Non utilizzare Web Component con Shadow DOM o elementi non idonei per il trigger, per garantire l'accessibilità.**
+**Non utilizzare elementi non idonei per il trigger, per garantire l'accessibilità.**
 `,
       },
     },

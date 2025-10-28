@@ -1,0 +1,73 @@
+import { Meta, Story, Canvas, Controls, Description, Subtitle } from '@storybook/addon-docs/blocks';
+import * as CollapseStories from './it-collapse.stories';
+
+<Meta of={CollapseStories} />
+
+# Collapse
+
+<description>Per mostrare e nascondere contenuti secondari con un'animazione fluida.</description>
+
+Per ottimizzare l’ingombro dei contenuti di una pagina si possono usare degli elementi richiudibili (in gergo definiti collassabili o collapse), che possono essere attivati indipendentemente l’uno dall’altro oppure in modo esclusivo con l’attivazione di solo un blocco alla volta (in gergo definiti fisarmoniche o accordion).
+
+Il componente [Accordion](?path=/docs/componenti-accordion--documentazione) è basato su Collapse.
+
+<div class="callout callout-success">
+  <div class="callout-inner">
+    <div class="callout-title">
+      <span class="text">Accessibilità</span>
+    </div>
+    Il componente implementa le best practices per l'accessibilità:
+    <ul>
+      <li>
+        Attributi ARIA appropriati (<code>aria-expanded</code>, <code>aria-controls</code>) per comunicare lo stato
+      </li>
+      <li>
+        Supporto completo per navigazione da tastiera (<code>Enter</code>, <code>Space</code>)
+      </li>
+      <li> Relazione semantica tra trigger e contenuto tramite ID univoci</li>
+      <li> Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni</li>
+    </ul>
+  </div>
+</div>
+
+<Description of={CollapseStories.Info} />
+
+#### Utilizzo
+
+Il componente può essere utilizzato in due modalità:
+
+- Con **trigger di default**: inserendo un elemento nello slot \`label\` per definire il testo del pulsante
+- Con **trigger personalizzato**: inserendo un elemento nello slot \`trigger\`
+
+<Canvas of={CollapseStories.EsempioInterattivo} />
+<Controls of={CollapseStories.EsempioInterattivo} />
+
+### Personalizzazione degli stili
+
+<Description of={CollapseStories.PersonalizzazioneDegliStili} />
+
+### Comportamento
+
+<Description of={CollapseStories.Comportamento} />
+<Canvas of={CollapseStories.Comportamento} />
+
+### Varianti del trigger
+
+<Description of={CollapseStories.TriggerClassi} />
+<Canvas of={CollapseStories.TriggerClassi} />
+
+### Stato iniziale aperto
+
+<Description of={CollapseStories.Aperto} />
+
+<Canvas of={CollapseStories.Aperto} />
+
+### Link come trigger
+
+<Description of={CollapseStories.LinkCollapse} />
+<Canvas of={CollapseStories.LinkCollapse} />
+
+### Trigger personalizzato
+
+<Description of={CollapseStories.TriggerPersonalizzato} />
+<Canvas of={CollapseStories.TriggerPersonalizzato} />

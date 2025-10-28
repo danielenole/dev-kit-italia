@@ -1,5 +1,5 @@
 it-collapse {
-  width: 100%;
+  // width: 100%;
 
   &:not(:defined) {
     [slot='content'] {
@@ -19,6 +19,7 @@ it-collapse {
         height: 0 !important;
         padding: 0 !important;
         visibility: hidden;
+        width: 0;
       }
     }
   }
