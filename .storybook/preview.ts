@@ -4,6 +4,13 @@ import './storybook-styles.scss';
 import prettier from 'prettier-v2';
 import HTMLParser from 'prettier-v2/parser-html';
 
+type Story = {
+  id: string;
+  importPath: string;
+  name: string;
+  title: string;
+};
+
 const preview: Preview = {
   parameters: {
     layout: 'centered',
@@ -39,7 +46,7 @@ const preview: Preview = {
       },
     },
     options: {
-      storySort: (a: { id: string; title: string }, b: { id: string; title: string }) => {
+      storySort(a: Story, b: Story) {
         const order = [
           'Introduzione',
           'Personalizzazione degli stili',
