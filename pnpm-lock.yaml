@@ -905,8 +905,8 @@ importers:
         specifier: workspace:^
         version: link:../typescript-config
       '@open-wc/testing':
-        specifier: ^3.2.2
-        version: 3.2.2
+        specifier: 'catalog:'
+        version: 4.0.0
       '@web/dev-server-esbuild':
         specifier: 1.0.2
         version: 1.0.2
@@ -932,8 +932,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0(lit@3.3.0)(rollup@4.52.5)
       typescript:
-        specifier: ^5.3.0
-        version: 5.9.3
+        specifier: 'catalog:'
+        version: 5.8.3
 
   packages/typescript-config: {}
 
@@ -1827,23 +1827,14 @@ packages:
       eslint-plugin-no-only-tests: ^3.1.0
       eslint-plugin-wc: ^1.2.0
 
-  '@open-wc/scoped-elements@2.2.4':
-    resolution: {integrity: sha512-12X4F4QGPWcvPbxAiJ4v8wQFCOu+laZHRGfTrkoj+3JzACCtuxHG49YbuqVzQ135QPKCuhP9wA0kpGGEfUegyg==}
-
   '@open-wc/scoped-elements@3.0.5':
     resolution: {integrity: sha512-q4U+hFTQQRyorJILOpmBm6PY2hgjCnQe214nXJNjbJMQ9EvT55oyZ7C8BY5aFYJkytUyBoawlMpZt4F2xjdzHw==}
 
   '@open-wc/semantic-dom-diff@0.20.1':
     resolution: {integrity: sha512-mPF/RPT2TU7Dw41LEDdaeP6eyTOWBD4z0+AHP4/d0SbgcfJZVRymlIB6DQmtz0fd2CImIS9kszaMmwMt92HBPA==}
 
-  '@open-wc/testing-helpers@2.3.2':
-    resolution: {integrity: sha512-uZMGC/C1m5EiwQsff6KMmCW25TYMQlJt4ilAWIjnelWGFg9HPUiLnlFvAas3ESUP+4OXLO8Oft7p4mHvbYvAEQ==}
-
   '@open-wc/testing-helpers@3.0.1':
     resolution: {integrity: sha512-hyNysSatbgT2FNxHJsS3rGKcLEo6+HwDFu1UQL6jcSQUabp/tj3PyX7UnXL3H5YGv0lJArdYLSnvjLnjn3O2fw==}
-
-  '@open-wc/testing@3.2.2':
-    resolution: {integrity: sha512-byN4dJTd6ZyI9mWmI4lVj30uiu+rYvQr93g64Pd7UFBdAUgb02DHLj6fkJ1gjxA6LC/MeFd7K7mOZ4+vKrMptw==}
 
   '@open-wc/testing@4.0.0':
     resolution: {integrity: sha512-KI70O0CJEpBWs3jrTju4BFCy7V/d4tFfYWkg8pMzncsDhD7TYNHLw5cy+s1FHXIgVFetnMDhPpwlKIPvtTQW7w==}
@@ -6918,11 +6909,6 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
 
-  '@open-wc/scoped-elements@2.2.4':
-    dependencies:
-      '@lit/reactive-element': 2.1.0
-      '@open-wc/dedupe-mixin': 1.4.0
-
   '@open-wc/scoped-elements@3.0.5':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
@@ -6937,30 +6923,11 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@open-wc/testing-helpers@2.3.2':
-    dependencies:
-      '@open-wc/scoped-elements': 2.2.4
-      lit: 3.3.0
-      lit-html: 3.3.0
-
   '@open-wc/testing-helpers@3.0.1':
     dependencies:
       '@open-wc/scoped-elements': 3.0.5
       lit: 3.3.0
       lit-html: 3.3.0
-
-  '@open-wc/testing@3.2.2':
-    dependencies:
-      '@esm-bundle/chai': 4.3.4-fix.0
-      '@open-wc/semantic-dom-diff': 0.20.1
-      '@open-wc/testing-helpers': 2.3.2
-      '@types/chai-dom': 1.11.3
-      '@types/sinon-chai': 3.2.12
-      chai-a11y-axe: 1.5.0
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
 
   '@open-wc/testing@4.0.0':
     dependencies:
