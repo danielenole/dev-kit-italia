@@ -21,13 +21,7 @@
   width: fit-content;
 }
 
-// .accordion-button:focus-visible {
-//   z-index: 3;
-//   border-color: #000 !important;
-//   box-shadow: var(--bs-accordion-btn-focus-box-shadow);
-//   box-shadow:
-//     0 0 0 2px var(--bs-color-border-inverse),
-//     0 0 0 5px var(--bs-color-outline-focus) !important;
-//   outline: 3px solid rgba(0, 0, 0, 0) !important;
-//   outline-offset: 3px !important;
-// }
+button,
+[role='button'] {
+  cursor: pointer;
+}

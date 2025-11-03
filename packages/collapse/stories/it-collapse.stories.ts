@@ -30,12 +30,7 @@ const renderComponent = (params: Partial<CollapseProps & { slot?: any }>) => htm
   >
     ${params.slot}
     <span slot="label">${!params.slot ? params.label || 'Toggle collapse' : ''}</span>
-    <div
-      slot="content"
-      style="padding: 1.5rem 1rem; background-color: #fff; border: 1px solid black; border-radius:4px;"
-    >
-      ${params.content || CONTENT}
-    </div>
+    <div slot="content" style="padding: 1.5rem 1rem; background-color: #fff;">${params.content || CONTENT}</div>
   </it-collapse>
 `;
 
@@ -137,10 +132,14 @@ export const Comportamento: Story = {
     docs: {
       description: {
         story: `
-La proprietà \`as\` seleziona il tag del trigger di default.
+Il componente \`it-collapse\` permette di mostrare o nascondere del contenuto in modo dinamico, tramite un trigger che l'utente può attivare.
+
+Il contenuto da mostrare o nascondere va inserito nello slot \`content\` del componente.
+
+La proprietà \`as\` seleziona il tag del trigger di default:
 
 - Default \`button\`: il componente renderizza un \`<button>\` con id e attributi ARIA (\`aria-expanded\`, \`aria-controls\`).
-- Altri tag validi (es. \`a\`, \`p\`, \`div\`, \`span\`): il componente renderizza il tag scelto e imposta automaticamente \`role="button"\` e \`tabindex="0"\`; l'utilizzatore deve solo assicurarsi non usare tag incompatibili col ruolo button.
+- Altri tag validi (es. \`a\`, \`p\`, \`div\`, \`span\`): il componente renderizza il tag scelto e imposta automaticamente \`role="button"\`, \`tabindex="0"\`, id univoco e attributi ARIA; l'utilizzatore deve solo assicurarsi non usare tag incompatibili col ruolo button.
 
 <div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità</span></div>
 <p>

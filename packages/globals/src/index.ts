@@ -7,6 +7,8 @@ import { CollapsibleOrHiddenContentGuidelines } from './stories/reusableUsageGui
 
 export { TrackFocus, setAttributes, AriaKeyboardListController };
 export type { AriaKeyboardConfig } from './controllers/aria-keyboard-list-controller.js';
+export { RovingTabindexController } from './controllers/roving-tabindex-controller.js';
+export type { RovingTabindexConfig } from './controllers/roving-tabindex-controller.js';
 export {
   BaseComponent,
   BaseComponentInterface,
@@ -23,5 +25,6 @@ export { FormControl } from './form/form-control.js';
 export { formCollections, FormControlControllerOptions, FormControlController } from './form/form-controller.js';
 export { cookies } from './utils/cookies.js';
 export type Constructor<T = {}> = new (...args: any[]) => T;
+export { WindowManager, type ScrollCallback, type ScrollState } from './window-manager.js';
 
 export { StoryFormControlMethodAndProps, CollapsibleOrHiddenContentGuidelines };

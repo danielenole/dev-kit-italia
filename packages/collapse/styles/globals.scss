@@ -1,6 +1,4 @@
 it-collapse {
-  // width: 100%;
-
   &:not(:defined) {
     [slot='content'] {
       display: block;
