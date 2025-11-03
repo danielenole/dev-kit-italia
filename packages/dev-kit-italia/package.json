@@ -28,7 +28,7 @@
   "scripts": {
     "build": "rollup --config rollup.config.js",
     "clean": "rimraf node_modules .turbo .rollup.cache dist",
-    "prepublish": "build",
+    "prepublish": "pnpm build",
     "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" && stylelint \"styles/**/*.scss\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" --check",
     "format": "eslint --fix --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" && stylelint --fix \"styles/**/*.scss\" && prettier --write \"src/**/*.ts\" \"stories/**/*.ts\""
   },
