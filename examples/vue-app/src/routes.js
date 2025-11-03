@@ -7,6 +7,7 @@ import Dropdown from './components/Dropdown.vue';
 import Form from './components/Form.vue';
 import Icon from './components/Icon.vue';
 import Input from './components/Input.vue';
+import Radio from './components/Radio.vue';
 import Section from './components/Section.vue';
 import Video from './components/Video.vue';
 import Avatar from './components/Avatar.vue';
@@ -19,6 +20,7 @@ const routes = [
   { path: '/form', name: 'Form', component: Form },
   { path: '/icon', name: 'Icon', component: Icon },
   { path: '/input', name: 'Input', component: Input },
+  { path: '/radio', name: 'Radio', component: Radio },
   { path: '/section', name: 'Section', component: Section },
   { path: '/video', name: 'Video', component: Video },
   { path: '/avatar', name: 'Avatar', component: Avatar },

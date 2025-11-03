@@ -10,5 +10,6 @@ export * from '@italia/input';
 export * from '@italia/section';
 export * from '@italia/popover';
 export * from '@italia/video';
+export * from '@italia/radio';
 
 export { registerTranslation };

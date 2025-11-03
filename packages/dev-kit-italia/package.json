@@ -61,7 +61,8 @@
     "@italia/popover": "workspace:^",
     "@italia/video": "workspace:^",
     "@italia/input": "workspace:^",
-    "@italia/i18n": "workspace:^"
+    "@italia/i18n": "workspace:^",
+    "@italia/radio": "workspace:^"
   },
   "devDependencies": {
     "@italia/typescript-config": "workspace:^",
