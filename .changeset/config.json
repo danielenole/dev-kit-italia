@@ -22,6 +22,7 @@
       "@italia/popover",
       "@italia/radio",
       "@italia/section",
+      "@italia/sticky",
       "@italia/video"
     ]
   ],
