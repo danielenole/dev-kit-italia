@@ -4,13 +4,6 @@ import './storybook-styles.scss';
 import prettier from 'prettier-v2';
 import HTMLParser from 'prettier-v2/parser-html';
 
-type Story = {
-  id: string;
-  importPath: string;
-  name: string;
-  title: string;
-};
-
 const preview: Preview = {
   parameters: {
     layout: 'centered',
