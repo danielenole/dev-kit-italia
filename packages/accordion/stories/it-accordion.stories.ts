@@ -108,8 +108,8 @@ const meta: Meta<AccordionProps> = {
       source: { excludeDecorators: true },
       description: {
         component: `
-<Description>Costruisci accordion collassabili verticalmente.</Description>
-Per ottimizzare l'ingombro dei contenuti di una pagina a volte è necessario usare degli elementi richiudibili (in gergo definiti collassabili o collapse), che possono essere attivati indipendentemente l'uno dall'altro oppure in modo esclusivo con l'attivazione di solo un blocco alla volta (in gergo definiti fisarmoniche o accordion).
+<Description>Sezione di contenuti espandibile e richiudibile per ottimizzare spazio su pagina e creare collegamenti con contenuti correlati.</Description>
+Il componente accordion permette di espandere e collassare delle sezioni con contenuti molto lunghi e non principali. L’intestazione delle sezioni dà una panoramica dei contenuti e permette all’utente di scegliere quali leggere.
 
 <div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità</span></div>
 <p>
@@ -120,7 +120,7 @@ L'accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 acco
 • Heading semantici configurabili per una corretta struttura del documento\n
 • Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni di apertura/chiusura
 </p></div></div>
-### Gruppi di elementi richiudibili
+### Gruppo di elementi richiudibili
 Gli elementi richiudibili sono molto spesso mostrati in gruppo, tipicamente usati per approfondire voci o argomenti mostrati nelle singole barre cliccabili.
 `,
       },
@@ -196,7 +196,7 @@ export const AccordionItem = {
       source: { excludeDecorators: true },
       description: {
         story: `
-Il componente \`it-accordion-item\` rappresenta un singolo elemento accordion che deve essere utilizzato all'interno di un contenitore \`it-accordion\`.
+L'elemento singolo di un accordion è realizzato tramite il componente \`it-accordion-item\` che deve essere utilizzato all'interno di un contenitore \`it-accordion\`.
 
 #### Proprietà
 
@@ -205,9 +205,9 @@ Il componente \`it-accordion-item\` rappresenta un singolo elemento accordion ch
 
 #### Contenuto
 
-L'intestazione dell'accordion item va inserita nello slot heading (intestazione dell'elemento).
+L'intestazione di un accordion item deve essere inserita in `slot="heading"` (intestazione dell'elemento).
 
-Il contenuto dell'accordion item va inserito nello slot content (contenuto dell'elemento).
+Il contenuto deve essere inserito in `slot="content"` (contenuto dell'elemento).
         `,
       },
     },
@@ -221,8 +221,7 @@ Il contenuto dell'accordion item va inserito nello slot content (contenuto dell'
     >
       <span slot="heading">${args.label || 'Accordion Item'}</span>
       <div slot="content">
-        Contenuto dell'accordion item. Questo testo è all'interno dello slot "content". Qui puoi inserire qualsiasi
-        contenuto HTML: paragrafi, liste, immagini, ecc.
+        Questo testo è fa parte dello slot "content". Qui puoi inserire qualsiasi contenuto HTML: paragrafi, liste, immagini, ecc.
       </div>
     </it-accordion-item>
   `,
