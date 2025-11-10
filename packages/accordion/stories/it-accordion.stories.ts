@@ -205,7 +205,7 @@ L'elemento singolo di un accordion è realizzato tramite il componente \`it-acco
 
 #### Contenuto
 
-L'intestazione di un accordion item deve essere inserita in `slot="heading"` (intestazione dell'elemento).
+L'intestazione di un accordion item deve essere inserita in \`slot="heading"\` (intestazione dell'elemento).
 
 Il contenuto deve essere inserito in `slot="content"` (contenuto dell'elemento).
         `,
