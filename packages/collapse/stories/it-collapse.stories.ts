@@ -106,46 +106,12 @@ export const EsempioInterattivo: Story = {
 export const PersonalizzazioneDegliStili: Story = {
   name: 'Personalizzazione degli stili',
   tags: ['!dev'],
-  parameters: {
-    viewMode: 'docs',
-    docs: {
-      canvas: { hidden: true, sourceState: 'none' },
-      description: {
-        story: `
-Per la personalizzazione degli stili si possono usare i selettori \`::part\`:
-- \`::part(trigger)\` - elemento trigger
-- \`::part(content)\` - contenitore del contenuto
 
-[Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
-`,
-      },
-    },
-  },
   render: () => html`<div class="hide-preview"></div>`,
 };
 
 export const Comportamento: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `
-Il componente \`it-collapse\` permette di mostrare o nascondere del contenuto in modo dinamico, tramite un trigger che l'utente può attivare.
-
-Il contenuto da mostrare o nascondere va inserito nello slot \`content\` del componente.
-
-La proprietà \`as\` seleziona il tag del trigger di default:
-
-- Default \`button\`: il componente renderizza un \`<button>\` con id e attributi ARIA (\`aria-expanded\`, \`aria-controls\`).
-- Altri tag validi (es. \`a\`, \`p\`, \`div\`, \`span\`): il componente renderizza il tag scelto e imposta automaticamente \`role="button"\`, \`tabindex="0"\`, id univoco e attributi ARIA; l'utilizzatore deve solo assicurarsi non usare tag incompatibili col ruolo button.
-
-<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità</span></div>
-<p>
-ARIA, id univoci e attivazione da tastiera sono gestiti dal componente. Evitare tag non idonei per il ruolo pulsante/elementi che non possono ricevere focus.
-</p></div></div>
-`,
-      },
-    },
-  },
+  parameters: {},
   render: () => html`
     <div>
       ${renderComponent({
@@ -257,12 +223,7 @@ export const TriggerPersonalizzato: Story = {
     <it-collapse>
       <button class="my-custom-collapse-button" slot="trigger"><span slot="label">Trigger custom</span></button>
 
-      <div
-        slot="content"
-        style="padding: 1.5rem 1rem; background-color: #fff; border: 1px solid black; border-radius:4px;"
-      >
-        ${CONTENT}
-      </div>
+      <div slot="content" style="padding: 1.5rem 1rem; background-color: #fff;">${CONTENT}</div>
     </it-collapse>
     <style>
       .my-custom-collapse-button {

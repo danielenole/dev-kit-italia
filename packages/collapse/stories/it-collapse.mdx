@@ -36,30 +36,29 @@ Modificando questi valori puoi personalizzare come il componente si presenta o r
 
 
 ## Accessibilità
-Il componente implementa le best practices per l'accessibilità:
-- Attributi ARIA appropriati (<code>aria-expanded</code>, <code>aria-controls</code>) per comunicare lo stato
-- Supporto completo per navigazione da tastiera (<code>Enter</code>, <code>Space</code>)
-- Relazione semantica tra trigger e contenuto tramite ID univoci
-- Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni
+Il collapse implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 disclosure pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/) per garantire un'esperienza accessibile a tutti gli utenti:
+- Supporto per `Space` e `Enter` per attivare/disattivare elementi
+- Attributi ARIA appropriati per comunicare lo stato agli screen reader
+- Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni di apertura/chiusura
 
 
-## Anatomia del componente
+## Utilizzo
 
-Il componente `it-collapse` permette di mostrare o nascondere del contenuto in modo dinamico, tramite un trigger che l'utente può attivare.
+Inserisci il contenuto da mostrare o nascondere nello slot `content` del componente.
 
-Il contenuto da mostrare o nascondere va inserito nello slot `content` del componente.
 Il componente può essere utilizzato in due modalità:
 
 - Con **trigger di default**: inserendo un elemento nello slot `label` per definire il testo del pulsante
 - Con **trigger personalizzato**: inserendo un elemento nello slot `trigger`
 
-L'attributo `as` seleziona il tag del trigger di default:
+L'attributo `as` permette di impostare il tag del trigger di default:
 
 - Default `button`: il componente renderizza un `<button>` con id e attributi ARIA (`aria-expanded`, `aria-controls`).
-- Altri tag validi (es. `a`, `p`, `div`, `span`): il componente renderizza il tag scelto e imposta automaticamente `role="button"`, `tabindex="0"`, id univoco e attributi ARIA. Assicurati di utilizzare [tag HTML compatibili con il ruolo button](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/button_role).
+- Altri tag validi (es. `a`, `p`, `div`, `span`): il componente renderizza il tag scelto e imposta automaticamente `role="button"`, `tabindex="0"`, id univoco e attributi ARIA.
+
+  Assicurati di utilizzare [tag HTML compatibili con il ruolo button](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/button_role).
 
 
-{/* <Description of={CollapseStories.Comportamento} /> */}
 <Canvas of={CollapseStories.Comportamento} />
 
 ## Varianti del trigger
@@ -92,15 +91,19 @@ L'attributo `default-open` permette di avere il collapse aperto al primo renderi
 
 ## Link come trigger
 
-È possibile utilizzare un link come trigger del collapse.
+Puoi utilizzare un link come trigger del collapse.
 <Canvas of={CollapseStories.LinkCollapse} />
 
 ## Trigger personalizzato
 
-È possibile utilizzare un trigger personalizzato inserendo un elemento nello slot `trigger`. Questo elemento diventa il controllo per aprire e chiudere il collapse.
+Puoi utilizzare un trigger personalizzato inserendo un elemento nello slot `trigger`. Questo elemento diventa il controllo per aprire e chiudere il collapse.
 
 <Canvas of={CollapseStories.TriggerPersonalizzato} />
 
 ## Personalizzazione degli stili
 
-<Description of={CollapseStories.PersonalizzazioneDegliStili} />
+Per la personalizzazione degli stili si possono usare i selettori `::part`:
+- `::part(trigger)` - elemento trigger
+- `::part(content)` - elemento contenitore del corpo collassabile
+
+[Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
