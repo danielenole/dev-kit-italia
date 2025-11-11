@@ -3,6 +3,7 @@ import './main.scss';
 import './storybook-styles.scss';
 import prettier from 'prettier-v2';
 import HTMLParser from 'prettier-v2/parser-html';
+import './elements';
 
 const preview: Preview = {
   parameters: {
@@ -33,7 +34,7 @@ const preview: Preview = {
         },
       },
       toc: {
-        headingSelector: 'h2, h3, h4',
+        headingSelector: 'h2',
         ignoreSelector: 'h2[id|="stories"], #esempio, .docs-story h2, .docs-story h3, .docs-story h4',
         title: 'Indice',
       },

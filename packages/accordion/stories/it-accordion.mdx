@@ -5,78 +5,101 @@ import * as AccordionStories from './it-accordion.stories';
 
 # Accordion
 
-<description>Per organizzare contenuti correlati in sezioni espandibili verticalmente.</description>
+<description>Sezione di contenuti espandibile e richiudibile per ottimizzare spazio su pagina e creare collegamenti con contenuti correlati.</description>
 
-L'Accordion è un elemento dell'interfaccia utente che consente di organizzare e presentare contenuti in sezioni collassabili. Ogni sezione può essere espansa o compressa indipendentemente dalle altre, permettendo agli utenti di visualizzare solo le informazioni che ritengono pertinenti.
+Il componente accordion permette di espandere e collassare delle sezioni con contenuti molto lunghi e non principali. L’intestazione delle sezioni dà una panoramica dei contenuti e permette all’utente di scegliere quali leggere.
 
 Il componente Accordion è basato su [Collapse](?path=/docs/componenti-collapse--documentazione) e permette di raggruppare più elementi collassabili in un'unica interfaccia.
 
-<div class="callout callout-success">
-  <div class="callout-inner">
-    <div class="callout-title">
-      <span class="text">Accessibilità</span>
-    </div>
-    Il componente implementa le best practices per l'accessibilità:
-    <ul>
-      <li>
-        Attributi ARIA appropriati (<code>aria-expanded</code>, <code>aria-controls</code>) per comunicare lo stato
-      </li>
-      <li>
-        Supporto completo per navigazione da tastiera (<code>Enter</code>, <code>Space</code>)
-      </li>
-      <li> Relazione semantica tra trigger e contenuto tramite ID univoci</li>
-      <li> Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni</li>
-    </ul>
-  </div>
-</div>
+[Approfondisci quando e come usare il componente Accordion](https://designers.italia.it/design-system/componenti/accordion/).
 
-<Description of={AccordionStories.Info} />
+### Alternative a questo componente
 
-#### Utilizzo
+- [Collapse](?path=/docs/componenti-collapse--documentazione): visivamente meno prominente, utile quando ci sono una o due sezioni di contenuti brevi meno importanti.
 
-Il componente Accordion raggruppa più elementi Collapse e permette di gestirli in modalità:
+- Tabs: mostrano i contenuti senza spingere altre sezioni verso il fondo della pagina e sono utili quando l'utente deve passare velocemente da una sezone all'altra.
 
-- **Modalità multipla**: più sezioni possono essere aperte contemporaneamente
-- **Modalità singola**: solo una sezione può essere aperta alla volta
 
+
+
+## Anteprima del componente
 <Canvas of={AccordionStories.EsempioInterattivo} />
+
+## Attributi
+Gl attributi definiscono l'aspetto, il comportamento e il contenuto del componente.
+
+Modificando questi valori puoi personalizzare come il componente si presenta o reagisce alle interazioni.
 <Controls of={AccordionStories.EsempioInterattivo} />
 
-### Personalizzazione degli stili
+## Accessibilità
+L'accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) per garantire un'esperienza accessibile a tutti gli utenti:
+- Navigazione da tastiera con tasti freccia per spostarsi tra gli elementi
+- Supporto per `Space` e `Enter` per attivare/disattivare elementi
+- Attributi ARIA appropriati per comunicare lo stato agli screen reader
+- Heading semantici configurabili per una corretta struttura del documento
+- Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni di apertura/chiusura
 
-Per la personalizzazione degli stili si possono usare i selettori `::part`:
+## Accordion Item
+Il componente `it-accordion-item` rappresenta un singolo elemento accordion che deve essere utilizzato all'interno di un contenitore `it-accordion`.
 
-- `::part(trigger)` - elemento trigger di ogni sezione
-- `::part(content)` - contenitore del contenuto di ogni sezione
+### Attributi
 
-[Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
+- **`as`**: Il livello di heading (h2-h6) da utilizzare per l'header (opzionale, default: `h2`)
+- **`default-open`**: Se true, l'elemento viene mostrato espanso (opzionale, default: `false`)
 
-### Modalità Single
+### Contenuto
+
+L'intestazione dell'accordion item va inserita nello slot `heading` (intestazione dell'elemento).
+
+Il contenuto dell'accordion item va inserito nello slot `content` (contenuto dell'elemento).
+
+<Canvas of={AccordionStories.AccordionItem} />
+
+## Modalità Esclusiva
+Di default, più sezioni dell'accordion possono essere aperte contemporaneamente.
 
 In modalità `single`, solo una sezione dell'accordion può essere aperta alla volta. Quando si apre una nuova sezione, quella precedentemente aperta si chiude automaticamente.
 
 <Canvas of={AccordionStories.Single} />
 
-### Accordion annidati
+## Accordion annidati
 
 È possibile annidare accordion all'interno di altri accordion per creare strutture gerarchiche complesse.
-
+<div class="callout callout-warning">
+<div class="callout-inner">
+<div class="callout-title">
+<span class="text">Accessibilità e accordion annidati</span>
+</div>
+<p>
+Utilizzare questo approccio solo quando strettamente necessario: dal punto di vista dell'accessibilità non si tratta di una soluzione ottimale.
+</p>
+</div>
+</div>
 <Canvas of={AccordionStories.AccordionAnnidati} />
 
-### Header attivi
+## Header attivi
 
 Gli header possono avere uno stile diverso quando la sezione corrispondente è attiva (aperta).
 
 <Canvas of={AccordionStories.HeaderAttivi} />
 
-### Hover degli header
+## Hover degli header
 
 Gli header possono avere effetti hover per migliorare l'interazione utente.
 
 <Canvas of={AccordionStories.HoverDegliHeader} />
 
-### Icona a sinistra
+## Icona a sinistra
 
 L'icona di espansione/collasso può essere posizionata a sinistra del testo dell'header.
 
 <Canvas of={AccordionStories.IconaASinistra} />
+
+## Personalizzazione degli stili
+
+Per la personalizzazione degli stili si possono usare i selettori `::part`:
+
+- `::part(trigger)` - elemento trigger di ogni sezione
+- `::part(content)` - elemento contenitore del corpo di ogni sezione
+
+[Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).

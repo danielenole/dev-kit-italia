@@ -1,8 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '@italia/collapse';
-import '@italia/icon';
-import '@italia/button';
 import { type Variants, type Sizes, BUTTON_VARIANTS, BUTTON_SIZES } from '@italia/button';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { CollapsibleOrHiddenContentGuidelines } from '@italia/globals';
@@ -36,7 +33,7 @@ const renderComponent = (params: Partial<CollapseProps & { slot?: any }>) => htm
 
 const meta: Meta<CollapseProps> = {
   title: 'Componenti/Collapse',
-  // tags: ['autodocs'],
+  tags: ['new', 'component'],
   component: 'it-collapse',
   args: {
     // label: 'Toggle collapse',
@@ -171,16 +168,7 @@ export const TriggerClassi: Story = {
     docs: {
       description: {
         story: `
-Usa l'attributo \`variant\` per applicare le varianti Bootstrap Italia ai trigger di Collapse.
 
-Usa l'attributo \`size\` per applicare le dimensioni Bootstrap Italia ai trigger di Collapse.
-
-Usa l'attributo \`outline\` per applicare le varianti outline Bootstrap Italia ai trigger di Collapse.
-<div class="callout callout-warning"><div class="callout-inner"><div class="callout-title"><span class="text">Attenzione</span></div>
-<p>
-Sono attualmente supportate solo gli stili Bootstrap Italia relativi ai pulsanti, in quanto il trigger è semanticamente un pulsante e come tale deve essere reso, coerente col resto del Design Kit.
-</p><p>Vedi la sezione dedicata per come inserire un [trigger personalizzato](?path=/docs/componenti-collapse--trigger-personalizzato) e/o quella per la personalizzazione degli stili per esplorare le altre possibilità fornite dal Kit.
-</p></div></div>
         `,
       },
     },
@@ -201,7 +189,6 @@ Sono attualmente supportate solo gli stili Bootstrap Italia relativi ai pulsanti
         ${renderComponent({ label: 'Pulsante outline success', variant: 'success', outline: true, as: 'button' })}
         ${renderComponent({ label: 'Pulsante outline danger', variant: 'danger', outline: true, as: 'button' })}
         ${renderComponent({ label: 'Pulsante outline warning', variant: 'warning', outline: true, as: 'button' })}
-        ${renderComponent({ label: 'Pulsante outline link', variant: 'link', outline: true, as: 'button' })}
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:1rem;">
         ${renderComponent({ label: 'Pulsante xs', size: 'xs', variant: 'primary', as: 'button' })}
@@ -217,7 +204,6 @@ export const Aperto: Story = {
     docs: {
       description: {
         story: `
-L'attributo \`default-open\` permette di avere il collapse aperto al primo rendering.
 `,
       },
     },
@@ -243,7 +229,6 @@ export const LinkCollapse: Story = {
     docs: {
       description: {
         story: `
-È possibile utilizzare un link come trigger del collapse. In questo caso è importante aggiungere \`role="button"\` per garantire l'accessibilità.
 `,
       },
     },
@@ -262,10 +247,8 @@ export const TriggerPersonalizzato: Story = {
     docs: {
       description: {
         story: `
-È possibile utilizzare un trigger personalizzato inserendo un elemento nello slot \`trigger\`. Questo elemento diventa il controllo per aprire e chiudere il collapse.
 
 
-**Non utilizzare elementi non idonei per il trigger, per garantire l'accessibilità.**
 `,
       },
     },

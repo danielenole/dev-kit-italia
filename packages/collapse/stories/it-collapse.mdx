@@ -5,69 +5,102 @@ import * as CollapseStories from './it-collapse.stories';
 
 # Collapse
 
-<description>Per mostrare e nascondere contenuti secondari con un'animazione fluida.</description>
+<description>Funzionalità applicabile a elementi di interfaccia per espandere o comprimere sezioni di contenuto e ottimizzare spazio</description>
 
 Per ottimizzare l’ingombro dei contenuti di una pagina si possono usare degli elementi richiudibili (in gergo definiti collassabili o collapse), che possono essere attivati indipendentemente l’uno dall’altro oppure in modo esclusivo con l’attivazione di solo un blocco alla volta (in gergo definiti fisarmoniche o accordion).
 
 Il componente [Accordion](?path=/docs/componenti-accordion--documentazione) è basato su Collapse.
 
-<div class="callout callout-success">
-  <div class="callout-inner">
-    <div class="callout-title">
-      <span class="text">Accessibilità</span>
-    </div>
-    Il componente implementa le best practices per l'accessibilità:
-    <ul>
-      <li>
-        Attributi ARIA appropriati (<code>aria-expanded</code>, <code>aria-controls</code>) per comunicare lo stato
-      </li>
-      <li>
-        Supporto completo per navigazione da tastiera (<code>Enter</code>, <code>Space</code>)
-      </li>
-      <li> Relazione semantica tra trigger e contenuto tramite ID univoci</li>
-      <li> Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni</li>
-    </ul>
-  </div>
-</div>
+[Approfondisci quando e come usare il componente Collapse](https://designers.italia.it/design-system/componenti/collapse/).
 
-<Description of={CollapseStories.Info} />
+### Alternative a questo componente
 
-#### Utilizzo
 
-Il componente può essere utilizzato in due modalità:
+- [Accordion](?path=/docs/componenti-accordion--documentazione): possono essere attivati indipendentemente l'uno dall'altro oppure in modo esclusivo con l'attivazione di un solo blocco alla volta.
 
-- Con **trigger di default**: inserendo un elemento nello slot \`label\` per definire il testo del pulsante
-- Con **trigger personalizzato**: inserendo un elemento nello slot \`trigger\`
+- Tabs: mostrano i contenuti senza spingere altre sezioni verso il fondo della pagina e sono utili quando l'utente deve passare velocemente da una sezone all'altra.
+
+
+
+## Anteprima del componente
 
 <Canvas of={CollapseStories.EsempioInterattivo} />
+
+
+## Attributi
+Gl attributi definiscono l'aspetto, il comportamento e il contenuto del componente.
+
+Modificando questi valori puoi personalizzare come il componente si presenta o reagisce alle interazioni.
 <Controls of={CollapseStories.EsempioInterattivo} />
 
-### Personalizzazione degli stili
 
-<Description of={CollapseStories.PersonalizzazioneDegliStili} />
 
-### Come funziona
+## Accessibilità
+Il componente implementa le best practices per l'accessibilità:
+- Attributi ARIA appropriati (<code>aria-expanded</code>, <code>aria-controls</code>) per comunicare lo stato
+- Supporto completo per navigazione da tastiera (<code>Enter</code>, <code>Space</code>)
+- Relazione semantica tra trigger e contenuto tramite ID univoci
+- Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni
 
-<Description of={CollapseStories.Comportamento} />
+
+## Anatomia del componente
+
+Il componente `it-collapse` permette di mostrare o nascondere del contenuto in modo dinamico, tramite un trigger che l'utente può attivare.
+
+Il contenuto da mostrare o nascondere va inserito nello slot `content` del componente.
+Il componente può essere utilizzato in due modalità:
+
+- Con **trigger di default**: inserendo un elemento nello slot `label` per definire il testo del pulsante
+- Con **trigger personalizzato**: inserendo un elemento nello slot `trigger`
+
+L'attributo `as` seleziona il tag del trigger di default:
+
+- Default `button`: il componente renderizza un `<button>` con id e attributi ARIA (`aria-expanded`, `aria-controls`).
+- Altri tag validi (es. `a`, `p`, `div`, `span`): il componente renderizza il tag scelto e imposta automaticamente `role="button"`, `tabindex="0"`, id univoco e attributi ARIA. Assicurati di utilizzare [tag HTML compatibili con il ruolo button](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/button_role).
+
+
+{/* <Description of={CollapseStories.Comportamento} /> */}
 <Canvas of={CollapseStories.Comportamento} />
 
-### Varianti del trigger
+## Varianti del trigger
 
-<Description of={CollapseStories.TriggerClassi} />
+Usa l'attributo `variant` per applicare le varianti Bootstrap Italia ai trigger di Collapse.
+
+Usa l'attributo `size` per applicare le dimensioni Bootstrap Italia ai trigger di Collapse.
+
+Usa l'attributo `outline` per applicare le varianti outline Bootstrap Italia ai trigger di Collapse.
+<div class="callout callout-warning">
+<div class="callout-inner">
+<div class="callout-title"><span class="text">Attenzione</span></div>
+<p>
+Sono attualmente supportati solo gli stili Bootstrap Italia relativi ai pulsanti, in quanto il trigger è semanticamente un pulsante e come tale deve essere reso, coerente col resto del Design Kit.
+</p>
+<p>
+Vedi la sezione dedicata per come inserire un [trigger personalizzato](?path=/docs/componenti-collapse--trigger-personalizzato) e/o quella per la personalizzazione degli stili per esplorare le altre possibilità fornite dal Kit.
+</p>
+</div>
+</div>
+
 <Canvas of={CollapseStories.TriggerClassi} />
 
-### Stato iniziale aperto
+## Stato iniziale aperto
 
-<Description of={CollapseStories.Aperto} />
+L'attributo `default-open` permette di avere il collapse aperto al primo rendering.
+
 
 <Canvas of={CollapseStories.Aperto} />
 
-### Link come trigger
+## Link come trigger
 
-<Description of={CollapseStories.LinkCollapse} />
+È possibile utilizzare un link come trigger del collapse.
 <Canvas of={CollapseStories.LinkCollapse} />
 
-### Trigger personalizzato
+## Trigger personalizzato
 
-<Description of={CollapseStories.TriggerPersonalizzato} />
+È possibile utilizzare un trigger personalizzato inserendo un elemento nello slot `trigger`. Questo elemento diventa il controllo per aprire e chiudere il collapse.
+
 <Canvas of={CollapseStories.TriggerPersonalizzato} />
+
+## Personalizzazione degli stili
+
+<Description of={CollapseStories.PersonalizzazioneDegliStili} />
