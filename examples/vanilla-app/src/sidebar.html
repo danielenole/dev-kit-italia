@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sidebar - Vanilla JS</title>
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <div class="container py-5">
+      <h1 class="mb-4">Sidebar</h1>
+      
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="sidebar-wrapper it-line-right-side">
+            <div class="sidebar-linklist-wrapper">
+              <div class="link-list-wrapper">
+                <ul class="link-list">
+                  <li>
+                    <h3>Menu di navigazione</h3>
+                  </li>
+                  <li>
+                    <a class="list-item medium active left-icon" href="#">
+                      <it-icon name="it-calendar" color="primary" size="sm" class="left"></it-icon>
+                      <span>Pagina attiva</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="list-item medium left-icon" href="#">
+                      <it-icon name="it-comment" color="primary" size="sm" class="left"></it-icon>
+                      <span>Sezione 1</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="list-item medium left-icon" href="#">
+                      <it-icon name="it-camera" color="primary" size="sm" class="left"></it-icon>
+                      <span>Sezione 2</span>
+                    </a>
+                    <ul class="link-sublist">
+                      <li>
+                        <a class="list-item" href="#"><span>Sottosezione 2.1</span></a>
+                      </li>
+                      <li>
+                        <a class="list-item" href="#"><span>Sottosezione 2.2</span></a>
+                      </li>
+                      <li>
+                        <a class="list-item" href="#"><span>Sottosezione 2.3</span></a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a class="list-item medium left-icon" href="#">
+                      <it-icon name="it-file" color="primary" size="sm" class="left"></it-icon>
+                      <span>Sezione 3</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="sidebar-linklist-wrapper linklist-secondary">
+              <div class="link-list-wrapper">
+                <ul class="link-list">
+                  <li>
+                    <a class="list-item medium left-icon" href="#">
+                      <it-icon name="it-settings" color="primary" size="sm" class="left"></it-icon>
+                      <span>Impostazioni</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="list-item medium left-icon" href="#">
+                      <it-icon name="it-help-circle" color="primary" size="sm" class="left"></it-icon>
+                      <span>Aiuto</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-9">
+          <h2 class="mb-3">Contenuto della pagina</h2>
+          <p class="lead">Questo è un esempio di contenuto di pagina affiancato da una sidebar di navigazione.</p>
+          <p>La sidebar è posizionata a sinistra e contiene:</p>
+          <ul>
+            <li>Un menu di navigazione primario con icone</li>
+            <li>Voci annidate espanse (Sezione 2)</li>
+            <li>Un menu secondario con link alle impostazioni e aiuto</li>
+            <li>Una linea separatrice a destra</li>
+          </ul>
+          
+          <h3 class="mt-4 mb-3">Caratteristiche della Sidebar</h3>
+          <p>La Sidebar utilizza il componente List per la visualizzazione dei menu di navigazione e supporta:</p>
+          <ul>
+            <li>Stati attivi e disabilitati sui link</li>
+            <li>Icone affiancate ai link</li>
+            <li>Liste annidate espanse o collassabili (quest'ultime richiedono il componente Collapse)</li>
+            <li>Linee separatrici a sinistra o a destra</li>
+            <li>Tema scuro</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="row mt-5">
+        <div class="col-12">
+          <h2 class="mb-3">Sidebar tema scuro</h2>
+        </div>
+        <div class="col-lg-3">
+          <div class="sidebar-wrapper theme-dark">
+            <div class="sidebar-linklist-wrapper">
+              <div class="link-list-wrapper">
+                <ul class="link-list">
+                  <li>
+                    <h3>Header</h3>
+                  </li>
+                  <li>
+                    <a class="list-item medium active" href="#"><span>Link attivo</span></a>
+                  </li>
+                  <li>
+                    <a class="list-item medium" href="#"><span>Link 1</span></a>
+                  </li>
+                  <li>
+                    <a class="list-item medium" href="#"><span>Link 2</span></a>
+                  </li>
+                  <li>
+                    <a class="list-item medium disabled" href="#" aria-disabled="true"><span>Link disabilitato</span></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <p>La sidebar con tema scuro si ottiene aggiungendo la classe <code>.theme-dark</code> al wrapper <code>.sidebar-wrapper</code>.</p>
+        </div>
+      </div>
+    </div>
+    <div id="app-footer"></div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

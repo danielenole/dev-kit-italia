@@ -65,11 +65,14 @@ document.querySelector('#app-header').innerHTML = `
       <a href="/src/section">
         Section
       </a>
-      <a href="/src/video">
-        Video
+      <a href="/src/sidebar">
+        Sidebar
       </a>
       <a href="/src/sticky">
         Sticky
+      </a>
+      <a href="/src/video">
+        Video
       </a>
     </nav>
   </div>
