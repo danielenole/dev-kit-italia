@@ -1,10 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { CollapsibleOrHiddenContentGuidelines } from '@italia/globals';
 import { ACCORDION_MODES, type AccordionMode, type HeadingLevels } from '../src/types.js';
-import '@italia/accordion';
-import '@italia/button';
-import '@italia/icon';
 
 interface AccordionProps {
   mode?: AccordionMode;
@@ -62,7 +60,7 @@ const defaultItems: AccordionItemProps[] = [
 
 const meta: Meta<AccordionProps> = {
   title: 'Componenti/Accordion',
-  tags: ['autodocs', 'a11y-ok', 'web-component'],
+  tags: ['a11y-ok', 'web-component'],
   component: 'it-accordion',
   args: {
     mode: 'multiple',
@@ -111,6 +109,8 @@ const meta: Meta<AccordionProps> = {
 <Description>Costruisci accordion collassabili verticalmente.</Description>
 Per ottimizzare l'ingombro dei contenuti di una pagina a volte è necessario usare degli elementi richiudibili (in gergo definiti collassabili o collapse), che possono essere attivati indipendentemente l'uno dall'altro oppure in modo esclusivo con l'attivazione di solo un blocco alla volta (in gergo definiti fisarmoniche o accordion).
 
+Il componente Accordion è basato su [Collapse](?path=/docs/componenti-collapse--documentazione).
+
 <div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità</span></div>
 <p>
 L'accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 accordion pattern](https://www.w3.org/TR/wai-aria-practices-1.1/#accordion) per garantire piena accessibilità:\n
@@ -120,6 +120,30 @@ L'accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 acco
 • Heading semantici configurabili per una corretta struttura del documento\n
 • Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni di apertura/chiusura
 </p></div></div>
+
+### Differenza tra Collapse, Accordion e Tabs
+
+I componenti Accordion, Tabs e Collapse funzionano tutti nascondendo sezioni di contenuto che l’utente può scegliere di visualizzare. Evitare di usare questi componenti l’uno all’interno dell’altro.
+
+Se decidi di usare uno di questi componenti, considera quanto segue:
+
+- L’utente ha bisogno di visualizzare più di una sezione alla volta? L’accordion può mostrare più sezioni contemporaneamente, a differenza dei tabs.
+
+- L’utente deve passare rapidamente tra le sezioni? I tabs permettono di cambiare contenuto senza spostare le altre sezioni nella pagina, a differenza dell’accordion.
+
+- Ci sono molte sezioni di contenuto? L’accordion può contenere più sezioni perché sono disposte verticalmente, mentre i tabs sono disposti orizzontalmente.
+
+- Ci sono solo uno o due contenuti brevi e meno importanti? Il componente Collapse è più adatto perché visivamente più piccolo e meno prominente rispetto a un accordion o ai tabs.
+
+<br/>
+
+| Componente | Contenuti multipli | Visibilità | Esclusività | Uso tipico | Esempi |
+|----------|--------------------|-------------|--------------|-------------|---------|
+| **Collapse** | No | Singolo contenuto mostrato o nascosto | N/A | Mostrare o nascondere dettagli secondari | “Mostra dettagli”, “Visualizza termini” |
+| **Accordion** | Sì | Più sezioni espandibili | Solo una aperta alla volta *(consigliato)* | Raggruppare contenuti correlati in blocchi espandibili | FAQ, elenchi informativi |
+| **Tabs** | Sì | Una sezione visibile alla volta | Sempre esclusiva | Organizzare viste equivalenti o alternative | Schede di impostazioni, pannelli di dati |
+
+
 ### Gruppi di elementi richiudibili
 Gli elementi richiudibili sono molto spesso mostrati in gruppo, tipicamente usati per approfondire voci o argomenti mostrati nelle singole barre cliccabili.
 `,
@@ -130,6 +154,11 @@ Gli elementi richiudibili sono molto spesso mostrati in gruppo, tipicamente usat
 
 export default meta;
 type Story = StoryObj<AccordionProps>;
+
+export const Info: Story = {
+  ...CollapsibleOrHiddenContentGuidelines(),
+  tags: ['!dev'],
+};
 
 export const EsempioInterattivo: Story = {
   name: 'Esempio interattivo',
@@ -194,22 +223,6 @@ export const AccordionItem = {
     useMetaDecorator: false,
     docs: {
       source: { excludeDecorators: true },
-      description: {
-        story: `
-Il componente \`it-accordion-item\` rappresenta un singolo elemento accordion che deve essere utilizzato all'interno di un contenitore \`it-accordion\`.
-
-#### Proprietà
-
-- **\`as\`**: Il livello di heading (h2-h6) da utilizzare per l'header (opzionale, default: \`h2\`)
-- **\`default-open\`**: Se true, l'elemento viene mostrato espanso (opzionale, default: \`false\`)
-
-#### Contenuto
-
-L'intestazione dell'accordion item va inserita nello slot heading (intestazione dell'elemento).
-
-Il contenuto dell'accordion item va inserito nello slot content (contenuto dell'elemento).
-        `,
-      },
     },
   },
   render: (args: any) => html`
@@ -263,18 +276,6 @@ export const AccordionAnnidati: Story = {
   decorators: [(Story) => html`<div style="min-height:575px;display:flex;align-items:center">${Story()}</div>`],
   parameters: {
     useMetaDecorator: false,
-    docs: {
-      description: {
-        story: `
-Più gruppi di accordion possono essere annidati.
-
-<div class="callout callout-warning"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità e accordion annidati</span></div>
-<p>
-Utilizzare questo approccio solo quando strettamente necessario: dal punto di vista dell'accessibilità non si tratta di una soluzione ottimale.
-</p></div></div>
-        `,
-      },
-    },
   },
   render: () =>
     html` <it-accordion>
@@ -329,15 +330,7 @@ export const HeaderAttivi: Story = {
   argTypes: {
     backgroundActive: { table: { disable: true } },
   },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-Aggiungere la proprietà <code>background-active</code> a <code>it-accordion</code> per ottenere header con sfondo di colore primario quando questi sono attivi e il contenuto relativo è visibile.
-`,
-      },
-    },
-  },
+  parameters: {},
   render: () => html`
     <it-accordion background-active>
       <it-accordion-item default-open>
@@ -370,15 +363,7 @@ export const HoverDegliHeader: Story = {
   argTypes: {
     backgroundHover: { table: { disable: true } },
   },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-Aggiungere la proprietà <code>background-hover</code> a <code>it-accordion</code> per ottenere header con sfondo di colore primario all'hover.
-`,
-      },
-    },
-  },
+  parameters: {},
   render: () => html`
     <it-accordion background-hover>
       <it-accordion-item default-open>
@@ -419,57 +404,6 @@ export const IconaASinistra: Story = {
       table: { disable: true },
     },
   },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-Quando l'attributo \`left-icon\` è abilitato, si ottiene una variante in cui l’icona chevron che indica lo stato di apertura è sostituita da segni meno/più allineati a sinistra del titolo dell’header.
-`,
-      },
-    },
-  },
+  parameters: {},
   render: (args) => renderComponent(args, defaultItems),
 };
-
-// export const CollapseMultipleTriggers: Story = {
-//   name: 'Collapse multipli trigger',
-//   parameters: {
-//     docs: {
-//       description: {
-//         story: `
-// Tre esempi di \`it-collapse\` con tipi diversi di trigger:
-
-// - **it-button**
-// - **button** nativo
-// - **a[role="button"]** link attivabile come pulsante
-
-// Ciascuno gestisce animazione, aria-expanded e preferenze per reduced-motion.
-//         `,
-//       },
-//     },
-//   },
-//   render: () => html`
-//     <div style="display: flex; flex-direction: column; gap: 16px; max-width: 600px;">
-//       <it-collapse>
-//         <it-button slot="trigger">Trigger con it-button</it-button>
-//         <div slot="content" style="padding: 16px; border: 1px solid blue; margin-top: 1rem;">
-//           <p>Contenuto del collapse con it-button come trigger.</p>
-//         </div>
-//       </it-collapse>
-
-//       <it-collapse>
-//         <button slot="trigger">Trigger con button nativo</button>
-//         <div slot="content" style="padding: 16px; border: 1px solid blue; margin-top: 1rem;">
-//           <p>Contenuto del collapse con button nativo come trigger.</p>
-//         </div>
-//       </it-collapse>
-
-//       <it-collapse>
-//         <a slot="trigger" role="button" href="#href">Trigger con a[role="button"]</a>
-//         <div slot="content" style="padding: 16px; border: 1px solid blue; margin-top: 1rem;">
-//           <p>Contenuto del collapse con a[role="button"] come trigger.</p>
-//         </div>
-//       </it-collapse>
-//     </div>
-//   `,
-// };
