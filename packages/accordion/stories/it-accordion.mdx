@@ -58,7 +58,9 @@ Il contenuto dell'accordion item va inserito nello slot `content` (contenuto del
 ## Modalità Esclusiva
 Di default, più sezioni dell'accordion possono essere aperte contemporaneamente.
 
-In modalità `single`, solo una sezione dell'accordion può essere aperta alla volta. Quando si apre una nuova sezione, quella precedentemente aperta si chiude automaticamente.
+In modalità esclusiva, solo una sezione dell'accordion può essere aperta alla volta. Quando si apre una nuova sezione, quella precedentemente aperta si chiude automaticamente.
+
+Per abilitare la modalità esclusiva, assegna all'attributo `mode` il valore `single`.
 
 <Canvas of={AccordionStories.Single} />
 
