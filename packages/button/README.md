@@ -12,7 +12,7 @@ npm i @italia/button
 
 ```html
 <script type="module">
-  import '@italia/it-button';
+  import '@italia/button';
 </script>
 
 <it-button></it-button>
