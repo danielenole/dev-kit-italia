@@ -1,4 +1,4 @@
-import{x as e}from"./iframe-DTYTDCWB.js";import"./preload-helper-Dp1pzeXC.js";var m=Object.freeze,O=Object.defineProperty,U=(c,Z)=>m(O(c,"raw",{value:m(c.slice())})),u;const i={title:"Componenti/Form",tags:["autodocs","documentation"],parameters:{docs:{description:{component:`
+import{x as e}from"./iframe-C4eBJZ64.js";import"./preload-helper-Dp1pzeXC.js";var m=Object.freeze,O=Object.defineProperty,U=(c,Z)=>m(O(c,"raw",{value:m(c.slice())})),u;const i={title:"Componenti/Form",tags:["autodocs","documentation"],parameters:{docs:{description:{component:`
 Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del design-system](https://designers.italia.it/design-system/componenti/form/).
 `}}}},a={name:"Elementi e stili per la creazione di form accessibili e responsivi.",tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:"\nNella visualizzazione predefinita di un form gli elementi sono distribuiti verticalmente, ma è possibile utilizzare classi aggiuntive per variare questo tipo di layout.\n\nBootstrap Italia applica automaticamente a tutti i form `display: block` e `width: 100%`.\n"}}},render:()=>e`<div class="hide-preview"></div>`},t={...i,name:"Dimensionamento delle colonne",render:()=>e` <form>
       <div class="row">
@@ -51,7 +51,7 @@ Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del desi
         </div>
         <div class="row">
           <div class="col">
-            <it-button aria-disabled type="submit" id="submit" variant="primary">Pulsante disabilitato</it-button>
+            <it-button disabled type="submit" id="submit" variant="primary">Pulsante disabilitato</it-button>
           </div>
         </div>
       </fieldset>
@@ -315,7 +315,7 @@ if (fieldset.disabled) {
         </div>
         <div class="row">
           <div class="col">
-            <it-button aria-disabled type="submit" id="submit" variant="primary">Pulsante disabilitato</it-button>
+            <it-button disabled type="submit" id="submit" variant="primary">Pulsante disabilitato</it-button>
           </div>
         </div>
       </fieldset>

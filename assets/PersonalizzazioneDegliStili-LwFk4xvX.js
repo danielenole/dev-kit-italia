@@ -1,4 +1,4 @@
-import{j as e,M as l}from"./blocks-btoIEtmz.js";import{useMDXComponents as t}from"./index-BuEk0i4M.js";import"./preload-helper-Dp1pzeXC.js";import"./iframe-DTYTDCWB.js";function o(n){const i={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",p:"p",pre:"pre",...t(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{title:"Personalizzazione degli stili"}),`
+import{j as e,M as l}from"./blocks-3X6SjKkx.js";import{useMDXComponents as t}from"./index-Dm8FmUqS.js";import"./preload-helper-Dp1pzeXC.js";import"./iframe-C4eBJZ64.js";function o(n){const i={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",p:"p",pre:"pre",...t(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{title:"Personalizzazione degli stili"}),`
 `,e.jsx(i.h1,{id:"personalizzazione-degli-stili-dei-componenti",children:"Personalizzazione degli stili dei componenti"}),`
 `,e.jsx(i.p,{children:"Il componenti di dev-kit-italia utilizzano Shadow DOM per incapsulare internamente il contenuto HTML e proteggerne gli stili."}),`
 `,e.jsx(i.h2,{id:"selettore-part",children:"Selettore ::part"}),`

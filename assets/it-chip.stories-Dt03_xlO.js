@@ -1,4 +1,4 @@
-import{x as t,o as v,E}from"./iframe-DTYTDCWB.js";import"./preload-helper-Dp1pzeXC.js";const ti=["primary","secondary","success","danger","warning",""],ai=["sm","lg"],si={title:"Componenti/Chip",component:"it-chip",tags:["autodocs","a11y-ok","web-component"],args:{size:"sm",label:"Etichetta",href:void 0,variant:"primary",isDisabled:!1,avatar:"",avatarAlt:"Avatar",a11yDescription:"",dismissable:!1,withIcon:!1,withDismissButton:!1},argTypes:{size:{control:"select",description:"Dimensione del chip (`sm` o `lg`).",options:ai,table:{defaultValue:{summary:"sm"}}},label:{control:"text",description:"Testo mostrato all'interno della chip."},href:{control:"text",description:"Se valorizzato, la chip sarà un link (elemento `<a>`)."},variant:{control:"select",description:"Colore della chip, secondo le varianti di Bootstrap Italia.",options:ti},dismissable:{control:"boolean",description:"Indica che la chip può essere chiusa, ma non inserisce alcun pulsante automaticamente. Il pulsante deve essere inserito nello slot `dismiss-button` dall'utilizzatore, comprensivo di eventuale JavaScript per handling di eventi. Per un esempio completo con Javascript, vedi la story [Chip con chiusura](?path=/story/componenti-chip--chip-con-chiusura).",table:{defaultValue:{summary:"false"}}},isDisabled:{control:"boolean",description:"Disabilita la chip. Utile in contesti non interattivi o di sola lettura.",table:{defaultValue:{summary:"false"}}},avatar:{control:"text",description:"Percorso a un'immagine da mostrare come avatar, es. [randomuser.me](https://randomuser.me/api/portraits/men/46.jpg).",table:{defaultValue:{summary:"https://randomuser.me/api/portraits/men/46.jpg"}}},avatarAlt:{control:"text",description:"Testo alternativo per l'immagine dell'avatar, utile per l'accessibilità.",table:{defaultValue:{summary:"Alt avatar"}}},a11yDescription:{control:"text",description:`Testo descrittivo aggiuntivo per la chip, utile per l'accessibilità. Viene inserito come contenuto visivamente nascosto all'inizio della chip, ad esempio per specificare a che contenuto si fa riferimento, o assegnare una dicitur come "Argomento:".`,table:{defaultValue:{summary:""}}},withIcon:{control:"boolean",description:"Simula la presenza di un'icona nella chip. Non è una proprietà del componente, ma serve per mostrare composizioni nel playground interattivo."},withDismissButton:{control:"boolean",description:"Simula la presenza di un pulsante di rimozione nella chip. Non è una proprietà del componente, ma serve per mostrare composizioni nel playground interattivo."}},parameters:{docs:{description:{component:`
+import{x as t,o as v,E}from"./iframe-C4eBJZ64.js";import"./preload-helper-Dp1pzeXC.js";const ti=["primary","secondary","success","danger","warning",""],ai=["sm","lg"],si={title:"Componenti/Chip",component:"it-chip",tags:["autodocs","a11y-ok","web-component"],args:{size:"sm",label:"Etichetta",href:void 0,variant:"primary",isDisabled:!1,avatar:"",avatarAlt:"Avatar",a11yDescription:"",dismissable:!1,withIcon:!1,withDismissButton:!1},argTypes:{size:{control:"select",description:"Dimensione del chip (`sm` o `lg`).",options:ai,table:{defaultValue:{summary:"sm"}}},label:{control:"text",description:"Testo mostrato all'interno della chip."},href:{control:"text",description:"Se valorizzato, la chip sarà un link (elemento `<a>`)."},variant:{control:"select",description:"Colore della chip, secondo le varianti di Bootstrap Italia.",options:ti},dismissable:{control:"boolean",description:"Indica che la chip può essere chiusa, ma non inserisce alcun pulsante automaticamente. Il pulsante deve essere inserito nello slot `dismiss-button` dall'utilizzatore, comprensivo di eventuale JavaScript per handling di eventi. Per un esempio completo con Javascript, vedi la story [Chip con chiusura](?path=/story/componenti-chip--chip-con-chiusura).",table:{defaultValue:{summary:"false"}}},isDisabled:{control:"boolean",description:"Disabilita la chip. Utile in contesti non interattivi o di sola lettura.",table:{defaultValue:{summary:"false"}}},avatar:{control:"text",description:"Percorso a un'immagine da mostrare come avatar, es. [randomuser.me](https://randomuser.me/api/portraits/men/46.jpg).",table:{defaultValue:{summary:"https://randomuser.me/api/portraits/men/46.jpg"}}},avatarAlt:{control:"text",description:"Testo alternativo per l'immagine dell'avatar, utile per l'accessibilità.",table:{defaultValue:{summary:"Alt avatar"}}},a11yDescription:{control:"text",description:`Testo descrittivo aggiuntivo per la chip, utile per l'accessibilità. Viene inserito come contenuto visivamente nascosto all'inizio della chip, ad esempio per specificare a che contenuto si fa riferimento, o assegnare una dicitur come "Argomento:".`,table:{defaultValue:{summary:""}}},withIcon:{control:"boolean",description:"Simula la presenza di un'icona nella chip. Non è una proprietà del componente, ma serve per mostrare composizioni nel playground interattivo."},withDismissButton:{control:"boolean",description:"Simula la presenza di un pulsante di rimozione nella chip. Non è una proprietà del componente, ma serve per mostrare composizioni nel playground interattivo."}},parameters:{docs:{description:{component:`
 <Description>Elementi compatti che rappresentano un input, attributo o azione.</Description>
 Il componente \`<it-chip>\` si compone principalmente di una label testuale e, opzionalmente, di:
 
@@ -11,7 +11,7 @@ Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del desi
   <it-button
     slot="dismiss-button"
     it-aria-label="${i}"
-    it-aria-disabled="${e}"
+    ?disabled="${e}"
     it-aria-description="${b}"
     ?icon=${!0}
     @click=${a=>{if(e){a.preventDefault(),a.stopPropagation();return}const s=a.currentTarget.closest("it-chip");s&&s.remove()}}
@@ -104,12 +104,12 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
 <\/script>
 
 `,language:"html"}}}},d={name:"Chip disabilitata",args:{isDisabled:!0},parameters:{docs:{description:{story:"\nAggiungendo l'attributo `is-disabled` si ottiene una chip disabilitata.\n"}}},render:i=>t`
-    <it-chip label="Etichetta" size="sm" variant="${i.variant}" dismissable is-disabled>
+    <it-chip label="Etichetta" size="sm" variant="${i.variant}" dismissable ?is-disabled="${i.isDisabled}">
       <it-button
         slot="dismiss-button"
         icon
         it-aria-label="Elimina etichetta"
-        it-aria-disabled="true"
+        ?disabled="${i.isDisabled}"
         it-aria-description="Questa chip è disabilitata e non può essere rimossa."
       >
         <it-icon name="it-close" size="sm"></it-icon>
@@ -180,7 +180,7 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
         <it-icon slot="icon" name="it-star-full"></it-icon>
       </it-chip>
     </div>
-  `};var w,C,k;n.parameters={...n.parameters,docs:{...(w=n.parameters)==null?void 0:w.docs,source:{originalSource:`{
+  `};var w,C,D;n.parameters={...n.parameters,docs:{...(w=n.parameters)==null?void 0:w.docs,source:{originalSource:`{
   ...meta,
   name: 'Esempio interattivo',
   args: {
@@ -195,7 +195,7 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
     }
   },
   render: params => html\`\${renderComponent(params)}\`
-}`,...(k=(C=n.parameters)==null?void 0:C.docs)==null?void 0:k.source}}};var V,S,D;r.parameters={...r.parameters,docs:{...(V=r.parameters)==null?void 0:V.docs,source:{originalSource:`{
+}`,...(D=(C=n.parameters)==null?void 0:C.docs)==null?void 0:D.source}}};var k,V,$;r.parameters={...r.parameters,docs:{...(k=r.parameters)==null?void 0:k.docs,source:{originalSource:`{
   name: 'Personalizzazione degli stili',
   tags: ['!dev'],
   parameters: {
@@ -215,7 +215,7 @@ Per la personalizzazione degli stili si può usare il selettore \\\`::part\\\` p
     }
   },
   render: () => html\`<div class="hide-preview"></div>\`
-}`,...(D=(S=r.parameters)==null?void 0:S.docs)==null?void 0:D.source}}};var x,$,P;o.parameters={...o.parameters,docs:{...(x=o.parameters)==null?void 0:x.docs,source:{originalSource:`{
+}`,...($=(V=r.parameters)==null?void 0:V.docs)==null?void 0:$.source}}};var S,x,P;o.parameters={...o.parameters,docs:{...(S=o.parameters)==null?void 0:S.docs,source:{originalSource:`{
   name: 'Variante con link',
   args: {
     size: 'sm',
@@ -223,7 +223,7 @@ Per la personalizzazione degli stili si può usare il selettore \\\`::part\\\` p
     href: '#'
   },
   render: () => html\` <it-chip label="Etichetta" size="sm" variant="" href="#"></it-chip> \`
-}`,...(P=($=o.parameters)==null?void 0:$.docs)==null?void 0:P.source}}};var A,I,L;c.parameters={...c.parameters,docs:{...(A=c.parameters)==null?void 0:A.docs,source:{originalSource:`{
+}`,...(P=(x=o.parameters)==null?void 0:x.docs)==null?void 0:P.source}}};var A,I,L;c.parameters={...c.parameters,docs:{...(A=c.parameters)==null?void 0:A.docs,source:{originalSource:`{
   name: 'Varianti di colore',
   args: {
     label: 'Etichetta',
@@ -377,12 +377,12 @@ Aggiungendo l'attributo \\\`is-disabled\\\` si ottiene una chip disabilitata.
     }
   },
   render: args => html\`
-    <it-chip label="Etichetta" size="sm" variant="\${args.variant}" dismissable is-disabled>
+    <it-chip label="Etichetta" size="sm" variant="\${args.variant}" dismissable ?is-disabled="\${args.isDisabled}">
       <it-button
         slot="dismiss-button"
         icon
         it-aria-label="Elimina etichetta"
-        it-aria-disabled="true"
+        ?disabled="\${args.isDisabled}"
         it-aria-description="Questa chip è disabilitata e non può essere rimossa."
       >
         <it-icon name="it-close" size="sm"></it-icon>

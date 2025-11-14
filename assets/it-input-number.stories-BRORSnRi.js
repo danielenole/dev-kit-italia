@@ -1,4 +1,4 @@
-import{x as a,o as n}from"./iframe-DTYTDCWB.js";import{I as R}from"./types-krleEmxp.js";import"./preload-helper-Dp1pzeXC.js";const t=e=>a`<it-input
+import{x as a,o as n}from"./iframe-C4eBJZ64.js";import{I as R}from"./types-krleEmxp.js";import"./preload-helper-Dp1pzeXC.js";const t=e=>a`<it-input
     id="${n(e.id||void 0)}"
     type="number"
     name="${n(e.name||void 0)}"

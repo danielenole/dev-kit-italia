@@ -1,4 +1,4 @@
-import{j as n,M as l}from"./blocks-btoIEtmz.js";import{useMDXComponents as t}from"./index-BuEk0i4M.js";import"./preload-helper-Dp1pzeXC.js";import"./iframe-DTYTDCWB.js";function a(i){const e={code:"code",h1:"h1",h2:"h2",p:"p",pre:"pre",...t(),...i.components};return n.jsxs(n.Fragment,{children:[n.jsx(l,{title:"i18n - Internazionalizzazione"}),`
+import{j as n,M as l}from"./blocks-3X6SjKkx.js";import{useMDXComponents as t}from"./index-Dm8FmUqS.js";import"./preload-helper-Dp1pzeXC.js";import"./iframe-C4eBJZ64.js";function a(i){const e={code:"code",h1:"h1",h2:"h2",p:"p",pre:"pre",...t(),...i.components};return n.jsxs(n.Fragment,{children:[n.jsx(l,{title:"i18n - Internazionalizzazione"}),`
 `,n.jsx(e.h1,{id:"internazionalizzazione",children:"Internazionalizzazione"}),`
 `,n.jsxs(e.p,{children:["L'internazionalizzazione dei componenti si basa sul package indipendente @italia/i18n. L'unica lingua fornita di default è l'italiano.",n.jsx("br",{}),`
 Se vi è necessità di avere traduzioni in altre lingue, è compito dello sviluppatore implementarle.`]}),`

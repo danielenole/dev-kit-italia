@@ -1,4 +1,4 @@
-import{o as e,E as l,x as _}from"./iframe-DTYTDCWB.js";import"./preload-helper-Dp1pzeXC.js";function T({stackable:r,paddingTop:w,stickyClassName:M,positionType:I}){return _`
+import{o as e,E as l,x as _}from"./iframe-C4eBJZ64.js";import"./preload-helper-Dp1pzeXC.js";function T({stackable:r,paddingTop:w,stickyClassName:M,positionType:I}){return _`
     <it-sticky
       ?stackable=${e(r)}
       padding-top=${e(w||l)}

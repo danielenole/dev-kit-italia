@@ -1,4 +1,4 @@
-import{x as E,L as C,i as w,r as M,a as v,e as I,n as h}from"./iframe-DTYTDCWB.js";const R=({otherProps:s="",otherMethods:t="",otherEvents:i="",componentName:e="it-input"})=>({name:"Proprietà, Metodi, ed Eventi accessibili via js",tags:["!dev"],render:()=>E`<div class="hide-preview"></div>`,parameters:{viewMode:"docs",docs:{description:{story:`Il componente espone delle proprietà, dei metodi e degli eventi, utili per eventuali interazioni via js.
+import{x as E,L as C,i as w,r as M,a as v,e as I,n as h}from"./iframe-C4eBJZ64.js";const R=({otherProps:s="",otherMethods:t="",otherEvents:i="",componentName:e="it-input"})=>({name:"Proprietà, Metodi, ed Eventi accessibili via js",tags:["!dev"],render:()=>E`<div class="hide-preview"></div>`,parameters:{viewMode:"docs",docs:{description:{story:`Il componente espone delle proprietà, dei metodi e degli eventi, utili per eventuali interazioni via js.
 
 \`\`\`html
 <${e} ... id="myinput"></${e}>

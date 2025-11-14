@@ -1,4 +1,4 @@
-import{j as n,M as a}from"./blocks-btoIEtmz.js";import{useMDXComponents as s}from"./index-BuEk0i4M.js";import"./preload-helper-Dp1pzeXC.js";import"./iframe-DTYTDCWB.js";function i(t){const e={code:"code",h1:"h1",h2:"h2",p:"p",pre:"pre",...s(),...t.components};return n.jsxs(n.Fragment,{children:[n.jsx(a,{title:"Framework/React"}),`
+import{j as n,M as a}from"./blocks-3X6SjKkx.js";import{useMDXComponents as s}from"./index-Dm8FmUqS.js";import"./preload-helper-Dp1pzeXC.js";import"./iframe-C4eBJZ64.js";function i(t){const e={code:"code",h1:"h1",h2:"h2",p:"p",pre:"pre",...s(),...t.components};return n.jsxs(n.Fragment,{children:[n.jsx(a,{title:"Framework/React"}),`
 `,n.jsx(e.h1,{id:"react",children:"React"}),`
 `,n.jsx("div",{class:"callout callout-warning",children:n.jsxs("div",{class:"callout-inner",children:[n.jsx("div",{class:"callout-title",children:n.jsx("span",{class:"text",children:"Attenzione"})}),n.jsx("p",{children:n.jsxs(e.p,{children:[`Per il funzionamento corretto dei web components in React, è necessario avere una versione
 `,n.jsx("strong",{children:"React >= 19.0.0"}),"."]})})]})}),`

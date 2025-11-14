@@ -1,4 +1,4 @@
-import{x as a,o as t}from"./iframe-DTYTDCWB.js";import{S as q}from"./form-control-CcDGXaU2.js";import"./preload-helper-Dp1pzeXC.js";const o=e=>{var i,u;return a`<it-checkbox
+import{x as a,o as t}from"./iframe-C4eBJZ64.js";import{S as q}from"./form-control-DQ_lH2-M.js";import"./preload-helper-Dp1pzeXC.js";const o=e=>{var i,u;return a`<it-checkbox
     id="${t(e.id||void 0)}"
     name="${t(e.name||void 0)}"
     value="${t(((i=e.value)==null?void 0:i.length)>0?e.value:void 0)}"

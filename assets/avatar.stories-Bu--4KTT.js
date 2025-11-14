@@ -1,4 +1,4 @@
-import{o as i,E as s,x as a}from"./iframe-DTYTDCWB.js";import"./preload-helper-Dp1pzeXC.js";const oe=["xs","sm","md","lg","xl","xxl"],le=["primary","secondary"],pe=["image","text","icon"],ce=["active","busy","hidden"],de=["approved","declined","notify"],e=t=>a`
+import{o as i,E as s,x as a}from"./iframe-C4eBJZ64.js";import"./preload-helper-Dp1pzeXC.js";const oe=["xs","sm","md","lg","xl","xxl"],le=["primary","secondary"],pe=["image","text","icon"],ce=["active","busy","hidden"],de=["approved","declined","notify"],e=t=>a`
   <it-avatar
     type="${i(t.type||s)}"
     size="${i(t.size||s)}"

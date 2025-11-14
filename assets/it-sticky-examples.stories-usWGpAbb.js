@@ -1,4 +1,4 @@
-import{x as e}from"./iframe-DTYTDCWB.js";import"./preload-helper-Dp1pzeXC.js";const R={title:"Esempi/Sticky",tags:["!autodocs","!dev"],decorators:[(c,t)=>e`
+import{x as e}from"./iframe-C4eBJZ64.js";import"./preload-helper-Dp1pzeXC.js";const R={title:"Esempi/Sticky",tags:["!autodocs","!dev"],decorators:[(c,t)=>e`
       <div>
         ${t.parameters.heading?e`<h1 style="margin:0 0 2rem 0">${t.parameters.heading}</h1>`:""}
         ${t.parameters.description?e`<p style="margin:0 0 2rem 0">${t.parameters.description}</p>`:""}
