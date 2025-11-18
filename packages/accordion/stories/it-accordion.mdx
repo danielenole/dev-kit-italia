@@ -21,12 +21,31 @@ Il componente Accordion è basato su [Collapse](?path=/docs/componenti-collapse-
 
 
 
+## Anteprima e attributi del componente
 
-## Anteprima del componente
+Modifica gli attributi nella tabella per personalizzare in tempo reale l'aspetto e il comportamento del componente. Per vedere come cambia il codice, clicca su **Show code**.
+
 <Canvas of={AccordionStories.EsempioInterattivo} />
 
-Questi attributi definiscono l’aspetto, il comportamento e il contenuto del componente. Puoi modificare questi valori per personalizzare il componente. L’anteprima e il codice si aggiornano in tempo reale, così puoi vedere subito il risultato delle tue modifiche.
+
 <Controls of={AccordionStories.EsempioInterattivo} />
+
+## Informazioni generali
+Il componente Accordion è composto da due elementi:
+
+- `it-accordion`: contenitore che raggruppa più elementi collassabili
+- `it-accordion-item`: singolo elemento collassabile all'interno dell'accordion
+
+Ogni `it-accordion-item` utilizza due slot distinti per definire intestazione e contenuto:
+
+- `slot="heading"`: **obbligatorio**, il testo da mostrare nell'header dell'elemento.
+- `slot="content"`: **obbligatorio**, il contenuto da mostrare o nascondere.
+
+Modifica gli attributi nella tabella per personalizzare in tempo reale l'aspetto e il comportamento del componente `it-accordion-item`. Per vedere come cambia il codice, clicca su **Show code**.
+
+<Canvas of={AccordionStories.AccordionItem} />
+
+<Controls of={AccordionStories.AccordionItem} />
 
 ## Accessibilità
 L'accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) per garantire un'esperienza accessibile a tutti gli utenti:
@@ -36,23 +55,7 @@ L'accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 acco
 - Heading semantici configurabili per una corretta struttura del documento
 - Rispetto delle preferenze di riduzione del movimento definite dall'utente per le animazioni di apertura/chiusura
 
-## Elemento singolo
-Il componente `it-accordion-item` rappresenta un singolo elemento accordion che deve essere utilizzato all'interno di un contenitore `it-accordion`.
-
-### Attributi
-
-- **`as`**: Il livello di heading (h2-h6) da utilizzare per l'header (opzionale, default: `h2`)
-- **`default-open`**: Se true, l'elemento viene mostrato espanso (opzionale, default: `false`)
-
-### Contenuto
-
-L'intestazione dell'accordion item va inserita nello slot `heading` (intestazione dell'elemento).
-
-Il contenuto dell'accordion item va inserito nello slot `content` (contenuto dell'elemento).
-
-<Canvas of={AccordionStories.AccordionItem} />
-
-## Modalità Esclusiva
+## Modalità esclusiva
 Di default, più sezioni dell'accordion possono essere aperte contemporaneamente.
 
 In modalità esclusiva, solo una sezione dell'accordion può essere aperta alla volta. Quando si apre una nuova sezione, quella precedentemente aperta si chiude automaticamente.
@@ -60,6 +63,31 @@ In modalità esclusiva, solo una sezione dell'accordion può essere aperta alla 
 Per abilitare la modalità esclusiva, assegna all'attributo `mode` il valore `single`.
 
 <Canvas of={AccordionStories.Single} />
+
+
+## Sfondo degli elementi attivi
+
+Gli elementi dell'accordion possono mostrare uno sfondo primario quando la sezione corrispondente è attiva (aperta).
+
+Per applicare lo sfondo primario agli elementi attivi, imposta l'attributo `background-active` sull'elemento `it-accordion`.
+
+<Canvas of={AccordionStories.HeaderAttivi} />
+
+## Sfondo all'hover degli elementi
+
+Gli elementi dell'accordion possono mostrare uno sfondo primario al passaggio del mouse.
+
+Per applicare lo sfondo primario agli elementi al passaggio del mouse, imposta l'attributo `background-hover` sull'elemento `it-accordion`.
+
+<Canvas of={AccordionStories.HoverDegliHeader} />
+
+## Icona a sinistra
+
+L'icona di espansione/collasso può essere posizionata a sinistra del testo dell'header.
+
+Per mostrare le icone plus/minus a sinistra invece della freccia a destra, imposta l'attributo `left-icon` sull'elemento `it-accordion`.
+
+<Canvas of={AccordionStories.IconaASinistra} />
 
 ## Accordion annidati
 
@@ -75,30 +103,6 @@ Utilizzare questo approccio solo quando strettamente necessario: dal punto di vi
 </div>
 </div>
 <Canvas of={AccordionStories.AccordionAnnidati} />
-
-## Header attivi
-
-Gli header possono avere uno stile diverso quando la sezione corrispondente è attiva (aperta).
-
-Per applicare lo sfondo primario agli header attivi, imposta l'attributo `background-active` sull'elemento `it-accordion`.
-
-<Canvas of={AccordionStories.HeaderAttivi} />
-
-## Hover degli header
-
-Gli header possono avere effetti hover per migliorare l'interazione utente.
-
-Per applicare sfondo primario agli header al passaggio del mouse, imposta l'attributo `background-hover` sull'elemento `it-accordion`.
-
-<Canvas of={AccordionStories.HoverDegliHeader} />
-
-## Icona a sinistra
-
-L'icona di espansione/collasso può essere posizionata a sinistra del testo dell'header.
-
-Per mostrare le icone plus/minus a sinistra invece della freccia a destra, imposta l'attributo `left-icon` sull'elemento `it-accordion`.
-
-<Canvas of={AccordionStories.IconaASinistra} />
 
 ## Personalizzazione degli stili
 
