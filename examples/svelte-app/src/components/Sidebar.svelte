@@ -6,7 +6,7 @@
           <h3>Menu di navigazione</h3>
         </li>
         <li>
-          <a class="list-item medium active left-icon" href="#">
+          <a class="list-item medium active left-icon" aria-current="page" href="#">
             <it-icon name="it-calendar" color="primary" size="sm" class="left"></it-icon>
             <span>Pagina attiva</span>
           </a>
@@ -18,21 +18,24 @@
           </a>
         </li>
         <li>
-          <a class="list-item medium left-icon" href="#">
-            <it-icon name="it-camera" color="primary" size="sm" class="left"></it-icon>
-            <span>Sezione 2</span>
-          </a>
-          <ul class="link-sublist">
-            <li>
-              <a class="list-item" href="#"><span>Sottosezione 2.1</span></a>
-            </li>
-            <li>
-              <a class="list-item" href="#"><span>Sottosezione 2.2</span></a>
-            </li>
-            <li>
-              <a class="list-item" href="#"><span>Sottosezione 2.3</span></a>
-            </li>
-          </ul>
+          <it-collapse as="a" variant="none" size="sm">
+            <span slot="label" class="list-item-title-icon-wrapper">
+              <it-icon name="it-camera" color="primary" size="sm"></it-icon>
+              Sezione 2
+              <it-icon name="it-expand" color="primary" size="sm"></it-icon>
+            </span>
+            <ul class="link-sublist" slot="content">
+              <li>
+                <a class="list-item" href="#"><span>Sottosezione 2.1</span></a>
+              </li>
+              <li>
+                <a class="list-item" href="#"><span>Sottosezione 2.2</span></a>
+              </li>
+              <li>
+                <a class="list-item" href="#"><span>Sottosezione 2.3</span></a>
+              </li>
+            </ul>
+          </it-collapse>
         </li>
         <li>
           <a class="list-item medium left-icon" href="#">

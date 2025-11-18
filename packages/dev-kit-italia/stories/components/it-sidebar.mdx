@@ -13,32 +13,19 @@ Utilizza il componente Sidebar per navigare tra le pagine che appartengono a una
 
 [Approfondisci quando e come usare il componente Sidebar](https://designers.italia.it/design-system/componenti/sidebar/).
 
-## Come usarlo
-
-La Sidebar utilizza il componente [List](/docs/componenti-list--documentazione) per la visualizzazione dei menu di navigazione.
-
-La struttura base è composta da:
-- Un wrapper esterno con classe `.sidebar-wrapper`
-- Uno o più contenitori `.sidebar-linklist-wrapper` per le liste di link
-- All'interno di ogni contenitore, una `.link-list-wrapper` con relativo `<ul class="link-list">`
-
-### Indicare la pagina corrente
-
-Utilizza la classe `.active` sul link per indicare la pagina attualmente visualizzata.
-
-### Liste primarie e secondarie
-
-Per differenziare a livello stilistico i link secondari, aggiungi la classe `.linklist-secondary` all'elemento `<div class="sidebar-linklist-wrapper">` contenente la lista di link secondaria.
-
-### Linee separatrici
-
-Per aggiungere una linea separatrice:
-- A destra: aggiungi la classe `.it-line-right-side` al wrapper `.sidebar-wrapper`
-- A sinistra: aggiungi la classe `.it-line-left-side` al wrapper `.sidebar-wrapper`
-
-## Anteprima
+## Anteprima del componente
 
 <Canvas of={SidebarStories.SidebarSemplice} />
+
+
+## Accessibilità
+
+- Indica sempre **visivamente** la pagina corrente utilizzando la classe `.active` sul link corrispondente
+- Indica sempre **alle tecnologie assistive** la pagina corrente utilizzando l'attributo `aria-current="page"` sul link corrispondente
+- Usa l'attributo `aria-disabled="true"` per i link disabilitati per garantire il corretto supporto alle tecnologie assistive
+- Per le liste collassabili, il componente `it-collapse` gestisce automaticamente gli attributi ARIA necessari (`aria-expanded`, `aria-controls`, `role`) per garantire l'accessibilità
+
+
 
 ## Sidebar con icone
 
@@ -62,45 +49,26 @@ Per creare una sidebar con linea separatrice a sinistra è sufficiente aggiunger
 
 La Sidebar può contenere una lista di link primaria annidata utilizzando la classe `.link-sublist` per le sotto-liste espanse.
 
-<Canvas of={SidebarStories.SidebarAnnidata} />
-
-### Liste collassabili
-
-Per rendere collassabili le sottosezioni della sidebar, utilizza il componente [`it-collapse`](/docs/componenti-accordion--documentazione#it-collapse) integrato nelle liste di navigazione.
+Per rendere collassabili le sottosezioni della sidebar, utilizza il componente `it-collapse` integrato nelle liste di navigazione.
 
 Il componente `it-collapse` permette di espandere e comprimere le sottosezioni in modo interattivo, migliorando l'esperienza di navigazione su sidebar con molte voci.
 
-Consulta la documentazione del [componente Accordion](/docs/componenti-accordion--documentazione) per maggiori dettagli sull'uso di `it-collapse` e le sue opzioni di configurazione.
+Consulta la documentazione del [componente Collapse](/docs/componenti-collapse--documentazione) per maggiori dettagli sull'uso di `it-collapse`.
+
+<Canvas of={SidebarStories.SidebarAnnidata} />
+
 
 ## Sidebar tema scuro
 
-Per cambiare il tema della sidebar e renderla scura è sufficiente aggiungere al div `.sidebar-wrapper` la classe `.theme-dark`.
-
+<div class="callout callout-warning">
+<div class="callout-inner">
+<div class="callout-title">
+<span class="text">Accessibilità e contrasto insufficiente</span>
+</div>
+<p>
+Questa sezione richiede ulteriori miglioramenti a livello di stili Bootstrap Italia per garantire un contrasto adeguato e un'esperienza utente ottimale.
+</p>
+</div>
+</div>
+Per cambiare il tema della sidebar e renderla scura aggiungi al div `<div class="sidebar-wrapper">` la classe `.theme-dark`.
 <Canvas of={SidebarStories.SidebarTemaScuro} />
-
-## Accessibilità
-
-- Indica sempre la pagina corrente utilizzando lo stato `.active`
-- Usa l'attributo `aria-disabled="true"` per i link disabilitati
-- Aggiungi l'attributo `label` alle icone per fornire informazioni agli screen reader
-- Per le liste collassabili, il componente `it-collapse` gestisce automaticamente gli attributi ARIA necessari (`aria-expanded`, `aria-controls`) per garantire l'accessibilità
-
-## Buone pratiche
-
-- Le singole voci della sidebar devono essere brevi e descrittive dei contenuti su pagina
-- Usa un titolo prima della lista di link per dare un contesto alla presenza della sidebar
-- Posiziona la Sidebar sul lato sinistro della viewport su dispositivi desktop
-- Su desktop aggiungi una linea divisoria verticale tra la Sidebar e i contenuti di pagina
-- Valuta di usare anche un colore di sfondo diverso per delineare la separazione tra le due sezioni
-
-### Quando usarlo
-
-- Per navigare tra le pagine che appartengono a una sezione di un sito
-- Per menu di secondo o terzo livello
-- In caso di siti di documentazione (da valutare caso per caso)
-
-### Quando non usarlo
-
-- Non usare il componente per la navigazione principale (menu di primo livello) del sito
-- Per poche pagine o contenuti, considera l'uso di [Tabs](https://designers.italia.it/design-system/componenti/tabs)
-- Per navigazione veloce all'interno della stessa pagina, usa [Navscroll](https://designers.italia.it/design-system/componenti/navscroll)
