@@ -7,9 +7,9 @@ import * as AccordionStories from './it-accordion.stories';
 
 <description>Sezione di contenuti espandibile e richiudibile per ottimizzare spazio su pagina e creare collegamenti con contenuti correlati.</description>
 
-Il componente accordion permette di espandere e collassare delle sezioni con contenuti molto lunghi e non principali. L’intestazione delle sezioni dà una panoramica dei contenuti e permette all’utente di scegliere quali leggere.
+Il componente Accordion permette di espandere e collassare delle sezioni con contenuti molto lunghi e non di principale rilievo per la pagina, raggruppandole in una unica interfaccia. L’intestazione delle sezioni dà una panoramica dei contenuti e permette all’utente di scegliere quali leggere.
 
-Il componente Accordion è basato su [Collapse](?path=/docs/componenti-collapse--documentazione) e permette di raggruppare più elementi collassabili in un'unica interfaccia.
+Il componente Accordion è basato su [Collapse](?path=/docs/componenti-collapse--documentazione).
 
 [Approfondisci quando e come usare il componente Accordion](https://designers.italia.it/design-system/componenti/accordion/).
 
@@ -36,6 +36,9 @@ Il componente Accordion è composto da due elementi:
 - `it-accordion`: contenitore che raggruppa più elementi collassabili
 - `it-accordion-item`: singolo elemento collassabile all'interno dell'accordion
 
+## Accordion item
+E' il singolo elemnto collassabile all'interno dell'accordion .
+
 Ogni `it-accordion-item` utilizza due slot distinti per definire intestazione e contenuto:
 
 - `slot="heading"`: **obbligatorio**, il testo da mostrare nell'header dell'elemento.
@@ -48,7 +51,7 @@ Modifica gli attributi nella tabella per personalizzare in tempo reale l'aspetto
 <Controls of={AccordionStories.AccordionItem} />
 
 ## Accessibilità
-L'accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) per garantire un'esperienza accessibile a tutti gli utenti:
+L'Accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) per garantire un'esperienza accessibile a tutti gli utenti:
 - Navigazione da tastiera con tasti freccia per spostarsi tra gli elementi
 - Supporto per `Space` e `Enter` per attivare/disattivare elementi
 - Attributi ARIA appropriati per comunicare lo stato agli screen reader
@@ -58,7 +61,7 @@ L'accordion implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 acco
 ## Modalità esclusiva
 Di default, più sezioni dell'accordion possono essere aperte contemporaneamente.
 
-In modalità esclusiva, solo una sezione dell'accordion può essere aperta alla volta. Quando si apre una nuova sezione, quella precedentemente aperta si chiude automaticamente.
+In modalità esclusiva, solo una sezione alla volta dell'accordion può essere aperta. Quando si espande una nuova sezione, quella precedentemente aperta si chiude automaticamente.
 
 Per abilitare la modalità esclusiva, assegna all'attributo `mode` il valore `single`.
 
@@ -85,7 +88,8 @@ Per applicare lo sfondo primario agli elementi al passaggio del mouse, imposta l
 
 L'icona di espansione/collasso può essere posizionata a sinistra del testo dell'header.
 
-Per mostrare le icone plus/minus a sinistra invece della freccia a destra, imposta l'attributo `left-icon` sull'elemento `it-accordion`.
+Nel caso in cui venga usato l'attributo `left-icon`, le icone sulla sinistra saranno `+` per espandere l'elemento e `-` per collassarlo. 
+Nel default invece (quando le icone sono sulla destra), verranno mostrate le icone di `freccia giu` per espandere l'elemento e `freccia su` per collassarlo.
 
 <Canvas of={AccordionStories.IconaASinistra} />
 
@@ -98,7 +102,7 @@ Per mostrare le icone plus/minus a sinistra invece della freccia a destra, impos
 <span class="text">Accessibilità e accordion annidati</span>
 </div>
 <p>
-Utilizzare questo approccio solo quando strettamente necessario: dal punto di vista dell'accessibilità non si tratta di una soluzione ottimale.
+Utilizza questo approccio solo quando strettamente necessario: dal punto di vista dell'accessibilità non si tratta di una soluzione ottimale.
 </p>
 </div>
 </div>
@@ -106,7 +110,7 @@ Utilizzare questo approccio solo quando strettamente necessario: dal punto di vi
 
 ## Personalizzazione degli stili
 
-Per la personalizzazione degli stili si possono usare i selettori `::part`:
+Per la personalizzazione degli stili puoi usare i seguenti selettori `::part` dedicati:
 
 - `::part(trigger)` - elemento trigger di ogni sezione
 - `::part(content)` - elemento contenitore del corpo di ogni sezione
