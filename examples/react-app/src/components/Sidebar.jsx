@@ -1,77 +1,80 @@
 export function Sidebar() {
   return (
-    <div className="sidebar-wrapper it-line-right-side">
+    <aside className="sidebar-wrapper" aria-labelledby="header">
+      <h3 id="header">Header</h3>
       <div className="sidebar-linklist-wrapper">
-        <div className="link-list-wrapper">
+        <nav aria-label="Navigazione laterale principale" className="link-list-wrapper">
           <ul className="link-list">
             <li>
-              <h3>Menu di navigazione</h3>
-            </li>
-            <li>
-              <a className="list-item medium active left-icon" aria-current="page" href="#">
-                <it-icon name="it-calendar" color="primary" size="sm" className="left"></it-icon>
-                <span>Pagina attiva</span>
+              <a className="list-item medium active" aria-current="page" href="#">
+                <span>Link lista 1 (attivo)</span>
               </a>
             </li>
             <li>
-              <a className="list-item medium left-icon" href="#">
-                <it-icon name="it-comment" color="primary" size="sm" className="left"></it-icon>
-                <span>Sezione 1</span>
+              <a className="list-item medium disabled" href="#" aria-disabled="true">
+                <span>Link lista 2 (disabilitato)</span>
               </a>
             </li>
             <li>
-              <it-collapse as="a" variant="none" size="sm">
-                <span slot="label" className="list-item-title-icon-wrapper">
-                  <it-icon name="it-camera" color="primary" size="sm"></it-icon>
-                  Sezione 2
-                  <it-icon name="it-expand" color="primary" size="sm"></it-icon>
-                </span>
-                <ul className="link-sublist" slot="content">
-                  <li>
-                    <a className="list-item" href="#">
-                      <span>Sottosezione 2.1</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="list-item" href="#">
-                      <span>Sottosezione 2.2</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="list-item" href="#">
-                      <span>Sottosezione 2.3</span>
-                    </a>
-                  </li>
-                </ul>
-              </it-collapse>
+              <a className="list-item medium" href="#">
+                <span>Link lista 3</span>
+              </a>
             </li>
             <li>
-              <a className="list-item medium left-icon" href="#">
-                <it-icon name="it-file" color="primary" size="sm" className="left"></it-icon>
-                <span>Sezione 3</span>
+              <a className="list-item medium" href="#">
+                <span>Link lista 4</span>
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
       <div className="sidebar-linklist-wrapper linklist-secondary">
-        <div className="link-list-wrapper">
+        <nav aria-label="Navigazione laterale secondaria" className="link-list-wrapper">
           <ul className="link-list">
             <li>
-              <a className="list-item medium left-icon" href="#">
-                <it-icon name="it-settings" color="primary" size="sm" className="left"></it-icon>
-                <span>Impostazioni</span>
+              <a className="list-item" href="#">
+                <span>Link secondario 1</span>
               </a>
             </li>
             <li>
-              <a className="list-item medium left-icon" href="#">
-                <it-icon name="it-help-circle" color="primary" size="sm" className="left"></it-icon>
-                <span>Aiuto</span>
+              <a className="list-item active" aria-current="page" href="#">
+                <span>Link secondario 2 (attivo)</span>
+              </a>
+            </li>
+            <li>
+              <a className="list-item disabled" href="#" aria-disabled="true">
+                <span>Link secondario 3 (disabilitato)</span>
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
-    </div>
+    </aside>
   );
 }
+  useEffect(() => {
+    const sidebar = document.querySelector('.sidebar-wrapper');
+    if (!sidebar) return;
+    sidebar.querySelectorAll('[aria-disabled="true"]').forEach((el) => {
+      // Per i click del mouse
+      el.addEventListener('click', (event) => {
+        console.log('Link disabilitato cliccato');
+        event.preventDefault();
+        event.stopPropagation();
+      });
+      // Per gli utenti da tastiera
+      el.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          console.log('Link disabilitato attivato da tastiera');
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      });
+    });
+    // Cleanup listeners on unmount
+    return () => {
+      sidebar.querySelectorAll('[aria-disabled="true"]').forEach((el) => {
+        el.replaceWith(el.cloneNode(true));
+      });
+    };
+  }, []);

@@ -21,7 +21,7 @@ const renderComponent = (params: Partial<CollapseProps & { slot?: any }>) => htm
     ?expanded="${ifDefined(params.expanded)}"
     ?default-open="${params.defaultOpen}"
     variant="${ifDefined(params.variant)}"
-    size="${ifDefined(params.size)}"
+    size="${ifDefined(params.size || undefined)}"
     ?outline="${ifDefined(params.outline)}"
     as="${ifDefined(params.as)}"
   >
@@ -55,12 +55,14 @@ const meta: Meta<CollapseProps> = {
       control: 'select',
       description: 'Variante di stile del trigger, basata sulle varianti Bootstrap Italia dei pulsanti.',
       options: BUTTON_VARIANTS,
+      type: 'string',
       table: { defaultValue: { summary: 'primary' } },
     },
     size: {
       control: 'select',
       description: 'Dimensione del trigger, basata sulle dimensioni Bootstrap Italia dei pulsanti.',
       options: BUTTON_SIZES,
+      type: 'string',
       table: { defaultValue: { summary: undefined } },
     },
     outline: {
@@ -96,7 +98,7 @@ export const EsempioInterattivo: Story = {
   parameters: {
     docs: {
       canvas: {
-        sourceState: 'shown',
+        sourceState: 'hidden',
       },
     },
   },
@@ -158,7 +160,7 @@ export const TriggerClassi: Story = {
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:1rem;">
         ${renderComponent({ label: 'Pulsante xs', size: 'xs', variant: 'primary', as: 'button' })}
-        ${renderComponent({ label: 'Pulsante sm', size: 'sm', variant: 'primary', as: 'button' })}
+        ${renderComponent({ label: 'Pulsante default', size: '', variant: 'primary', as: 'button' })}
         ${renderComponent({ label: 'Pulsante lg', size: 'lg', variant: 'primary', as: 'button' })}
       </div>
     </div>
@@ -177,13 +179,13 @@ export const Aperto: Story = {
   render: () => html`
     <div>
       ${renderComponent({
-        label: 'Apri sezione (button)',
+        label: 'Apri sezione (espansa di default)',
         defaultOpen: true,
         as: 'button',
       })}
       ${renderComponent({
-        label: 'Apri sezione (a)',
-        as: 'a',
+        label: 'Apri sezione',
+        as: 'button',
       })}
     </div>
   `,

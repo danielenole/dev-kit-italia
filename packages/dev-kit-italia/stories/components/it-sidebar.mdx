@@ -5,7 +5,7 @@ import * as SidebarStories from './it-sidebar.stories';
 
 <Title />
 
-<p class="lead">Barra di navigazione laterale che include liste di link diretti o annidati.</p>
+<description>Barra di navigazione laterale che include liste di link diretti o annidati.</description>
 
 ## Cosa fa
 
@@ -13,7 +13,10 @@ Utilizza il componente Sidebar per navigare tra le pagine che appartengono a una
 
 [Approfondisci quando e come usare il componente Sidebar](https://designers.italia.it/design-system/componenti/sidebar/).
 
-## Anteprima del componente
+## Anteprima e attributi del componente
+Questo componente non possiede attributi, ma si basa su una struttura HTML predefinita. Per vedere l'anteprima del codice, clicca su **Show code**.
+
+
 
 <Canvas of={SidebarStories.SidebarSemplice} />
 
@@ -24,7 +27,7 @@ Utilizza il componente Sidebar per navigare tra le pagine che appartengono a una
 - Indica sempre **alle tecnologie assistive** la pagina corrente utilizzando l'attributo `aria-current="page"` sul link corrispondente
 - Usa l'attributo `aria-disabled="true"` per i link disabilitati per garantire il corretto supporto alle tecnologie assistive
 - Per le liste collassabili, il componente `it-collapse` gestisce automaticamente gli attributi ARIA necessari (`aria-expanded`, `aria-controls`, `role`) per garantire l'accessibilità
-
+- Disabilita via JavaScript la navigazione dei link/collapse disabilitati per evitare comportamenti inattesi: le diverse varianti forniscono un'implementazione di esempio.
 
 
 ## Sidebar con icone
@@ -35,13 +38,13 @@ La Sidebar può contenere icone nella sua lista di link, utilizzando il componen
 
 ## Sidebar con linea a destra
 
-Per creare una sidebar con linea separatrice a destra è sufficiente aggiungere la classe `.it-line-right-side` al wrapper più esterno.
+Per creare una sidebar con linea separatrice a destra è aggiungi a a `<aside class="sidebar-wrapper">` la classe `.it-line-right-side`.
 
 <Canvas of={SidebarStories.SidebarLineaDestra} />
 
 ## Sidebar con linea a sinistra
 
-Per creare una sidebar con linea separatrice a sinistra è sufficiente aggiungere la classe `.it-line-left-side` al wrapper più esterno.
+Per creare una sidebar con linea separatrice a sinistra è aggiungi a a `<aside class="sidebar-wrapper">` la classe `.it-line-left-side`.
 
 <Canvas of={SidebarStories.SidebarLineaSinistra} />
 
@@ -60,15 +63,5 @@ Consulta la documentazione del [componente Collapse](/docs/componenti-collapse--
 
 ## Sidebar tema scuro
 
-<div class="callout callout-warning">
-<div class="callout-inner">
-<div class="callout-title">
-<span class="text">Accessibilità e contrasto insufficiente</span>
-</div>
-<p>
-Questa sezione richiede ulteriori miglioramenti a livello di stili Bootstrap Italia per garantire un contrasto adeguato e un'esperienza utente ottimale.
-</p>
-</div>
-</div>
-Per cambiare il tema della sidebar e renderla scura aggiungi al div `<div class="sidebar-wrapper">` la classe `.theme-dark`.
+Per cambiare il tema della sidebar e renderla scura aggiungi a `<aside class="sidebar-wrapper">` la classe `.theme-dark`.
 <Canvas of={SidebarStories.SidebarTemaScuro} />

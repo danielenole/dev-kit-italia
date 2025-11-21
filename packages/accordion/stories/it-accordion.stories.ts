@@ -41,18 +41,18 @@ const renderComponent = (params: AccordionProps, items: AccordionItemProps[] = [
 
 const defaultItems: AccordionItemProps[] = [
   {
-    label: 'Accordion Item #1',
+    label: 'Elemento Accordion #1',
     content:
       'Vestibulum hendrerit ultrices nibh, sed pharetra lacus ultrices eget. Morbi et ipsum et sapien dapibus facilisis. Integer eget semper nibh. Proin enim nulla, egestas ac rutrum eget, ullamcorper nec turpis.',
     defaultOpen: true,
   },
   {
-    label: 'Accordion Item #2',
+    label: 'Elemento Accordion #2',
     content:
       'Vestibulum hendrerit ultrices nibh, sed pharetra lacus ultrices eget. Morbi et ipsum et sapien dapibus facilisis. Integer eget semper nibh. Proin enim nulla, egestas ac rutrum eget, ullamcorper nec turpis.',
   },
   {
-    label: 'Accordion Item #3',
+    label: 'Elemento Accordion #3',
     content:
       'Vestibulum hendrerit ultrices nibh, sed pharetra lacus ultrices eget. Morbi et ipsum et sapien dapibus facilisis. Integer eget semper nibh. Proin enim nulla, egestas ac rutrum eget, ullamcorper nec turpis.',
   },
@@ -84,19 +84,19 @@ const meta: Meta<AccordionProps> = {
     },
     backgroundActive: {
       control: 'boolean',
-      description: 'Applica sfondo primario agli header attivi (quando il contenuto è visibile)',
+      description: 'Applica sfondo primario agli elementi attivi (quando il contenuto è visibile)',
       table: { defaultValue: { summary: 'false' } },
       name: 'background-active',
     },
     backgroundHover: {
       control: 'boolean',
-      description: 'Applica sfondo primario agli header al passaggio del mouse',
+      description: 'Applica sfondo primario agli elementi al passaggio del mouse',
       table: { defaultValue: { summary: 'false' } },
       name: 'background-hover',
     },
     leftIcon: {
       control: 'boolean',
-      description: 'Mostra icone plus/minus a sinistra invece della freccia a destra (Bootstrap Italia)',
+      description: 'Mostra icone plus/minus a sinistra invece della freccia a destra',
       table: { defaultValue: { summary: 'false' } },
       name: 'left-icon',
     },
@@ -167,7 +167,7 @@ export const EsempioInterattivo: Story = {
   parameters: {
     docs: {
       canvas: {
-        sourceState: 'shown',
+        sourceState: 'hidden',
       },
     },
   },
@@ -175,11 +175,17 @@ export const EsempioInterattivo: Story = {
 };
 
 export const AccordionItem = {
+  name: 'Informazioni generali',
   argTypes: {
+    mode: { table: { disable: true } },
+    backgroundActive: { table: { disable: true } },
+    backgroundHover: { table: { disable: true } },
+    leftIcon: { table: { disable: true } },
+    // Accordion item controls
     label: {
       control: 'text',
-      description: "Testo dell'header dell'elemento accordion",
-      table: { defaultValue: { summary: 'Accordion Item' } },
+      description: "Testo dell'header dell'elemento accordion per l'esempio interattivo, inserito nello `slot heading`",
+      table: { defaultValue: { summary: 'Elemento Accordion' } },
       name: 'Intestazione',
     },
     as: {
@@ -194,27 +200,9 @@ export const AccordionItem = {
       table: { defaultValue: { summary: 'false' } },
       name: 'default-open',
     },
-    backgroundActive: {
-      control: 'boolean',
-      description: "Se true, applica uno sfondo primario all'header quando l'elemento è aperto",
-      table: { defaultValue: { summary: 'false' } },
-      name: 'background-active',
-    },
-    backgroundHover: {
-      control: 'boolean',
-      description: "Se true, applica uno sfondo primario all'header al passaggio del mouse",
-      table: { defaultValue: { summary: 'false' } },
-      name: 'background-hover',
-    },
-    leftIcon: {
-      control: 'boolean',
-      description: 'Se true, mostra le icone +/- a sinistra invece della freccia a destra',
-      table: { defaultValue: { summary: 'false' } },
-      name: 'left-icon',
-    },
   },
   decorators: [
-    (Story) => html`
+    (Story: any) => html`
       <div style="min-height:150px;display:flex;align-items:center">
         <it-accordion>${Story()}</it-accordion>
       </div>
@@ -227,13 +215,8 @@ export const AccordionItem = {
     },
   },
   render: (args: any) => html`
-    <it-accordion-item
-      ?default-open="${args.defaultOpen || false}"
-      ?background-active="${args.backgroundActive || false}"
-      ?background-hover="${args.backgroundHover || false}"
-      ?left-icon="${args.leftIcon || false}"
-    >
-      <span slot="heading">${args.label || 'Accordion Item'}</span>
+    <it-accordion-item as="${args.as || 'h2'}" ?default-open="${args.defaultOpen || false}">
+      <span slot="heading">${args.label || 'Elemento Accordion'}</span>
       <div slot="content">
         Contenuto dell'accordion item. Questo testo è all'interno dello slot "content". Qui puoi inserire qualsiasi
         contenuto HTML: paragrafi, liste, immagini, ecc.
@@ -241,14 +224,11 @@ export const AccordionItem = {
     </it-accordion-item>
   `,
   args: {
-    label: 'Accordion Item',
+    label: 'Elemento Accordion',
     as: 'h2',
     defaultOpen: false,
-    backgroundActive: false,
-    backgroundHover: false,
-    leftIcon: false,
   },
-} satisfies Meta<AccordionItemProps>;
+};
 
 export const Single: Story = {
   name: 'Modalità esclusiva',
@@ -327,7 +307,7 @@ export const AccordionAnnidati: Story = {
 };
 
 export const HeaderAttivi: Story = {
-  name: 'Stato attivo',
+  name: 'Sfondo degli elementi attivi',
   argTypes: {
     backgroundActive: { table: { disable: true } },
   },
@@ -360,7 +340,7 @@ export const HeaderAttivi: Story = {
 };
 
 export const HoverDegliHeader: Story = {
-  name: 'Stato hover',
+  name: "Sfondo all'hover degli elementi",
   argTypes: {
     backgroundHover: { table: { disable: true } },
   },

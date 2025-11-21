@@ -1,13 +1,43 @@
 /* eslint-disable lit-a11y/list */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-// import '@italia/icon';
-// import '@italia/accordion';
 
 const meta = {
   title: 'Componenti/Sidebar',
-  tags: ['beta', 'a11y-issue', 'documentation'],
-  decorators: [(story) => html` <div style="padding: 1rem; min-width:500px">${story()}</div> `],
+  tags: ['beta', 'a11y-ok', 'documentation'],
+  decorators: [
+    (story) => html`
+      <div style="padding: 1rem; min-width:500px">
+        ${story()}
+        <script>
+          // Attendiamo che il DOM sia pronto e che la sidebar sia nel DOM
+          setTimeout(() => {
+            const sidebar = document.querySelector('.sidebar-wrapper');
+            if (!sidebar) return;
+
+            // Disabilita i link disabilitati via js
+            sidebar.querySelectorAll('[aria-disabled="true"]').forEach((el) => {
+              // Per i click del mouse
+              el.addEventListener('click', (event) => {
+                console.log('Link disabilitato cliccato');
+                event.preventDefault();
+                event.stopPropagation();
+              });
+
+              // Per gli utenti da tastiera
+              el.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  console.log('Link disabilitato attivato da tastiera');
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+              });
+            });
+          }, 0);
+        </script>
+      </div>
+    `,
+  ],
 } satisfies Meta;
 
 export default meta;
@@ -19,13 +49,7 @@ type Story = StoryObj;
 
 export const SidebarSemplice: Story = {
   name: 'Sidebar semplice',
-  parameters: {
-    docs: {
-      canvas: {
-        sourceState: 'shown',
-      },
-    },
-  },
+
   render: () => html`
     <aside class="sidebar-wrapper" aria-labelledby="header">
       <h3 id="header">Header</h3>
@@ -53,7 +77,6 @@ export const SidebarSemplice: Story = {
               </a>
             </li>
           </ul>
-        </div>
       </div>
       <div class="sidebar-linklist-wrapper linklist-secondary">
         <nav aria-label="Navigazione laterale secondaria" class="link-list-wrapper">
@@ -77,31 +100,6 @@ export const SidebarSemplice: Story = {
         </nav>
       </div>
     </aside>
-    <script>
-      // Attendiamo che il DOM sia pronto
-        const sidebar = document.querySelector('.sidebar-wrapper');
-        if (!sidebar) return;
-
-        // Disabilita i link disabilitati via js
-        sidebar.querySelectorAll('[aria-disabled="true"]').forEach((el) => {
-          // Per i click del mouse
-          el.addEventListener('click', (event) => {
-            console.log('Link disabilitato cliccato');
-            event.preventDefault();
-            event.stopPropagation();
-          });
-
-          // Per gli utenti da tastiera
-          el.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-              console.log('Link disabilitato attivato da tastiera');
-              event.preventDefault();
-              event.stopPropagation();
-            }
-          });
-
-        });
-    </script>
   `,
 };
 
@@ -112,13 +110,11 @@ export const SidebarSemplice: Story = {
 export const SidebarConIcone: Story = {
   name: 'Sidebar con icone',
   render: () => html`
-    <div class="sidebar-wrapper">
+    <aside class="sidebar-wrapper" aria-labelledby="header">
+      <h3 id="header">Header</h3>
       <div class="sidebar-linklist-wrapper">
-        <div class="link-list-wrapper">
+        <nav aria-label="Navigazione laterale principale" class="link-list-wrapper">
           <ul class="link-list">
-            <li>
-              <h3>Header</h3>
-            </li>
             <li>
               <a class="list-item medium active left-icon" aria-current="page" href="#">
                 <it-icon name="it-calendar" color="primary" size="sm" class="left"></it-icon>
@@ -126,7 +122,7 @@ export const SidebarConIcone: Story = {
               </a>
             </li>
             <li>
-              <a class="list-item medium disabled left-icon" href="#" role="button" aria-disabled="true">
+              <a class="list-item medium disabled left-icon" href="#" aria-disabled="true">
                 <it-icon name="it-comment" color="primary" size="sm" class="left"></it-icon>
                 <span>Link lista 2 (disabilitato)</span>
               </a>
@@ -144,10 +140,10 @@ export const SidebarConIcone: Story = {
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
       <div class="sidebar-linklist-wrapper linklist-secondary">
-        <div class="link-list-wrapper">
+        <nav aria-label="Navigazione laterale secondaria" class="link-list-wrapper">
           <ul class="link-list">
             <li>
               <a class="list-item left-icon" href="#">
@@ -165,9 +161,9 @@ export const SidebarConIcone: Story = {
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
-    </div>
+    </aside>
   `,
 };
 
@@ -178,13 +174,11 @@ export const SidebarConIcone: Story = {
 export const SidebarLineaDestra: Story = {
   name: 'Sidebar con linea a destra',
   render: () => html`
-    <div class="sidebar-wrapper it-line-right-side">
+    <aside class="sidebar-wrapper it-line-right-side" aria-labelledby="header">
+      <h3 id="header">Header</h3>
       <div class="sidebar-linklist-wrapper">
-        <div class="link-list-wrapper">
+        <nav aria-label="Navigazione laterale principale" class="link-list-wrapper">
           <ul class="link-list">
-            <li>
-              <h3>Header</h3>
-            </li>
             <li>
               <a class="list-item medium active" aria-current="page" href="#">
                 <span>Link lista 1 (attivo)</span>
@@ -206,10 +200,10 @@ export const SidebarLineaDestra: Story = {
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
       <div class="sidebar-linklist-wrapper linklist-secondary">
-        <div class="link-list-wrapper">
+        <nav aria-label="Navigazione laterale secondaria" class="link-list-wrapper">
           <ul class="link-list">
             <li>
               <a class="list-item" href="#">
@@ -227,9 +221,9 @@ export const SidebarLineaDestra: Story = {
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
-    </div>
+    </aside>
   `,
 };
 
@@ -240,13 +234,11 @@ export const SidebarLineaDestra: Story = {
 export const SidebarLineaSinistra: Story = {
   name: 'Sidebar con linea a sinistra',
   render: () => html`
-    <div class="sidebar-wrapper it-line-left-side">
+    <aside class="sidebar-wrapper it-line-left-side" aria-labelledby="header">
+      <h3 id="header">Header</h3>
       <div class="sidebar-linklist-wrapper">
-        <div class="link-list-wrapper">
+        <nav aria-label="Navigazione laterale principale" class="link-list-wrapper">
           <ul class="link-list">
-            <li>
-              <h3>Header</h3>
-            </li>
             <li>
               <a class="list-item medium active" aria-current="page" href="#">
                 <span>Link lista 1 (attivo)</span>
@@ -268,10 +260,10 @@ export const SidebarLineaSinistra: Story = {
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
       <div class="sidebar-linklist-wrapper linklist-secondary">
-        <div class="link-list-wrapper">
+        <nav aria-label="Navigazione laterale secondaria" class="link-list-wrapper">
           <ul class="link-list">
             <li>
               <a class="list-item" href="#">
@@ -289,9 +281,9 @@ export const SidebarLineaSinistra: Story = {
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
-    </div>
+    </aside>
   `,
 };
 
@@ -302,13 +294,11 @@ export const SidebarLineaSinistra: Story = {
 export const SidebarAnnidata: Story = {
   name: 'Sidebar annidata',
   render: () => html`
-    <div class="sidebar-wrapper">
+    <aside class="sidebar-wrapper" aria-labelledby="header">
+      <h3 id="header">Header</h3>
       <div class="sidebar-linklist-wrapper">
-        <div class="link-list-wrapper">
+        <nav aria-label="Navigazione laterale principale" class="link-list-wrapper">
           <ul class="link-list">
-            <li>
-              <h3>Header</h3>
-            </li>
             <li>
               <it-collapse as="a" variant="none" size="sm">
                 <span slot="label" class="list-item-title-icon-wrapper">
@@ -383,10 +373,10 @@ export const SidebarAnnidata: Story = {
               </it-collapse>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
       <div class="sidebar-linklist-wrapper linklist-secondary">
-        <div class="link-list-wrapper">
+        <nav aria-label="Navigazione laterale secondaria" class="link-list-wrapper">
           <ul class="link-list">
             <li>
               <a class="list-item" href="#">
@@ -404,9 +394,9 @@ export const SidebarAnnidata: Story = {
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
-    </div>
+    </aside>
   `,
 };
 
@@ -417,13 +407,11 @@ export const SidebarAnnidata: Story = {
 export const SidebarTemaScuro: Story = {
   name: 'Sidebar tema scuro',
   render: () => html`
-    <div class="sidebar-wrapper theme-dark">
+    <aside class="sidebar-wrapper theme-dark" aria-labelledby="header">
+      <h3 id="header">Header</h3>
       <div class="sidebar-linklist-wrapper">
-        <div class="link-list-wrapper">
+        <nav aria-label="Navigazione laterale principale" class="link-list-wrapper">
           <ul class="link-list">
-            <li>
-              <h3>Header</h3>
-            </li>
             <li>
               <it-collapse as="a" variant="none" size="sm">
                 <span slot="label" class="list-item-title-icon-wrapper">
@@ -500,10 +488,10 @@ export const SidebarTemaScuro: Story = {
               </it-collapse>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
       <div class="sidebar-linklist-wrapper linklist-secondary">
-        <div class="link-list-wrapper">
+        <nav aria-label="Navigazione laterale secondaria" class="link-list-wrapper">
           <ul class="link-list">
             <li>
               <a class="list-item" href="#">
@@ -521,8 +509,8 @@ export const SidebarTemaScuro: Story = {
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
-    </div>
+    </aside>
   `,
 };

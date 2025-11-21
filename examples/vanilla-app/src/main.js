@@ -1,7 +1,5 @@
 import javascriptLogo from './javascript.svg';
 
-// import '@italia/dev-kit-italia/fonts.css';
-// import '@italia/dev-kit-italia/styles.css';
 import '@italia/dev-kit-italia/elements.js';
 
 const it = {
