@@ -69,8 +69,9 @@ export class SidebarComponent implements AfterViewInit, OnDestroy {
       event.preventDefault();
       event.stopPropagation();
     };
-    const keydownHandler = (event: KeyboardEvent) => {
-      if (event.key === 'Enter' || event.key === ' ') {
+    const keydownHandler = (event: Event) => {
+      const kbEvent = event as KeyboardEvent;
+      if (kbEvent.key === 'Enter' || kbEvent.key === ' ') {
         console.log('Link disabilitato attivato da tastiera');
         event.preventDefault();
         event.stopPropagation();
