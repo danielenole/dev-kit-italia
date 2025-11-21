@@ -44,6 +44,8 @@
     "test:watch": "wtr --coverage --node-resolve --config web-test-runner.config.js --watch"
   },
   "dependencies": {
+  },
+  "peerDependencies": {
     "@italia/globals": "workspace:^",
     "bootstrap-italia": "catalog:",
     "lit": "catalog:"

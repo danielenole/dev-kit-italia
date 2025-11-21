@@ -2,6 +2,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import { litScss } from 'rollup-plugin-scss-lit';
 import copy from 'rollup-plugin-copy';
+import { visualizer } from 'rollup-plugin-visualizer';
 /**
  * @type {import('rollup').RollupOptions}
  */
@@ -30,6 +31,13 @@ export default {
       targets: [{ src: 'src/icon-registry.ts', dest: 'dist/src' }],
       hook: 'writeBundle',
     }),
+    visualizer({
+      filename: 'dist/bundle-report.html',
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
+      template: 'treemap',
+    }),
   ],
-  external: [/^lit(\/|$)/],
+  external: [/^lit(\/|$)/, /^@italia\/globals(\/|$)/, /^@italia\/i18n(\/|$)/],
 };

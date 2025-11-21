@@ -46,6 +46,8 @@
     "test:watch": "wtr --coverage --node-resolve --config web-test-runner.config.js --watch"
   },
   "dependencies": {
+  },
+  "peerDependencies": {
     "@italia/globals": "workspace:^",
     "bootstrap-italia": "catalog:",
     "lit": "catalog:"
@@ -64,6 +66,7 @@
     "rollup": "^4.42.0",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-scss-lit": "^2.1.0",
+    "rollup-plugin-visualizer": "^5.11.0",
     "sass": "catalog:",
     "tslib": "^2.6.3",
     "typescript": "catalog:"

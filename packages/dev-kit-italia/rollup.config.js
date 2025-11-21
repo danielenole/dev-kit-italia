@@ -1,4 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
+import { visualizer } from 'rollup-plugin-visualizer';
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 import scss from 'rollup-plugin-scss';
@@ -18,6 +19,13 @@ export default [
       resolve(),
       typescript({
         module: 'NodeNext',
+      }),
+      visualizer({
+        filename: 'dist/bundle-report.html',
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+        template: 'treemap',
       }),
     ],
     external: [/^lit(\/|$)/],

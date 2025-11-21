@@ -26,5 +26,5 @@ export default {
       },
     }),
   ],
-  external: [/^lit(\/|$)/],
+  external: [/^lit(\/|$)/, /^@italia\/globals(\/|$)/, /^@italia\/i18n(\/|$)/],
 };

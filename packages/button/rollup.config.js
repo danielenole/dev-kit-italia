@@ -1,4 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
+import { visualizer } from 'rollup-plugin-visualizer';
 import typescript from '@rollup/plugin-typescript';
 import { litScss } from 'rollup-plugin-scss-lit';
 /**
@@ -24,6 +25,13 @@ export default {
         silenceDeprecations: ['import'],
       },
     }),
+    visualizer({
+      filename: 'dist/bundle-report.html',
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
+      template: 'treemap',
+    }),
   ],
-  external: [/^lit(\/|$)/],
+  external: [/^lit(\/|$)/, /^@italia\/globals(\/|$)/, /^@italia\/i18n(\/|$)/],
 };

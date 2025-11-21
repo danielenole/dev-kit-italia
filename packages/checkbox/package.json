@@ -43,6 +43,8 @@
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
+  },
+  "peerDependencies": {
     "@italia/globals": "workspace:^",
     "@italia/i18n": "workspace:^",
     "bootstrap-italia": "catalog:",
