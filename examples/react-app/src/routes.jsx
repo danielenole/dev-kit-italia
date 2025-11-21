@@ -9,6 +9,7 @@ import Icon from './pages/Icon';
 import Input from './pages/Input';
 import Radio from './pages/Radio';
 import Section from './pages/Section';
+import Sidebar from './components/Sidebar';
 import Sticky from './pages/Sticky';
 import Video from './pages/Video';
 import Avatar from './pages/Avatar';
@@ -26,6 +27,7 @@ export const AppRoutes = [
   { path: '/input', element: <Input />, title: 'Input' },
   { path: '/radio', element: <Radio />, title: 'Radio' },
   { path: '/section', element: <Section />, title: 'Section' },
+  { path: '/sidebar', element: <Sidebar />, title: 'Sidebar' },
   { path: '/sticky', element: <Sticky />, title: 'Sticky' },
   { path: '/video', element: <Video />, title: 'Video' },
 ];

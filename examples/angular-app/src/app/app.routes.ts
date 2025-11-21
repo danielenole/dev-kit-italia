@@ -51,6 +51,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/section.component').then((c) => c.SectionComponent),
   },
   {
+    path: 'sidebar',
+    loadComponent: () => import('./components/sidebar.component').then((c) => c.SidebarComponent),
+  },
+  {
     path: 'sticky',
     loadComponent: () => import('./pages/sticky.component').then((c) => c.StickyComponent),
   },

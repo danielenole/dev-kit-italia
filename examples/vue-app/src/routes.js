@@ -10,6 +10,7 @@ import Icon from './components/Icon.vue';
 import Input from './components/Input.vue';
 import Radio from './components/Radio.vue';
 import Section from './components/Section.vue';
+import Sidebar from './components/Sidebar.vue';
 import Sticky from './components/Sticky.vue';
 import Video from './components/Video.vue';
 import Checkbox from './components/Checkbox.vue';
@@ -28,12 +29,13 @@ const routes = [
   { path: '/input', name: 'Input', component: Input },
   { path: '/radio', name: 'Radio', component: Radio },
   { path: '/section', name: 'Section', component: Section },
+  { path: '/sidebar', name: 'Sidebar', component: Sidebar },
   { path: '/sticky', name: 'Sticky', component: Sticky },
   { path: '/video', name: 'Video', component: Video },
 ];
 
 const router = createRouter({
-  history: createWebHistory("vue-app"),
+  history: createWebHistory('vue-app'),
   routes,
 });
 
