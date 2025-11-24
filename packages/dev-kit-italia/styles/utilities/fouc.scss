@@ -133,6 +133,7 @@ $it-components: (
     // https://sass-lang.com/documentation/modules/list/#slash
     aspect-ratio: list.slash(16, 9),
   ),
+  'it-collapse': (),
 );
 
 @each $tag, $params in $it-components {

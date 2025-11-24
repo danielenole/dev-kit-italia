@@ -1,7 +1,7 @@
 {
-  "name": "@italia/accordion",
-  "description": "Web component it-accordion del Design system .italia",
-  "version": "0.1.0-alpha.2",
+  "name": "@italia/collapse",
+  "description": "Web component it-collapse del Design system .italia",
+  "version": "0.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/italia/dev-kit-italia.git",
-    "directory": "packages/accordion"
+    "directory": "packages/collapse"
   },
   "author": "Presidenza del Consiglio dei Ministri",
   "homepage": "https://italia.github.io/dev-kit-italia",
@@ -19,41 +19,38 @@
   "type": "module",
   "main": "./dist/src/index.js",
   "module": "./dist/src/index.js",
-  "types": "./dist/src/it-accordion.d.ts",
+  "types": "./dist/src/it-collapse.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./it-accordion.js": "./dist/src/it-accordion.js",
-    "./it-accordion-item.js": "./dist/src/it-accordion-item.js",
+    "./it-collapse.js": "./dist/src/it-collapse.js",
+    "./it-collapse-base.js": "./dist/src/it-collapse-base.js",
     "./styles/*": "./styles/*"
   },
   "files": [
     "dist/src",
-    "styles",
     "README.md",
     "AUTHORS",
     "LICENSE",
-    "custom-elements.json"
+    "custom-elements.json",
+    "styles"
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
     "build": "rollup --config rollup.config.js",
     "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
-    "prepublish": "pnpm build",
-    "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && stylelint \"styles/**/*.scss\" \"src/**/*.scss\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
-    "format": "eslint --fix --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && stylelint --fix \"styles/**/*.scss\" \"src/**/*.scss\" && prettier --write \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\"",
-    "test": "wtr --coverage --node-resolve --config web-test-runner.config.js",
-    "test:watch": "wtr --coverage --node-resolve --config web-test-runner.config.js --watch"
+    "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
+    "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
+    "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
-    "@italia/collapse": "workspace:^",
-    "@italia/button": "workspace:^",
     "@italia/globals": "workspace:^",
-    "@italia/icon": "workspace:^",
     "bootstrap-italia": "catalog:",
     "lit": "catalog:"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@italia/icon": "workspace:^",
+    "@italia/button": "workspace:^",
     "@italia/test-config": "workspace:^",
     "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "catalog:",
@@ -61,16 +58,11 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/mocha": "catalog:",
     "@web/test-runner": "catalog:",
-    "@web/test-runner-commands": "catalog:",
-    "rimraf": "^6.0.1",
     "rollup": "^4.42.0",
     "rollup-plugin-scss-lit": "^2.1.0",
     "sass": "catalog:",
     "tslib": "^2.6.3",
     "typescript": "catalog:"
-  },
-  "peerDependencies": {
-    "@italia/icon": "workspace:^"
   },
   "customElements": "custom-elements.json"
 }
