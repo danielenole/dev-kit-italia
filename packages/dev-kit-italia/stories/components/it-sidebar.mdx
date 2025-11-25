@@ -11,10 +11,14 @@ import * as SidebarStories from './it-sidebar.stories';
 
 Utilizza il componente Sidebar per navigare tra le pagine che appartengono a una sezione di un sito. A seconda dell'organizzazione dei contenuti, la barra di navigazione può presentare liste di link diretti o annidati sotto una voce che li raccoglie.
 
-[Approfondisci quando e come usare il componente Sidebar](https://designers.italia.it/design-system/componenti/sidebar/).
+[Approfondisci quando e come usare il componente Sidebar](https://designers.italia.it/design-system/componenti/sidebar/)
+
+### Alternative a questo componente
+- Tabs: per offrire un’esperienza di navigazione semplificata, sopratutto in caso di poche pagine o contenuti.
+- Navscroll: per fornire una navigazione veloce tra i contenuti presenti all’interno di una stessa pagina (navigazione tramite ancore).
 
 ## Anteprima e attributi del componente
-Questo componente non possiede attributi, ma si basa su una struttura HTML predefinita. Per vedere l'anteprima del codice, clicca su **Show code**.
+Questo componente non possiede attributi, ma si basa su una struttura HTML predefinita e riutilizzabile. Per vedere l'anteprima del codice, clicca su **Show code**.
 
 
 
@@ -22,6 +26,11 @@ Questo componente non possiede attributi, ma si basa su una struttura HTML prede
 
 
 ## Accessibilità
+
+Il componente Sidebar segue le best practice per l'accessibilità, garantendo una navigazione intuitiva e fruibile da tutti gli utenti.
+Viene implementato come una lista di navigazione all'interno di un elemento `<aside>`, che indica chiaramente il suo ruolo di navigazione laterale.
+
+Per garantire un'esperienza accessibile, segui queste linee guida:
 
 - Indica sempre **visivamente** la pagina corrente utilizzando la classe `.active` sul link corrispondente
 - Indica sempre **alle tecnologie assistive** la pagina corrente utilizzando l'attributo `aria-current="page"` sul link corrispondente
@@ -32,7 +41,7 @@ Questo componente non possiede attributi, ma si basa su una struttura HTML prede
 
 ## Sidebar con icone
 
-La Sidebar può contenere icone nella sua lista di link, utilizzando il componente `<it-icon>` con classe `.left` all'interno dei link con classe `.left-icon`.
+Per aggiungere icone alla lista di link contenuta nella sidebar, utilizza il componente `<it-icon>` con classe `.left` all'interno dei link con classe `.left-icon`.
 
 <Canvas of={SidebarStories.SidebarConIcone} />
 
