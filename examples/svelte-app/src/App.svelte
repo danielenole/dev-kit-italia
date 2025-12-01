@@ -20,6 +20,7 @@
       <a href="#/accordion">Accordion</a>
       <a href="#/affix">Affix</a>
       <a href="#/avatar">Avatar</a>
+      <a href="#/badge">Badge</a>
       <a href="#/button">Button</a>
       <a href="#/checkbox">Checkbox</a>
       <a href="#/chip">Chip</a>

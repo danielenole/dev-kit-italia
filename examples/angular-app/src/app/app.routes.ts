@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/avatar.component').then((c) => c.AvatarComponent),
   },
   {
+    path: 'badge',
+    loadComponent: () => import('./pages/badge.component').then((c) => c.BadgeComponent),
+  },
+  {
     path: 'button',
     loadComponent: () => import('./pages/button.component').then((c) => c.ButtonComponent),
   },
