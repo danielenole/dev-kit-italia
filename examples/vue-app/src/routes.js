@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Accordion from './components/Accordion.vue';
+import Affix from './components/Affix.vue';
 import Button from './components/Button.vue';
 import Chip from './components/Chip.vue';
 import Collapse from './components/Collapse.vue';
@@ -18,6 +19,7 @@ import Skiplinks from './components/Skiplinks.vue';
 
 const routes = [
   { path: '/accordion', name: 'Accordion', component: Accordion },
+  { path: '/affix', name: 'Affix', component: Affix },
   { path: '/avatar', name: 'Avatar', component: Avatar },
   { path: '/button', name: 'Button', component: Button },
   { path: '/checkbox', name: 'Checkbox', component: Checkbox },

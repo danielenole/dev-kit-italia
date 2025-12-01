@@ -18,6 +18,7 @@
     <div>Vite + Svelte</div>
     <nav class="app-nav">
       <a href="#/accordion">Accordion</a>
+      <a href="#/affix">Affix</a>
       <a href="#/avatar">Avatar</a>
       <a href="#/button">Button</a>
       <a href="#/checkbox">Checkbox</a>
