@@ -1,0 +1,112 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as Stories from './it-modal.stories';
+
+<Meta of={Stories} />
+
+# Modal
+
+Finestra di dialogo modale per interazioni che richiedono l'attenzione dell'utente.
+
+## Cosa fa
+
+Il componente `it-modal` genera finestre di dialogo modali che si sovrappongono al contenuto principale della pagina. Le modali richiedono all'utente di interagire con esse prima di poter tornare al contenuto sottostante.
+
+## Come si usa
+
+```html
+<it-modal modal-title="Titolo">
+  <it-button slot="trigger" variant="primary">Apri modale</it-button>
+  <p slot="content">Contenuto della modale</p>
+  <it-button slot="footer" variant="primary">Conferma</it-button>
+</it-modal>
+```
+
+**Slot disponibili:**
+- `trigger` - Elemento che apre la modale (es. it-button)
+- `content` - Contenuto principale del body
+- `header` - Header custom (sovrascrive modal-title)
+- `footer` - Pulsanti di azione
+
+[Approfondisci come e quando usare il componente Modal](https://designers.italia.it/design-system/componenti/modal/)
+
+## Anteprima del componente
+
+<Canvas of={Stories.EsempioInterattivo} />
+
+<Controls of={Stories.EsempioInterattivo} />
+
+## Modale base
+
+<Canvas of={Stories.ModaleBase} />
+
+## Con icona
+
+Per dare enfasi visiva, puoi aggiungere un'icona nell'header tramite lo slot `header`. Usa la variante `alert` per ottenere il layout corretto.
+
+<Canvas of={Stories.ConIcona} />
+
+## Popconfirm
+
+La variante `popconfirm` crea una modale compatta, ideale per conferme rapide di azioni.
+
+<Canvas of={Stories.Popconfirm} />
+
+## Scroll interno alla modale
+
+Con l'attributo `scrollable`, lo scroll avviene all'interno del body della modale.
+
+<Canvas of={Stories.ScrollInterno} />
+
+## Posizionamento
+
+### Allineamento a sinistra
+
+<Canvas of={Stories.AllineamentoSinistra} />
+
+### Allineamento a destra
+
+<Canvas of={Stories.AllineamentoDestra} />
+
+## Dimensioni opzionali
+
+Usa l'attributo `size` per modificare la larghezza della modale: `sm`, `lg`, `xl`.
+
+<Canvas of={Stories.DimensioniOpzionali} />
+
+## Backdrop statico
+
+Con `static-backdrop`, la modale non si chiude cliccando sullo sfondo.
+
+<Canvas of={Stories.BackdropStatico} />
+
+## API
+
+### Attributi
+
+| Attributo | Tipo | Default | Descrizione |
+|-----------|------|---------|-------------|
+| `open` | `boolean` | `false` | Stato aperto/chiuso |
+| `modal-title` | `string` | `''` | Titolo della modale |
+| `size` | `'sm' \| 'lg' \| 'xl' \| ''` | `''` | Dimensione |
+| `position` | `'center' \| 'left' \| 'right'` | `'center'` | Posizionamento |
+| `scrollable` | `boolean` | `false` | Abilita scroll interno |
+| `static-backdrop` | `boolean` | `false` | Disabilita chiusura su click backdrop |
+| `close-button` | `boolean` | `true` | Mostra pulsante di chiusura |
+| `variant` | `'alert' \| 'popconfirm' \| 'link-list' \| ''` | `''` | Variante |
+| `no-escape` | `boolean` | `false` | Disabilita chiusura con Escape |
+| `fade` | `boolean` | `true` | Abilita animazione |
+
+### Metodi
+
+| Metodo | Descrizione |
+|--------|-------------|
+| `show()` | Apre la modale |
+| `hide()` | Chiude la modale |
+| `toggle()` | Alterna lo stato |
+
+### Eventi
+
+| Evento | Descrizione |
+|--------|-------------|
+| `it-modal-open` | Emesso quando la modale si apre |
+| `it-modal-close` | Emesso quando la modale si chiude |
