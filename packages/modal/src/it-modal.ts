@@ -78,11 +78,26 @@ export class ItModal extends BaseComponent {
   });
 
   get _triggerElement(): ItButton | HTMLButtonElement | null {
-    return this._triggerSlot.assignedElements({ flatten: true })?.[0] as ItButton | HTMLButtonElement | null;
+    if (!this._triggerSlot) {
+      this.logger.error('No trigger provided');
+      return null;
+    }
+    const elements = this._triggerSlot.assignedElements({ flatten: true });
+    if (elements.length === 0) {
+      return null;
+    }
+    return elements[0] as ItButton | HTMLButtonElement | null;
   }
 
   get _headerElement(): HTMLElement | null {
-    return this._headerSlot.assignedElements({ flatten: true })?.[0] as HTMLElement | null;
+    if (!this._headerSlot) {
+      return null;
+    }
+    const elements = this._headerSlot.assignedElements({ flatten: true });
+    if (elements.length === 0) {
+      return null;
+    }
+    return elements[0] as HTMLElement | null;
   }
 
   constructor() {
@@ -263,8 +278,9 @@ export class ItModal extends BaseComponent {
   }
 
   render() {
-    const ariaLabelledBy = this.modalTitle ? this._titleId : undefined;
+    const ariaLabelledBy = this.modalTitle && this._headerElement ? this._titleId : undefined;
     const ariaLabel = this.modalTitle && !this._headerElement ? this.modalTitle : undefined;
+    const headerClass = this._headerElement ? 'modal-header' : '';
     console.log('render modal', ariaLabelledBy, this.modalTitle, this._titleId);
     return html`
       <slot name="trigger" @slotchange=${this._onTriggerSlotChange}></slot>
@@ -281,7 +297,7 @@ export class ItModal extends BaseComponent {
       >
         <div class="${classMap(this._modalBodyClasses)}" role="document" @click="${this._handleDialogClick}">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="${headerClass}">
               <slot name="header-icon"></slot>
               <slot name="header" @slotchange="${this._handleHeaderSlotChange}"></slot>
               ${this.closeButton

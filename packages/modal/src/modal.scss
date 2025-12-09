@@ -93,6 +93,14 @@ $utilities: (
   &:not(.fade) {
     opacity: 1;
   }
+
+  &.it-dialog-scrollable {
+    overflow-y: hidden;
+
+    .modal-dialog {
+      margin: 64px auto;
+    }
+  }
 }
 
 .modal-dialog-centered {

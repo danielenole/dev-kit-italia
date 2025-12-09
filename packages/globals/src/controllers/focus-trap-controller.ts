@@ -5,12 +5,7 @@ export interface FocusTrapConfig {
   getContainer: () => HTMLElement | ShadowRoot | null;
   /** Funzione che ritorna l'elemento trigger che ha attivato il focus trap */
   getTrigger: () => HTMLElement | ShadowRoot | null;
-  /** Opzionale: funzione che ritorna l'elemento da mettere a fuoco all'apertura (può essere tabindex -1)
-   * Nota: alcune chiamanti (es. it-modal) possono usare la chiave `initialFocus` invece di `getInitialFocus`;
-   * entrambi i nomi sono supportati.
-   */
-  getInitialFocus?: () => HTMLElement | null;
-  /** Alias legacy: alcuni componenti passano `initialFocus` invece di `getInitialFocus` */
+  /** Opzionale: funzione che ritorna l'elemento da mettere a fuoco all'apertura (può essere tabindex -1) */
   initialFocus?: () => HTMLElement | null;
   /** Callback quando viene premuto Escape */
   onEscape?: () => void;
@@ -74,7 +69,7 @@ export class FocusTrapController implements ReactiveController {
     // e computedStyle come controllo più affidabile.
     try {
       // Se non ci sono bounding rects, probabilmente non è visibile
-      if ((el.getClientRects && el.getClientRects().length === 0)) return false;
+      if (el.getClientRects()?.length === 0) return false;
 
       const style = window.getComputedStyle(el);
       if (!style) return false;
@@ -83,8 +78,7 @@ export class FocusTrapController implements ReactiveController {
       // Altrimenti consideriamo l'elemento focusabile
       return true;
     } catch (e) {
-      // In casi particolari (es. accesso cross-origin? raro) fallback a true se ha focus()
-      return true;
+      return false;
     }
   }
 
@@ -228,9 +222,8 @@ export class FocusTrapController implements ReactiveController {
    * Se non è fornito, fallback sul primo elemento tabbabile.
    */
   focusInitial(): void {
-    const getter = this.config.getInitialFocus ?? this.config.initialFocus;
-    if (getter) {
-      const el = getter();
+    if (this.config.initialFocus) {
+      const el = this.config.initialFocus();
       if (el && typeof el.focus === 'function') {
         el.focus();
         return;

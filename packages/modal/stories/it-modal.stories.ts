@@ -208,12 +208,18 @@ export const ConForm: Story = {
     <it-modal>
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
       <h2 slot="header">Seleziona un'opzione dal form</h2>
-      <it-icon slot="header-icon" name="it-warning-circle" size="xl" color="warning"></it-icon>
       <div slot="content">
-        <it-radio-group label="Seleziona un'opzione" name="options" required>
-          <it-radio value="option1" label="Opzione 1"></it-radio>
-          <it-radio value="option2" label="Opzione 2"></it-radio>
-          <it-radio value="option3" label="Opzione 3"></it-radio>
+        <it-radio-group name="gruppo1">
+          <span slot="label">Esempio interattivo</span>
+          <it-radio id="radio1" value="opzione1">
+            <span slot="label">Radio di esempio 1</span>
+          </it-radio>
+          <it-radio id="radio2" value="opzione2">
+            <span slot="label">Radio di esempio 2</span>
+          </it-radio>
+          <it-radio id="radio3" value="opzione3">
+            <span slot="label">Radio di esempio 3</span>
+          </it-radio>
         </it-radio-group>
       </div>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
@@ -227,7 +233,6 @@ export const ConLinkList: Story = {
     <it-modal variant="link-list">
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
       <h2 slot="header">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</h2>
-      <it-icon slot="header-icon" name="it-warning-circle" size="xl" color="warning"></it-icon>
       <div class="link-list-wrapper" slot="content">
         <ul class="link-list">
           <li>
