@@ -139,7 +139,6 @@ export const EsempioInterattivo: Story = {
   },
   render: (args) => html`
     <it-modal
-      modal-title="${ifDefined(args['modal-title'])}"
       ?close-button="${args['close-button']}"
       ?fade="${args.fade}"
       size="${ifDefined(args.size || undefined)}"
@@ -152,6 +151,7 @@ export const EsempioInterattivo: Story = {
       close-label="${args['close-label']}"
     >
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <h2 slot="header">${args['modal-title']}</h2>
       <p slot="content">${args.bodyContent}</p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
@@ -162,8 +162,9 @@ export const EsempioInterattivo: Story = {
 export const ModaleBase: Story = {
   name: 'Modale base',
   render: () => html`
-    <it-modal modal-title="Titolo modale">
+    <it-modal>
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <h2 slot="header">Titolo modale</h2>
       <p slot="content">Testo che descrive lo scopo della modale e quali sono le azioni richieste all'utente.</p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
@@ -174,10 +175,78 @@ export const ModaleBase: Story = {
 export const ConIcona: Story = {
   name: 'Con icona',
   render: () => html`
-    <it-modal modal-title="Questo è un messaggio di notifica" variant="alert">
+    <it-modal variant="alert">
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
-      <it-icon slot="header-icon" name="it-warning-circle" size="xl" color="warning"></it-icon>
+      <h2 slot="header">Questo è un messaggio di notifica</h2>
+      <it-icon slot="header-icon" name="it-warning-circle" size="lg" color="warning"></it-icon>
       <p slot="content">In questo caso viene fornito solo un pulsante di conferma della modale.</p>
+      <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
+    </it-modal>
+  `,
+};
+export const FooterCustom: Story = {
+  name: 'Footer custom',
+  render: () => html`
+    <it-modal>
+      <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <h2 slot="header">Con footer custom</h2>
+      <p slot="content">In questo caso viene fornito solo un pulsante di conferma della modale.</p>
+      <div slot="footer" class="d-flex justify-content-between gap-2 align-items-center" style="width:100%;">
+        <a href="#">Link di supporto</a>
+        <div class="d-flex justify-content-end  gap-2">
+          <it-button variant="outline-primary" @click="${closeModal}">Annulla</it-button>
+          <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
+        </div>
+      </div>
+    </it-modal>
+  `,
+};
+
+export const ConForm: Story = {
+  name: 'Con form',
+  render: () => html`
+    <it-modal>
+      <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <h2 slot="header">Seleziona un'opzione dal form</h2>
+      <it-icon slot="header-icon" name="it-warning-circle" size="xl" color="warning"></it-icon>
+      <div slot="content">
+        <it-radio-group label="Seleziona un'opzione" name="options" required>
+          <it-radio value="option1" label="Opzione 1"></it-radio>
+          <it-radio value="option2" label="Opzione 2"></it-radio>
+          <it-radio value="option3" label="Opzione 3"></it-radio>
+        </it-radio-group>
+      </div>
+      <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
+    </it-modal>
+  `,
+};
+
+export const ConLinkList: Story = {
+  name: 'Con Link List',
+  render: () => html`
+    <it-modal variant="link-list">
+      <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <h2 slot="header">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</h2>
+      <it-icon slot="header-icon" name="it-warning-circle" size="xl" color="warning"></it-icon>
+      <div class="link-list-wrapper" slot="content">
+        <ul class="link-list">
+          <li>
+            <a class="list-item icon-left" href="#">
+              <span>Link lista 1</span>
+            </a>
+          </li>
+          <li>
+            <a class="list-item icon-left" href="#">
+              <span>Link lista 2</span>
+            </a>
+          </li>
+          <li>
+            <a class="list-item icon-left" href="#">
+              <span>Link lista 3</span>
+            </a>
+          </li>
+        </ul>
+      </div>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
     </it-modal>
   `,
@@ -186,15 +255,16 @@ export const ConIcona: Story = {
 export const Popconfirm: Story = {
   render: () => html`
     <div class="d-flex gap-3">
-      <it-modal variant="popconfirm" .closeButton=${false}>
-        <span slot="trigger">Popconfirm basico</span>
+      <it-modal variant="popconfirm" .closeButton=${false} modal-title="Titolo modale">
+        <it-button variant="primary" slot="trigger">Popconfirm basico</it-button>
         <p slot="content">Breve messaggio di conferma inserito nella modale</p>
         <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Azione 1</it-button>
         <it-button slot="footer" variant="primary" @click="${closeModal}">Azione 2</it-button>
       </it-modal>
 
-      <it-modal modal-title="Titolo modale" variant="popconfirm">
-        <span slot="trigger">Popconfirm con header</span>
+      <it-modal variant="popconfirm">
+        <it-button variant="primary" slot="trigger">Popconfirm con header</it-button>
+        <h2 slot="header">Titolo modale</h2>
         <p slot="content">Breve messaggio di conferma inserito nella modale</p>
         <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Azione 1</it-button>
         <it-button slot="footer" variant="primary" @click="${closeModal}">Azione 2</it-button>
@@ -206,8 +276,9 @@ export const Popconfirm: Story = {
 export const ScrollInterno: Story = {
   name: 'Scroll interno alla modale',
   render: () => html`
-    <it-modal modal-title="Modale con scroll interno" scrollable>
-      <span slot="trigger">Lancia la demo della modale</span>
+    <it-modal scrollable>
+      <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <h2 slot="header">Modale con scroll interno</h2>
       <div slot="content">
         ${Array(20)
           .fill(0)
@@ -229,8 +300,9 @@ export const ScrollInterno: Story = {
 export const AllineamentoSinistra: Story = {
   name: 'Allineamento a sinistra',
   render: () => html`
-    <it-modal modal-title="Modale a sinistra" position="left">
-      <span slot="trigger">Lancia la demo della modale</span>
+    <it-modal position="left">
+      <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <h2 slot="header">Modale allineata a sinistra</h2>
       <p slot="content">Questa modale si apre da sinistra.</p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
@@ -241,8 +313,9 @@ export const AllineamentoSinistra: Story = {
 export const AllineamentoDestra: Story = {
   name: 'Allineamento a destra',
   render: () => html`
-    <it-modal modal-title="Modale a destra" position="right">
-      <span slot="trigger">Lancia la demo della modale</span>
+    <it-modal position="right">
+      <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <h2 slot="header">Modale allineata a destra</h2>
       <p slot="content">Questa modale si apre da destra.</p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
@@ -254,20 +327,23 @@ export const DimensioniOpzionali: Story = {
   name: 'Dimensioni opzionali',
   render: () => html`
     <div class="d-flex gap-3 flex-wrap">
-      <it-modal modal-title="Modale piccola" size="sm">
-        <span slot="trigger">Modale piccola</span>
+      <it-modal size="sm">
+        <it-button slot="trigger" variant="primary">Modale piccola</it-button>
+        <h2 slot="header">Modale piccola</h2>
         <p slot="content">Contenuto della modale piccola.</p>
         <it-button slot="footer" variant="primary" @click="${closeModal}">Chiudi</it-button>
       </it-modal>
 
-      <it-modal modal-title="Modale grande" size="lg">
-        <span slot="trigger">Modale grande</span>
+      <it-modal size="lg">
+        <it-button slot="trigger" variant="primary">Modale grande</it-button>
+        <h2 slot="header">Modale grande</h2>
         <p slot="content">Contenuto della modale grande.</p>
         <it-button slot="footer" variant="primary" @click="${closeModal}">Chiudi</it-button>
       </it-modal>
 
-      <it-modal modal-title="Modale molto grande" size="xl">
-        <span slot="trigger">Modale molto grande</span>
+      <it-modal size="xl">
+        <it-button slot="trigger" variant="primary">Modale molto grande</it-button>
+        <h2 slot="header">Modale molto grande</h2>
         <p slot="content">Contenuto della modale molto grande.</p>
         <it-button slot="footer" variant="primary" @click="${closeModal}">Chiudi</it-button>
       </it-modal>
@@ -278,8 +354,9 @@ export const DimensioniOpzionali: Story = {
 export const BackdropStatico: Story = {
   name: 'Backdrop statico',
   render: () => html`
-    <it-modal modal-title="Backdrop statico" static-backdrop>
-      <span slot="trigger">Apri modale con backdrop statico</span>
+    <it-modal static-backdrop>
+      <it-button slot="trigger" variant="primary">Apri modale con backdrop statico</it-button>
+      <h2 slot="header">Modale con backdrop statico</h2>
       <p slot="content">Questa modale non si chiude cliccando sullo sfondo.</p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>

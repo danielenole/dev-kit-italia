@@ -58,6 +58,8 @@ export class ItModal extends BaseComponent {
 
   @query('slot[name="trigger"]') private _triggerSlot!: HTMLSlotElement;
 
+  @query('slot[name="header"]') private _headerSlot!: HTMLSlotElement;
+
   private _titleId = '';
 
   private _triggerId = '';
@@ -77,6 +79,10 @@ export class ItModal extends BaseComponent {
 
   get _triggerElement(): ItButton | HTMLButtonElement | null {
     return this._triggerSlot.assignedElements({ flatten: true })?.[0] as ItButton | HTMLButtonElement | null;
+  }
+
+  get _headerElement(): HTMLElement | null {
+    return this._headerSlot.assignedElements({ flatten: true })?.[0] as HTMLElement | null;
   }
 
   constructor() {
@@ -109,6 +115,19 @@ export class ItModal extends BaseComponent {
   private _onTriggerSlotChange = (): void => {
     this._setupTriggerListeners();
     this._setTriggerA11y();
+  };
+
+  private _handleHeaderSlotChange = (): void => {
+    // Se l'header custom ha un id, usa quello per l'aria-labelledby
+    // altrimenti assegna l'id generato
+    const header = this._headerElement;
+    if (!header) return;
+    if (!header.id) {
+      header.id = this._titleId;
+    } else {
+      this._titleId = header.id;
+    }
+    header.classList.add('modal-title');
   };
 
   private _setupTriggerListeners(): void {
@@ -245,6 +264,7 @@ export class ItModal extends BaseComponent {
 
   render() {
     const ariaLabelledBy = this.modalTitle ? this._titleId : undefined;
+    const ariaLabel = this.modalTitle && !this._headerElement ? this.modalTitle : undefined;
     console.log('render modal', ariaLabelledBy, this.modalTitle, this._titleId);
     return html`
       <slot name="trigger" @slotchange=${this._onTriggerSlotChange}></slot>
@@ -254,6 +274,7 @@ export class ItModal extends BaseComponent {
         role="dialog"
         aria-modal="true"
         aria-labelledby="${ifDefined(ariaLabelledBy)}"
+        aria-label="${ifDefined(ariaLabel)}"
         aria-hidden="${!this.open}"
         tabindex="-1"
         @click="${this._handleBackdropClick}"
@@ -262,9 +283,7 @@ export class ItModal extends BaseComponent {
           <div class="modal-content">
             <div class="modal-header">
               <slot name="header-icon"></slot>
-              <slot name="header">
-                ${this.modalTitle ? html`<h2 class="modal-title" id="${this._titleId}">${this.modalTitle}</h2>` : ''}
-              </slot>
+              <slot name="header" @slotchange="${this._handleHeaderSlotChange}"></slot>
               ${this.closeButton
                 ? html`<it-button
                     class="btn-close"
