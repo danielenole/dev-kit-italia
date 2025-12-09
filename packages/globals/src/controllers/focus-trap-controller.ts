@@ -5,7 +5,12 @@ export interface FocusTrapConfig {
   getContainer: () => HTMLElement | ShadowRoot | null;
   /** Funzione che ritorna l'elemento trigger che ha attivato il focus trap */
   getTrigger: () => HTMLElement | ShadowRoot | null;
-  /** Opzionale: funzione che ritorna l'elemento da mettere a fuoco all'apertura (può essere tabindex -1) */
+  /** Opzionale: funzione che ritorna l'elemento da mettere a fuoco all'apertura (può essere tabindex -1)
+   * Nota: alcune chiamanti (es. it-modal) possono usare la chiave `initialFocus` invece di `getInitialFocus`;
+   * entrambi i nomi sono supportati.
+   */
+  getInitialFocus?: () => HTMLElement | null;
+  /** Alias legacy: alcuni componenti passano `initialFocus` invece di `getInitialFocus` */
   initialFocus?: () => HTMLElement | null;
   /** Callback quando viene premuto Escape */
   onEscape?: () => void;
@@ -63,8 +68,24 @@ export class FocusTrapController implements ReactiveController {
       return true;
     }
 
-    // Per elementi standard, controlliamo anche visibilità
-    return el.offsetParent !== null;
+    // Per elementi standard, controlliamo anche visibilità in modo robusto.
+    // Alcuni elementi (es. inline anchors, elementi dentro container positionati) possono
+    // avere offsetParent === null pur essendo visibili/focusabili. Usiamo quindi getClientRects
+    // e computedStyle come controllo più affidabile.
+    try {
+      // Se non ci sono bounding rects, probabilmente non è visibile
+      if ((el.getClientRects && el.getClientRects().length === 0)) return false;
+
+      const style = window.getComputedStyle(el);
+      if (!style) return false;
+      if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') return false;
+
+      // Altrimenti consideriamo l'elemento focusabile
+      return true;
+    } catch (e) {
+      // In casi particolari (es. accesso cross-origin? raro) fallback a true se ha focus()
+      return true;
+    }
   }
 
   constructor(host: ReactiveControllerHost & HTMLElement, config: FocusTrapConfig) {
@@ -167,11 +188,12 @@ export class FocusTrapController implements ReactiveController {
         );
       });
     });
-    console.log('candidates', candidates, container);
-    // Filtra solo elementi veramente focusabili e rimuovi duplicati e
-    this._focusableElements = Array.from(new Set(candidates)).filter(
-      (el) => FocusTrapController.isFocusable(el) && el !== this.config.getContainer(),
-    );
+    // Filtra solo elementi veramente focusabili e rimuovi duplicati
+    this._focusableElements = Array.from(new Set(candidates)).filter((el) => {
+      // Escludi esplicitamente il container/dialog stesso
+      if (el === this.config.getContainer()) return false;
+      return FocusTrapController.isFocusable(el);
+    });
 
     // Aggiorna primo/ultimo
     this._first = this._focusableElements?.[0];
@@ -206,8 +228,9 @@ export class FocusTrapController implements ReactiveController {
    * Se non è fornito, fallback sul primo elemento tabbabile.
    */
   focusInitial(): void {
-    if (this.config.initialFocus) {
-      const el = this.config.initialFocus();
+    const getter = this.config.getInitialFocus ?? this.config.initialFocus;
+    if (getter) {
+      const el = getter();
       if (el && typeof el.focus === 'function') {
         el.focus();
         return;
