@@ -40,14 +40,12 @@ $utilities: (
   display: block;
 }
 
-// Nascondi modal e backdrop quando chiuso
-.modal:not(.show),
-.modal[aria-hidden='true'] {
-  display: none !important;
-}
-
-.modal-backdrop:not(.show) {
-  display: none !important;
+// Nascondi modal e backdrop quando chiuso (tramite attributo open)
+:host(:not([open])) {
+  .modal,
+  .modal-backdrop {
+    display: none !important;
+  }
 }
 
 // Assicura che il backdrop copra tutta la viewport
@@ -59,16 +57,6 @@ $utilities: (
   width: 100vw;
   height: 100vh;
   background-color: $modal-backdrop-bg;
-  opacity: 0;
-  transition: opacity 0.15s linear;
-
-  &.show {
-    opacity: $modal-backdrop-opacity;
-  }
-
-  &:not(.fade) {
-    opacity: $modal-backdrop-opacity;
-  }
 }
 
 // Modal container
@@ -80,32 +68,38 @@ $utilities: (
   display: flex;
   width: 100%;
   height: 100%;
-  opacity: 0;
   outline: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  transition: opacity 0.15s linear;
+}
 
-  &.show {
-    opacity: 1;
+.it-dialog-scrollable {
+  overflow-y: hidden;
+}
+
+.modal-dialog {
+  @media (min-width: 768px) {
+    margin: 64px auto;
   }
+}
 
-  &:not(.fade) {
-    opacity: 1;
-  }
-
-  &.it-dialog-scrollable {
-    overflow-y: hidden;
-
-    .modal-dialog {
-      margin: 64px auto;
-    }
-  }
+.modal-dialog-scrollable {
+  height: unset;
 }
 
 .modal-dialog-centered {
   min-height: unset;
   margin: auto;
+}
+
+.modal.alert-modal .modal-dialog .modal-content .modal-header {
+  align-items: center;
+  gap: var(--bs-spacing-lg);
+}
+
+.modal.it-dialog-scrollable .modal-dialog.modal-dialog-right {
+  position: fixed;
+  right: 0;
 }
 // // Fix per il focus trap - assicura che gli elementi siano focusabili
 // .modal-content {

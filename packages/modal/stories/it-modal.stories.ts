@@ -368,3 +368,19 @@ export const BackdropStatico: Story = {
     </it-modal>
   `,
 };
+
+export const SenzaAnimazione: Story = {
+  name: 'Senza animazione',
+  render: () => html`
+    <it-modal .fade="${false}">
+      <it-button slot="trigger" variant="primary">Apri modale senza animazione</it-button>
+      <h2 slot="header">Modale senza fade</h2>
+      <p slot="content">
+        Questa modale appare immediatamente senza animazione di dissolvenza. Utile per ridurre il movimento e rispettare
+        le preferenze di accessibilità.
+      </p>
+      <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
+      <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
+    </it-modal>
+  `,
+};
