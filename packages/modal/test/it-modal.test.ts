@@ -144,7 +144,9 @@ describe('it-modal', () => {
     });
 
     it('applies modal-xl class for size="xl"', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="XL" size="xl" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(
+        html`<it-modal modal-title="XL" size="xl" open .fade=${false}>Content</it-modal>`,
+      );
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog');
@@ -554,9 +556,7 @@ describe('it-modal', () => {
     });
 
     it('modal has aria-labelledby or aria-label when modal-title is set', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="My Title" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`<it-modal modal-title="My Title" open .fade=${false}>Content</it-modal>`);
       await aTimeout(50);
 
       const modal = el.shadowRoot?.querySelector('.modal');
@@ -603,7 +603,7 @@ describe('it-modal', () => {
         // Trigger might be in shadow DOM or need more time
         await aTimeout(200);
       }
-      
+
       // If still null, try alternative approach: use the internal _triggerElement
       if (trigger) {
         trigger.click();
