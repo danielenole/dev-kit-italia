@@ -95,7 +95,7 @@ export class ItModal extends BaseComponent {
     disableEscape: false,
   });
 
-  get _triggerElement(): HTMLElement | shadowRoot | null {
+  get _triggerElement(): HTMLElement | null {
     if (!this._triggerSlot) {
       this.logger.error('No trigger provided');
       return null;
@@ -104,7 +104,7 @@ export class ItModal extends BaseComponent {
     if (elements.length === 0) {
       return null;
     }
-    return elements[0];
+    return elements[0] as HTMLElement | null;
   }
 
   constructor() {
