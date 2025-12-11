@@ -6,15 +6,15 @@ import { MODAL_SIZES, MODAL_POSITIONS, MODAL_VARIANTS } from '../src/types.ts';
 
 interface ModalProps {
   'modal-title': string;
+  'modal-description': string;
   size: string;
   position: string;
   scrollable: boolean;
   'static-backdrop': boolean;
-  'close-button': boolean;
+  'hide-close-button': boolean;
   variant: string;
-  'no-escape': boolean;
   'close-label': string;
-  fade: boolean;
+  'disable-animation': boolean;
   'footer-shadow': boolean;
   // Demo props
   triggerLabel: string;
@@ -36,21 +36,21 @@ const meta = {
     docs: {
       story: {
         inline: false,
-        iframeHeight: 500,
+        iframeHeight: 400,
       },
     },
   },
   args: {
     'modal-title': 'Titolo modale',
+    'modal-description': 'Descrizione della modale',
     size: '',
-    position: 'center',
+    position: undefined,
     scrollable: false,
     'static-backdrop': false,
-    'close-button': true,
+    'hide-close-button': false,
     variant: '',
-    'no-escape': false,
     'close-label': 'Chiudi finestra modale',
-    fade: true,
+    'disable-animation': false,
     'footer-shadow': false,
     triggerLabel: 'Apri modale',
     bodyContent: 'Contenuto della modale. Può includere testo, form, o qualsiasi altro elemento.',
@@ -60,17 +60,22 @@ const meta = {
       control: 'text',
       description: 'Titolo della modale (usa slot `header` per contenuto custom)',
     },
+    'modal-description': {
+      control: 'text',
+      description:
+        'Descrizione della modale (usa slot `description` per contenuto custom), verrrà inserita in un elemento visivamente nascosto per i lettori di schermo.',
+    },
     size: {
       control: 'select',
-      options: ['', ...MODAL_SIZES],
+      options: MODAL_SIZES,
       description: 'Dimensione della modale',
-      table: { defaultValue: { summary: '' } },
+      table: { defaultValue: { summary: undefined } },
     },
     position: {
       control: 'select',
       options: MODAL_POSITIONS,
       description: 'Posizionamento della modale',
-      table: { defaultValue: { summary: 'center' } },
+      table: { defaultValue: { summary: undefined } },
     },
     scrollable: {
       control: 'boolean',
@@ -82,31 +87,24 @@ const meta = {
       description: 'Disabilita chiusura su click backdrop',
       table: { defaultValue: { summary: 'false' } },
     },
-    'close-button': {
+    'hide-close-button': {
       control: 'boolean',
-      description: 'Mostra il pulsante di chiusura',
-      table: { defaultValue: { summary: 'true' } },
+      description: 'Nasconde il pulsante di chiusura',
     },
     variant: {
       control: 'select',
       options: MODAL_VARIANTS,
       description: 'Variante della modale',
-      table: { defaultValue: { summary: '' } },
-    },
-    'no-escape': {
-      control: 'boolean',
-      description: 'Disabilita chiusura con tasto Escape',
-      table: { defaultValue: { summary: 'false' } },
+      table: { defaultValue: { summary: undefined } },
     },
     'close-label': {
       control: 'text',
       description: 'Etichetta accessibile per il pulsante di chiusura',
       table: { defaultValue: { summary: 'Chiudi finestra modale' } },
     },
-    fade: {
+    'disable-animation': {
       control: 'boolean',
-      description: 'Abilita animazione fade',
-      table: { defaultValue: { summary: 'true' } },
+      description: 'Disabilita animazione fade',
     },
     'footer-shadow': {
       control: 'boolean',
@@ -114,14 +112,10 @@ const meta = {
       table: { defaultValue: { summary: 'false' } },
     },
     triggerLabel: {
-      control: 'text',
-      description: 'Testo del pulsante trigger (solo per demo)',
-      table: { category: 'Demo' },
+      table: { disable: true },
     },
     bodyContent: {
-      control: 'text',
-      description: 'Contenuto del body (solo per demo)',
-      table: { category: 'Demo' },
+      table: { disable: true },
     },
   },
 } satisfies Meta<ModalProps>;
@@ -139,19 +133,19 @@ export const EsempioInterattivo: Story = {
   },
   render: (args) => html`
     <it-modal
-      ?close-button="${args['close-button']}"
-      ?fade="${args.fade}"
+      ?hide-close-button="${args['hide-close-button']}"
+      ?disable-animation="${args['disable-animation']}"
       size="${ifDefined(args.size || undefined)}"
       position="${args.position}"
       variant="${ifDefined(args.variant || undefined)}"
       ?scrollable="${args.scrollable}"
       ?static-backdrop="${args['static-backdrop']}"
       ?footer-shadow="${args['footer-shadow']}"
-      ?no-escape="${args['no-escape']}"
       close-label="${args['close-label']}"
+      modal-title="${args['modal-title']}"
+      modal-description="${args['modal-description']}"
     >
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
-      <h2 slot="header">${args['modal-title']}</h2>
       <p slot="content">${args.bodyContent}</p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
@@ -160,37 +154,46 @@ export const EsempioInterattivo: Story = {
 };
 
 export const ModaleBase: Story = {
-  name: 'Modale base',
+  name: 'Con pulsante di chiusura',
   render: () => html`
-    <it-modal>
-      <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
-      <h2 slot="header">Titolo modale</h2>
-      <p slot="content">Testo che descrive lo scopo della modale e quali sono le azioni richieste all'utente.</p>
-      <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
-      <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
-    </it-modal>
+    <div class="d-flex gap-4">
+      <it-modal close-label="Chiudi finestra modale" modal-description="Descrizione della modale">
+        <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+        <span slot="header">Titolo modale</span>
+        <p slot="content">Testo che descrive lo scopo della modale e quali sono le azioni richieste all'utente.</p>
+        <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
+        <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
+      </it-modal>
+      <it-modal hide-close-button>
+        <it-button variant="primary" slot="trigger">Lancia la demo della modale senza close button</it-button>
+        <span slot="header">Titolo modale</span>
+        <p slot="content">Testo che descrive lo scopo della modale e quali sono le azioni richieste all'utente.</p>
+        <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
+        <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
+      </it-modal>
+    </div>
   `,
 };
 
 export const ConIcona: Story = {
   name: 'Con icona',
   render: () => html`
-    <it-modal variant="alert">
+    <it-modal variant="alert" close-label="Chiudi finestra modale">
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
-      <h2 slot="header">Questo è un messaggio di notifica</h2>
       <it-icon slot="header-icon" name="it-warning-circle" size="lg" color="warning"></it-icon>
-      <p slot="content">In questo caso viene fornito solo un pulsante di conferma della modale.</p>
+      <span slot="header">Questo è un messaggio di notifica</span>
+      <p slot="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
     </it-modal>
   `,
 };
 export const FooterCustom: Story = {
-  name: 'Footer custom',
+  name: 'Modale con footer personalizzato',
   render: () => html`
-    <it-modal>
+    <it-modal close-label="Chiudi finestra modale">
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
-      <h2 slot="header">Con footer custom</h2>
-      <p slot="content">In questo caso viene fornito solo un pulsante di conferma della modale.</p>
+      <span slot="header">Con footer personalizzato</span>
+      <p slot="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
       <div slot="footer" class="d-flex justify-content-between gap-2 align-items-center" style="width:100%;">
         <a href="#">Link di supporto</a>
         <div class="d-flex justify-content-end  gap-2">
@@ -203,11 +206,11 @@ export const FooterCustom: Story = {
 };
 
 export const ConForm: Story = {
-  name: 'Con form',
+  name: 'Modale con elementi form',
   render: () => html`
-    <it-modal>
+    <it-modal close-label="Chiudi finestra modale">
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
-      <h2 slot="header">Seleziona un'opzione dal form</h2>
+      <span slot="header">Seleziona un'opzione dal form</span>
       <div slot="content">
         <it-radio-group name="gruppo1">
           <span slot="label">Esempio interattivo</span>
@@ -228,11 +231,13 @@ export const ConForm: Story = {
 };
 
 export const ConLinkList: Story = {
-  name: 'Con Link List',
+  name: 'Modale con Link List',
   render: () => html`
-    <it-modal variant="link-list">
+    <it-modal variant="link-list" close-label="Chiudi finestra modale">
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
-      <h2 slot="header">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</h2>
+      <span slot="header"
+        >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</span
+      >
       <div class="link-list-wrapper" slot="content">
         <ul class="link-list">
           <li>
@@ -260,7 +265,7 @@ export const ConLinkList: Story = {
 export const Popconfirm: Story = {
   render: () => html`
     <div class="d-flex gap-3">
-      <it-modal variant="popconfirm" .closeButton=${false} modal-title="Titolo modale">
+      <it-modal variant="popconfirm">
         <it-button variant="primary" slot="trigger">Popconfirm basico</it-button>
         <p slot="content">Breve messaggio di conferma inserito nella modale</p>
         <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Azione 1</it-button>
@@ -269,7 +274,7 @@ export const Popconfirm: Story = {
 
       <it-modal variant="popconfirm">
         <it-button variant="primary" slot="trigger">Popconfirm con header</it-button>
-        <h2 slot="header">Titolo modale</h2>
+        <span slot="header">Titolo modale</span>
         <p slot="content">Breve messaggio di conferma inserito nella modale</p>
         <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Azione 1</it-button>
         <it-button slot="footer" variant="primary" @click="${closeModal}">Azione 2</it-button>
@@ -278,12 +283,12 @@ export const Popconfirm: Story = {
   `,
 };
 
-export const ScrollInterno: Story = {
-  name: 'Scroll interno alla modale',
+export const ScrollLungo: Story = {
+  name: 'Scroll di contenuti lunghi',
   render: () => html`
-    <it-modal scrollable>
+    <it-modal footer-shadow close-label="Chiudi finestra modale">
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
-      <h2 slot="header">Modale con scroll interno</h2>
+      <span slot="header">Scroll di contenuti lunghi</span>
       <div slot="content">
         ${Array(20)
           .fill(0)
@@ -302,13 +307,84 @@ export const ScrollInterno: Story = {
   `,
 };
 
+export const ScrollInterno: Story = {
+  name: 'Scroll interno alla modale',
+  render: () => html`
+    <it-modal scrollable footer-shadow close-label="Chiudi finestra modale">
+      <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <span slot="header">Modale con scroll interno</span>
+      <div slot="content">
+        ${Array(20)
+          .fill(0)
+          .map(
+            () => html`
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+              </p>
+            `,
+          )}
+      </div>
+      <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
+      <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
+    </it-modal>
+  `,
+};
+
+export const CentraturaVerticale: Story = {
+  name: 'Centratura verticale',
+  render: () => html`
+    <it-modal position="center" close-label="Chiudi finestra modale">
+      <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <span slot="header">Centratura verticale</span>
+      <div slot="content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua.
+        </p>
+      </div>
+      <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
+      <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
+    </it-modal>
+  `,
+};
+
 export const AllineamentoSinistra: Story = {
   name: 'Allineamento a sinistra',
   render: () => html`
-    <it-modal position="left">
+    <it-modal position="left" close-label="Chiudi finestra modale" scrollable>
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
-      <h2 slot="header">Modale allineata a sinistra</h2>
-      <p slot="content">Questa modale si apre da sinistra.</p>
+      <span slot="header">Modale allineata a sinistra</span>
+      <p slot="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..
+      </p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
     </it-modal>
@@ -318,10 +394,39 @@ export const AllineamentoSinistra: Story = {
 export const AllineamentoDestra: Story = {
   name: 'Allineamento a destra',
   render: () => html`
-    <it-modal position="right">
+    <it-modal position="right" close-label="Chiudi finestra modale" scrollable>
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
-      <h2 slot="header">Modale allineata a destra</h2>
-      <p slot="content">Questa modale si apre da destra.</p>
+      <span slot="header">Modale allineata a destra</span>
+      <p slot="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
     </it-modal>
@@ -332,24 +437,45 @@ export const DimensioniOpzionali: Story = {
   name: 'Dimensioni opzionali',
   render: () => html`
     <div class="d-flex gap-3 flex-wrap">
-      <it-modal size="sm">
+      <it-modal size="sm" close-label="Chiudi finestra modale">
         <it-button slot="trigger" variant="primary">Modale piccola</it-button>
-        <h2 slot="header">Modale piccola</h2>
-        <p slot="content">Contenuto della modale piccola.</p>
+        <span slot="header">Modale piccola</span>
+        <p slot="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis felis tortor, ultrices congue orci
+          ultricies sed. In hac habitasse platea dictumst. Ut placerat ligula sed tincidunt dictum. Pellentesque dapibus
+          nisl vel varius dignissim. Aliquam leo ligula, dapibus vitae porttitor sed, laoreet in massa. Aliquam interdum
+          sollicitudin libero, consectetur lacinia enim aliquet pretium. Vestibulum sit amet ornare velit, ac efficitur
+          nisi. In leo mauris, ultrices in turpis sit amet, tempus placerat neque. Cras in dolor sit amet ante pharetra
+          commodo. Aliquam cursus euismod velit, ut condimentum ipsum imperdiet ac..
+        </p>
         <it-button slot="footer" variant="primary" @click="${closeModal}">Chiudi</it-button>
       </it-modal>
 
-      <it-modal size="lg">
+      <it-modal size="lg" close-label="Chiudi finestra modale">
         <it-button slot="trigger" variant="primary">Modale grande</it-button>
-        <h2 slot="header">Modale grande</h2>
-        <p slot="content">Contenuto della modale grande.</p>
+        <span slot="header">Modale grande</span>
+        <p slot="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis felis tortor, ultrices congue orci
+          ultricies sed. In hac habitasse platea dictumst. Ut placerat ligula sed tincidunt dictum. Pellentesque dapibus
+          nisl vel varius dignissim. Aliquam leo ligula, dapibus vitae porttitor sed, laoreet in massa. Aliquam interdum
+          sollicitudin libero, consectetur lacinia enim aliquet pretium. Vestibulum sit amet ornare velit, ac efficitur
+          nisi. In leo mauris, ultrices in turpis sit amet, tempus placerat neque. Cras in dolor sit amet ante pharetra
+          commodo. Aliquam cursus euismod velit, ut condimentum ipsum imperdiet ac.
+        </p>
         <it-button slot="footer" variant="primary" @click="${closeModal}">Chiudi</it-button>
       </it-modal>
 
-      <it-modal size="xl">
+      <it-modal size="xl" close-label="Chiudi finestra modale">
         <it-button slot="trigger" variant="primary">Modale molto grande</it-button>
-        <h2 slot="header">Modale molto grande</h2>
-        <p slot="content">Contenuto della modale molto grande.</p>
+        <span slot="header">Modale molto grande</span>
+        <p slot="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis felis tortor, ultrices congue orci
+          ultricies sed. In hac habitasse platea dictumst. Ut placerat ligula sed tincidunt dictum. Pellentesque dapibus
+          nisl vel varius dignissim. Aliquam leo ligula, dapibus vitae porttitor sed, laoreet in massa. Aliquam interdum
+          sollicitudin libero, consectetur lacinia enim aliquet pretium. Vestibulum sit amet ornare velit, ac efficitur
+          nisi. In leo mauris, ultrices in turpis sit amet, tempus placerat neque. Cras in dolor sit amet ante pharetra
+          commodo. Aliquam cursus euismod velit, ut condimentum ipsum imperdiet ac.
+        </p>
         <it-button slot="footer" variant="primary" @click="${closeModal}">Chiudi</it-button>
       </it-modal>
     </div>
@@ -359,9 +485,9 @@ export const DimensioniOpzionali: Story = {
 export const BackdropStatico: Story = {
   name: 'Backdrop statico',
   render: () => html`
-    <it-modal static-backdrop>
+    <it-modal static-backdrop close-label="Chiudi finestra modale">
       <it-button slot="trigger" variant="primary">Apri modale con backdrop statico</it-button>
-      <h2 slot="header">Modale con backdrop statico</h2>
+      <span slot="header">Modale con backdrop statico</span>
       <p slot="content">Questa modale non si chiude cliccando sullo sfondo.</p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
@@ -370,15 +496,12 @@ export const BackdropStatico: Story = {
 };
 
 export const SenzaAnimazione: Story = {
-  name: 'Senza animazione',
+  name: 'Rimuovere l’animazione',
   render: () => html`
-    <it-modal .fade="${false}">
+    <it-modal disable-animation close-label="Chiudi finestra modale">
       <it-button slot="trigger" variant="primary">Apri modale senza animazione</it-button>
-      <h2 slot="header">Modale senza fade</h2>
-      <p slot="content">
-        Questa modale appare immediatamente senza animazione di dissolvenza. Utile per ridurre il movimento e rispettare
-        le preferenze di accessibilità.
-      </p>
+      <span slot="header">Modale senza animazione</span>
+      <p slot="content">Questa modale appare immediatamente senza animazione di dissolvenza.</p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
     </it-modal>

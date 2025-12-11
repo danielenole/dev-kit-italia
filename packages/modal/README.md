@@ -1,69 +1,59 @@
 # \<it-modal>
 
-Web component per finestre modali del Design system .italia.
+This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
-## Installazione
+## Installation
 
 ```bash
 npm i @italia/modal
 ```
 
-## Utilizzo
+## Usage
 
 ```html
 <script type="module">
   import '@italia/modal';
 </script>
-
-<it-modal id="my-modal" modal-title="Titolo modale">
-  <p>Contenuto della modale</p>
-  <it-button slot="footer" variant="outline-primary">Annulla</it-button>
-  <it-button slot="footer" variant="primary">Conferma</it-button>
-</it-modal>
-
-<it-button onclick="document.getElementById('my-modal').open = true">
-  Apri modale
-</it-button>
 ```
 
-## Attributi
+## Running locally
 
-| Attributo | Tipo | Default | Descrizione |
-|-----------|------|---------|-------------|
-| `open` | `boolean` | `false` | Stato aperto/chiuso della modale |
-| `modal-title` | `string` | `''` | Titolo della modale |
-| `size` | `'sm' \| 'lg' \| 'xl'` | `''` | Dimensione della modale |
-| `position` | `'center' \| 'left' \| 'right'` | `'center'` | Posizionamento della modale |
-| `scrollable` | `boolean` | `false` | Abilita scroll interno |
-| `static-backdrop` | `boolean` | `false` | Disabilita chiusura su click backdrop |
-| `close-button` | `boolean` | `true` | Mostra il pulsante di chiusura |
-| `variant` | `'alert' \| 'popconfirm' \| 'link-list'` | `''` | Variante della modale |
+```bash
+npm start
+```
 
-## Eventi
+To run a local development server that serves the basic demo located in `demo/index.html`
 
-| Evento | Descrizione |
-|--------|-------------|
-| `it-modal-show` | Emesso prima dell'apertura |
-| `it-modal-shown` | Emesso dopo l'apertura |
-| `it-modal-hide` | Emesso prima della chiusura |
-| `it-modal-hidden` | Emesso dopo la chiusura |
-
-## Test
+## Testing
 
 ```bash
 npm run test
 ```
 
-## Linting
+## Linting and formatting
+
+To scan the project for linting and formatting errors, run
 
 ```bash
 npm run lint
 ```
 
-## Accessibilità
+To automatically fix linting and formatting errors, run
 
-Il componente implementa le linee guida WAI-ARIA per i dialog modali:
-- Focus trap automatico
-- Supporto tastiera (Tab, Shift+Tab, Escape)
-- Attributi `aria-modal`, `aria-labelledby`, `aria-describedby`
-- Ripristino del focus all'elemento di origine alla chiusura
+```bash
+npm run format
+```
+
+## Tooling configs
+
+For most of the tools, the configuration is in the `package.json` to minimize the amount of files in your project.
+
+If you customize the configuration a lot, you can consider moving them to individual files.
+
+## Local Demo with `web-dev-server`
+
+```bash
+npm start
+```
+
+To run a local development server that serves the basic demo located in `demo/index.html`

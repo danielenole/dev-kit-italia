@@ -1,5 +1,6 @@
 declare module '*.scss' {
-  import { CSSResult } from 'lit';
-  const styles: CSSResult;
+  import { CSSResultGroup } from 'lit';
+
+  const styles: CSSResultGroup;
   export default styles;
 }

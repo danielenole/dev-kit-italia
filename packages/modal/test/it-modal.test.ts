@@ -21,51 +21,40 @@ const pressKey = (element: HTMLElement, key: string, shiftKey = false) => {
 describe('it-modal', () => {
   describe('rendering', () => {
     it('renders with correct default attributes', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test">Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
 
       expect(el).to.exist;
       expect(el.open).to.be.false;
-      expect(el.fade).to.be.true;
-      expect(el.closeButton).to.be.true;
-      expect(el.position).to.equal('center'); // default value
+      expect(el.disableAnimation).to.be.false;
+      expect(el.hideCloseButton).to.be.false;
+      expect(el.position).to.equal(undefined);
       expect(el.size).to.equal('');
     });
 
-    it('is hidden when closed (open=false)', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test">Content</it-modal>`);
-
-      const modal = el.shadowRoot?.querySelector('.modal');
-      const backdrop = el.shadowRoot?.querySelector('.modal-backdrop');
-
-      // Elements should exist but be hidden by CSS
-      expect(modal).to.exist;
-      expect(backdrop).to.exist;
-
-      // Host should not have open attribute, triggering :host(:not([open])) display:none
-      expect(el.hasAttribute('open')).to.be.false;
-    });
-
-    it('is visible when open=true', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+    it('renders header slot content', async () => {
+      const el = await fixture<ItModal>(html`
+        <it-modal>
+          <span slot="header" id="my-title">My Title</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
-      expect(el.hasAttribute('open')).to.be.true;
-      const modal = el.shadowRoot?.querySelector('.modal');
-      expect(modal).to.exist;
-      expect(modal?.getAttribute('role')).to.equal('dialog');
-      expect(modal?.getAttribute('aria-modal')).to.equal('true');
-    });
-
-    it('renders modal-title in header', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="My Title" open .fade=${false}>Content</it-modal>`);
-      await aTimeout(50);
-
-      const titleSlot = el.shadowRoot?.querySelector('slot[name="header"]');
-      expect(titleSlot).to.exist;
+      const headerSlot = el.shadowRoot?.querySelector('slot[name="header"]');
+      expect(headerSlot).to.exist;
+      const slottedTitle = el.querySelector('#my-title');
+      expect(slottedTitle?.textContent).to.equal('My Title');
     });
 
     it('renders close button by default', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const closeBtn = el.shadowRoot?.querySelector('.btn-close');
@@ -73,10 +62,12 @@ describe('it-modal', () => {
       expect(closeBtn?.tagName.toLowerCase()).to.equal('it-button');
     });
 
-    it('hides close button when closeButton=false', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Test" .closeButton=${false} open .fade=${false}>Content</it-modal>`,
-      );
+    it('hides close button when hideCloseButton=true', async () => {
+      const el = await fixture<ItModal>(html`
+        <it-modal hide-close-button>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const closeBtn = el.shadowRoot?.querySelector('.btn-close');
@@ -85,7 +76,8 @@ describe('it-modal', () => {
 
     it('renders slotted content in body', async () => {
       const el = await fixture<ItModal>(html`
-        <it-modal modal-title="Test" open .fade=${false}>
+        <it-modal>
+          <span slot="header">Test</span>
           <p slot="content" id="test-p">My content</p>
         </it-modal>
       `);
@@ -99,7 +91,8 @@ describe('it-modal', () => {
 
     it('renders footer slot', async () => {
       const el = await fixture<ItModal>(html`
-        <it-modal modal-title="Test" open .fade=${false}>
+        <it-modal>
+          <span slot="header">Test</span>
           <it-button slot="footer">Action</it-button>
         </it-modal>
       `);
@@ -111,7 +104,8 @@ describe('it-modal', () => {
 
     it('renders header-icon slot', async () => {
       const el = await fixture<ItModal>(html`
-        <it-modal modal-title="Test" open .fade=${false}>
+        <it-modal>
+          <span slot="header">Test</span>
           <it-icon slot="header-icon" name="it-warning-circle"></it-icon>
         </it-modal>
       `);
@@ -120,13 +114,39 @@ describe('it-modal', () => {
       const iconSlot = el.shadowRoot?.querySelector('slot[name="header-icon"]');
       expect(iconSlot).to.exist;
     });
+
+    it('renders header slot when provided', async () => {
+      const el = await fixture<ItModal>(html`
+        <it-modal>
+          <span slot="header">Test Title</span>
+        </it-modal>
+      `);
+      await aTimeout(50);
+
+      const headerSlot = el.shadowRoot?.querySelector('slot[name="header"]');
+      expect(headerSlot).to.exist;
+      const slottedHeader = el.querySelector('[slot="header"]');
+      expect(slottedHeader?.textContent).to.equal('Test Title');
+    });
+
+    it('uses it-aria-label when no header slot is provided', async () => {
+      const el = await fixture<ItModal>(
+        html`<it-modal it-aria-label="My Aria Label" hide-close-button>Content</it-modal>`,
+      );
+      await aTimeout(50);
+
+      const modal = el.shadowRoot?.querySelector('[role="dialog"]');
+      expect(modal?.getAttribute('aria-label')).to.equal('My Aria Label');
+    });
   });
 
   describe('sizes', () => {
     it('applies modal-sm class for size="sm"', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Small" size="sm" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal size="sm">
+          <span slot="header">Small</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog');
@@ -134,9 +154,11 @@ describe('it-modal', () => {
     });
 
     it('applies modal-lg class for size="lg"', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Large" size="lg" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal size="lg">
+          <span slot="header">Large</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog');
@@ -144,9 +166,11 @@ describe('it-modal', () => {
     });
 
     it('applies modal-xl class for size="xl"', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="XL" size="xl" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal size="xl">
+          <span slot="header">XL</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog');
@@ -154,7 +178,11 @@ describe('it-modal', () => {
     });
 
     it('no size class when size is empty', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Default" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal>
+          <span slot="header">Default</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog');
@@ -166,9 +194,11 @@ describe('it-modal', () => {
 
   describe('positions', () => {
     it('applies modal-dialog-centered for position="center"', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Centered" position="center" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal position="center" open disable-animation>
+          <span slot="header">Centered</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog');
@@ -176,9 +206,11 @@ describe('it-modal', () => {
     });
 
     it('applies modal-dialog-left for position="left"', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Left" position="left" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal position="left" open disable-animation>
+          <span slot="header">Left</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog');
@@ -186,9 +218,11 @@ describe('it-modal', () => {
     });
 
     it('applies modal-dialog-right for position="right"', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Right" position="right" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal position="right" open disable-animation>
+          <span slot="header">Right</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog');
@@ -198,9 +232,11 @@ describe('it-modal', () => {
 
   describe('variants', () => {
     it('applies alert-modal class for variant="alert"', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Alert" variant="alert" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal variant="alert" open disable-animation>
+          <span slot="header">Alert</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const modal = el.shadowRoot?.querySelector('.modal');
@@ -208,9 +244,11 @@ describe('it-modal', () => {
     });
 
     it('applies popconfirm-modal class for variant="popconfirm"', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Confirm" variant="popconfirm" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal variant="popconfirm" open disable-animation>
+          <span slot="header">Confirm</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const modal = el.shadowRoot?.querySelector('.modal');
@@ -218,9 +256,11 @@ describe('it-modal', () => {
     });
 
     it('applies it-dialog-link-list class for variant="link-list"', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Links" variant="link-list" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal variant="link-list" open disable-animation>
+          <span slot="header">Links</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const modal = el.shadowRoot?.querySelector('.modal');
@@ -230,7 +270,11 @@ describe('it-modal', () => {
 
   describe('show/hide methods', () => {
     it('show() sets open to true', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
 
       expect(el.open).to.be.false;
       el.show();
@@ -239,7 +283,11 @@ describe('it-modal', () => {
     });
 
     it('hide() sets open to false after animation', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       expect(el.open).to.be.true;
@@ -249,7 +297,11 @@ describe('it-modal', () => {
     });
 
     it('toggle() toggles the open state', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
 
       expect(el.open).to.be.false;
       el.toggle();
@@ -262,7 +314,11 @@ describe('it-modal', () => {
     });
 
     it('show() does nothing if already open', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       expect(el.open).to.be.true;
@@ -272,7 +328,11 @@ describe('it-modal', () => {
     });
 
     it('hide() does nothing if already closed', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
 
       expect(el.open).to.be.false;
       el.hide();
@@ -281,29 +341,45 @@ describe('it-modal', () => {
     });
   });
 
-  describe('animations (fade)', () => {
-    it('fade=true enables animations (default)', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test">Content</it-modal>`);
+  describe('animations (disableAnimation)', () => {
+    it('disableAnimation=false enables animations (default)', async () => {
+      const el = await fixture<ItModal>(html`
+        <it-modal>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
 
-      expect(el.fade).to.be.true;
+      expect(el.disableAnimation).to.be.false;
     });
 
-    it('fade=false disables animations', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" .fade=${false}>Content</it-modal>`);
+    it('disableAnimation=true disables animations', async () => {
+      const el = await fixture<ItModal>(html`
+        <it-modal disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
 
-      expect(el.fade).to.be.false;
+      expect(el.disableAnimation).to.be.true;
     });
 
-    it('modal opens immediately when fade=false', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" .fade=${false}>Content</it-modal>`);
+    it('modal opens immediately when disableAnimation=true', async () => {
+      const el = await fixture<ItModal>(html`
+        <it-modal disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
 
       el.show();
       await aTimeout(10);
       expect(el.open).to.be.true;
     });
 
-    it('modal closes immediately when fade=false', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+    it('modal closes immediately when disableAnimation=true', async () => {
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       el.hide();
@@ -314,7 +390,11 @@ describe('it-modal', () => {
 
   describe('events', () => {
     it('fires it-modal-open when opening', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
 
       let eventFired = false;
       el.addEventListener('it-modal-open', () => {
@@ -328,7 +408,11 @@ describe('it-modal', () => {
     });
 
     it('fires it-modal-close when closing', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       let eventFired = false;
@@ -345,7 +429,11 @@ describe('it-modal', () => {
 
   describe('keyboard interaction (Escape)', () => {
     it('closes on Escape key by default', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       pressKey(el, 'Escape');
@@ -354,34 +442,29 @@ describe('it-modal', () => {
       expect(el.open).to.be.false;
     });
 
-    it('does not close on Escape when noEscape=true', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Test" open no-escape .fade=${false}>Content</it-modal>`,
-      );
+    it('closes on Escape even when staticBackdrop=true', async () => {
+      const el = await fixture<ItModal>(html`
+        <it-modal open static-backdrop disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       pressKey(el, 'Escape');
       await aTimeout(100);
 
-      expect(el.open).to.be.true;
-    });
-
-    it('does not close on Escape when staticBackdrop=true', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Test" open static-backdrop .fade=${false}>Content</it-modal>`,
-      );
-      await aTimeout(50);
-
-      pressKey(el, 'Escape');
-      await aTimeout(100);
-
-      expect(el.open).to.be.true;
+      // staticBackdrop impedisce solo la chiusura al click sul backdrop, NON con Escape
+      expect(el.open).to.be.false;
     });
   });
 
   describe('backdrop click interaction', () => {
     it('closes when clicking backdrop', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const backdrop = el.shadowRoot?.querySelector('.modal') as HTMLElement;
@@ -392,9 +475,11 @@ describe('it-modal', () => {
     });
 
     it('does not close when clicking backdrop with staticBackdrop=true', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Test" open static-backdrop .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal open static-backdrop disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const backdrop = el.shadowRoot?.querySelector('.modal') as HTMLElement;
@@ -405,7 +490,11 @@ describe('it-modal', () => {
     });
 
     it('does not close when clicking modal dialog content', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog') as HTMLElement;
@@ -418,7 +507,11 @@ describe('it-modal', () => {
 
   describe('close button interaction', () => {
     it('closes modal when close button is clicked', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const closeBtn = el.shadowRoot?.querySelector('.btn-close') as HTMLElement;
@@ -432,7 +525,8 @@ describe('it-modal', () => {
   describe('focus trap', () => {
     it('traps focus inside modal when open', async () => {
       const el = await fixture<ItModal>(html`
-        <it-modal modal-title="Test" open .fade=${false}>
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
           <p slot="content">Content</p>
           <it-button slot="footer" id="btn1">Button 1</it-button>
           <it-button slot="footer" id="btn2">Button 2</it-button>
@@ -461,7 +555,8 @@ describe('it-modal', () => {
 
     it('includes footer buttons in tab order', async () => {
       const el = await fixture<ItModal>(html`
-        <it-modal modal-title="Test" open .fade=${false}>
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
           <p slot="content">Content</p>
           <it-button slot="footer" id="cancel">Cancel</it-button>
           <it-button slot="footer" id="confirm">Confirm</it-button>
@@ -478,7 +573,8 @@ describe('it-modal', () => {
 
     it('includes footer anchor links in tab order', async () => {
       const el = await fixture<ItModal>(html`
-        <it-modal modal-title="Test" open .fade=${false}>
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
           <p slot="content">Content</p>
           <a slot="footer" href="#" id="link">Support link</a>
           <it-button slot="footer" id="btn">OK</it-button>
@@ -496,9 +592,11 @@ describe('it-modal', () => {
 
   describe('scrollable', () => {
     it('applies modal-dialog-scrollable class when scrollable=true', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Test" scrollable open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal scrollable open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog');
@@ -506,9 +604,11 @@ describe('it-modal', () => {
     });
 
     it('applies it-dialog-scrollable class to modal when position is left', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Test" position="left" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal position="left" open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const modal = el.shadowRoot?.querySelector('.modal');
@@ -516,9 +616,11 @@ describe('it-modal', () => {
     });
 
     it('applies it-dialog-scrollable class to modal when position is right', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Test" position="right" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal position="right" open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const modal = el.shadowRoot?.querySelector('.modal');
@@ -528,9 +630,11 @@ describe('it-modal', () => {
 
   describe('footer shadow', () => {
     it('applies modal-footer-shadow class when footerShadow=true', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Test" footer-shadow open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal footer-shadow open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const footer = el.shadowRoot?.querySelector('.modal-footer');
@@ -540,7 +644,11 @@ describe('it-modal', () => {
 
   describe('accessibility (a11y)', () => {
     it('modal has role="dialog"', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const modal = el.shadowRoot?.querySelector('.modal');
@@ -548,27 +656,35 @@ describe('it-modal', () => {
     });
 
     it('modal has aria-modal="true"', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const modal = el.shadowRoot?.querySelector('.modal');
       expect(modal?.getAttribute('aria-modal')).to.equal('true');
     });
 
-    it('modal has aria-labelledby or aria-label when modal-title is set', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="My Title" open .fade=${false}>Content</it-modal>`);
+    it('modal has aria-label when it-aria-label is set and no header slot', async () => {
+      const el = await fixture<ItModal>(
+        html`<it-modal it-aria-label="Custom Label" hide-close-button open disable-animation>Content</it-modal>`,
+      );
       await aTimeout(50);
 
       const modal = el.shadowRoot?.querySelector('.modal');
-      const labelledBy = modal?.getAttribute('aria-labelledby');
       const label = modal?.getAttribute('aria-label');
 
-      // Either aria-labelledby or aria-label should exist
-      expect(labelledBy || label).to.exist;
+      expect(label).to.equal('Custom Label');
     });
 
     it('modal-dialog has role="document"', async () => {
-      const el = await fixture<ItModal>(html`<it-modal modal-title="Test" open .fade=${false}>Content</it-modal>`);
+      const el = await fixture<ItModal>(html`
+        <it-modal open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const dialog = el.shadowRoot?.querySelector('.modal-dialog');
@@ -576,9 +692,11 @@ describe('it-modal', () => {
     });
 
     it('close button has accessible label', async () => {
-      const el = await fixture<ItModal>(
-        html`<it-modal modal-title="Test" close-label="Chiudi finestra" open .fade=${false}>Content</it-modal>`,
-      );
+      const el = await fixture<ItModal>(html`
+        <it-modal close-label="Chiudi finestra" open disable-animation>
+          <span slot="header">Test</span>
+        </it-modal>
+      `);
       await aTimeout(50);
 
       const closeBtn = el.shadowRoot?.querySelector('.btn-close');
@@ -590,7 +708,8 @@ describe('it-modal', () => {
   describe('trigger slot', () => {
     it('opens modal when trigger button is clicked', async () => {
       const el = await fixture<ItModal>(html`
-        <it-modal modal-title="Test" .fade=${false}>
+        <it-modal disable-animation>
+          <span slot="header">Test</span>
           <it-button slot="trigger" id="trigger-btn">Open</it-button>
           <p slot="content">Content</p>
         </it-modal>

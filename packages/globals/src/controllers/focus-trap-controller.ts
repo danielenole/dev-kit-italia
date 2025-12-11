@@ -50,7 +50,8 @@ export class FocusTrapController implements ReactiveController {
   ].join(',');
 
   /**
-   * Verifica se un elemento è effettivamente focusabile.
+   * Verifica se un elemento è effettivamente focusabile e tabbabile.
+   * Elementi con tabindex="-1" sono focusabili programmaticamente ma non tabbabili.
    */
   private static isFocusable(el: HTMLElement): boolean {
     if (typeof el.focus !== 'function') return false;
@@ -58,8 +59,18 @@ export class FocusTrapController implements ReactiveController {
     // Escludi elementi disabilitati
     if (el.hasAttribute('disabled')) return false;
 
-    // Per custom elements (it-*), se hanno un metodo focus sono focusabili
+    // Escludi elementi con tabindex negativo (focusabili programmaticamente ma non tabbabili)
+    const tabindex = el.getAttribute('tabindex');
+    if (tabindex && parseInt(tabindex, 10) < 0) {
+      return false;
+    }
+
+    // Per custom elements (it-*), controlla anche il loro tabindex
     if (el.tagName.toLowerCase().startsWith('it-')) {
+      // Se ha tabindex esplicito negativo, non è tabbabile
+      if (tabindex && parseInt(tabindex, 10) < 0) {
+        return false;
+      }
       return true;
     }
 

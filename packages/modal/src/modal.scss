@@ -78,9 +78,15 @@ $utilities: (
 }
 
 .modal-dialog {
+  height: fit-content;
   @media (min-width: 768px) {
     margin: 64px auto;
   }
+}
+
+.modal-footer {
+  flex-shrink: 0;
+  padding-top: var(--bs-modal-padding);
 }
 
 .modal-dialog-scrollable {
@@ -94,7 +100,7 @@ $utilities: (
 
 .modal.alert-modal .modal-dialog .modal-content .modal-header {
   align-items: center;
-  gap: var(--bs-spacing-lg);
+  gap: var(--it-spacing-2x);
 }
 
 .modal.it-dialog-scrollable .modal-dialog.modal-dialog-right {

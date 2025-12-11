@@ -50,6 +50,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/input.component').then((c) => c.InputComponent),
   },
   {
+    path: 'modal',
+    loadComponent: () => import('./pages/modal.component').then((c) => c.ModalComponent),
+  },
+  {
     path: 'radio',
     loadComponent: () =>
       import('./pages/radio-examples.component').then((c) => c.RadioExamplesComponent),
