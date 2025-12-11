@@ -1,5 +1,5 @@
 /* eslint-disable lit-a11y/click-events-have-key-events */
-import { type ItButton } from '@italia/button';
+// import { type ItButton } from '@italia/button';
 import { BaseComponent, FocusTrapController, WindowManager } from '@italia/globals';
 import { html, PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
@@ -95,7 +95,7 @@ export class ItModal extends BaseComponent {
     disableEscape: false,
   });
 
-  get _triggerElement(): ItButton | HTMLButtonElement | null {
+  get _triggerElement(): HTMLElement | shadowRoot | null {
     if (!this._triggerSlot) {
       this.logger.error('No trigger provided');
       return null;
@@ -104,7 +104,7 @@ export class ItModal extends BaseComponent {
     if (elements.length === 0) {
       return null;
     }
-    return elements[0] as ItButton | HTMLButtonElement | null;
+    return elements[0];
   }
 
   constructor() {

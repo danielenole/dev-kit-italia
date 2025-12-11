@@ -51,6 +51,8 @@
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@italia/test-config": "workspace:^",
+    "@italia/button": "workspace:^",
+    "@italia/icon": "workspace:^",
     "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "catalog:",
     "@rollup/plugin-node-resolve": "^16.0.1",
