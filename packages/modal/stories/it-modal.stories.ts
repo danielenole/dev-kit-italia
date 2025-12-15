@@ -146,6 +146,8 @@ export const EsempioInterattivo: Story = {
       modal-description="${args['modal-description']}"
     >
       <it-button variant="primary" slot="trigger">Lancia la demo della modale</it-button>
+      <span slot="header">${args['modal-title']}</span>
+      <span slot="description">${args['modal-description']}</span>
       <p slot="content">${args.bodyContent}</p>
       <it-button slot="footer" variant="outline-primary" @click="${closeModal}">Annulla</it-button>
       <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
@@ -198,7 +200,7 @@ export const FooterCustom: Story = {
         <a href="#">Link di supporto</a>
         <div class="d-flex justify-content-end  gap-2">
           <it-button variant="outline-primary" @click="${closeModal}">Annulla</it-button>
-          <it-button slot="footer" variant="primary" @click="${closeModal}">Conferma</it-button>
+          <it-button variant="primary" @click="${closeModal}">Conferma</it-button>
         </div>
       </div>
     </it-modal>
