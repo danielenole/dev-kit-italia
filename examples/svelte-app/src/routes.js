@@ -15,6 +15,7 @@ import Skiplinks from './pages/Skiplinks.svelte';
 import Sticky from './pages/Sticky.svelte';
 import Video from './pages/Video.svelte';
 import Avatar from './pages/Avatar.svelte';
+import Forward from './pages/Forward.svelte';
 
 export const AppRoutes = [
   { path: '/accordion', element: Accordion, title: 'Accordion' },
@@ -26,6 +27,7 @@ export const AppRoutes = [
   { path: '/collapse', element: Collapse, title: 'Collapse' },
   { path: '/dropdown', element: Dropdown, title: 'Dropdown' },
   { path: '/form', element: Form, title: 'Form' },
+  { path: '/forward', element: Forward, title: 'Forward' },
   { path: '/icon', element: Icon, title: 'Icon' },
   { path: '/input', element: Input, title: 'Input' },
   { path: '/radio', element: Radio, title: 'Radio' },

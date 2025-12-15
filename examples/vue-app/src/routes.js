@@ -17,6 +17,7 @@ import Video from './components/Video.vue';
 import Checkbox from './components/Checkbox.vue';
 import Avatar from './components/Avatar.vue';
 import Skiplinks from './components/Skiplinks.vue';
+import Forward from './components/Forward.vue';
 
 const routes = [
   { path: '/accordion', name: 'Accordion', component: Accordion },
@@ -29,6 +30,7 @@ const routes = [
   { path: '/collapse', name: 'Collapse', component: Collapse },
   { path: '/dropdown', name: 'Dropdown', component: Dropdown },
   { path: '/form', name: 'Form', component: Form },
+  { path: '/forward', name: 'Forward', component: Forward },
   { path: '/icon', name: 'Icon', component: Icon },
   { path: '/input', name: 'Input', component: Input },
   { path: '/radio', name: 'Radio', component: Radio },

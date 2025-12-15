@@ -15,6 +15,7 @@ import Skiplinks from './pages/Skiplinks';
 import Sticky from './pages/Sticky';
 import Video from './pages/Video';
 import Avatar from './pages/Avatar';
+import Forward from './pages/Forward';
 
 export const AppRoutes = [
   { path: '/accordion', element: <Accordion />, title: 'Accordion' },
@@ -27,6 +28,7 @@ export const AppRoutes = [
   { path: '/collapse', element: <Collapse />, title: 'Collapse' },
   { path: '/dropdown', element: <Dropdown />, title: 'Dropdown' },
   { path: '/form', element: <Form />, title: 'Form' },
+  { path: '/forward', element: <Forward />, title: 'Forward' },
   { path: '/icon', element: <Icon />, title: 'Icon' },
   { path: '/input', element: <Input />, title: 'Input' },
   { path: '/radio', element: <Radio />, title: 'Radio' },
