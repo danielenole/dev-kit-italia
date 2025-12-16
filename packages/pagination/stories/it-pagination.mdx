@@ -1,0 +1,184 @@
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks';
+import * as PaginationStories from './it-pagination.stories';
+
+<Meta of={PaginationStories} />
+
+# Pagination
+
+<description>Componente per la navigazione tra pagine di contenuto.</description>
+
+## Cosa fa
+Il componente Pagination permette agli utenti di navigare tra pagine di contenuto suddivise in più sezioni. Mostra la pagina corrente e offre controlli per spostarsi tra le pagine precedenti e successive.
+
+[Approfondisci quando e come usare il componente Pagination](https://designers.italia.it/design-system/componenti/paginazione/)
+
+## Anteprima e attributi del componente
+
+Modifica gli attributi nella tabella per personalizzare in tempo reale l'aspetto e il comportamento del componente. Per vedere come cambia il codice, clicca su **Show code**.
+
+<Canvas of={PaginationStories.EsempioInterattivo} />
+
+<Controls of={PaginationStories.EsempioInterattivo} />
+
+## Informazioni generali
+
+Il componente Pagination è composto da due elementi:
+
+- `it-pagination`: contenitore della paginazione che gestisce lo stato della pagina corrente
+- `it-pagination-item`: singolo elemento della paginazione che contiene il link alla pagina
+
+### Struttura base
+
+Il componente `it-pagination` accetta un attributo `value` che rappresenta la pagina correntemente attiva. Il componente imposta automaticamente l'attributo `aria-current="page"` sul link della pagina corrente.
+
+```html
+<it-pagination value="3">
+  <it-pagination-item page="1">
+    <a href="?page=1" class="page-link">1</a>
+  </it-pagination-item>
+  <it-pagination-item page="2">
+    <a href="?page=2" class="page-link">2</a>
+  </it-pagination-item>
+  <it-pagination-item page="3">
+    <a href="?page=3" class="page-link">3</a>
+  </it-pagination-item>
+</it-pagination>
+```
+
+<Canvas of={PaginationStories.Base} />
+
+## Navigazione con pulsanti avanti e indietro
+
+È possibile aggiungere pulsanti per la navigazione tra le pagine utilizzando gli slot `prev` e `next`:
+
+<Canvas of={PaginationStories.ConNavigazione} />
+
+### Link testuali
+
+I pulsanti di navigazione possono anche essere testuali:
+
+<Canvas of={PaginationStories.ConNavigazioneTestuale} />
+
+## Dimensioni
+
+Il componente supporta tre dimensioni:
+- Default (non specificare l'attributo `size`)
+- Grande (`size="lg"`)
+- Piccola (`size="sm"`)
+
+### Dimensione grande
+
+<Canvas of={PaginationStories.PaginazioneGrande} />
+
+### Dimensione piccola
+
+<Canvas of={PaginationStories.PaginazionePiccola} />
+
+## Allineamento
+
+La paginazione può essere allineata a sinistra (default), al centro o a destra:
+
+### Allineamento centrato
+
+<Canvas of={PaginationStories.AllineamentoCenter} />
+
+### Allineamento a destra
+
+<Canvas of={PaginationStories.AllineamentoEnd} />
+
+## Paginazione responsive
+
+In modalità responsive, su schermi piccoli vengono mostrate solo la prima pagina, l'ultima e la pagina corrente:
+
+<Canvas of={PaginationStories.Responsive} />
+
+## Numero totale di pagine
+
+È possibile aggiungere un indicatore del numero totale di pagine utilizzando lo slot `total`:
+
+<Canvas of={PaginationStories.ConTotale} />
+
+## Pulsanti prev/next disabilitati automaticamente
+
+Quando viene specificato l'attributo `total`, i pulsanti di navigazione vengono automaticamente disabilitati quando si è alla prima o all'ultima pagina:
+
+<Canvas of={PaginationStories.ItemDisabilitati} />
+
+## Selettore elementi per pagina
+
+Utilizzando lo slot `page-changer` è possibile aggiungere un selettore per cambiare il numero di elementi mostrati per pagina:
+
+<Canvas of={PaginationStories.ConPageChanger} />
+
+## Salto a pagina specifica
+
+Lo slot `jump-to-page` permette di aggiungere un campo input per saltare direttamente a una pagina specifica:
+
+<Canvas of={PaginationStories.ConJumpToPage} />
+
+## Esempio completo
+
+Un esempio completo con tutte le funzionalità:
+
+<Canvas of={PaginationStories.Completa} />
+
+## Slots disponibili
+
+Il componente `it-pagination` supporta i seguenti slot:
+
+- **default**: per gli elementi `it-pagination-item`
+- **prev**: per il pulsante/link di navigazione alla pagina precedente
+- **next**: per il pulsante/link di navigazione alla pagina successiva
+- **page-changer**: per un eventuale selettore di pagina
+- **jump-to-page**: per un eventuale campo di salto a una pagina specifica
+- **total**: per mostrare il numero totale di pagine
+
+## Uso con framework
+
+Il componente è progettato per funzionare con qualsiasi framework. Puoi utilizzare i link del tuo framework (ad esempio, Next.js Link, React Router Link, ecc.) all'interno degli slot:
+
+### Esempio con Next.js
+
+```jsx
+<it-pagination value="3">
+  <it-pagination-item page="1">
+    <Link href="/page/1" className="page-link">1</Link>
+  </it-pagination-item>
+  <it-pagination-item page="2">
+    <Link href="/page/2" className="page-link">2</Link>
+  </it-pagination-item>
+  <it-pagination-item page="3">
+    <Link href="/page/3" className="page-link">3</Link>
+  </it-pagination-item>
+</it-pagination>
+```
+
+## Accessibilità
+
+Il componente Pagination implementa le best practice di accessibilità:
+
+- L'elemento `nav` ha un attributo `aria-label` descrittivo
+- La pagina corrente ha l'attributo `aria-current="page"`
+- Gli elementi disabilitati hanno l'attributo `aria-disabled="true"` e `tabindex="-1"`
+- I pulsanti di navigazione includono testo visivamente nascosto per gli screen reader quando usano solo icone
+
+## Attributi
+
+### it-pagination
+
+| Attributo | Tipo | Default | Descrizione |
+|-----------|------|---------|-------------|
+| `value` | `string` | `'1'` | Pagina correntemente attiva |
+| `total` | `string` | `''` | Numero totale di pagine (opzionale, usato per disabilitare automaticamente prev/next) |
+| `size` | `'sm' \| 'lg' \| ''` | `''` | Dimensione della paginazione |
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` | Allineamento della paginazione |
+| `responsive` | `boolean` | `false` | Abilita la modalità responsive |
+| `it-aria-label` | `string` | `'Navigazione della pagina'` | Label aria per l'elemento nav |
+
+### it-pagination-item
+
+| Attributo | Tipo | Default | Descrizione |
+|-----------|------|---------|-------------|
+| `page` | `string` | `''` | Numero della pagina rappresentata dall'item |
+| `current` | `boolean` | `false` | Se true, l'item rappresenta la pagina corrente (gestito automaticamente) |
+| `disabled` | `boolean` | `false` | Se true, l'item è disabilitato |

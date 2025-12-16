@@ -14,3 +14,4 @@ import '../packages/section/dist/src';
 import '../packages/skiplinks/dist/src';
 import '../packages/sticky/dist/src';
 import '../packages/video/dist/src';
+import '../packages/pagination/dist/src';

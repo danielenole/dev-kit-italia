@@ -1,0 +1,162 @@
+@import 'bootstrap-italia/src/scss/base/functions';
+@import 'bootstrap-italia/src/scss/base/variables';
+@import 'bootstrap-italia/src/scss/base/mixins';
+@import 'bootstrap-italia/src/scss/base/maps';
+@import 'bootstrap-italia/src/scss/base/reboot';
+
+// @import 'bootstrap-italia/src/scss/components/pagination';
+// Styles from bsi components is unusable as-is in web components, due to the Shadow DOM scoping.
+// Therefore, we redefine here the necessary styles, adapting them to web components structure.
+// If bsi changes, good luck. Pre 2019 css abounds, half of it unused/wrong variables naming as of today.
+// Lots of cherrypicking from inspector and bsi sass.
+$prefix: bs- !default;
+$pagination-color: var(--#{$prefix}color-link);
+
+// Define CSS custom properties at :host level so they inherit to it-pagination-item
+:host {
+  --#{$prefix}pagination-padding-x: #{$pagination-padding-x};
+  --#{$prefix}pagination-padding-y: #{$pagination-padding-y};
+  @include rfs($pagination-font-size, --#{$prefix}pagination-font-size);
+  --#{$prefix}pagination-color: #{$pagination-color};
+  --#{$prefix}pagination-bg: #{$pagination-bg};
+  --#{$prefix}pagination-border-width: 0;
+  --#{$prefix}pagination-border-color: #{$pagination-border-color};
+  --#{$prefix}pagination-border-radius: #{$pagination-border-radius};
+  --#{$prefix}pagination-hover-color: #{$pagination-hover-color};
+  --#{$prefix}pagination-hover-bg: #{$pagination-hover-bg};
+  --#{$prefix}pagination-hover-border-color: #{$pagination-hover-border-color};
+  --#{$prefix}pagination-focus-color: #{$pagination-focus-color};
+  --#{$prefix}pagination-focus-bg: #{$pagination-focus-bg};
+  --#{$prefix}pagination-focus-box-shadow: #{$pagination-focus-box-shadow};
+  --#{$prefix}pagination-active-color: #{$pagination-active-color};
+  --#{$prefix}pagination-active-bg: #{$pagination-active-bg};
+  --#{$prefix}pagination-active-border-color: #{$pagination-active-border-color};
+  --#{$prefix}pagination-disabled-color: #{$pagination-disabled-color};
+  --#{$prefix}pagination-disabled-bg: #{$pagination-disabled-bg};
+  --#{$prefix}pagination-disabled-border-color: #{$pagination-disabled-border-color};
+  --#{$prefix}pagination-padding-x: var(--#{$prefix}spacing-s);
+  --#{$prefix}pagination-padding-y: var(--#{$prefix}spacing-xxs);
+  --#{$prefix}pagination-link-color: var(--#{$prefix}color-link);
+  --#{$prefix}pagination-background: transparent;
+  --#{$prefix}pagination-border-width: 2px;
+  --#{$prefix}pagination-border-color: transparent;
+  --#{$prefix}pagination-border-radius: 4px;
+  --#{$prefix}pagination-item-size: 3rem;
+  --#{$prefix}pagination-font-size: var(--bs-label-font-size);
+  display: flex;
+  @include list-unstyled();
+}
+
+// Remove aggressive bsi styles on links inside host
+:host a {
+  text-decoration: unset !important;
+}
+// MAIN CLASSES AND STRUCTURE
+// Main pagination wrapper
+.pagination-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+// Pagination list (ul)
+.pagination {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  gap: 8px;
+}
+
+// Next/prev slots wrappers
+.pagination-next-wrapper,
+.pagination-prev-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+// Slotted additional slots (page-changer, jump-to-page, total)
+::slotted([slot='page-changer']),
+::slotted([slot='jump-to-page']),
+::slotted([slot='total']) {
+  display: inline-flex;
+  align-items: center;
+}
+
+// Slotted prev/next thingies styling
+::slotted([slot='prev']),
+::slotted([slot='next']) {
+  position: relative;
+  display: flex;
+  min-width: var(--#{$prefix}pagination-item-size);
+  height: var(--#{$prefix}pagination-item-size);
+  align-items: center;
+  justify-content: center;
+  padding: var(--#{$prefix}pagination-padding-y) var(--#{$prefix}pagination-padding-x);
+  border: var(--#{$prefix}pagination-border-width) solid var(--#{$prefix}pagination-border-color);
+  border-radius: var(--#{$prefix}pagination-border-radius);
+  color: var(--#{$prefix}pagination-link-color) !important;
+  font-weight: var(--#{$prefix}font-weight-solid);
+
+  // &:not(.disabled):hover {
+  //   --bs-pagination-link-color: var(--bs-color-link-hover);
+  //   text-decoration: underline;
+  // }
+
+  // &:focus-within {
+  //   --#{$prefix}pagination-border-width: 1px;
+  //   // border: var(--#{$prefix}pagination-border-width) solid var(--#{$prefix}pagination-border-color);
+  // }
+
+  // &[aria-disabled='true'] {
+  //   border-color: var(--#{$prefix}pagination-disabled-border-color);
+  //   background-color: var(--#{$prefix}pagination-disabled-bg);
+  //   color: var(--#{$prefix}pagination-disabled-color);
+  //   cursor: not-allowed;
+  //   pointer-events: none;
+  // }
+}
+
+// END MAIN CLASSES AND STRUCTURE
+
+// Align variants
+:host([align='center']) .pagination {
+  justify-content: center;
+}
+
+:host([align='end']) .pagination {
+  justify-content: flex-end;
+}
+
+// Size variants
+:host([size='sm']) {
+  --#{$prefix}pagination-padding-y: #{$pagination-padding-y-sm};
+  --#{$prefix}pagination-padding-x: #{$pagination-padding-x-sm};
+  @include rfs($font-size-sm, --#{$prefix}pagination-font-size);
+  --#{$prefix}pagination-border-radius: #{$pagination-border-radius-sm};
+}
+
+:host([size='lg']) {
+  --#{$prefix}pagination-padding-y: #{$pagination-padding-y-lg};
+  --#{$prefix}pagination-padding-x: #{$pagination-padding-x-lg};
+  @include rfs($font-size-lg, --#{$prefix}pagination-font-size);
+  --#{$prefix}pagination-border-radius: #{$pagination-border-radius-lg};
+}
+
+// Responsive variant
+:host([responsive]) .pagination-wrapper {
+  flex-direction: column;
+  align-items: stretch;
+  @media (min-width: 576px) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+:host([responsive]) .pagination-wrapper .pagination {
+  width: 100%;
+  @media (min-width: 576px) {
+    width: auto;
+    justify-content: center;
+  }
+}
