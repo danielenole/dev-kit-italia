@@ -16,10 +16,20 @@ export class ItPaginationItem extends BaseComponent {
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  private handleSlotChange(e: Event) {
-    const slot = e.target as HTMLSlotElement;
-    const assignedElements = slot.assignedElements();
+  override updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated?.(changedProperties);
 
+    // When current or disabled state changes, update the slotted elements
+    if (changedProperties.has('current') || changedProperties.has('disabled')) {
+      this.updateSlottedElements();
+    }
+  }
+
+  private updateSlottedElements() {
+    const slot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement;
+    if (!slot) return;
+
+    const assignedElements = slot.assignedElements();
     assignedElements.forEach((element) => {
       // Gestione accessibilità per l'elemento interno (es. <a> o <button>)
       if (this.current) {
@@ -37,6 +47,11 @@ export class ItPaginationItem extends BaseComponent {
       }
       element.classList.add('page-link');
     });
+  }
+
+  private handleSlotChange() {
+    // Initial setup when slot content changes
+    this.updateSlottedElements();
   }
 
   private handleClick(e: MouseEvent) {

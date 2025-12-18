@@ -1,19 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import {
-  PAGINATION_SIZES,
-  PAGINATION_ALIGNMENTS,
-  type PaginationSize,
-  type PaginationAlignment,
-} from '../src/types.js';
+import { PAGINATION_ALIGNMENTS, type PaginationAlignment } from '../src/types.js';
 
 interface PaginationProps {
   value?: string;
-  total?: string;
-  size?: PaginationSize | '';
   align?: PaginationAlignment;
-  responsive?: boolean;
+  total?: string;
+  disableResponsive?: boolean;
 }
 
 interface PaginationItemProps {
@@ -24,19 +18,26 @@ interface PaginationItemProps {
 
 const renderPaginationItem = (params: PaginationItemProps) => html`
   <it-pagination-item page="${params.page}" ?disabled="${params.disabled}">
-    <a href="#">${params.label}</a>
+    <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>${params.label}</a>
   </it-pagination-item>
 `;
 
 const renderComponent = (params: PaginationProps, items: PaginationItemProps[] = []) => html`
   <it-pagination
+    total="${ifDefined(params.total || undefined)}"
     value="${ifDefined(params.value)}"
-    total="${ifDefined(params.total)}"
-    size="${ifDefined(params.size)}"
     align="${ifDefined(params.align)}"
-    ?responsive="${params.responsive}"
+    ?disable-responsive="${ifDefined(params.disableResponsive)}"
   >
+    <a href="#" slot="prev">
+      <it-icon name="it-chevron-left"></it-icon>
+      <span class="visually-hidden">Pagina precedente</span>
+    </a>
     ${items.map((item) => renderPaginationItem(item))}
+    <a href="#" slot="next">
+      <it-icon name="it-chevron-right"></it-icon>
+      <span class="visually-hidden">Pagina successiva</span>
+    </a>
   </it-pagination>
 `;
 
@@ -51,12 +52,20 @@ const defaultItems: PaginationItemProps[] = [
 const meta: Meta<PaginationProps> = {
   title: 'Componenti/Pagination',
   tags: ['a11y-ok', 'web-component'],
+  decorators: [
+    (story, context) => {
+      if (context.parameters.overrideMetaWrapper) return story();
+      return html` <div style="padding: 2rem;margin:auto;display:flex; justify-content:center;">${story()}</div> `;
+    },
+  ],
+  parameters: {
+    layout: 'fullscreen',
+  },
   args: {
     value: '1',
-    total: '',
-    size: '',
+    total: '5',
     align: 'start',
-    responsive: false,
+    disableResponsive: false,
   },
   argTypes: {
     value: {
@@ -65,28 +74,22 @@ const meta: Meta<PaginationProps> = {
       table: { defaultValue: { summary: '1' } },
     },
     total: {
-      control: 'text',
-      description: 'Numero totale di pagine (opzionale, usato per disabilitare prev/next)',
-      table: { defaultValue: { summary: '' } },
+      control: false,
+      description:
+        'Numero totale di pagine, se non specificato viene calcolato in base agli elementi `it-pagination-item` presenti. Utile per indicare un numero di pagine diverso rispetto agli elementi effettivamente presenti (es. con caricamento dinamico)',
+      table: { defaultValue: { summary: undefined } },
     },
-    table: { defaultValue: { summary: '1' } },
-  },
-  size: {
-    control: 'select',
-    description: 'Dimensione della paginazione',
-    options: ['', ...PAGINATION_SIZES],
-    table: { defaultValue: { summary: '' } },
-  },
-  align: {
-    control: 'select',
-    description: 'Allineamento della paginazione',
-    options: PAGINATION_ALIGNMENTS,
-    table: { defaultValue: { summary: 'start' } },
-  },
-  responsive: {
-    control: 'boolean',
-    description: 'Mostra solo la pagina corrente, prima e ultima su mobile',
-    table: { defaultValue: { summary: 'false' } },
+    align: {
+      control: 'select',
+      description: 'Allineamento della paginazione',
+      options: PAGINATION_ALIGNMENTS,
+      table: { defaultValue: { summary: 'start' } },
+    },
+    disableResponsive: {
+      control: 'boolean',
+      description: 'Disabilita responsive mode (nasconde pagine non correnti su mobile)',
+      table: { defaultValue: { summary: 'false' } },
+    },
   },
 };
 
@@ -95,29 +98,6 @@ type Story = StoryObj<PaginationProps>;
 
 export const EsempioInterattivo: Story = {
   render: (args) => renderComponent(args, defaultItems),
-};
-
-export const Base: Story = {
-  name: 'Paginazione base',
-  render: () => html`
-    <it-pagination value="3">
-      <it-pagination-item page="1">
-        <a href="#">1</a>
-      </it-pagination-item>
-      <it-pagination-item page="2">
-        <a href="#">2</a>
-      </it-pagination-item>
-      <it-pagination-item page="3">
-        <a href="#">3</a>
-      </it-pagination-item>
-      <it-pagination-item page="4">
-        <a href="#">4</a>
-      </it-pagination-item>
-      <it-pagination-item page="5">
-        <a href="#">5</a>
-      </it-pagination-item>
-    </it-pagination>
-  `,
 };
 
 export const ConNavigazione: Story = {
@@ -130,19 +110,19 @@ export const ConNavigazione: Story = {
       </a>
 
       <it-pagination-item page="1">
-        <a href="#">1</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
       </it-pagination-item>
       <it-pagination-item page="2">
-        <a href="#">2</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>2</a>
       </it-pagination-item>
       <it-pagination-item page="3">
-        <a href="#">3</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>3</a>
       </it-pagination-item>
       <it-pagination-item page="4">
-        <a href="#">4</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>4</a>
       </it-pagination-item>
       <it-pagination-item page="5">
-        <a href="#">5</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>5</a>
       </it-pagination-item>
 
       <a href="#" slot="next">
@@ -160,19 +140,19 @@ export const ConNavigazioneTestuale: Story = {
       <a href="#" slot="prev">Precedente</a>
 
       <it-pagination-item page="1">
-        <a href="#">1</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
       </it-pagination-item>
       <it-pagination-item page="2">
-        <a href="#">2</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>2</a>
       </it-pagination-item>
       <it-pagination-item page="3">
-        <a href="#">3</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>3</a>
       </it-pagination-item>
       <it-pagination-item page="4">
-        <a href="#">4</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>4</a>
       </it-pagination-item>
       <it-pagination-item page="5">
-        <a href="#">5</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>5</a>
       </it-pagination-item>
 
       <a href="#" slot="next">Successiva</a>
@@ -180,70 +160,84 @@ export const ConNavigazioneTestuale: Story = {
   `,
 };
 
-export const PaginazioneGrande: Story = {
-  name: 'Dimensione grande',
+export const AllineamentoStart: Story = {
+  name: 'Allineamento a sinistra',
+  parameters: {
+    overrideMetaWrapper: true,
+  },
+  decorators: [(story) => html` <div style="padding: 2rem;margin:auto;display:flex;">${story()}</div> `],
   render: () => html`
-    <it-pagination value="2" size="lg">
+    <it-pagination value="2" align="start">
+      <a href="#" slot="prev">
+        <it-icon name="it-chevron-left"></it-icon>
+        <span class="visually-hidden">Pagina precedente</span>
+      </a>
       <it-pagination-item page="1">
-        <a href="#">1</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
       </it-pagination-item>
       <it-pagination-item page="2">
-        <a href="#">2</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>2</a>
       </it-pagination-item>
       <it-pagination-item page="3">
-        <a href="#">3</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>3</a>
       </it-pagination-item>
+      <a href="#" slot="next">
+        <it-icon name="it-chevron-right"></it-icon>
+        <span class="visually-hidden">Pagina successiva</span>
+      </a>
+      <p slot="total">Totale 300 elementi</p>
     </it-pagination>
   `,
 };
-
-export const PaginazionePiccola: Story = {
-  name: 'Dimensione piccola',
-  render: () => html`
-    <it-pagination value="2" size="sm">
-      <it-pagination-item page="1">
-        <a href="#">1</a>
-      </it-pagination-item>
-      <it-pagination-item page="2">
-        <a href="#">2</a>
-      </it-pagination-item>
-      <it-pagination-item page="3">
-        <a href="#">3</a>
-      </it-pagination-item>
-    </it-pagination>
-  `,
-};
-
 export const AllineamentoCenter: Story = {
   name: 'Allineamento centrato',
   render: () => html`
     <it-pagination value="2" align="center">
+      <a href="#" slot="prev">
+        <it-icon name="it-chevron-left"></it-icon>
+        <span class="visually-hidden">Pagina precedente</span>
+      </a>
       <it-pagination-item page="1">
-        <a href="#">1</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
       </it-pagination-item>
       <it-pagination-item page="2">
-        <a href="#">2</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>2</a>
       </it-pagination-item>
       <it-pagination-item page="3">
-        <a href="#">3</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>3</a>
       </it-pagination-item>
+      <a href="#" slot="next">
+        <it-icon name="it-chevron-right"></it-icon>
+        <span class="visually-hidden">Pagina successiva</span>
+      </a>
+      <p slot="total">Totale 300 elementi</p>
     </it-pagination>
   `,
 };
 
 export const AllineamentoEnd: Story = {
   name: 'Allineamento a destra',
+  decorators: [(story) => html` <div style="width:100%">${story()}</div> `],
   render: () => html`
     <it-pagination value="2" align="end">
+      <a href="#" slot="prev">
+        <it-icon name="it-chevron-left"></it-icon>
+        <span class="visually-hidden">Pagina precedente</span>
+      </a>
       <it-pagination-item page="1">
-        <a href="#">1</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
       </it-pagination-item>
       <it-pagination-item page="2">
-        <a href="#">2</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>2</a>
       </it-pagination-item>
       <it-pagination-item page="3">
-        <a href="#">3</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>3</a>
       </it-pagination-item>
+      <a href="#" slot="next">
+        <it-icon name="it-chevron-right"></it-icon>
+        <span class="visually-hidden">Pagina successiva</span>
+      </a>
+      <p slot="total">Totale 300 elementi</p>
     </it-pagination>
   `,
 };
@@ -251,34 +245,32 @@ export const AllineamentoEnd: Story = {
 export const Responsive: Story = {
   name: 'Paginazione responsive',
   render: () => html`
-    <it-pagination value="1" responsive>
+    <it-pagination value="1">
       <a href="#" slot="prev">
         <it-icon name="it-chevron-left"></it-icon>
       </a>
 
       <it-pagination-item page="1">
-        <a href="#">1</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
       </it-pagination-item>
       <it-pagination-item page="2">
-        <a href="#">2</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>2</a>
       </it-pagination-item>
       <it-pagination-item page="3">
-        <a href="#">3</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>3</a>
       </it-pagination-item>
       <it-pagination-item page="4">
-        <a href="#">4</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>4</a>
       </it-pagination-item>
       <it-pagination-item page="5">
-        <a href="#">5</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina</span>5</a>
       </it-pagination-item>
 
       <a href="#" slot="next">
         <it-icon name="it-chevron-right"></it-icon>
       </a>
+      <p slot="total">Totale 300 elementi</p>
     </it-pagination>
-    <p style="margin-top: 1rem;">
-      <em>Ridimensiona la finestra per vedere l'effetto responsive (solo pagina corrente, prima e ultima su mobile)</em>
-    </p>
   `,
 };
 
@@ -286,120 +278,119 @@ export const ConTotale: Story = {
   name: 'Con numero totale di pagine',
   render: () => html`
     <it-pagination value="3">
-      <it-pagination-item page="1">
-        <a href="#">1</a>
-      </it-pagination-item>
-      <it-pagination-item page="2">
-        <a href="#">2</a>
-      </it-pagination-item>
-      <it-pagination-item page="3">
-        <a href="#">3</a>
-      </it-pagination-item>
-      <it-pagination-item page="4">
-        <a href="#">4</a>
-      </it-pagination-item>
-      <it-pagination-item page="5">
-        <a href="#">5</a>
-      </it-pagination-item>
-
-      <span slot="total">di 10 pagine</span>
-    </it-pagination>
-  `,
-};
-
-export const ItemDisabilitati: Story = {
-  name: 'Pulsanti prev/next disabilitati automaticamente',
-  render: () => html`
-    <div style="margin-bottom: 2rem;">
-      <h4>Prima pagina (prev disabilitato)</h4>
-      <it-pagination value="1" total="3">
-        <a href="#" slot="prev">
-          <it-icon name="it-chevron-left"></it-icon>
-          <span class="visually-hidden">Pagina precedente</span>
-        </a>
-
-        <it-pagination-item page="1">
-          <a href="#">1</a>
-        </it-pagination-item>
-        <it-pagination-item page="2">
-          <a href="#">2</a>
-        </it-pagination-item>
-        <it-pagination-item page="3">
-          <a href="#">3</a>
-        </it-pagination-item>
-
-        <a href="#" slot="next">
-          <it-icon name="it-chevron-right"></it-icon>
-          <span class="visually-hidden">Pagina successiva</span>
-        </a>
-      </it-pagination>
-    </div>
-
-    <div>
-      <h4>Ultima pagina (next disabilitato)</h4>
-      <it-pagination value="3" total="3">
-        <a href="#" slot="prev">
-          <it-icon name="it-chevron-left"></it-icon>
-          <span class="visually-hidden">Pagina precedente</span>
-        </a>
-
-        <it-pagination-item page="1">
-          <a href="#">1</a>
-        </it-pagination-item>
-        <it-pagination-item page="2">
-          <a href="#">2</a>
-        </it-pagination-item>
-        <it-pagination-item page="3">
-          <a href="#">3</a>
-        </it-pagination-item>
-
-        <a href="#" slot="next">
-          <it-icon name="it-chevron-right"></it-icon>
-          <span class="visually-hidden">Pagina successiva</span>
-        </a>
-      </it-pagination>
-    </div>
-  `,
-};
-
-export const ConPageChanger: Story = {
-  name: 'Con selettore pagine (dropdown)',
-  render: () => html`
-    <it-pagination value="3" total="10">
       <a href="#" slot="prev">
         <it-icon name="it-chevron-left"></it-icon>
       </a>
 
       <it-pagination-item page="1">
-        <a href="#">1</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
       </it-pagination-item>
       <it-pagination-item page="2">
-        <a href="#">2</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>2</a>
       </it-pagination-item>
       <it-pagination-item page="3">
-        <a href="#">3</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>3</a>
       </it-pagination-item>
       <it-pagination-item page="4">
-        <a href="#">4</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>4</a>
       </it-pagination-item>
       <it-pagination-item page="5">
-        <a href="#">5</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>5</a>
+      </it-pagination-item>
+      <a href="#" slot="next">
+        <it-icon name="it-chevron-right"></it-icon>
+      </a>
+      <p slot="total">Totale 300 elementi</p>
+    </it-pagination>
+  `,
+};
+
+export const More: Story = {
+  render: () => html`
+    <it-pagination value="26" total="50">
+      <a href="#" slot="prev">
+        <it-icon name="it-chevron-left"></it-icon>
+      </a>
+
+      <it-pagination-item page="1">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
+      </it-pagination-item>
+      <it-pagination-item>
+        <span>...</span>
+      </it-pagination-item>
+      <it-pagination-item page="24">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>24</a>
+      </it-pagination-item>
+      <it-pagination-item page="25">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>25</a>
+      </it-pagination-item>
+      <it-pagination-item page="26">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>26</a>
+      </it-pagination-item>
+      <it-pagination-item page="27">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>27</a>
+      </it-pagination-item>
+      <it-pagination-item page="28">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>28</a>
+      </it-pagination-item>
+      <it-pagination-item>
+        <span>...</span>
+      </it-pagination-item>
+      <it-pagination-item page="50">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>50</a>
+      </it-pagination-item>
+      <a href="#" slot="next">
+        <it-icon name="it-chevron-right"></it-icon>
+      </a>
+    </it-pagination>
+  `,
+};
+export const ConPageChanger: Story = {
+  name: 'Con selettore pagine',
+  render: () => html`
+    <it-pagination value="3">
+      <a href="#" slot="prev">
+        <it-icon name="it-chevron-left"></it-icon>
+      </a>
+
+      <it-pagination-item page="1">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
+      </it-pagination-item>
+      <it-pagination-item page="2">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>2</a>
+      </it-pagination-item>
+      <it-pagination-item page="3">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>3</a>
+      </it-pagination-item>
+      <it-pagination-item page="4">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>4</a>
+      </it-pagination-item>
+      <it-pagination-item page="5">
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>5</a>
       </it-pagination-item>
 
       <a href="#" slot="next">
         <it-icon name="it-chevron-right"></it-icon>
       </a>
 
-      <div slot="page-changer" style="display: flex; align-items: center; gap: 0.5rem;">
-        <label for="page-size">Elementi per pagina:</label>
-        <select id="page-size" class="form-select" style="width: auto;">
-          <option value="10">10</option>
-          <option value="25" selected>25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
+      <div slot="page-changer">
+        <label for="page-size" class="visually-hidden">Elementi per pagina:</label>
+        <select id="page-size" class="form-select" style="padding-right: 1.5rem;">
+          <option value="10">10/pagina</option>
+          <option value="20" selected>20/pagina</option>
+          <option value="50">50/pagina</option>
+          <option value="100">100/pagina</option>
         </select>
       </div>
     </it-pagination>
+
+    <script>
+      const pageSizeSelect = document.getElementById('page-size');
+      pageSizeSelect.addEventListener('change', (event) => {
+        const selectedValue = event.target.value;
+        console.log('PageChanger: Elementi per pagina selezionati:', selectedValue);
+      });
+    </script>
   `,
 };
 
@@ -412,19 +403,19 @@ export const ConJumpToPage: Story = {
       </a>
 
       <it-pagination-item page="1">
-        <a href="#">1</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
       </it-pagination-item>
       <it-pagination-item page="2">
-        <a href="#">2</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>2</a>
       </it-pagination-item>
       <it-pagination-item page="3">
-        <a href="#">3</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>3</a>
       </it-pagination-item>
       <it-pagination-item page="4">
-        <a href="#">4</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>4</a>
       </it-pagination-item>
       <it-pagination-item page="5">
-        <a href="#">5</a>
+        <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>5</a>
       </it-pagination-item>
 
       <a href="#" slot="next">
@@ -432,70 +423,12 @@ export const ConJumpToPage: Story = {
       </a>
 
       <div slot="jump-to-page" style="display: flex; align-items: center; gap: 0.5rem;">
-        <label for="jump-page">Vai a pagina:</label>
-        <input type="number" id="jump-page" class="form-control" min="1" max="20" value="5" style="width: 80px;" />
-        <button type="button" class="btn btn-primary btn-sm">Vai</button>
+        <it-input type="number" id="jump-page" value="5" style="max-width:60px">
+          <span slot="label">Vai a:</span>
+        </it-input>
+
+        <it-button type="button" variant="primary" style="margin-top:0.5rem">Vai</it-button>
       </div>
-
-      <span slot="total">di 20 pagine</span>
-    </it-pagination>
-  `,
-};
-
-export const Completa: Story = {
-  name: 'Paginazione completa',
-  render: () => html`
-    <it-pagination value="7" total="15">
-      <a href="#" slot="prev">Precedente</a>
-
-      <it-pagination-item page="1">
-        <a href="#">1</a>
-      </it-pagination-item>
-      <it-pagination-item page="2">
-        <a href="#">2</a>
-      </it-pagination-item>
-      <it-pagination-item page="3">
-        <a href="#">3</a>
-      </it-pagination-item>
-      <it-pagination-item page="4">
-        <a href="#">4</a>
-      </it-pagination-item>
-      <it-pagination-item page="5">
-        <a href="#">5</a>
-      </it-pagination-item>
-      <it-pagination-item page="6">
-        <a href="#">6</a>
-      </it-pagination-item>
-      <it-pagination-item page="7">
-        <a href="?page=7">7</a>
-      </it-pagination-item>
-      <it-pagination-item page="8">
-        <a href="?page=8">8</a>
-      </it-pagination-item>
-      <it-pagination-item page="9">
-        <a href="?page=9">9</a>
-      </it-pagination-item>
-      <it-pagination-item page="10">
-        <a href="#0">10</a>
-      </it-pagination-item>
-
-      <a href="?page=8" slot="next">Successiva</a>
-
-      <div slot="page-changer" style="display: flex; align-items: center; gap: 0.5rem;">
-        <label for="items-per-page">Mostra:</label>
-        <select id="items-per-page" class="form-select" style="width: auto;">
-          <option value="10">10</option>
-          <option value="25" selected>25</option>
-          <option value="50">50</option>
-        </select>
-      </div>
-
-      <div slot="jump-to-page" style="display: flex; align-items: center; gap: 0.5rem;">
-        <label for="goto-page">Pagina:</label>
-        <input type="number" id="goto-page" class="form-control" min="1" max="15" value="7" style="width: 70px;" />
-      </div>
-
-      <span slot="total">di 15</span>
     </it-pagination>
   `,
 };

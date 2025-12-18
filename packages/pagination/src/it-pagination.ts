@@ -18,20 +18,20 @@ export class ItPagination extends BaseComponent {
   @queryAssignedElements({ slot: 'next' })
   private nextElements!: HTMLElement[];
 
+  @queryAssignedElements({ slot: 'total' })
+  private totalElements!: HTMLElement[];
+
   @property({ type: String, reflect: true })
   value = '1';
 
   @property({ type: String, reflect: true })
-  total = '';
-
-  @property({ type: String, reflect: true })
-  size: PaginationSize | '' = '';
+  total = undefined;
 
   @property({ type: String, reflect: true })
   align: PaginationAlignment = 'start';
 
   @property({ type: Boolean, reflect: true })
-  responsive = false;
+  disableResponsive = false;
 
   @property({ type: String, attribute: 'it-aria-label', reflect: true })
   itAriaLabel = 'Navigazione della pagina';
@@ -40,20 +40,23 @@ export class ItPagination extends BaseComponent {
     super.updated?.(changedProperties);
 
     if (changedProperties.has('value') || changedProperties.has('total')) {
-      this.updatePaginationItems();
-      this.updateNavigationButtons();
+      // Wait for slot changes to be processed
+      this.updateComplete.then(() => {
+        this.updatePaginationItems();
+        this.updatePaginationItemsClasses();
+        this.updateNavigationButtons();
+      });
     }
-  }
-
-  override firstUpdated(changedProperties: Map<string | number | symbol, unknown>) {
-    super.firstUpdated?.(changedProperties);
-    this.updatePaginationItems();
-    this.updateNavigationButtons();
+    if (changedProperties.has('disableResponsive') && changedProperties.get('disableResponsive') !== undefined) {
+      // this.updateComplete.then(() => {
+      this.updatePaginationItemsClasses();
+      // });
+    }
   }
 
   private emitPageChange(newPage: number) {
     const currentPage = parseInt(this.value, 10);
-    const totalPages = this.total ? parseInt(this.total, 10) : this.paginationItems.length;
+    const totalPages = this.total ? parseInt(this.total) : this.paginationItems.length;
 
     if (newPage < 1) return;
     if (totalPages > 0 && newPage > totalPages) return;
@@ -64,7 +67,6 @@ export class ItPagination extends BaseComponent {
       bubbles: true,
       composed: true,
     });
-    console.log('Emitting it-pagination-change for page', event);
     this.dispatchEvent(event);
     this.value = newPage.toString();
   }
@@ -89,11 +91,27 @@ export class ItPagination extends BaseComponent {
   private handleNextClick(e: MouseEvent) {
     e.preventDefault();
     const currentPage = parseInt(this.value, 10);
-    const totalPages = this.total ? parseInt(this.total, 10) : this.paginationItems.length;
+    const totalPages = this.total ? parseInt(this.total) : this.paginationItems.length;
 
     // Se non c'è 'total', assumiamo che ci siano altre pagine finché ci sono items
     if (!totalPages || currentPage < totalPages) {
       this.emitPageChange(currentPage + 1);
+    }
+  }
+
+  private updatePaginationItemsClasses() {
+    if (this.paginationItems.length) {
+      this.paginationItems.forEach((item) => {
+        const isCurrentPage = item.page === this.value;
+
+        // Remove all classes first
+        item.classList.remove('d-none', 'd-sm-flex');
+
+        // Apply responsive hiding for non-current pages (when NOT disabled)
+        if (!this.disableResponsive && !isCurrentPage) {
+          item.classList.add('d-none', 'd-sm-flex');
+        }
+      });
     }
   }
 
@@ -109,7 +127,7 @@ export class ItPagination extends BaseComponent {
 
   private updateNavigationButtons() {
     const currentPage = parseInt(this.value, 10);
-    const totalPages = this.total ? parseInt(this.total, 10) : this.paginationItems.length;
+    const totalPages = this.total ? parseInt(this.total) : this.paginationItems.length;
 
     // Update prev button visual state
     if (this.prevElements.length) {
@@ -153,15 +171,14 @@ export class ItPagination extends BaseComponent {
   private handleNextSlotChange() {
     this.updateNavigationButtons();
   }
+  private handleTotalSlotChange() {
+    // Update component and rerender when total slot changes
+    this.requestUpdate();
+  }
 
   override render() {
-    const navClasses = this.composeClass('pagination-wrapper');
-    const ulClasses = this.composeClass(
-      'pagination',
-      this.size && `pagination-${this.size}`,
-      this.align && this.align !== 'start' && `justify-content-${this.align}`,
-      this.responsive && 'pagination-responsive',
-    );
+    const navClasses = this.composeClass('pagination-wrapper', this.totalElements.length > 0 && 'pagination-total');
+    const ulClasses = this.composeClass('pagination', this.disableResponsive && 'pagination-responsive');
 
     return html`
       <nav class="${navClasses}" aria-label="${this.itAriaLabel}">
@@ -177,7 +194,7 @@ export class ItPagination extends BaseComponent {
 
         <slot name="page-changer"></slot>
         <slot name="jump-to-page"></slot>
-        <slot name="total"></slot>
+        <slot name="total" @slotchange="${this.handleTotalSlotChange}"></slot>
       </nav>
     `;
   }

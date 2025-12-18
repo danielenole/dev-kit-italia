@@ -1,7 +1,6 @@
 // @import 'bootstrap-italia/src/scss/base/functions';
 // @import 'bootstrap-italia/src/scss/base/mixins';
 // @import 'bootstrap-italia/src/scss/base/maps';
-$prefix: bs- !default;
 $pagination-color: var(--#{$prefix}color-link);
 // Magic ahead: adapting bsi pagination styles to web components Shadow DOM scoping.
 // This is in globals because otherwise you cannot target slotted icons
@@ -158,7 +157,7 @@ it-pagination it-pagination-item a {
 //   }
 // }
 
-.page-link [aria-current] {
+a.page-link[aria-current] {
   --bs-pagination-border-color: var(--bs-color-border-primary-active);
   --bs-pagination-link-color: var(--bs-color-link-active);
   pointer-events: none;

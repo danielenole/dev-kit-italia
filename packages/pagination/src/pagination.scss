@@ -58,14 +58,28 @@ $pagination-color: var(--#{$prefix}color-link);
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+  margin-block: var(--#{$prefix}spacing-xxs);
+}
+
+.pagination-wrapper.pagination-total {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 // Pagination list (ul)
 .pagination {
   display: flex;
+  align-items: center;
   padding: 0;
   margin: 0;
   gap: 8px;
+}
+
+.pagination-wrapper.pagination-total .pagination {
+  margin-bottom: var(--#{$prefix}spacing-xxs);
 }
 
 // Next/prev slots wrappers
@@ -83,6 +97,14 @@ $pagination-color: var(--#{$prefix}color-link);
   align-items: center;
 }
 
+::slotted([slot='total']) {
+  margin-bottom: var(--#{$prefix}spacing-s) !important;
+  color: var(--#{$prefix}color-text-secondary);
+  font-size: var(--#{$prefix}label-font-size) !important;
+  font-weight: var(--#{$prefix}font-weight-solid) !important;
+  text-align: center;
+}
+
 // Slotted prev/next thingies styling
 ::slotted([slot='prev']),
 ::slotted([slot='next']) {
@@ -97,7 +119,7 @@ $pagination-color: var(--#{$prefix}color-link);
   border-radius: var(--#{$prefix}pagination-border-radius);
   color: var(--#{$prefix}pagination-link-color) !important;
   font-weight: var(--#{$prefix}font-weight-solid);
-
+  @include font-size(var(--#{$prefix}pagination-font-size, #{$pagination-font-size}));
   // &:not(.disabled):hover {
   //   --bs-pagination-link-color: var(--bs-color-link-hover);
   //   text-decoration: underline;
@@ -120,31 +142,16 @@ $pagination-color: var(--#{$prefix}color-link);
 // END MAIN CLASSES AND STRUCTURE
 
 // Align variants
-:host([align='center']) .pagination {
+:host([align='center']) {
   justify-content: center;
 }
 
-:host([align='end']) .pagination {
+:host([align='end']) {
   justify-content: flex-end;
 }
 
-// Size variants
-:host([size='sm']) {
-  --#{$prefix}pagination-padding-y: #{$pagination-padding-y-sm};
-  --#{$prefix}pagination-padding-x: #{$pagination-padding-x-sm};
-  @include rfs($font-size-sm, --#{$prefix}pagination-font-size);
-  --#{$prefix}pagination-border-radius: #{$pagination-border-radius-sm};
-}
-
-:host([size='lg']) {
-  --#{$prefix}pagination-padding-y: #{$pagination-padding-y-lg};
-  --#{$prefix}pagination-padding-x: #{$pagination-padding-x-lg};
-  @include rfs($font-size-lg, --#{$prefix}pagination-font-size);
-  --#{$prefix}pagination-border-radius: #{$pagination-border-radius-lg};
-}
-
 // Responsive variant
-:host([responsive]) .pagination-wrapper {
+:where(:host([responsive])) .pagination-wrapper {
   flex-direction: column;
   align-items: stretch;
   @media (min-width: 576px) {
@@ -153,7 +160,7 @@ $pagination-color: var(--#{$prefix}color-link);
   }
 }
 
-:host([responsive]) .pagination-wrapper .pagination {
+:where(:host([responsive])) .pagination-wrapper .pagination {
   width: 100%;
   @media (min-width: 576px) {
     width: auto;

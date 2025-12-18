@@ -9,14 +9,13 @@
 :host {
   display: flex;
   @include list-unstyled();
-  height: var(--bs-pagination-item-size);
+  height: fit-content;
 }
 
 ::slotted(a.page-link) {
   position: relative;
   display: flex;
   min-width: var(--#{$prefix}pagination-item-size);
-  // height: var(--#{$prefix}pagination-item-size);
   align-items: center;
   justify-content: center;
   padding: var(--#{$prefix}pagination-padding-y) var(--#{$prefix}pagination-padding-x);
@@ -24,7 +23,7 @@
   border-radius: var(--#{$prefix}pagination-border-radius);
   color: var(--#{$prefix}pagination-link-color) !important;
   font-weight: var(--#{$prefix}font-weight-solid);
-  // text-decoration: none !important;
+  gap: 0.25rem;
 
   @include font-size(var(--#{$prefix}pagination-font-size, #{$pagination-font-size}));
   @include transition($pagination-transition);
@@ -34,6 +33,23 @@
     --#{$prefix}pagination-link-color: var(--#{$prefix}color-link-hover);
     text-decoration: underline;
   }
+}
+
+::slotted(span.page-link) {
+  position: relative;
+  display: flex;
+  min-width: var(--#{$prefix}pagination-item-size);
+  align-items: center;
+  justify-content: center;
+  padding: var(--#{$prefix}pagination-padding-y) var(--#{$prefix}pagination-padding-x);
+  border: var(--#{$prefix}pagination-border-width) solid var(--#{$prefix}pagination-border-color);
+  border-radius: var(--#{$prefix}pagination-border-radius);
+  color: var(--#{$prefix}pagination-link-color) !important;
+  font-weight: var(--#{$prefix}font-weight-solid);
+  gap: 0.25rem;
+
+  @include font-size(var(--#{$prefix}pagination-font-size, #{$pagination-font-size}));
+  @include transition($pagination-transition);
 }
 
 .page-item.active ::slotted(.page-link) {
