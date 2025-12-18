@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pagination - Dev Kit Italia</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Pagination Examples</h1>
+
+      <section>
+        <h2>Con pulsanti avanti e indietro</h2>
+        <it-pagination value="3">
+          <a href="#" slot="prev">
+            <it-icon name="it-chevron-left"></it-icon>
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+
+          <it-pagination-item page="1">
+            <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>1</a>
+          </it-pagination-item>
+          <it-pagination-item page="2">
+            <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>2</a>
+          </it-pagination-item>
+          <it-pagination-item page="3">
+            <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>3</a>
+          </it-pagination-item>
+          <it-pagination-item page="4">
+            <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>4</a>
+          </it-pagination-item>
+          <it-pagination-item page="5">
+            <a href="#"><span class="d-inline-block d-sm-none">Pagina </span>5</a>
+          </it-pagination-item>
+
+          <a href="#" slot="next">
+            <it-icon name="it-chevron-right"></it-icon>
+            <span class="visually-hidden">Pagina successiva</span>
+          </a>
+        </it-pagination>
+      </section>
+
+      <section>
+        <h2>Simple Mode</h2>
+        <it-pagination simple-mode value="1" total="5">
+          <a href="#" slot="prev">
+            <it-icon name="it-chevron-left"></it-icon>
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+          <a href="#" slot="next">
+            <it-icon name="it-chevron-right"></it-icon>
+            <span class="visually-hidden">Pagina successiva</span>
+          </a>
+        </it-pagination>
+      </section>
+
+      <section>
+        <h2>More Mode</h2>
+        <it-pagination value="25" total="50" visible-pages="5" id="more-pagination" disable-responsive>
+          <a href="#" slot="prev">
+            <it-icon name="it-chevron-left"></it-icon>
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+          <a href="#" slot="next">
+            <it-icon name="it-chevron-right"></it-icon>
+            <span class="visually-hidden">Pagina successiva</span>
+          </a>
+        </it-pagination>
+      </section>
+    </div>
+    <script type="module" src="./js/pagination.js"></script>
+  </body>
+</html>

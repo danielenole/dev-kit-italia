@@ -45,6 +45,16 @@ it-pagination it-pagination-item a {
     --#{$prefix}pagination-link-color: var(--#{$prefix}color-link-hover);
     text-decoration: underline !important;
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--#{$prefix}color-border-primary-active);
+    outline-offset: 2px;
+  }
+}
+
+it-pagination it-pagination-item a.pagination-generated-link:focus-visible {
+  outline: 2px solid var(--#{$prefix}color-border-primary-active) !important;
+  outline-offset: 2px !important;
 }
 
 // // @import 'bootstrap-italia/src/scss/components/page';
@@ -157,8 +167,12 @@ it-pagination it-pagination-item a {
 //   }
 // }
 
-a.page-link[aria-current] {
+.page-link[aria-current] {
   --bs-pagination-border-color: var(--bs-color-border-primary-active);
   --bs-pagination-link-color: var(--bs-color-link-active);
   pointer-events: none;
+}
+
+it-pagination it-input::part(input-wrapper) {
+  margin: 0;
 }

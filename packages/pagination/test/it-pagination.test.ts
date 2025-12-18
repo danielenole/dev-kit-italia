@@ -1,6 +1,5 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import { ItPagination } from '../src/it-pagination.js';
-import '../src/it-pagination.js';
 import '../src/it-pagination-item.js';
 
 describe('it-pagination', () => {
@@ -88,7 +87,9 @@ describe('it-pagination', () => {
     // Change to page 3
     el.value = '3';
     await el.updateComplete;
-    await new Promise((resolve) => setTimeout(resolve, 50));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 50);
+    });
 
     const items = el.querySelectorAll('it-pagination-item');
     const links = Array.from(items).map((item) => item.querySelector('a'));
@@ -243,7 +244,9 @@ describe('it-pagination', () => {
     `);
 
     await el.updateComplete; // Wait for queryAssignedElements
-    await new Promise((resolve) => setTimeout(resolve, 50));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 50);
+    });
 
     const nextButton = el.querySelector('[slot="next"]');
     expect(nextButton?.hasAttribute('aria-disabled')).to.be.false;
@@ -418,7 +421,9 @@ describe('it-pagination', () => {
     nextButton?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
     await el.updateComplete;
-    await new Promise((resolve) => setTimeout(resolve, 50));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 50);
+    });
 
     expect(eventDetail?.page).to.equal(4);
     expect(el.value).to.equal('4');
@@ -587,6 +592,114 @@ describe('it-pagination', () => {
 
       const ellipsisSpan = items[1].querySelector('.page-link');
       expect(ellipsisSpan?.textContent).to.equal('…');
+    });
+  });
+
+  describe('Simple Mode', () => {
+    it('has simpleMode property defaulting to false', async () => {
+      const el = await fixture<ItPagination>(html`<it-pagination></it-pagination>`);
+      expect(el.simpleMode).to.be.false;
+    });
+
+    it('renders current page / total in simple mode', async () => {
+      const el = await fixture<ItPagination>(html`
+        <it-pagination simple-mode value="3" total="5">
+          <it-pagination-item page="1"><a href="#">1</a></it-pagination-item>
+          <it-pagination-item page="2"><a href="#">2</a></it-pagination-item>
+          <it-pagination-item page="3"><a href="#">3</a></it-pagination-item>
+          <it-pagination-item page="4"><a href="#">4</a></it-pagination-item>
+          <it-pagination-item page="5"><a href="#">5</a></it-pagination-item>
+        </it-pagination>
+      `);
+
+      await el.updateComplete;
+
+      const pageItems = el.shadowRoot?.querySelectorAll('.page-item');
+      const currentPageSpan = Array.from(pageItems || []).find((item) =>
+        item.querySelector('span[aria-current="page"]'),
+      );
+
+      expect(currentPageSpan).to.exist;
+      expect(currentPageSpan?.textContent?.trim()).to.equal('3');
+    });
+  });
+
+  describe('More Mode (Ellipsis with visiblePages)', () => {
+    it('has visiblePages property defaulting to 5', async () => {
+      const el = await fixture<ItPagination>(html`<it-pagination></it-pagination>`);
+      expect(el.visiblePages).to.equal(5);
+    });
+
+    it('shows ellipsis when total pages exceed visiblePages', async () => {
+      const el = await fixture<ItPagination>(html`
+        <it-pagination value="25" total="50" visible-pages="5">
+          ${Array.from({ length: 50 }, (_, i) => i + 1).map(
+            (page) => html`
+              <it-pagination-item page="${page}">
+                <a href="#">${page}</a>
+              </it-pagination-item>
+            `,
+          )}
+        </it-pagination>
+      `);
+
+      await el.updateComplete;
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
+
+      const ellipsis = el.shadowRoot?.querySelectorAll('.page-link');
+      const ellipsisSpans = Array.from(ellipsis || []).filter((span) => span.textContent?.trim() === '...');
+
+      expect(ellipsisSpans.length).to.be.greaterThan(0);
+    });
+
+    it('shows first page link when current page is far from start', async () => {
+      const el = await fixture<ItPagination>(html`
+        <it-pagination value="25" total="50" visible-pages="5">
+          ${Array.from({ length: 50 }, (_, i) => i + 1).map(
+            (page) => html`
+              <it-pagination-item page="${page}">
+                <a href="#">${page}</a>
+              </it-pagination-item>
+            `,
+          )}
+        </it-pagination>
+      `);
+
+      await el.updateComplete;
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
+
+      const firstPageLink = el.shadowRoot?.querySelector('.page-link[href="#"]');
+      expect(firstPageLink).to.exist;
+      expect(firstPageLink?.textContent?.trim()).to.equal('1');
+    });
+
+    it('hides items not in visible pages range', async () => {
+      const el = await fixture<ItPagination>(html`
+        <it-pagination value="5" total="20" visible-pages="5">
+          ${Array.from({ length: 20 }, (_, i) => i + 1).map(
+            (page) => html`
+              <it-pagination-item page="${page}">
+                <a href="#">${page}</a>
+              </it-pagination-item>
+            `,
+          )}
+        </it-pagination>
+      `);
+
+      await el.updateComplete;
+      await new Promise((resolve) => {
+        setTimeout(resolve, 100);
+      });
+
+      const items = el.querySelectorAll('it-pagination-item');
+      const visibleItems = Array.from(items).filter((item) => !item.classList.contains('d-none'));
+
+      // In more mode with visiblePages=5 and current=5, we should see around 5 items
+      expect(visibleItems.length).to.be.at.most(5);
     });
   });
 });

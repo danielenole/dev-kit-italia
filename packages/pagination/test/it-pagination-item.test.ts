@@ -1,6 +1,5 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import { ItPaginationItem } from '../src/it-pagination-item.js';
-import '../src/it-pagination-item.js';
 
 describe('it-pagination-item', () => {
   it('is defined', () => {

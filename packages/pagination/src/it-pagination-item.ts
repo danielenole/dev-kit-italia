@@ -46,6 +46,8 @@ export class ItPaginationItem extends BaseComponent {
         element.removeAttribute('tabindex');
       }
       element.classList.add('page-link');
+      element.removeEventListener('click', this.handleClick);
+      element.addEventListener('click', this.handleClick.bind(this));
     });
   }
 
@@ -54,7 +56,7 @@ export class ItPaginationItem extends BaseComponent {
     this.updateSlottedElements();
   }
 
-  private handleClick(e: MouseEvent) {
+  private handleClick(e: any) {
     // Se disabilitato o già attivo, ignoriamo il click
     if (this.disabled || this.current) {
       e.preventDefault();
@@ -78,7 +80,7 @@ export class ItPaginationItem extends BaseComponent {
     const liClasses = this.composeClass('page-item', this.current && 'active', this.disabled && 'disabled');
 
     return html`
-      <li class="${liClasses}" @click="${this.handleClick}">
+      <li class="${liClasses}">
         <slot @slotchange="${this.handleSlotChange}"></slot>
       </li>
     `;

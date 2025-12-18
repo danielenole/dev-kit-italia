@@ -3,6 +3,7 @@
 @import 'bootstrap-italia/src/scss/base/mixins';
 @import 'bootstrap-italia/src/scss/base/maps';
 @import 'bootstrap-italia/src/scss/base/reboot';
+@import 'bootstrap-italia/src/scss/base/helpers/visually-hidden';
 
 // @import 'bootstrap-italia/src/scss/components/pagination';
 // Styles from bsi components is unusable as-is in web components, due to the Shadow DOM scoping.
@@ -45,6 +46,7 @@ $pagination-color: var(--#{$prefix}color-link);
   --#{$prefix}pagination-font-size: var(--bs-label-font-size);
   display: flex;
   @include list-unstyled();
+  width: 100%;
 }
 
 // Remove aggressive bsi styles on links inside host
@@ -89,6 +91,53 @@ $pagination-color: var(--#{$prefix}color-link);
   align-items: center;
 }
 
+// Page items (li.page-item) in more mode - direct links and ellipsis
+.page-item {
+  display: flex;
+  @include list-unstyled();
+  height: fit-content;
+
+  // Direct .page-link in more mode (first/last page)
+  .page-link {
+    position: relative;
+    display: flex;
+    min-width: var(--#{$prefix}pagination-item-size);
+    align-items: center;
+    justify-content: center;
+    padding: var(--#{$prefix}pagination-padding-y) var(--#{$prefix}pagination-padding-x);
+    border: var(--#{$prefix}pagination-border-width) solid var(--#{$prefix}pagination-border-color);
+    border-radius: var(--#{$prefix}pagination-border-radius);
+    color: var(--#{$prefix}pagination-link-color) !important;
+    font-weight: var(--#{$prefix}font-weight-solid);
+    gap: 0.25rem;
+
+    @include font-size(var(--#{$prefix}pagination-font-size, #{$pagination-font-size}));
+    @include transition($pagination-transition);
+  }
+
+  // Links in more mode can be hovered
+  a.page-link:hover {
+    // --#{$prefix}pagination-border-color: var(--#{$prefix}color-border-primary-hover);
+    --#{$prefix}pagination-link-color: var(--#{$prefix}color-link-hover);
+    text-decoration: underline !important;
+  }
+
+  // Focus styles for links in more mode
+  a.page-link:focus-visible {
+    border-color: hsl(0, 0%, 0%) !important;
+    box-shadow:
+      0 0 0 2px var(--#{$prefix}color-border-inverse),
+      0 0 0 5px var(--#{$prefix}color-outline-focus) !important;
+    outline: 3px solid transparent !important;
+    outline-offset: 3px !important;
+  }
+
+  // Ellipsis spans don't get hover
+  span.page-link {
+    pointer-events: none;
+  }
+}
+
 // Slotted additional slots (page-changer, jump-to-page, total)
 ::slotted([slot='page-changer']),
 ::slotted([slot='jump-to-page']),
@@ -120,23 +169,6 @@ $pagination-color: var(--#{$prefix}color-link);
   color: var(--#{$prefix}pagination-link-color) !important;
   font-weight: var(--#{$prefix}font-weight-solid);
   @include font-size(var(--#{$prefix}pagination-font-size, #{$pagination-font-size}));
-  // &:not(.disabled):hover {
-  //   --bs-pagination-link-color: var(--bs-color-link-hover);
-  //   text-decoration: underline;
-  // }
-
-  // &:focus-within {
-  //   --#{$prefix}pagination-border-width: 1px;
-  //   // border: var(--#{$prefix}pagination-border-width) solid var(--#{$prefix}pagination-border-color);
-  // }
-
-  // &[aria-disabled='true'] {
-  //   border-color: var(--#{$prefix}pagination-disabled-border-color);
-  //   background-color: var(--#{$prefix}pagination-disabled-bg);
-  //   color: var(--#{$prefix}pagination-disabled-color);
-  //   cursor: not-allowed;
-  //   pointer-events: none;
-  // }
 }
 
 // END MAIN CLASSES AND STRUCTURE
@@ -144,9 +176,11 @@ $pagination-color: var(--#{$prefix}color-link);
 // Align variants
 :host([align='center']) {
   justify-content: center;
+  margin: auto;
 }
 
 :host([align='end']) {
+  width: 100%;
   justify-content: flex-end;
 }
 
@@ -165,5 +199,18 @@ $pagination-color: var(--#{$prefix}color-link);
   @media (min-width: 576px) {
     width: auto;
     justify-content: center;
+  }
+}
+
+.page-link[aria-current] {
+  --bs-pagination-border-color: var(--bs-color-border-primary-active);
+  --bs-pagination-link-color: var(--bs-color-link-active);
+  pointer-events: none;
+}
+
+.page-item.more {
+  display: none;
+  @media (min-width: 576px) {
+    display: flex;
   }
 }

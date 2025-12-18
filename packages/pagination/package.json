@@ -46,27 +46,25 @@
   },
   "dependencies": {
     "@italia/globals": "workspace:^",
+    "bootstrap-italia": "catalog:",
     "lit": "^3.2.1"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@italia/icon": "workspace:^",
     "@italia/test-config": "workspace:^",
     "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "catalog:",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/mocha": "catalog:",
-    "@web/test-runner": "^0.18.1",
-    "@web/test-runner-commands": "catalog:",
-    "bootstrap-italia": "^2.11.1",
-    "eslint": "^9.16.0",
-    "prettier": "^3.3.2",
+    "@web/test-runner": "catalog:",
     "rimraf": "^6.0.1",
-    "rollup": "^4.22.4",
-    "rollup-plugin-scss-lit": "^2.0.0",
-    "stylelint": "^16.10.0",
-    "tslib": "^2.6.2",
-    "typescript": "~5.6.2"
+    "rollup": "^4.42.0",
+    "rollup-plugin-scss-lit": "^2.1.0",
+    "sass": "catalog:",
+    "tslib": "^2.6.3",
+    "typescript": "catalog:"
   },
   "customElements": "custom-elements.json"
 }
