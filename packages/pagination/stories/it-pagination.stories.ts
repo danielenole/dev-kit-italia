@@ -96,19 +96,22 @@ const meta: Meta<PaginationProps> = {
       table: { defaultValue: { summary: 'start' } },
     },
     disableResponsive: {
+      name: 'disable-responsive',
       control: 'boolean',
       description: 'Disabilita responsive mode (nasconde pagine non correnti su mobile)',
       table: { defaultValue: { summary: 'false' } },
     },
     simpleMode: {
+      name: 'simple-mode',
       control: 'boolean',
       description: 'Abilita simple mode (mostra solo pagina corrente / totale, ottimizzato per mobile)',
       table: { defaultValue: { summary: 'false' } },
     },
     visiblePages: {
+      name: 'visible-pages',
       control: 'number',
       description:
-        'Numero di pagine visibili quando il totale supera questo valore. Abilita automaticamente il more mode con ellipsis',
+        'Numero di pagine visibili quando il totale supera questo valore. Abilita automaticamente il more mode con ellipsi',
       table: { defaultValue: { summary: '5' } },
     },
   },

@@ -17,6 +17,7 @@ import Video from './components/Video.vue';
 import Checkbox from './components/Checkbox.vue';
 import Avatar from './components/Avatar.vue';
 import Skiplinks from './components/Skiplinks.vue';
+import Pagination from './components/Pagination.vue';
 
 const routes = [
   { path: '/accordion', name: 'Accordion', component: Accordion },
@@ -31,6 +32,7 @@ const routes = [
   { path: '/form', name: 'Form', component: Form },
   { path: '/icon', name: 'Icon', component: Icon },
   { path: '/input', name: 'Input', component: Input },
+  { path: '/pagination', name: 'Pagination', component: Pagination },
   { path: '/radio', name: 'Radio', component: Radio },
   { path: '/section', name: 'Section', component: Section },
   { path: '/skiplinks', name: 'Skiplinks', component: Skiplinks },

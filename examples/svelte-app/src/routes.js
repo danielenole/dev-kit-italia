@@ -15,6 +15,7 @@ import Skiplinks from './pages/Skiplinks.svelte';
 import Sticky from './pages/Sticky.svelte';
 import Video from './pages/Video.svelte';
 import Avatar from './pages/Avatar.svelte';
+import Pagination from './pages/Pagination.svelte';
 
 export const AppRoutes = [
   { path: '/accordion', element: Accordion, title: 'Accordion' },
@@ -28,6 +29,7 @@ export const AppRoutes = [
   { path: '/form', element: Form, title: 'Form' },
   { path: '/icon', element: Icon, title: 'Icon' },
   { path: '/input', element: Input, title: 'Input' },
+  { path: '/pagination', element: Pagination, title: 'Pagination' },
   { path: '/radio', element: Radio, title: 'Radio' },
   { path: '/section', element: Section, title: 'Section' },
   { path: '/skiplinks', element: Skiplinks, title: 'Skiplinks' },

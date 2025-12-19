@@ -15,6 +15,7 @@ import Skiplinks from './pages/Skiplinks';
 import Sticky from './pages/Sticky';
 import Video from './pages/Video';
 import Avatar from './pages/Avatar';
+import Pagination from './pages/Pagination';
 
 export const AppRoutes = [
   { path: '/accordion', element: <Accordion />, title: 'Accordion' },
@@ -29,6 +30,7 @@ export const AppRoutes = [
   { path: '/form', element: <Form />, title: 'Form' },
   { path: '/icon', element: <Icon />, title: 'Icon' },
   { path: '/input', element: <Input />, title: 'Input' },
+  { path: '/pagination', element: <Pagination />, title: 'Pagination' },
   { path: '/radio', element: <Radio />, title: 'Radio' },
   { path: '/section', element: <Section />, title: 'Section' },
   { path: '/skiplinks', element: <Skiplinks />, title: 'Skiplinks' },
