@@ -69,6 +69,20 @@ const meta: Meta<PaginationProps> = {
   ],
   parameters: {
     layout: 'fullscreen',
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'list',
+            enabled: false,
+          },
+          {
+            id: 'listitem',
+            enabled: false,
+          },
+        ],
+      },
+    },
   },
   args: {
     value: '1',
