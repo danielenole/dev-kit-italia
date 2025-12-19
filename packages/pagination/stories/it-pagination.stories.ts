@@ -10,6 +10,7 @@ interface PaginationProps {
   disableResponsive?: boolean;
   simpleMode?: boolean;
   visiblePages?: number;
+  itAriaLabel?: string;
 }
 
 interface PaginationItemProps {
@@ -76,6 +77,7 @@ const meta: Meta<PaginationProps> = {
     disableResponsive: false,
     simpleMode: false,
     visiblePages: 5,
+    itAriaLabel: 'Paginazione',
   },
   argTypes: {
     value: {
@@ -86,7 +88,7 @@ const meta: Meta<PaginationProps> = {
     total: {
       control: false,
       description:
-        'Numero totale di pagine, se non specificato viene calcolato in base agli elementi `it-pagination-item` presenti. Utile per indicare un numero di pagine diverso rispetto agli elementi effettivamente presenti (es. con caricamento dinamico)',
+        'Numero totale di pagine, se non specificato viene calcolato in base agli elementi `it-pagination-item` presenti. Utile per indicare un numero di pagine diverso rispetto agli elementi effettivamente presenti (es. con caricamento dinamico) e in modalità simple-mode',
       table: { defaultValue: { summary: undefined } },
     },
     align: {
@@ -103,16 +105,23 @@ const meta: Meta<PaginationProps> = {
     },
     simpleMode: {
       name: 'simple-mode',
-      control: 'boolean',
-      description: 'Abilita simple mode (mostra solo pagina corrente / totale, ottimizzato per mobile)',
+      control: false,
+      description:
+        "Abilita simple mode (mostra solo pagina corrente / totale, ottimizzato per mobile). Vai alla storia dedicata per l'esempio.",
       table: { defaultValue: { summary: 'false' } },
     },
     visiblePages: {
       name: 'visible-pages',
       control: 'number',
       description:
-        'Numero di pagine visibili quando il totale supera questo valore. Abilita automaticamente il more mode con ellipsi',
+        'Numero di pagine visibili quando il totale (total) supera questo valore. Abilita automaticamente il more mode con ellipsi',
       table: { defaultValue: { summary: '5' } },
+    },
+    itAriaLabel: {
+      name: 'it-aria-label',
+      control: 'text',
+      description: "Imposta l'attributo `aria-label` per il componente, utile per migliorare l'accessibilità.",
+      table: { defaultValue: { summary: 'Paginazione' } },
     },
   },
 };

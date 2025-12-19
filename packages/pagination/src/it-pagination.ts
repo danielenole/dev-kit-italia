@@ -45,7 +45,7 @@ export class ItPagination extends BaseComponent {
   visiblePages = 5;
 
   @property({ type: String, attribute: 'it-aria-label', reflect: true })
-  itAriaLabel = 'Navigazione della pagina';
+  itAriaLabel = '';
 
   override updated(changedProperties: Map<string | number | symbol, unknown>) {
     super.updated?.(changedProperties);

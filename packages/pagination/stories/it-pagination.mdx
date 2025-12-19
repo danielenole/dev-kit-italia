@@ -57,8 +57,9 @@ Il componente `it-pagination` è progettato per essere accessibile e conforme al
 - Gli elementi di paginazione sono implementati come link, consentendo agli utenti di navigare tra le pagine utilizzando il tasto Tab e attivare i link con il tasto Invio o la barra spaziatrice.
 - Il componente utilizza ruoli ARIA appropriati per indicare la struttura della paginazione agli screen reader.
 - L'elemento della pagina corrente è indicato con l'attributo `aria-current="page"` per informare gli utenti dello screen reader sulla pagina attiva.
-- I link di navigazione alla pagina precedente e successiva sono etichettati in modo chiaro per gli screen reader, ad esempio utilizzando testo alternativo o attributi `aria-label`.
+- I link di navigazione alla pagina precedente e successiva sono etichettati in modo chiaro per gli screen reader.
 - I link che consentono di passare alla pagina successiva o precedente sono disabilitati quando l'utente si trova rispettivamente all'inizio o alla fine della paginazione, evitando confusione. Tali link assumono uno stato visivo disabilitato e viene aggiunto l'attributo `aria-disabled="true"`.
+- Eventuali separatori o ellissi utilizzati per indicare pagine non visualizzate non sono interattivi e non sono inclusi nella tabulazione.
 
 Per garantire la massma accesibilità, ricordati di seguire queste linee guida:
 - Fornisci etichette significative per i link di navigazione alla pagina precedente e successiva quando utilizzi gli slot `prev` e `next`.
