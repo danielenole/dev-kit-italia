@@ -198,6 +198,7 @@ function Pagination() {
         <it-pagination value="1">
           <a href="#" slot="prev">
             <it-icon name="it-chevron-left"></it-icon>
+            <span class="visually-hidden">Pagina precedente</span>
           </a>
 
           <it-pagination-item page="1">
@@ -228,6 +229,7 @@ function Pagination() {
 
           <a href="#" slot="next">
             <it-icon name="it-chevron-right"></it-icon>
+            <span class="visually-hidden">Pagina successiva</span>
           </a>
           <p slot="total">Totale 300 elementi</p>
         </it-pagination>
@@ -239,6 +241,7 @@ function Pagination() {
         <it-pagination value="3">
           <a href="#" slot="prev">
             <it-icon name="it-chevron-left"></it-icon>
+            <span class="visually-hidden">Pagina precedente</span>
           </a>
 
           <it-pagination-item page="1">
@@ -268,6 +271,7 @@ function Pagination() {
           </it-pagination-item>
           <a href="#" slot="next">
             <it-icon name="it-chevron-right"></it-icon>
+            <span class="visually-hidden">Pagina successiva</span>
           </a>
           <p slot="total">Totale 300 elementi</p>
         </it-pagination>
@@ -279,6 +283,7 @@ function Pagination() {
         <it-pagination value="3">
           <a href="#" slot="prev">
             <it-icon name="it-chevron-left"></it-icon>
+            <span class="visually-hidden">Pagina precedente</span>
           </a>
 
           <it-pagination-item page="1">
@@ -309,6 +314,7 @@ function Pagination() {
 
           <a href="#" slot="next">
             <it-icon name="it-chevron-right"></it-icon>
+            <span class="visually-hidden">Pagina successiva</span>
           </a>
 
           <div slot="page-changer">
@@ -338,6 +344,7 @@ function Pagination() {
         <it-pagination id="jump" value="5" total="20">
           <a href="#" slot="prev">
             <it-icon name="it-chevron-left"></it-icon>
+            <span class="visually-hidden">Pagina precedente</span>
           </a>
 
           <it-pagination-item page="1">
@@ -368,6 +375,7 @@ function Pagination() {
 
           <a href="#" slot="next">
             <it-icon name="it-chevron-right"></it-icon>
+            <span class="visually-hidden">Pagina successiva</span>
           </a>
 
           <div slot="jump-to-page" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

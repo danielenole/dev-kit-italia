@@ -291,6 +291,7 @@ export const Responsive: Story = {
     <it-pagination value="1">
       <a href="#" slot="prev">
         <it-icon name="it-chevron-left"></it-icon>
+        <span class="visually-hidden">Pagina precedente</span>
       </a>
 
       <it-pagination-item page="1">
@@ -311,6 +312,7 @@ export const Responsive: Story = {
 
       <a href="#" slot="next">
         <it-icon name="it-chevron-right"></it-icon>
+        <span class="visually-hidden">Pagina successiva</span>
       </a>
       <p slot="total">Totale 300 elementi</p>
     </it-pagination>
@@ -323,6 +325,7 @@ export const ConTotale: Story = {
     <it-pagination value="3">
       <a href="#" slot="prev">
         <it-icon name="it-chevron-left"></it-icon>
+        <span class="visually-hidden">Pagina precedente</span>
       </a>
 
       <it-pagination-item page="1">
@@ -342,6 +345,7 @@ export const ConTotale: Story = {
       </it-pagination-item>
       <a href="#" slot="next">
         <it-icon name="it-chevron-right"></it-icon>
+        <span class="visually-hidden">Pagina successiva</span>
       </a>
       <p slot="total">Totale 300 elementi</p>
     </it-pagination>
@@ -354,6 +358,7 @@ export const ConPageChanger: Story = {
     <it-pagination value="3">
       <a href="#" slot="prev">
         <it-icon name="it-chevron-left"></it-icon>
+        <span class="visually-hidden">Pagina precedente</span>
       </a>
 
       <it-pagination-item page="1">
@@ -374,6 +379,7 @@ export const ConPageChanger: Story = {
 
       <a href="#" slot="next">
         <it-icon name="it-chevron-right"></it-icon>
+        <span class="visually-hidden">Pagina successiva</span>
       </a>
 
       <div slot="page-changer">
@@ -403,6 +409,7 @@ export const ConJumpToPage: Story = {
     <it-pagination id="jump" value="5" total="20">
       <a href="#" slot="prev">
         <it-icon name="it-chevron-left"></it-icon>
+        <span class="visually-hidden">Pagina precedente</span>
       </a>
 
       <it-pagination-item page="1">
@@ -423,6 +430,7 @@ export const ConJumpToPage: Story = {
 
       <a href="#" slot="next">
         <it-icon name="it-chevron-right"></it-icon>
+        <span class="visually-hidden">Pagina successiva</span>
       </a>
 
       <div slot="jump-to-page" style="display: flex; align-items: center; gap: 0.5rem;">
