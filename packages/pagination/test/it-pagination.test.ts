@@ -215,7 +215,7 @@ describe('it-pagination', () => {
 
   it('enables next button when not on last page', async () => {
     const el = await fixture(html`
-      <it-pagination value="3" total="5">
+      <it-pagination value="3" total="5" it-aria-label="Navigazione della pagina">
         <a href="#" slot="prev">
           <it-icon name="it-chevron-left"></it-icon>
         </a>
