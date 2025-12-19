@@ -10,9 +10,6 @@ body.modal-open {
   padding-right: var(--modal-scrollbar-width, 0);
 }
 
-.modal-title {
-  margin-bottom: 0;
-  font-size: var(--bs-modal-title-font-size);
-  font-weight: var(--bs-modal-title-font-weight);
-  line-height: var(--bs-modal-title-line-height);
+it-modal:not(:defined) :not([slot='trigger']) {
+  display: none;
 }
