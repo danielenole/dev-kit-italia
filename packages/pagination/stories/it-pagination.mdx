@@ -154,6 +154,13 @@ Puoi allineare il componente `it-pagination` a sinistra (default), al centro o a
 
 <Canvas of={PaginationStories.AllineamentoEnd} />
 
+## Proprietà, Metodi, ed Eventi accessibili via js
+
+Il componente espone le seguenti proprietà, metodi ed eventi accessibili via JavaScript.
+### Eventi
+Il componente emette i seguenti eventi custom:
+- `it-pagination-change`: emesso quando la pagina corrente cambia. L'evento fornisce il numero della nuova pagina selezionata nel dettaglio dell'evento (`event.detail`).
+
 ## Personalizzazione degli stili
 Per la personalizzazione degli stili si possono usare i selettori `::part` dedicati di `it-pagination`:
 - `::part(pagination-list)`: per lo stile dell'elemento `<ul>` che contiene gli elementi di paginazione
