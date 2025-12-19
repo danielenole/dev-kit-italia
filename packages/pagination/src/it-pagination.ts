@@ -12,6 +12,8 @@ import styles from './pagination.scss';
 export class ItPagination extends BaseComponent {
   static styles = styles;
 
+  static shadowRootOptions = { ...BaseComponent.shadowRootOptions, delegatesFocus: true };
+
   @queryAssignedElements({ selector: 'it-pagination-item' })
   private paginationItems!: ItPaginationItem[];
 

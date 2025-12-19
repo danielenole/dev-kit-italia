@@ -7,6 +7,8 @@ import styles from './pagination-item.scss';
 export class ItPaginationItem extends BaseComponent {
   static styles = styles;
 
+  static shadowRootOptions = { ...BaseComponent.shadowRootOptions, delegatesFocus: true };
+
   @property({ type: String, reflect: true })
   page = '';
 
