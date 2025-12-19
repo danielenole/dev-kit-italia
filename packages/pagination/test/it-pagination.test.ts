@@ -117,7 +117,9 @@ describe('it-pagination', () => {
   });
 
   it('has nav tag with aria-label', async () => {
-    const el = await fixture<ItPagination>(html`<it-pagination></it-pagination>`);
+    const el = await fixture<ItPagination>(
+      html`<it-pagination it-aria-label="Navigazione della pagina"></it-pagination>`,
+    );
     const nav = el.shadowRoot?.querySelector('nav');
     expect(nav).to.exist;
     expect(nav?.getAttribute('aria-label')).to.equal('Navigazione della pagina');
