@@ -61,6 +61,7 @@
     "@italia/i18n": "workspace:^",
     "@italia/icon": "workspace:^",
     "@italia/input": "workspace:^",
+    "@italia/navscroll": "workspace:^",
     "@italia/popover": "workspace:^",
     "@italia/section": "workspace:^",
     "@italia/skiplinks": "workspace:^",
