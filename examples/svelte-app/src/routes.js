@@ -12,6 +12,7 @@ import Input from './pages/Input.svelte';
 import Modal from './pages/Modal.svelte';
 import Radio from './pages/Radio.svelte';
 import Section from './pages/Section.svelte';
+import Sidebar from './components/Sidebar.svelte';
 import Skiplinks from './pages/Skiplinks.svelte';
 import Sticky from './pages/Sticky.svelte';
 import Video from './pages/Video.svelte';
@@ -32,6 +33,7 @@ export const AppRoutes = [
   { path: '/modal', element: Modal, title: 'Modal' },
   { path: '/radio', element: Radio, title: 'Radio' },
   { path: '/section', element: Section, title: 'Section' },
+  { path: '/sidebar', element: Sidebar, title: 'Sidebar' },
   { path: '/skiplinks', element: Skiplinks, title: 'Skiplinks' },
   { path: '/sticky', element: Sticky, title: 'Sticky' },
   { path: '/video', element: Video, title: 'Video' },

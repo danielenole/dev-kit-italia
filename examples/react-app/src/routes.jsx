@@ -12,6 +12,7 @@ import Input from './pages/Input';
 import Modal from './pages/Modal';
 import Radio from './pages/Radio';
 import Section from './pages/Section';
+import Sidebar from './components/Sidebar';
 import Skiplinks from './pages/Skiplinks';
 import Sticky from './pages/Sticky';
 import Video from './pages/Video';
@@ -33,6 +34,7 @@ export const AppRoutes = [
   { path: '/modal', element: <Modal />, title: 'Modal' },
   { path: '/radio', element: <Radio />, title: 'Radio' },
   { path: '/section', element: <Section />, title: 'Section' },
+  { path: '/sidebar', element: <Sidebar />, title: 'Sidebar' },
   { path: '/skiplinks', element: <Skiplinks />, title: 'Skiplinks' },
   { path: '/sticky', element: <Sticky />, title: 'Sticky' },
   { path: '/video', element: <Video />, title: 'Video' },

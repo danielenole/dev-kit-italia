@@ -63,6 +63,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/section.component').then((c) => c.SectionComponent),
   },
   {
+    path: 'sidebar',
+    loadComponent: () => import('./components/sidebar.component').then((c) => c.SidebarComponent),
+  },
+  {
     path: 'skiplinks',
     loadComponent: () => import('./pages/skiplinks.component').then((c) => c.SkiplinksComponent),
   },

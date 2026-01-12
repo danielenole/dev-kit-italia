@@ -1,7 +1,5 @@
 import javascriptLogo from './javascript.svg';
 
-// import '@italia/dev-kit-italia/fonts.css';
-// import '@italia/dev-kit-italia/styles.css';
 import '@italia/dev-kit-italia/elements.js';
 
 const it = {
@@ -76,6 +74,9 @@ document.querySelector('#app-header').innerHTML = `
       </a>
       <a href="/src/section">
         Section
+      </a>
+      <a href="/src/sidebar">
+        Sidebar
       </a>
       <a href="/src/skiplinks">
         Skiplinks
