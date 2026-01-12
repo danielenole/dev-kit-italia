@@ -50,6 +50,9 @@
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@italia/test-config": "workspace:^",
     "@italia/typescript-config": "workspace:^",
+    "@italia/button": "workspace:^",
+    "@italia/icon": "workspace:^",
+    "@italia/modal": "workspace:^",
     "@open-wc/testing": "catalog:",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
@@ -60,6 +63,11 @@
     "sass": "catalog:",
     "tslib": "^2.6.3",
     "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "@italia/button": "workspace:^",
+    "@italia/icon": "workspace:^",
+    "@italia/modal": "workspace:^"
   },
   "customElements": "custom-elements.json"
 }

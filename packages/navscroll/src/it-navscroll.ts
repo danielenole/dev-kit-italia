@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { BaseComponent } from '@italia/globals';
-// import { type Position, type LinePosition, type DarkMode } from './types.js';
+import { type Position, type DarkMode /*, type LinePosition , */ } from './types.js';
 
 import styles from './navscroll.scss';
 
@@ -25,7 +25,7 @@ export class ItNavscroll extends BaseComponent {
    * Label del trigger modale
    */
   @property({ type: String, attribute: 'open-label' })
-  openLabel = 'Apri navigazione';
+  openLabel = 'Indice di navigazione';
 
   /**
    * Aria-Label del trigger modale
@@ -45,9 +45,17 @@ export class ItNavscroll extends BaseComponent {
   @property({ type: String })
   for: string | null = null;
 
-  // /** Where is navscroll placed on mobile when it is closed*/
-  // @property({ type: String, attribute: 'position' })
-  // position: Position = 'bottom';
+  /**
+   * Where is navscroll placed on mobile when it is closed
+   * */
+  @property({ type: String, attribute: 'position' })
+  position: Position = 'bottom';
+
+  /**
+   * Where is navscroll placed on mobile when it is closed
+   * */
+  @property({ type: Boolean, attribute: 'affix' })
+  affix: boolean = false;
 
   // /** Where you want to display separation line on desktop */
   // @property({ type: String, attribute: 'line-position' })
@@ -57,9 +65,9 @@ export class ItNavscroll extends BaseComponent {
   // @property({ type: Boolean })
   // progress: false;
 
-  // /** If you want dark mode only on mobile */
-  // @property({ type: String, attribute: 'dark-mode' })
-  // darkMode: DarkMode = null;
+  /** If you want dark mode only on mobile or desktop, or both */
+  @property({ type: String, attribute: 'dark-mode' })
+  darkMode: DarkMode = null;
 
   private mql!: MediaQueryList;
 
@@ -75,6 +83,8 @@ export class ItNavscroll extends BaseComponent {
 
   private scrollContainer!: HTMLElement; // main scorrevole
 
+  private wrapper!: HTMLElement;
+
   createRenderRoot() {
     // nav deve restare nel light DOM
     return this;
@@ -85,7 +95,6 @@ export class ItNavscroll extends BaseComponent {
 
     // nav deve esistere
     this.navEl = this.querySelector('nav') as HTMLElement;
-
     if (!this.navEl) {
       // eslint-disable-next-line no-console
       console.warn('<it-navscroll> richiede un <nav> come figlio diretto');
@@ -119,6 +128,7 @@ export class ItNavscroll extends BaseComponent {
   }
 
   private onMediaChange = (e: MediaQueryListEvent) => {
+    console.log('on media change', e.matches);
     this.updateMode(e.matches);
   };
 
@@ -127,7 +137,7 @@ export class ItNavscroll extends BaseComponent {
    */
   private updateMode(isConstrained: boolean) {
     const nextMode = isConstrained ? 'modal' : 'inline';
-
+    console.log('update mode', nextMode);
     if (this.mode === nextMode) return;
 
     this.mode = nextMode;
@@ -145,6 +155,7 @@ export class ItNavscroll extends BaseComponent {
     }
 
     if (!this.modalEl.contains(this.navEl)) {
+      this.navEl.setAttribute('slot', 'content');
       this.modalEl.appendChild(this.navEl);
     }
 
@@ -159,6 +170,9 @@ export class ItNavscroll extends BaseComponent {
     }
 
     this.modalEl?.remove();
+    this.modalEl = undefined;
+
+    this.navEl.removeAttribute('slot');
   }
 
   private createModal(): HTMLElement {
@@ -167,22 +181,31 @@ export class ItNavscroll extends BaseComponent {
     modal.setAttribute('position', 'left');
     modal.setAttribute('scrollable', 'true');
     modal.setAttribute('hide-close-button', 'true');
-    modal.setAttribute('close-label', 'Chiudi navigazione');
 
-    const trigger = document.createElement('button');
+    // const trigger = document.createElement('button');
+    // trigger.setAttribute('class', 'custom-navbar-toggler');
+    // trigger.setAttribute('aria-label', this.openAriaLabel);
+    // trigger.slot = 'trigger';
+    // trigger.type = 'button';
+    // trigger.textContent = this.openLabel;
+
+    // trigger modale
+    const trigger = document.createElement('it-button');
     trigger.setAttribute('class', 'custom-navbar-toggler');
     trigger.setAttribute('aria-label', this.openAriaLabel);
+    trigger.setAttribute('variant', 'link');
     trigger.slot = 'trigger';
-    trigger.type = 'button';
-    trigger.textContent = this.openLabel;
 
+    trigger.innerHTML = `<span>${this.openLabel}</span>`;
+
+    // pulsante di back
     const backButton = document.createElement('it-button');
     backButton.setAttribute('slot', 'header');
     backButton.setAttribute('variant', 'link');
     backButton.setAttribute('icon', 'it');
     backButton.innerHTML = `<it-icon name="it-arrow-left"></it-icon> <span>${this.backLabel}</span>`;
     backButton.addEventListener('click', () => {
-      (modal as any).close?.();
+      (modal as any).hide?.();
     });
 
     modal.appendChild(backButton);
@@ -229,12 +252,17 @@ export class ItNavscroll extends BaseComponent {
       const isCurrent = link.getAttribute('href') === hash;
 
       link.toggleAttribute('aria-current', isCurrent);
-      link.classList.toggle('active', isCurrent);
 
       if (isCurrent) {
         link.setAttribute('aria-current', 'location');
       }
+      link.classList.toggle('active', isCurrent);
     });
+
+    // Aggiorna trigger testo
+    if (this.mode === 'modal') {
+      this.updateTriggerText();
+    }
   }
 
   /*
@@ -262,7 +290,7 @@ export class ItNavscroll extends BaseComponent {
 
         // chiude il modal se siamo in modal mode
         if (this.mode === 'modal' && this.modalEl) {
-          (this.modalEl as any).close?.(); // assume it-modal espone close()
+          (this.modalEl as any).hide?.();
         }
 
         // sposta il focus al target
@@ -314,6 +342,23 @@ export class ItNavscroll extends BaseComponent {
 
     // aggiorna visivamente
     this.progressEl.setAttribute('aria-valuenow', percent.toFixed(0));
+  }
+
+  // aggiorna il testo del trigger della modale in base al link attivo
+  private updateTriggerText() {
+    if (!this.modalEl) return;
+
+    const trigger = this.modalEl.querySelector('[slot="trigger"]') as HTMLButtonElement;
+    if (!trigger) return;
+
+    const activeLink = this.navEl.querySelector('a[aria-current="location"]') as HTMLAnchorElement;
+
+    if (activeLink) {
+      trigger.textContent = activeLink.textContent;
+    } else {
+      // fallback
+      trigger.textContent = this.openLabel;
+    }
   }
 
   render() {

@@ -944,6 +944,15 @@ importers:
       '@custom-elements-manifest/analyzer':
         specifier: ^0.10.3
         version: 0.10.10
+      '@italia/button':
+        specifier: workspace:^
+        version: link:../button
+      '@italia/icon':
+        specifier: workspace:^
+        version: link:../icon
+      '@italia/modal':
+        specifier: workspace:^
+        version: link:../modal
       '@italia/test-config':
         specifier: workspace:^
         version: link:../test-config

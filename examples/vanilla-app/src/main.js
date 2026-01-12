@@ -69,6 +69,9 @@ document.querySelector('#app-header').innerHTML = `
       <a href="/src/modal">
         Modal
       </a>
+      <a href="/src/navscroll">
+        Navscroll
+      </a>
       <a href="/src/radio-examples.html">
         Radio
       </a>
