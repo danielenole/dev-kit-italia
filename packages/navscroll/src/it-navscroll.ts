@@ -81,12 +81,13 @@ export class ItNavscroll extends BaseComponent {
   }
 
   connectedCallback() {
-    super.connectedCallback();
+    super.connectedCallback?.();
 
     // nav deve esistere
     this.navEl = this.querySelector('nav') as HTMLElement;
 
     if (!this.navEl) {
+      // eslint-disable-next-line no-console
       console.warn('<it-navscroll> richiede un <nav> come figlio diretto');
       return;
     }
@@ -107,7 +108,7 @@ export class ItNavscroll extends BaseComponent {
   }
 
   disconnectedCallback() {
-    super.disconnectedCallback();
+    super.disconnectedCallback?.();
 
     this.mql.removeEventListener('change', this.onMediaChange);
     this.observer?.disconnect();
