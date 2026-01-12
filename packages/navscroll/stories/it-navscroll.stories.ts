@@ -10,7 +10,15 @@ interface NavscrollProps {
 // Renderizza il wc di default
 const renderComponent = (params: NavscrollProps, defaultSlot: string | TemplateResult = '') => {
   const slot = params.slot ?? defaultSlot;
-  return html`<it-navscroll it-aria-label=${ifDefined(params['it-aria-label'])}> ${slot} </it-navscroll>`;
+  return html`<it-navscroll it-aria-label=${ifDefined(params['it-aria-label'])}> ${slot} </it-navscroll>
+
+    <it-navscroll breakpoint="1024" modal-title="Navigazione sezioni" open-label="Apri navigazione">
+      <nav>
+        <a href="#a">A</a>
+        <a href="#b">B</a>
+        <a href="#c">C</a>
+      </nav>
+    </it-navscroll> `;
 };
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
