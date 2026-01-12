@@ -16,25 +16,32 @@
       <div class="container my-4">
         <h1>it-navscroll</h1>
 
-        <it-navscroll breakpoint="1024" modal-title="Navigazione sezioni" open-label="Apri navigazione">
-          <nav>
-            <a href="#a">A</a>
-            <a href="#b">B</a>
-            <a href="#c">C</a>
-          </nav>
-        </it-navscroll>
-        <main id="scroll-container" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 1rem; margin-top: 1rem;">
-          <section id="a" style="height: 600px; border-bottom: 1px solid #ccc;">
-            <h2>Sezione A</h2>
-            <p>Contenuto della sezione A...</p>
-          </section>
-          <section id="b" style="height: 400px; border-bottom: 1px solid #ccc;">
-            <h2>Sezione B</h2>
-          </section>
-          <section id="c" style="height: 700px; border-bottom: 1px solid #ccc;">
-            <h2>Sezione C</h2>
-          </section>
-        </main>
+        <div class="row row-column-border border-light row-column-menu-left">
+          <aside class="col-lg-4" aria-label="Indice della pagina">
+            <it-navscroll breakpoint="1024" open-label="Apri navigazione" sticky="" for="#scroll-container" progress="">
+              <nav>
+                <a href="#a">A</a>
+                <a href="#b">B</a>
+                <a href="#c">C</a>
+              </nav>
+            </it-navscroll>
+          </aside>
+
+           <main id="scroll-container" class="col-lg-8 it-page-sections-container border-light">
+              <section id="a" style="height: 600px; border-bottom: 1px solid #ccc;">
+                <h2>Sezione A</h2>
+                <p>Contenuto della sezione A...</p>
+              </section>
+              <section id="b" style="height: 400px; border-bottom: 1px solid #ccc;">
+                <h2>Sezione B</h2>
+              </section>
+              <section id="c" style="height: 700px; border-bottom: 1px solid #ccc;">
+                <h2>Sezione C</h2>
+              </section>
+          </main>
+        </div>
+
+
       </div>
 
       <div id="app-footer"></div>

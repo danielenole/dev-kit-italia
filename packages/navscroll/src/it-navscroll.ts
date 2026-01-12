@@ -16,12 +16,6 @@ export class ItNavscroll extends BaseComponent {
   breakpoint = 991;
 
   /**
-   * Titolo accessibile della modale
-   */
-  // @property({ type: String, attribute: 'modal-title' })
-  // modalTitle = '';
-
-  /**
    * Label del trigger modale
    */
   @property({ type: String, attribute: 'open-label' })
@@ -52,18 +46,18 @@ export class ItNavscroll extends BaseComponent {
   position: Position = 'bottom';
 
   /**
-   * Where is navscroll placed on mobile when it is closed
+   * If on desktop you want navscroll to be sticky on top
    * */
-  @property({ type: Boolean, attribute: 'affix' })
-  affix: boolean = false;
+  @property({ type: Boolean, attribute: 'sticky' })
+  sticky: boolean = false;
 
   // /** Where you want to display separation line on desktop */
   // @property({ type: String, attribute: 'line-position' })
   // linePosition: LinePosition = 'right';
 
-  // /** If you want to display progress bar */
-  // @property({ type: Boolean })
-  // progress: false;
+  /** If you want to display progress bar */
+  @property({ type: Boolean })
+  progress: boolean = false;
 
   /** If you want dark mode only on mobile or desktop, or both */
   @property({ type: String, attribute: 'dark-mode' })
@@ -97,22 +91,33 @@ export class ItNavscroll extends BaseComponent {
     this.navEl = this.querySelector('nav') as HTMLElement;
     if (!this.navEl) {
       // eslint-disable-next-line no-console
-      console.warn('<it-navscroll> richiede un <nav> come figlio diretto');
+      this.logger.error('<it-navscroll> requires a <nav> items as direct children.');
       return;
     }
-
-    // inizializza progress bar
-    this.initProgressBar();
-
-    // scrollspy
-    this.initScrollSpy();
-
-    // smooth scroll sui link e aria-current
-    this.attachLinkListeners();
 
     // media query per modalità modal / inline
     this.mql = window.matchMedia(this.mediaQuery);
     this.mql.addEventListener('change', this.onMediaChange);
+    // this.updateMode(this.mql.matches);
+  }
+
+  protected firstUpdated() {
+    // ora il DOM del render esiste
+    this.wrapper = this.querySelector('.it-navscroll-wrapper') as HTMLElement;
+
+    if (!this.wrapper) {
+      this.logger.error('Wrapper not found');
+      return;
+    }
+
+    this.wrapper.appendChild(this.navEl);
+
+    // inizializzazioni che dipendono dal DOM
+    this.initProgressBar();
+    this.initScrollSpy();
+    this.attachLinkListeners();
+
+    // inizializza il mode corretto
     this.updateMode(this.mql.matches);
   }
 
@@ -128,7 +133,6 @@ export class ItNavscroll extends BaseComponent {
   }
 
   private onMediaChange = (e: MediaQueryListEvent) => {
-    console.log('on media change', e.matches);
     this.updateMode(e.matches);
   };
 
@@ -137,7 +141,15 @@ export class ItNavscroll extends BaseComponent {
    */
   private updateMode(isConstrained: boolean) {
     const nextMode = isConstrained ? 'modal' : 'inline';
-    console.log('update mode', nextMode);
+    if (this.sticky) {
+      if (nextMode === 'inline' && !this.wrapper.classList.contains('affix-top')) {
+        this.wrapper.classList.add('affix-top');
+      }
+      if (nextMode === 'modal' && this.wrapper.classList.contains('affix-top')) {
+        this.wrapper.classList.remove('affix-top');
+      }
+    }
+
     if (this.mode === nextMode) return;
 
     this.mode = nextMode;
@@ -159,19 +171,23 @@ export class ItNavscroll extends BaseComponent {
       this.modalEl.appendChild(this.navEl);
     }
 
-    if (!this.contains(this.modalEl)) {
-      this.appendChild(this.modalEl);
+    if (!this.wrapper.contains(this.modalEl)) {
+      this.wrapper.appendChild(this.modalEl);
     }
+    // if (!this.shadowRoot?.contains(this.modalEl)) {
+    //   this.shadowRoot?.appendChild(this.modalEl);
+    // }
+    this.updateTriggerText();
   }
 
   private exitModal() {
     if (this.modalEl?.contains(this.navEl)) {
-      this.appendChild(this.navEl);
+      this.wrapper.appendChild(this.navEl);
+      // this.shadowRoot?.appendChild(this.navEl);
     }
 
     this.modalEl?.remove();
     this.modalEl = undefined;
-
     this.navEl.removeAttribute('slot');
   }
 
@@ -182,19 +198,12 @@ export class ItNavscroll extends BaseComponent {
     modal.setAttribute('scrollable', 'true');
     modal.setAttribute('hide-close-button', 'true');
 
-    // const trigger = document.createElement('button');
-    // trigger.setAttribute('class', 'custom-navbar-toggler');
-    // trigger.setAttribute('aria-label', this.openAriaLabel);
-    // trigger.slot = 'trigger';
-    // trigger.type = 'button';
-    // trigger.textContent = this.openLabel;
-
     // trigger modale
     const trigger = document.createElement('it-button');
     trigger.setAttribute('class', 'custom-navbar-toggler');
     trigger.setAttribute('aria-label', this.openAriaLabel);
     trigger.setAttribute('variant', 'link');
-    trigger.slot = 'trigger';
+    trigger.setAttribute('slot', 'trigger');
 
     trigger.innerHTML = `<span>${this.openLabel}</span>`;
 
@@ -208,9 +217,15 @@ export class ItNavscroll extends BaseComponent {
       (modal as any).hide?.();
     });
 
+    modal.appendChild(trigger);
     modal.appendChild(backButton);
 
-    modal.appendChild(trigger);
+    modal.addEventListener('it-modal-open', () => {
+      document.body.classList.add('navbar-open');
+    });
+    modal.addEventListener('it-modal-close', () => {
+      document.body.classList.remove('navbar-open');
+    });
 
     return modal;
   }
@@ -237,7 +252,7 @@ export class ItNavscroll extends BaseComponent {
       },
       {
         root: null, // viewport
-        rootMargin: '-30% 0px -30% 0px', // '${this.offset} 0px -30% 0px'
+        rootMargin: '-30% 0px -30% 0px',
         threshold: [0.1, 0.5, 1],
       },
     );
@@ -318,14 +333,15 @@ export class ItNavscroll extends BaseComponent {
   private initProgressBar() {
     // cerca il main referenziato
 
-    this.scrollContainer = this.for ? document.getElementById(this.for)! : (document.scrollingElement as HTMLElement);
+    this.scrollContainer = this.for ? document.querySelector(this.for)! : (document.scrollingElement as HTMLElement);
 
     if (!this.scrollContainer) return;
 
     this.progressEl = this.querySelector('[role="progressbar"]')!;
+
     if (!this.progressEl) return;
 
-    this.scrollContainer.addEventListener('scroll', () => {
+    document.addEventListener('scroll', () => {
       this.updateProgress();
     });
 
@@ -334,12 +350,13 @@ export class ItNavscroll extends BaseComponent {
   }
 
   private updateProgress() {
-    const scrollTop = this.scrollContainer?.scrollTop;
+    const scrollTop = document.body?.scrollTop; //this.scrollContainer?.scrollTop;
     const scrollHeight = this.scrollContainer?.scrollHeight;
     const clientHeight = this.scrollContainer?.clientHeight;
 
-    const percent = Math.min(100, Math.max(0, (scrollTop / (scrollHeight - clientHeight)) * 100));
-
+    const percent =
+      scrollTop === 0 ? 0 : (Math.min(100, Math.max(0, (scrollTop / (scrollHeight - clientHeight)) * 100)) ?? 0);
+    console.log('updateprogress', { scrollTop, scrollHeight, clientHeight, percent });
     // aggiorna visivamente
     this.progressEl.setAttribute('aria-valuenow', percent.toFixed(0));
   }
@@ -363,54 +380,40 @@ export class ItNavscroll extends BaseComponent {
 
   render() {
     // nessun template: gestione DOM manuale
-    return html``;
+    // return html``;
+    const positionClass = this.position === 'bottom' ? 'it-bottom-navscroll' : 'it-top-navscroll';
+    let themeClass = '';
+    switch (this.darkMode) {
+      case 'mobile':
+        themeClass = 'theme-dark-mobile';
+        break;
+      case 'desktop':
+        themeClass = 'theme-dark-desktop';
+        break;
+      case 'always':
+        themeClass = 'theme-dark-mobile theme-dark-desktop';
+        break;
+      default:
+        themeClass = '';
+    }
+
+    const wrapperClasses = ['it-navscroll-wrapper', 'navbar', positionClass, themeClass].join(' ');
+
+    return html`
+      <div class="${wrapperClasses}">
+        <!-- Barra di progresso -->
+        ${this.progress
+          ? html`<div
+              class="custom-navbar-progressbar"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-label="Progress bar"
+            ></div>`
+          : html``}
+      </div>
+    `;
   }
-
-  // protected links = [];
-
-  // private _onSlotChange(e: any) {
-  //   const slot = e.target;
-  //   const assigned = slot?.assignedElements({ flatten: true });
-
-  //   this.links = assigned
-  //     .filter((el: HTMLElement) => el.tagName === 'A')
-  //     .map((a: HTMLElement) => ({
-  //       href: a.getAttribute('href'),
-  //       text: a.textContent?.trim(),
-  //     }));
-
-  //   this.requestUpdate(); // aggiorna la UI
-  // }
-
-  // render() {
-  //   let darkClass = '';
-  //   switch (this.darkMode) {
-  //     case 'mobile':
-  //       darkClass = 'theme-dark-mobile';
-  //       break;
-  //     case 'desktop':
-  //       darkClass = 'theme-dark-desktop';
-  //       break;
-  //     case 'always':
-  //       darkClass = 'theme-dark-mobile theme-dark-desktop';
-  //       break;
-  //     default:
-  //       darkClass = '';
-  //   }
-
-  //   return html`
-  //     <nav
-  //       class="${this.composeClass(
-  //         'navbar',
-  //         'it-navscroll-wrapper',
-  //         'navbar-expand-lg',
-  //         this.position === 'bottom' ? 'it-bottom-navscroll' : 'it-top-navscroll',
-  //         this.linePosition === 'left' ? 'it-left-side' : 'it-right-side',
-  //         darkClass,
-  //       )}"
-  //     ></nav>
-  //   `;
-  // }
 }
 
 declare global {
