@@ -75,9 +75,15 @@ export class ItNavscroll extends BaseComponent {
 
   private progressEl!: HTMLElement; // div della barra
 
-  private scrollContainer!: HTMLElement; // main scorrevole
+  private scrollContainer!: HTMLElement; // contenitore scrollabile
+
+  private targetContainer!: HTMLElement;
 
   private wrapper!: HTMLElement;
+
+  private menuWrapper!: HTMLElement;
+
+  private _activeTarget: string | null = null;
 
   createRenderRoot() {
     // nav deve restare nel light DOM
@@ -104,13 +110,17 @@ export class ItNavscroll extends BaseComponent {
   protected firstUpdated() {
     // ora il DOM del render esiste
     this.wrapper = this.querySelector('.it-navscroll-wrapper') as HTMLElement;
+    this.menuWrapper = this.querySelector('.menu-wrapper') as HTMLElement;
 
-    if (!this.wrapper) {
+    if (!this.wrapper || !this.menuWrapper) {
       this.logger.error('Wrapper not found');
       return;
     }
 
-    this.wrapper.appendChild(this.navEl);
+    // prendi tutti i figli e spostali nel wrapper
+    const children = Array.from(this.childNodes).filter((node) => node !== this.wrapper);
+    children.forEach((child) => this.menuWrapper.appendChild(child));
+    this.wrapper.appendChild(this.menuWrapper);
 
     // inizializzazioni che dipendono dal DOM
     this.initProgressBar();
@@ -166,9 +176,9 @@ export class ItNavscroll extends BaseComponent {
       this.modalEl = this.createModal();
     }
 
-    if (!this.modalEl.contains(this.navEl)) {
-      this.navEl.setAttribute('slot', 'content');
-      this.modalEl.appendChild(this.navEl);
+    if (!this.modalEl.contains(this.menuWrapper)) {
+      this.menuWrapper.setAttribute('slot', 'content');
+      this.modalEl.appendChild(this.menuWrapper);
     }
 
     if (!this.wrapper.contains(this.modalEl)) {
@@ -181,14 +191,14 @@ export class ItNavscroll extends BaseComponent {
   }
 
   private exitModal() {
-    if (this.modalEl?.contains(this.navEl)) {
-      this.wrapper.appendChild(this.navEl);
+    if (this.modalEl?.contains(this.menuWrapper)) {
+      this.wrapper.appendChild(this.menuWrapper);
       // this.shadowRoot?.appendChild(this.navEl);
     }
 
     this.modalEl?.remove();
     this.modalEl = undefined;
-    this.navEl.removeAttribute('slot');
+    this.menuWrapper.removeAttribute('slot');
   }
 
   private createModal(): HTMLElement {
@@ -204,7 +214,6 @@ export class ItNavscroll extends BaseComponent {
     trigger.setAttribute('aria-label', this.openAriaLabel);
     trigger.setAttribute('variant', 'link');
     trigger.setAttribute('slot', 'trigger');
-
     trigger.innerHTML = `<span>${this.openLabel}</span>`;
 
     // pulsante di back
@@ -248,7 +257,8 @@ export class ItNavscroll extends BaseComponent {
 
         if (!visible) return;
 
-        this.setCurrent(`#${visible.target.id}`);
+        this._activeTarget = `#${(visible.target as HTMLElement).id}`;
+        this.setCurrent(this._activeTarget);
       },
       {
         root: null, // viewport
@@ -263,16 +273,24 @@ export class ItNavscroll extends BaseComponent {
   private setCurrent(hash: string) {
     const links = this.navEl.querySelectorAll('a[href^="#"]');
 
+    // 1️⃣ reset: rimuovo active da tutti
     links.forEach((link) => {
-      const isCurrent = link.getAttribute('href') === hash;
-
-      link.toggleAttribute('aria-current', isCurrent);
-
-      if (isCurrent) {
-        link.setAttribute('aria-current', 'location');
-      }
-      link.classList.toggle('active', isCurrent);
+      link.classList.remove('active');
+      link.removeAttribute('aria-current');
     });
+
+    // 2️⃣ applico active solo al link corrente e ai suoi parent
+    const currentLink = this.navEl.querySelector(`a[href="${hash}"]`);
+    if (currentLink) {
+      currentLink.classList.add('active');
+      currentLink.setAttribute('aria-current', 'location');
+
+      let parentLi = currentLink.parentElement?.parentElement?.closest('li');
+      while (parentLi) {
+        parentLi.querySelector('a[href^="#"]')?.classList.add('active');
+        parentLi = parentLi.parentElement?.parentElement?.closest('li');
+      }
+    }
 
     // Aggiorna trigger testo
     if (this.mode === 'modal') {
@@ -300,9 +318,6 @@ export class ItNavscroll extends BaseComponent {
         // scroll smooth
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        // aggiorna aria-current
-        this.setCurrent(`#${targetId}`);
-
         // chiude il modal se siamo in modal mode
         if (this.mode === 'modal' && this.modalEl) {
           (this.modalEl as any).hide?.();
@@ -314,13 +329,6 @@ export class ItNavscroll extends BaseComponent {
         // targetEl.focus({ preventScroll: true }); // preveniamo scroll automatico per evitare jump
         targetEl.focus();
 
-        // opzionale: rimuovi tabindex dopo focus
-        // const removeTabindex = () => {
-        //   targetEl.removeAttribute('tabindex');
-        //   targetEl.removeEventListener('blur', removeTabindex);
-        // };
-        // targetEl.addEventListener('blur', removeTabindex);
-
         // aggiorna URL senza ricaricare pagina
         window.history.replaceState(null, '', `#${targetId}`);
       });
@@ -331,34 +339,72 @@ export class ItNavscroll extends BaseComponent {
    * Gestione della progress bar
    */
   private initProgressBar() {
-    // cerca il main referenziato
+    // Cerco il main referenziato
+    this.targetContainer = this.for ? document.querySelector(this.for)! : (document.scrollingElement as HTMLElement);
 
-    this.scrollContainer = this.for ? document.querySelector(this.for)! : (document.scrollingElement as HTMLElement);
+    // Determino il container corretto
+    const style = this.targetContainer ? getComputedStyle(this.targetContainer) : null;
+    const overflowY = style?.overflowY;
+    const isScrollableContainer = overflowY !== 'visible' && overflowY !== 'hidden';
 
-    if (!this.scrollContainer) return;
+    if (isScrollableContainer && this.targetContainer instanceof HTMLElement) {
+      // container interno scrollabile
+      this.scrollContainer = this.targetContainer;
+      this.scrollContainer.addEventListener('scroll', () => this.updateProgress());
+    } else {
+      // scroll della pagina → ascolto window
+      this.scrollContainer = document.documentElement; // placeholder
+      window.addEventListener('scroll', () => this.updateProgress());
+    }
 
     this.progressEl = this.querySelector('[role="progressbar"]')!;
-
     if (!this.progressEl) return;
-
-    document.addEventListener('scroll', () => {
-      this.updateProgress();
-    });
 
     // init a 0%
     this.updateProgress();
   }
 
   private updateProgress() {
-    const scrollTop = document.body?.scrollTop; //this.scrollContainer?.scrollTop;
-    const scrollHeight = this.scrollContainer?.scrollHeight;
-    const clientHeight = this.scrollContainer?.clientHeight;
+    if (!this.progressEl || !this.scrollContainer) return;
 
-    const percent =
-      scrollTop === 0 ? 0 : (Math.min(100, Math.max(0, (scrollTop / (scrollHeight - clientHeight)) * 100)) ?? 0);
-    console.log('updateprogress', { scrollTop, scrollHeight, clientHeight, percent });
-    // aggiorna visivamente
+    const isDocumentScroll = this.scrollContainer === document.documentElement;
+    const offset =
+      this.targetContainer !== document.documentElement
+        ? this.targetContainer.getBoundingClientRect().top + window.pageYOffset
+        : 0;
+    const scrollTop = isDocumentScroll ? window.scrollY : this.scrollContainer.scrollTop;
+    const clientHeight = isDocumentScroll ? window.innerHeight : this.scrollContainer.clientHeight;
+    const scrollHeight = isDocumentScroll ? document.documentElement.scrollHeight : this.scrollContainer.scrollHeight;
+
+    const maxScrollable = Math.max(scrollHeight - clientHeight, 1);
+
+    let percent = 0;
+
+    if (this._activeTarget) {
+      const section = document.querySelector<HTMLElement>(this._activeTarget);
+      if (section) {
+        // ✅ calcolo corretto sectionTop relativo allo scrollContainer
+        const sectionTop = isDocumentScroll
+          ? section.offsetTop - offset
+          : section.offsetTop - (this.scrollContainer as HTMLElement).offsetTop;
+
+        const sectionHeight = section.offsetHeight || 1;
+
+        const sectionStartPercent = (sectionTop / maxScrollable) * 100;
+        const sectionEndPercent = ((sectionTop + sectionHeight) / maxScrollable) * 100;
+
+        const sectionProgress = Math.min(1, Math.max(0, (scrollTop - sectionTop) / sectionHeight));
+
+        percent = sectionStartPercent + sectionProgress * (sectionEndPercent - sectionStartPercent);
+      }
+    } else {
+      percent = (scrollTop / maxScrollable) * 100;
+    }
+
+    percent = Math.min(100, Math.max(0, percent));
+
     this.progressEl.setAttribute('aria-valuenow', percent.toFixed(0));
+    this.progressEl.style.width = `${percent.toFixed(0)}%`;
   }
 
   // aggiorna il testo del trigger della modale in base al link attivo
@@ -401,16 +447,20 @@ export class ItNavscroll extends BaseComponent {
 
     return html`
       <div class="${wrapperClasses}">
-        <!-- Barra di progresso -->
-        ${this.progress
-          ? html`<div
-              class="custom-navbar-progressbar"
-              role="progressbar"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              aria-label="Progress bar"
-            ></div>`
-          : html``}
+        <div class="menu-wrapper" tabindex="-1">
+          <!-- Barra di progresso -->
+          ${this.progress
+            ? html` <div class="progress">
+              <div
+                class="progress-bar it-navscroll-progressbar"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-label="Progress bar"
+              ></div>
+            </div></div>`
+            : html``}
+        </div>
       </div>
     `;
   }
