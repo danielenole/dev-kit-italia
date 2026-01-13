@@ -1,5 +1,18 @@
 @import 'bootstrap-italia/src/scss/components/navscroll';
+@import 'bootstrap-italia/src/scss/components/progress-bars';
 
 it-navscroll {
   --it-host-display: block;
+
+  it-modal::part(modal) {
+    --bs-modal-width: calc(100vw - 48px);
+  }
+
+  it-modal::part(modal-body) {
+    width: 100%;
+  }
+
+  // .menu-wrapper {
+  //   width: 77vw; // occupa sempre tutta lo spazio orizzontale disponibile (BSI v2.15:) meno 48px a destra per il close e backdrop;
+  // }
 }
