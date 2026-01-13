@@ -11,7 +11,7 @@
   </head>
   <body>
     <div id="root">
-      <div id="app-header">
+      <div id="app-header" style="height:239.5px; background-color: purple;">
       </div>
       <div class="container my-4">
         <h1>it-navscroll</h1>
@@ -21,6 +21,15 @@
             <it-navscroll breakpoint="1024" open-label="Apri navigazione" sticky="" for="#scroll-container" progress="">
               <div class="link-list-wrapper">
                 <h3>Header</h3>
+                <div class="progress">
+                  <div
+                    class="progress-bar it-navscroll-progressbar"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-label="Progress bar"
+                  ></div>
+                </div>
                 <nav>
                   <ul class="link-list">
                     <li class="nav-item">

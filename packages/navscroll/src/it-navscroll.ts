@@ -55,10 +55,6 @@ export class ItNavscroll extends BaseComponent {
   // @property({ type: String, attribute: 'line-position' })
   // linePosition: LinePosition = 'right';
 
-  /** If you want to display progress bar */
-  @property({ type: Boolean })
-  progress: boolean = false;
-
   /** If you want dark mode only on mobile or desktop, or both */
   @property({ type: String, attribute: 'dark-mode' })
   darkMode: DarkMode = null;
@@ -104,6 +100,7 @@ export class ItNavscroll extends BaseComponent {
     // media query per modalità modal / inline
     this.mql = window.matchMedia(this.mediaQuery);
     this.mql.addEventListener('change', this.onMediaChange);
+
     // this.updateMode(this.mql.matches);
   }
 
@@ -251,10 +248,14 @@ export class ItNavscroll extends BaseComponent {
 
     this.observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        const intersectingSections = entries.filter((e) => e.isIntersecting);
+        const visible = intersectingSections.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
+        if (intersectingSections.length === 0) {
+          this._activeTarget = null;
+          // this.setCurrent('');
+          return;
+        }
         if (!visible) return;
 
         this._activeTarget = `#${(visible.target as HTMLElement).id}`;
@@ -357,7 +358,7 @@ export class ItNavscroll extends BaseComponent {
       window.addEventListener('scroll', () => this.updateProgress());
     }
 
-    this.progressEl = this.querySelector('[role="progressbar"]')!;
+    this.progressEl = this.querySelector('[role="progressbar"]')!; // diventerà this.querySelector('it-progress');
     if (!this.progressEl) return;
 
     // init a 0%
@@ -447,20 +448,7 @@ export class ItNavscroll extends BaseComponent {
 
     return html`
       <div class="${wrapperClasses}">
-        <div class="menu-wrapper" tabindex="-1">
-          <!-- Barra di progresso -->
-          ${this.progress
-            ? html` <div class="progress">
-              <div
-                class="progress-bar it-navscroll-progressbar"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-label="Progress bar"
-              ></div>
-            </div></div>`
-            : html``}
-        </div>
+        <div class="menu-wrapper" tabindex="-1"></div>
       </div>
     `;
   }
