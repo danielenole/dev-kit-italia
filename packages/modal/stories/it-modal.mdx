@@ -77,6 +77,17 @@ Segui le indicazioni sottostanti per assicurarti che la modale sia accessibile a
 - In caso di contenuti che includono strutture semantiche, come liste, tabelle, paragrafi multipli, non valorizzare l'attributo `modal-description` e/o non inserire contenuto nello slot `description`. Maggiori informazioni [qui](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/#wai-ariaroles,states,andproperties).
 - Si consiglia sempre di includere un pulsante di chiusura all'interno della modale, che può essere aggiunto facilmente tramite l'attributo `close-button`, o implementato manualmente nello slot `footer` tramite, ad esempio, un pulsante `it-button`.
 
+## Personalizzazione degli stili
+Per la personalizzazione degli stili puoi usare il selettore `::part` passando uno dei seguenti valori, a seconda delle parti su cui vuoi agire:
+-  `::part(modal)`
+-  `::part(modal-content-wrapper)`
+-  `::part(modal-content)`
+-  `::part(modal-header)`
+-  `::part(modal-body)`
+-  `::part(modal-footer)`
+
+[Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
+
 ## Con pulsante di chiusura
 Puoi mostrare o nascondere il pulsante di chiusura predefinito della modale tramite l'attributo `close-button`.
 Il pulsante di chiusura viene posizionato nell'angolo in alto a destra della modale e permette agli utenti di chiudere facilmente la finestra modale.
