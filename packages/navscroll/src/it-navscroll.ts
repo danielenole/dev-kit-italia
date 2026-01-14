@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { BaseComponent } from '@italia/globals';
@@ -67,21 +68,17 @@ export class ItNavscroll extends BaseComponent {
 
   private mode: 'inline' | 'modal' = 'inline'; // Modalità di visualizzazione corrente, a seconda che siamo su desktop o mobile
 
-  private observer!: IntersectionObserver;
-
-  private progressEl!: HTMLElement; // div della barra
+  private progressEl!: HTMLElement; // div della progressbar
 
   private scrollContainer!: HTMLElement; // contenitore scrollabile
 
-  private targetContainer!: HTMLElement;
+  private targetContainer!: HTMLElement; // container indicato dall'attributo 'for'
 
-  private wrapper!: HTMLElement;
+  private wrapper!: HTMLElement; // navscroll-wrapper
 
-  private menuWrapper!: HTMLElement;
+  private menuWrapper!: HTMLElement; // menu-wrapper
 
-  private activeTarget: string | null = null;
-
-  private lockedTargetId: string | null = null; // serve per gestire correttamente l'active sulla voce di menu quando si clicca sul link, in modo da non far gestire l'active all'intersection observer
+  private activeTarget: string | null = null; // voce di menu attiva in questo momento
 
   createRenderRoot() {
     // nav deve restare nel light DOM
@@ -95,15 +92,13 @@ export class ItNavscroll extends BaseComponent {
     this.navEl = this.querySelector('nav') as HTMLElement;
     if (!this.navEl) {
       // eslint-disable-next-line no-console
-      this.logger.error('<it-navscroll> requires a <nav> items as direct children.');
+      this.logger.error('<it-navscroll> requires a <nav> item as children.');
       return;
     }
 
     // media query per modalità modal / inline
     this.mql = window.matchMedia(this.mediaQuery);
     this.mql.addEventListener('change', this.onMediaChange);
-
-    // this.updateMode(this.mql.matches);
   }
 
   protected firstUpdated() {
@@ -122,8 +117,7 @@ export class ItNavscroll extends BaseComponent {
     this.wrapper.appendChild(this.menuWrapper);
 
     // inizializzazioni che dipendono dal DOM
-    this.initProgressBar();
-    this.initScrollSpy();
+    this.initContainers();
     this.attachLinkListeners();
 
     // inizializza il mode corretto
@@ -134,9 +128,17 @@ export class ItNavscroll extends BaseComponent {
     super.disconnectedCallback?.();
 
     this.mql.removeEventListener('change', this.onMediaChange);
-    this.observer?.disconnect();
+    try {
+      this.scrollContainer.removeEventListener('scroll', this.onScroll);
+      window.removeEventListener('scroll', this.onScroll);
+    } catch (e) {
+      // do nothing. One of this.scrollContainer or window will not have this.onScroll on event scroll.
+    }
   }
 
+  /*
+   * Gestione dimensione schermo
+   */
   private get mediaQuery() {
     return `(max-width: ${this.breakpoint}px)`;
   }
@@ -239,44 +241,41 @@ export class ItNavscroll extends BaseComponent {
   }
 
   /*
-   * Gestione dell'elemento attivo in base allo scroll
+   * Gestione dei container
    */
-  private initScrollSpy() {
-    const links = this.navEl.querySelectorAll('a[href^="#"]');
-
-    const sections = Array.from(links)
-      .map((link) => document.querySelector(link.getAttribute('href')!))
-      .filter(Boolean);
-
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        const intersectingSections = entries.filter((e) => e.isIntersecting);
-        if (intersectingSections.length === 0) {
-          return;
-        }
-
-        // se c'è un lock attivo
-        if (this.lockedTargetId) {
-          return; // ignora tutto il resto
-        }
-
-        // se non c'è un lock, scegli la piu visibile
-        const visible = intersectingSections.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!visible) return;
-
-        this.activeTarget = `#${(visible.target as HTMLElement).id}`;
-        this.setCurrent(this.activeTarget);
-      },
-      {
-        root: null, // viewport
-        rootMargin: '0px 0px -25%',
-        threshold: [0.1, 0.5, 1],
-      },
-    );
-
-    sections.forEach((section: any) => this.observer.observe(section));
+  private get scrollContainerTop() {
+    return this.scrollContainer === document.documentElement ? window.scrollY : this.scrollContainer.scrollTop;
   }
 
+  private initContainers() {
+    // Cerco il main referenziato
+    this.targetContainer = this.for ? document.querySelector(this.for)! : (document.scrollingElement as HTMLElement);
+
+    // Determino il container corretto
+    const style = this.targetContainer ? getComputedStyle(this.targetContainer) : null;
+    const overflowY = style?.overflowY;
+    const isScrollableContainer = overflowY !== 'visible' && overflowY !== 'hidden';
+
+    if (isScrollableContainer && this.targetContainer instanceof HTMLElement) {
+      // container interno scrollabile
+      this.scrollContainer = this.targetContainer;
+      this.scrollContainer.addEventListener('scroll', () => this.onScroll());
+    } else {
+      // scroll della pagina → ascolto window
+      this.scrollContainer = document.documentElement; // placeholder
+      window.addEventListener('scroll', () => this.onScroll());
+    }
+
+    this.progressEl = this.querySelector('[role="progressbar"]')!; // diventerà this.querySelector('it-progress');
+    if (!this.progressEl) return;
+
+    // init a 0%
+    this.updateProgress();
+  }
+
+  /*
+   * Gestione della voce attiva
+   */
   private setCurrent(hash: string) {
     const links = this.navEl.querySelectorAll('a[href^="#"]');
 
@@ -305,98 +304,6 @@ export class ItNavscroll extends BaseComponent {
     }
   }
 
-  /*
-   * Gestione dello scroll alle sezioni
-   */
-  private attachLinkListeners() {
-    const links = this.navEl.querySelectorAll('a[href^="#"]');
-
-    links.forEach((link) => {
-      link.addEventListener('click', (event) => {
-        console.log('link click');
-        const hash = link.getAttribute('href')!;
-        const targetId = hash?.slice(1);
-        if (!targetId) return;
-
-        const targetEl = document.getElementById(targetId);
-        if (!targetEl) return;
-
-        event.preventDefault();
-
-        // 🔒 lock sezione cliccata
-        this.lockedTargetId = targetId;
-        this.activeTarget = `#${targetId}`;
-        this.setCurrent(this.activeTarget);
-
-        // scroll smooth
-        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        // chiude il modal se siamo in modal mode
-        if (this.mode === 'modal' && this.modalEl) {
-          (this.modalEl as any).hide?.();
-        }
-
-        // sposta il focus al target
-
-        targetEl.setAttribute('tabindex', '-1'); // temporaneo se non focusabile
-        targetEl.focus({ preventScroll: true }); // preveniamo scroll automatico per evitare jump
-
-        // aggiorna URL senza ricaricare pagina
-        window.history.replaceState(null, '', `#${targetId}`);
-
-        setTimeout(() => {
-          this.lockedTargetId = null;
-        }, 700);
-      });
-    });
-  }
-
-  /*
-   * Gestione della progress bar
-   */
-  private initProgressBar() {
-    // Cerco il main referenziato
-    this.targetContainer = this.for ? document.querySelector(this.for)! : (document.scrollingElement as HTMLElement);
-
-    // Determino il container corretto
-    const style = this.targetContainer ? getComputedStyle(this.targetContainer) : null;
-    const overflowY = style?.overflowY;
-    const isScrollableContainer = overflowY !== 'visible' && overflowY !== 'hidden';
-
-    if (isScrollableContainer && this.targetContainer instanceof HTMLElement) {
-      // container interno scrollabile
-      this.scrollContainer = this.targetContainer;
-      this.scrollContainer.addEventListener('scroll', () => this.updateProgress());
-    } else {
-      // scroll della pagina → ascolto window
-      this.scrollContainer = document.documentElement; // placeholder
-      window.addEventListener('scroll', () => this.updateProgress());
-    }
-
-    this.progressEl = this.querySelector('[role="progressbar"]')!; // diventerà this.querySelector('it-progress');
-    if (!this.progressEl) return;
-
-    // init a 0%
-    this.updateProgress();
-  }
-
-  private updateProgress() {
-    if (!this.progressEl || !this.scrollContainer) return;
-
-    const isDocumentScroll = this.scrollContainer === document.documentElement;
-    const scrollTop = isDocumentScroll ? window.scrollY : this.scrollContainer.scrollTop;
-    const clientHeight = isDocumentScroll ? window.innerHeight : this.scrollContainer.clientHeight;
-    const scrollHeight = isDocumentScroll ? document.documentElement.scrollHeight : this.scrollContainer.scrollHeight;
-
-    const maxScrollable = Math.max(scrollHeight - clientHeight, 1);
-
-    let percent = (scrollTop / maxScrollable) * 100;
-    percent = Math.min(100, Math.max(0, percent));
-
-    this.progressEl.setAttribute('aria-valuenow', percent.toFixed(0));
-    this.progressEl.style.width = `${percent.toFixed(0)}%`;
-  }
-
   // aggiorna il testo del trigger della modale in base al link attivo
   private updateTriggerText() {
     if (!this.modalEl) return;
@@ -412,6 +319,128 @@ export class ItNavscroll extends BaseComponent {
       // fallback
       trigger.textContent = this.openLabel;
     }
+  }
+
+  /*
+   * Gestione dello scroll e della progressbar
+   */
+  private onScroll() {
+    this.updateProgress();
+    this.scrollHandler();
+  }
+
+  private scrollHandler() {
+    const links = Array.from(this.navEl.querySelectorAll('a[href^="#"]'));
+    const sections = links
+      .map((link) => document.getElementById(link.getAttribute('href')!.slice(1)))
+      .filter(Boolean) as HTMLElement[];
+
+    if (!sections.length) return;
+
+    const scrollTop = this.scrollContainerTop;
+    const viewportHeight = window.innerHeight;
+
+    // calcola quale sezione è "active"
+    let currentSection: HTMLElement | null = null;
+
+    for (const section of sections) {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top + scrollTop;
+
+      // se la sezione è visibile (top entro il 25% dell'alto viewport)
+      if (scrollTop + viewportHeight * 0.25 >= sectionTop) {
+        currentSection = section;
+      } else {
+        break;
+      }
+    }
+
+    if (currentSection) {
+      const id = currentSection?.id;
+
+      this.activeTarget = `#${id}`;
+      this.setCurrent(this.activeTarget);
+    }
+  }
+
+  private updateProgress() {
+    if (!this.progressEl || !this.scrollContainer) return;
+
+    const isDocumentScroll = this.scrollContainer === document.documentElement;
+    const scrollTop = this.scrollContainerTop;
+    const clientHeight = isDocumentScroll ? window.innerHeight : this.scrollContainer.clientHeight;
+    const scrollHeight = isDocumentScroll ? document.documentElement.scrollHeight : this.scrollContainer.scrollHeight;
+
+    const maxScrollable = Math.max(scrollHeight - clientHeight, 1);
+
+    let percent = (scrollTop / maxScrollable) * 100;
+    percent = Math.min(100, Math.max(0, percent));
+
+    this.progressEl.setAttribute('aria-valuenow', percent.toFixed(0));
+    this.progressEl.style.width = `${percent.toFixed(0)}%`;
+  }
+
+  /*
+   * Gestione dello scroll alle sezioni
+   */
+  private attachLinkListeners() {
+    const links = this.navEl.querySelectorAll('a[href^="#"]');
+
+    links.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const hash = link.getAttribute('href')!;
+        const targetId = hash.slice(1);
+        const targetEl = document.getElementById(targetId);
+        if (!targetEl) return;
+
+        this.activeTarget = `#${targetId}`;
+        this.setCurrent(this.activeTarget);
+
+        // scroll animato
+        this.scrollToElement(targetEl, 700, 0, () => {
+          // focus senza scroll jump
+          targetEl.setAttribute('tabindex', '-1');
+          targetEl.focus({ preventScroll: true });
+          setTimeout(() => {
+            targetEl.removeAttribute('tabindex');
+          }, 500);
+
+          // aggiorna URL
+          window.history.replaceState(null, '', `#${targetId}`);
+        });
+
+        // chiude il modal se siamo in modal mode
+        if (this.mode === 'modal' && this.modalEl) {
+          (this.modalEl as any).hide?.();
+        }
+      });
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private scrollToElement(targetEl: HTMLElement, duration = 700, offset = 0, callback?: () => void) {
+    const startY = window.scrollY;
+    const targetY = targetEl.getBoundingClientRect().top + startY - offset;
+    const distance = targetY - startY;
+    const startTime = performance.now();
+
+    const easeInOutSine = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
+
+    const step = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + distance * easeInOutSine(progress));
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else if (callback) {
+        callback();
+      }
+    };
+
+    requestAnimationFrame(step);
   }
 
   render() {
