@@ -453,13 +453,19 @@ export class ItModal extends BaseComponent {
         aria-hidden="${!this.open}"
         tabindex="-1"
         @click="${this._handleBackdropClick}"
+        part="modal"
       >
-        <div class="${classMap(this._modalBodyClasses)}" role="document" @click="${this._handleDialogClick}">
+        <div
+          class="${classMap(this._modalBodyClasses)}"
+          role="document"
+          @click="${this._handleDialogClick}"
+          part="modal-body"
+        >
           <div class="visually-hidden" id="${this._descriptionId}">
             <slot name="description" @slotchange="${this._onHeaderSlotChange}">${this.modalDescription}</slot>
           </div>
-          <div class="modal-content">
-            <div class="${headerClass}">
+          <div class="modal-content" part="modal-content">
+            <div class="${headerClass}" part="modal-header">
               <slot name="header-icon"></slot>
               <h2 id="${this._titleId}" class="modal-title">
                 <slot name="header" @slotchange="${this._onHeaderSlotChange}">${this.modalTitle}</slot>
@@ -479,10 +485,10 @@ export class ItModal extends BaseComponent {
                 : ''}
             </div>
 
-            <div class="modal-body" tabindex="${enableFocusContent ? '0' : '-1'}" part="focusable">
+            <div class="modal-body" tabindex="${enableFocusContent ? '0' : '-1'}" part="focusable modal-body">
               <slot name="content"></slot>
             </div>
-            <div class="modal-footer ${this.footerShadow ? 'modal-footer-shadow' : ''}">
+            <div class="modal-footer ${this.footerShadow ? 'modal-footer-shadow' : ''}" part="modal-footer">
               <slot name="footer"></slot>
             </div>
           </div>
@@ -493,6 +499,7 @@ export class ItModal extends BaseComponent {
         class="modal-backdrop ${this.disableAnimation ? 'fade' : ''} ${this.open ? 'show' : ''}"
         aria-hidden="true"
         @click="${this._handleBackdropClick}"
+        part="modal-backdrop"
       ></div>
     `;
   }
