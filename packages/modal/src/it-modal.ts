@@ -459,7 +459,7 @@ export class ItModal extends BaseComponent {
           class="${classMap(this._modalBodyClasses)}"
           role="document"
           @click="${this._handleDialogClick}"
-          part="modal-body"
+          part="modal-content-wrapper"
         >
           <div class="visually-hidden" id="${this._descriptionId}">
             <slot name="description" @slotchange="${this._onHeaderSlotChange}">${this.modalDescription}</slot>
