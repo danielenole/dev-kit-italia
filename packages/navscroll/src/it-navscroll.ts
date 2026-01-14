@@ -32,7 +32,7 @@ export class ItNavscroll extends BaseComponent {
    * Label per il pulsante di 'Torna indietro' nella modale
    */
   @property({ type: String, attribute: 'back-label' })
-  backLabel = 'Torna indietro';
+  backLabel = 'Indietro';
 
   /**
    * ID del contenitore scrollabile da monitorare per la progress bar
@@ -222,7 +222,8 @@ export class ItNavscroll extends BaseComponent {
     backButton.setAttribute('slot', 'header');
     backButton.setAttribute('variant', 'link');
     backButton.setAttribute('icon', 'it');
-    backButton.innerHTML = `<it-icon name="it-arrow-left"></it-icon> <span>${this.backLabel}</span>`;
+    backButton.setAttribute('block', '');
+    backButton.innerHTML = `<it-icon name="it-chevron-left" size="sm" color="primary"></it-icon> <span>${this.backLabel}</span>`;
     backButton.addEventListener('click', () => {
       (modal as any).hide?.();
     });
