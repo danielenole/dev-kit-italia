@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { BaseComponent } from '@italia/globals';
-import { type Position, type DarkMode /*, type LinePosition , */ } from './types.js';
+import { type Position, type DarkMode, type LinePosition } from './types.js';
 
 import styles from './navscroll.scss';
 
@@ -51,9 +51,9 @@ export class ItNavscroll extends BaseComponent {
   @property({ type: Boolean, attribute: 'sticky' })
   sticky: boolean = false;
 
-  // /** Where you want to display separation line on desktop */
-  // @property({ type: String, attribute: 'line-position' })
-  // linePosition: LinePosition = 'right';
+  /** Where you want to display separation line on desktop */
+  @property({ type: String, attribute: 'line-position' })
+  linePosition: LinePosition = null;
 
   /** If you want dark mode only on mobile or desktop, or both */
   @property({ type: String, attribute: 'dark-mode' })
@@ -252,7 +252,7 @@ export class ItNavscroll extends BaseComponent {
         const visible = intersectingSections.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
         if (intersectingSections.length === 0) {
-          this._activeTarget = null;
+          // this._activeTarget = null;
           // this.setCurrent('');
           return;
         }
@@ -369,39 +369,13 @@ export class ItNavscroll extends BaseComponent {
     if (!this.progressEl || !this.scrollContainer) return;
 
     const isDocumentScroll = this.scrollContainer === document.documentElement;
-    const offset =
-      this.targetContainer !== document.documentElement
-        ? this.targetContainer.getBoundingClientRect().top + window.pageYOffset
-        : 0;
     const scrollTop = isDocumentScroll ? window.scrollY : this.scrollContainer.scrollTop;
     const clientHeight = isDocumentScroll ? window.innerHeight : this.scrollContainer.clientHeight;
     const scrollHeight = isDocumentScroll ? document.documentElement.scrollHeight : this.scrollContainer.scrollHeight;
 
     const maxScrollable = Math.max(scrollHeight - clientHeight, 1);
 
-    let percent = 0;
-
-    if (this._activeTarget) {
-      const section = document.querySelector<HTMLElement>(this._activeTarget);
-      if (section) {
-        // ✅ calcolo corretto sectionTop relativo allo scrollContainer
-        const sectionTop = isDocumentScroll
-          ? section.offsetTop - offset
-          : section.offsetTop - (this.scrollContainer as HTMLElement).offsetTop;
-
-        const sectionHeight = section.offsetHeight || 1;
-
-        const sectionStartPercent = (sectionTop / maxScrollable) * 100;
-        const sectionEndPercent = ((sectionTop + sectionHeight) / maxScrollable) * 100;
-
-        const sectionProgress = Math.min(1, Math.max(0, (scrollTop - sectionTop) / sectionHeight));
-
-        percent = sectionStartPercent + sectionProgress * (sectionEndPercent - sectionStartPercent);
-      }
-    } else {
-      percent = (scrollTop / maxScrollable) * 100;
-    }
-
+    let percent = (scrollTop / maxScrollable) * 100;
     percent = Math.min(100, Math.max(0, percent));
 
     this.progressEl.setAttribute('aria-valuenow', percent.toFixed(0));
@@ -426,8 +400,6 @@ export class ItNavscroll extends BaseComponent {
   }
 
   render() {
-    // nessun template: gestione DOM manuale
-    // return html``;
     const positionClass = this.position === 'bottom' ? 'it-bottom-navscroll' : 'it-top-navscroll';
     let themeClass = '';
     switch (this.darkMode) {
@@ -443,8 +415,19 @@ export class ItNavscroll extends BaseComponent {
       default:
         themeClass = '';
     }
+    let lineClass = '';
+    switch (this.linePosition) {
+      case 'left':
+        lineClass = 'it-left-side';
+        break;
+      case 'right':
+        lineClass = 'it-right-side';
+        break;
+      default:
+        lineClass = '';
+    }
 
-    const wrapperClasses = ['it-navscroll-wrapper', 'navbar', positionClass, themeClass].join(' ');
+    const wrapperClasses = ['it-navscroll-wrapper', 'navbar', positionClass, themeClass, lineClass].join(' ');
 
     return html`
       <div class="${wrapperClasses}">

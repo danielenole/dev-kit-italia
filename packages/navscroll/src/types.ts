@@ -1,5 +1,5 @@
 export const POSITION = ['top', 'bottom'];
-export const LINE_POSITION = ['left', 'right'];
+export const LINE_POSITION = [null, 'left', 'right'];
 export const DARK_MODE = [null, 'mobile', 'desktop', 'always'];
 
 export type Position = (typeof POSITION)[number];
