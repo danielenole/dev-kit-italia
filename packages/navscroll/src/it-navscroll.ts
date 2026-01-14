@@ -79,7 +79,9 @@ export class ItNavscroll extends BaseComponent {
 
   private menuWrapper!: HTMLElement;
 
-  private _activeTarget: string | null = null;
+  private activeTarget: string | null = null;
+
+  private lockedTargetId: string | null = null; // serve per gestire correttamente l'active sulla voce di menu quando si clicca sul link, in modo da non far gestire l'active all'intersection observer
 
   createRenderRoot() {
     // nav deve restare nel light DOM
@@ -249,21 +251,25 @@ export class ItNavscroll extends BaseComponent {
     this.observer = new IntersectionObserver(
       (entries) => {
         const intersectingSections = entries.filter((e) => e.isIntersecting);
-        const visible = intersectingSections.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
         if (intersectingSections.length === 0) {
-          // this._activeTarget = null;
-          // this.setCurrent('');
           return;
         }
+
+        // se c'è un lock attivo
+        if (this.lockedTargetId) {
+          return; // ignora tutto il resto
+        }
+
+        // se non c'è un lock, scegli la piu visibile
+        const visible = intersectingSections.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (!visible) return;
 
-        this._activeTarget = `#${(visible.target as HTMLElement).id}`;
-        this.setCurrent(this._activeTarget);
+        this.activeTarget = `#${(visible.target as HTMLElement).id}`;
+        this.setCurrent(this.activeTarget);
       },
       {
         root: null, // viewport
-        rootMargin: '-30% 0px -30% 0px',
+        rootMargin: '0px 0px -25%',
         threshold: [0.1, 0.5, 1],
       },
     );
@@ -307,6 +313,7 @@ export class ItNavscroll extends BaseComponent {
 
     links.forEach((link) => {
       link.addEventListener('click', (event) => {
+        console.log('link click');
         const hash = link.getAttribute('href')!;
         const targetId = hash?.slice(1);
         if (!targetId) return;
@@ -315,6 +322,11 @@ export class ItNavscroll extends BaseComponent {
         if (!targetEl) return;
 
         event.preventDefault();
+
+        // 🔒 lock sezione cliccata
+        this.lockedTargetId = targetId;
+        this.activeTarget = `#${targetId}`;
+        this.setCurrent(this.activeTarget);
 
         // scroll smooth
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -327,11 +339,14 @@ export class ItNavscroll extends BaseComponent {
         // sposta il focus al target
 
         targetEl.setAttribute('tabindex', '-1'); // temporaneo se non focusabile
-        // targetEl.focus({ preventScroll: true }); // preveniamo scroll automatico per evitare jump
-        targetEl.focus();
+        targetEl.focus({ preventScroll: true }); // preveniamo scroll automatico per evitare jump
 
         // aggiorna URL senza ricaricare pagina
         window.history.replaceState(null, '', `#${targetId}`);
+
+        setTimeout(() => {
+          this.lockedTargetId = null;
+        }, 700);
       });
     });
   }
