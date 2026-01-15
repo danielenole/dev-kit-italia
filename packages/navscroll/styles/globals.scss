@@ -1,8 +1,7 @@
-@import 'bootstrap-italia/src/scss/components/navscroll';
-@import 'bootstrap-italia/src/scss/components/progress-bars';
+// @import 'bootstrap-italia/src/scss/components/navscroll';
+// @import 'bootstrap-italia/src/scss/components/progress-bars';
 
 it-navscroll {
-  @extend .it-navscroll-wrapper;
   --it-host-display: block;
 
   it-modal::part(modal) {
