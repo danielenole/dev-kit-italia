@@ -1,6 +1,6 @@
 /* eslint-disable default-param-last */
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { BaseComponent } from '@italia/globals';
 import { type Position, type DarkMode, type LinePosition } from './types.js';
 
@@ -49,7 +49,7 @@ export class ItNavscroll extends BaseComponent {
   /**
    * If on desktop you want navscroll to be sticky on top
    * */
-  @property({ type: Boolean, attribute: 'sticky' })
+  @property({ type: Boolean })
   sticky: boolean = false;
 
   /** Where you want to display separation line on desktop */
@@ -62,10 +62,11 @@ export class ItNavscroll extends BaseComponent {
 
   private mql!: MediaQueryList;
 
-  private navEl!: HTMLElement;
+  private navEl!: HTMLElement; // nav
 
-  private modalEl?: HTMLElement;
+  private modalEl?: HTMLElement | null;
 
+  @state()
   private mode: 'inline' | 'modal' = 'inline'; // Modalità di visualizzazione corrente, a seconda che siamo su desktop o mobile
 
   private progressEl!: HTMLElement; // div della progressbar
@@ -74,16 +75,7 @@ export class ItNavscroll extends BaseComponent {
 
   private targetContainer!: HTMLElement; // container indicato dall'attributo 'for'
 
-  private wrapper!: HTMLElement; // navscroll-wrapper
-
-  private menuWrapper!: HTMLElement; // menu-wrapper
-
   private activeTarget: string | null = null; // voce di menu attiva in questo momento
-
-  createRenderRoot() {
-    // nav deve restare nel light DOM
-    return this;
-  }
 
   connectedCallback() {
     super.connectedCallback?.();
@@ -96,6 +88,8 @@ export class ItNavscroll extends BaseComponent {
       return;
     }
 
+    this.progressEl = this.querySelector('[slot="progressbar"]') as HTMLElement; // ora punta al div corretto
+
     // media query per modalità modal / inline
     this.mql = window.matchMedia(this.mediaQuery);
     this.mql.addEventListener('change', this.onMediaChange);
@@ -103,18 +97,6 @@ export class ItNavscroll extends BaseComponent {
 
   protected firstUpdated() {
     // ora il DOM del render esiste
-    this.wrapper = this.querySelector('.it-navscroll-wrapper') as HTMLElement;
-    this.menuWrapper = this.querySelector('.menu-wrapper') as HTMLElement;
-
-    if (!this.wrapper || !this.menuWrapper) {
-      this.logger.error('Wrapper not found');
-      return;
-    }
-
-    // prendi tutti i figli e spostali nel wrapper
-    const children = Array.from(this.childNodes).filter((node) => node !== this.wrapper);
-    children.forEach((child) => this.menuWrapper.appendChild(child));
-    this.wrapper.appendChild(this.menuWrapper);
 
     // inizializzazioni che dipendono dal DOM
     this.initContainers();
@@ -122,6 +104,14 @@ export class ItNavscroll extends BaseComponent {
 
     // inizializza il mode corretto
     this.updateMode(this.mql.matches);
+  }
+
+  protected updated(changedProperties: Map<string, any>) {
+    super.updated?.(changedProperties);
+
+    if (changedProperties.has('mode') && this.mode === 'modal') {
+      this.enterModal();
+    }
   }
 
   disconnectedCallback() {
@@ -152,93 +142,36 @@ export class ItNavscroll extends BaseComponent {
    */
   private updateMode(isConstrained: boolean) {
     const nextMode = isConstrained ? 'modal' : 'inline';
-    if (this.sticky) {
-      if (nextMode === 'inline' && !this.wrapper.classList.contains('affix-top')) {
-        this.wrapper.classList.add('affix-top');
-      }
-      if (nextMode === 'modal' && this.wrapper.classList.contains('affix-top')) {
-        this.wrapper.classList.remove('affix-top');
-      }
-    }
-
     if (this.mode === nextMode) return;
 
     this.mode = nextMode;
 
     if (this.mode === 'modal') {
       this.enterModal();
-    } else {
-      this.exitModal();
     }
   }
 
-  private enterModal() {
+  private async enterModal() {
     if (!this.modalEl) {
-      this.modalEl = this.createModal();
+      this.modalEl = this.shadowRoot?.querySelector('it-modal') as HTMLElement | null;
+
+      if (!this.modalEl) {
+        return;
+      }
+      this.modalEl.addEventListener('it-modal-open', () => {
+        document.body.classList.add('navbar-open');
+      });
+      this.modalEl.addEventListener('it-modal-close', () => {
+        document.body.classList.remove('navbar-open');
+      });
+
+      const backButton = this.shadowRoot?.querySelector("it-modal it-button[slot='header']");
+      backButton?.addEventListener('click', () => {
+        (this.modalEl as any).hide?.();
+      });
     }
 
-    if (!this.modalEl.contains(this.menuWrapper)) {
-      this.menuWrapper.setAttribute('slot', 'content');
-      this.modalEl.appendChild(this.menuWrapper);
-    }
-
-    if (!this.wrapper.contains(this.modalEl)) {
-      this.wrapper.appendChild(this.modalEl);
-    }
-    // if (!this.shadowRoot?.contains(this.modalEl)) {
-    //   this.shadowRoot?.appendChild(this.modalEl);
-    // }
     this.updateTriggerText();
-  }
-
-  private exitModal() {
-    if (this.modalEl?.contains(this.menuWrapper)) {
-      this.wrapper.appendChild(this.menuWrapper);
-      // this.shadowRoot?.appendChild(this.navEl);
-    }
-
-    this.modalEl?.remove();
-    this.modalEl = undefined;
-    this.menuWrapper.removeAttribute('slot');
-  }
-
-  private createModal(): HTMLElement {
-    const modal = document.createElement('it-modal');
-
-    modal.setAttribute('position', 'left');
-    modal.setAttribute('scrollable', 'true');
-    modal.setAttribute('hide-close-button', 'true');
-
-    // trigger modale
-    const trigger = document.createElement('it-button');
-    trigger.setAttribute('class', 'custom-navbar-toggler');
-    trigger.setAttribute('aria-label', this.openAriaLabel);
-    trigger.setAttribute('variant', 'link');
-    trigger.setAttribute('slot', 'trigger');
-    trigger.innerHTML = `<span>${this.openLabel}</span>`;
-
-    // pulsante di back
-    const backButton = document.createElement('it-button');
-    backButton.setAttribute('slot', 'header');
-    backButton.setAttribute('variant', 'link');
-    backButton.setAttribute('icon', 'it');
-    backButton.setAttribute('block', '');
-    backButton.innerHTML = `<it-icon name="it-chevron-left" size="sm" color="primary"></it-icon> <span>${this.backLabel}</span>`;
-    backButton.addEventListener('click', () => {
-      (modal as any).hide?.();
-    });
-
-    modal.appendChild(trigger);
-    modal.appendChild(backButton);
-
-    modal.addEventListener('it-modal-open', () => {
-      document.body.classList.add('navbar-open');
-    });
-    modal.addEventListener('it-modal-close', () => {
-      document.body.classList.remove('navbar-open');
-    });
-
-    return modal;
   }
 
   /*
@@ -267,7 +200,6 @@ export class ItNavscroll extends BaseComponent {
       window.addEventListener('scroll', () => this.onScroll());
     }
 
-    this.progressEl = this.querySelector('[role="progressbar"]')!; // diventerà this.querySelector('it-progress');
     if (!this.progressEl) return;
 
     // init a 0%
@@ -377,6 +309,7 @@ export class ItNavscroll extends BaseComponent {
     let percent = (scrollTop / maxScrollable) * 100;
     percent = Math.min(100, Math.max(0, percent));
 
+    // TODO: change when it-progress is implemented
     this.progressEl.setAttribute('aria-valuenow', percent.toFixed(0));
     this.progressEl.style.width = `${percent.toFixed(0)}%`;
   }
@@ -471,12 +404,27 @@ export class ItNavscroll extends BaseComponent {
       default:
         lineClass = '';
     }
+    const stickyClass = this.sticky && this.mode === 'inline' ? 'affix-top' : '';
 
-    const wrapperClasses = ['it-navscroll-wrapper', 'navbar', positionClass, themeClass, lineClass].join(' ');
+    const navscrollWrapper = ['it-navscroll-wrapper', 'navbar', positionClass, stickyClass, themeClass, lineClass].join(
+      ' ',
+    );
 
     return html`
-      <div class="${wrapperClasses}">
-        <div class="menu-wrapper" tabindex="-1"></div>
+      <div class="${navscrollWrapper}">
+        ${this.mode === 'modal'
+          ? html`<it-modal position="left" scollable="true" hide-close-button="true">
+              <it-button slot="trigger" class="custom-navar-toggler" aria-label="${this.openAriaLabel}" variant="link">
+                <span>${this.openLabel}</span>
+              </it-button>
+              <it-button slot="header" variant="link" icon="" block="">
+                <it-icon name="it-chevron-left" size="sm" color="primary"></it-icon> <span>${this.backLabel}</span>
+              </it-button>
+              <div slot="content" class="menu-wrapper" tabindex="-1">
+                <slot></slot>
+              </div>
+            </it-modal>`
+          : html` <div class="menu-wrapper" tabindex="-1"><slot></slot></div>`}
       </div>
     `;
   }
