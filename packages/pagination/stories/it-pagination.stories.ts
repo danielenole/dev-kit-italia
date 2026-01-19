@@ -128,7 +128,7 @@ const meta: Meta<PaginationProps> = {
       name: 'visible-pages',
       control: 'number',
       description:
-        'Numero di pagine visibili quando il totale (total) supera questo valore. Verranno mostrati i puntini '...' per indicare la presenza di ulteriori pagine.',
+        "Numero di pagine visibili quando il totale (total) supera questo valore. Verranno mostrati i puntini '...' per indicare la presenza di ulteriori pagine.",
       table: { defaultValue: { summary: '5' } },
     },
     itAriaLabel: {
