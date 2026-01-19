@@ -27,7 +27,26 @@ Fai attenzione a:
 - Rendere coerente la funzione nel contesto dello stesso sito o servizio se presente su più pagine.
 - Testare il funzionamento e il risultato dell'azione, in particolare ponendo attenzione che al compiersi dell'azione alcuni contenuti non siano nascosti da elementi sticky o barre di navigazione.
 
-**Se non usi il pacchetto completo di Dev Kit Italia (`@italia/dev-kit-italia`), ricordati di importare tutti i CSS.**
+<div class="callout callout-primary">
+  <div class="callout-inner">
+    <div class="callout-title">
+      <span class="text">Stili</span>
+    </div>
+    <p>
+      In caso non si stia utilizzando il bundle unico, assicurarsi di avere importato tutti i fogli di stile necessari
+      da `bootstrap-italia`:
+
+
+      ```css
+      @import 'bootstrap-italia/src/scss/base/functions';
+      @import 'bootstrap-italia/src/scss/base/variables';
+      @import 'bootstrap-italia/src/scss/base/mixins';
+      @import 'bootstrap-italia/src/scss/components/forward';
+      ```
+
+    </p>
+  </div>
+</div>
 
 ## Accessibilità
 
