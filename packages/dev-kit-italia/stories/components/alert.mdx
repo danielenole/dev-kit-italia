@@ -39,6 +39,7 @@ L'uso del colore per aggiungere un significato fornisce solo un'indicazione visi
 e non viene trasmesso agli utenti di tecnologie assistive come gli screen reader.
 Assicurati che le informazioni denotate dal colore siano rese disponibili anche dal contenuto stesso (es.: il testo visibile),
 o siano incluse attraverso mezzi alternativi, come testo aggiuntivo nascosto con la classe `.visually-hidden`.
+
 Se l'alert include un pulsante di chiusura, l'`aria-label` che assegna il nome accessibile all'icona di chiusura deve essere valorizzato con contenuti correlati al contesto ("chiudi nota", "chiudi", "nascondi", ecc).
 
 ## Link evidenziato
@@ -63,13 +64,6 @@ Utilizza sempre i tag di intestazione in modo coerente con la gerarchia della pa
 - Inserisci il pulsante di chiusura e la classe `.alert-dismissible`, verrà così aggiunto un ulteriore padding alla destra dell'avviso e posizionerà correttamente il pulsante `.btn-close`.
 - Assicurati di utilizzare l'elemento `<it-button>` per un comportamento corretto del pulsante di chiusura su tutti i dispositivi.
 - Assicurati di aggiungere le classi `.fade` e `.show` per animare gli avvisi quando li si elimina.
-
-<div class="callout callout-success">
-  <div class="callout-inner">
-    <div class="callout-title"><span class="text">Accessibilità</span></div>
-    <p>L'aria label che assegna il nome accessibile all'icona di chiusura, che nell'esempio è "chiudi avviso", deve essere correlato al contesto. Ad esempio "chiudi nota", "chiudi", "nascondi", ecc.</p>
-  </div>
-</div>
 
 Qui sotto trovi un esempio di implementazione del codice JavaScript necessario per la chiusura dell'alert.
 Puoi usarlo così com'è oppure adattarlo alle tue esigenze.
