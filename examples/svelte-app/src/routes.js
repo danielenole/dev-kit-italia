@@ -1,5 +1,6 @@
 import Accordion from './pages/Accordion.svelte';
 import Affix from './pages/Affix.svelte';
+import Alert from './pages/Alert.svelte';
 import Badge from './pages/Badge.svelte';
 import Button from './pages/Button.svelte';
 import Checkbox from './pages/Checkbox.svelte';
@@ -19,6 +20,7 @@ import Avatar from './pages/Avatar.svelte';
 export const AppRoutes = [
   { path: '/accordion', element: Accordion, title: 'Accordion' },
   { path: '/affix', element: Affix, title: 'Affix' },
+  { path: '/alert', element: Alert, title: 'Alert' },
   { path: '/badge', element: Badge, title: 'Badge' },
   { path: '/button', element: Button, title: 'Button' },
   { path: '/checkbox', element: Checkbox, title: 'Checkbox' },

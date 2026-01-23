@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/affix.component').then((c) => c.AffixComponent),
   },
   {
+    path: 'alert',
+    loadComponent: () => import('./pages/alert.component').then((c) => c.AlertComponent),
+  },
+  {
     path: 'avatar',
     loadComponent: () => import('./pages/avatar.component').then((c) => c.AvatarComponent),
   },

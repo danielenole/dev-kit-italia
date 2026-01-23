@@ -1,5 +1,6 @@
 import Accordion from './pages/Accordion';
 import Affix from './pages/Affix';
+import Alert from './pages/Alert';
 import Badge from './pages/Badge';
 import Button from './pages/Button';
 import Checkbox from './pages/Checkbox';
@@ -19,6 +20,7 @@ import Avatar from './pages/Avatar';
 export const AppRoutes = [
   { path: '/accordion', element: <Accordion />, title: 'Accordion' },
   { path: '/affix', element: <Affix />, title: 'Affix' },
+  { path: '/alert', element: <Alert />, title: 'Alert' },
   { path: '/avatar', element: <Avatar />, title: 'Avatar' },
   { path: '/badge', element: <Badge />, title: 'Badge' },
   { path: '/button', element: <Button />, title: 'Button' },
