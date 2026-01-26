@@ -1,6 +1,8 @@
-export type AutocompleteSource = string[] | ((query: string, populateResults: (results: string[]) => void) => void);
-
-export type AutocompleteOption = {
+export interface AutocompleteOption {
   value: string;
-  label?: string;
-};
+  label: string;
+}
+
+export type AutocompleteSource =
+  | AutocompleteOption[]
+  | ((query: string, callback: (results: AutocompleteOption[]) => void) => void);

@@ -1,5 +1,5 @@
 import { fixture, html, expect, nextFrame } from '@open-wc/testing';
-import { ItAutocomplete } from '../src/it-autocomplete.js';
+import { ItAutocomplete, AutocompleteOption } from '../src/it-autocomplete.js';
 import '@italia/autocomplete';
 
 describe('ItAutocomplete', () => {
@@ -37,12 +37,19 @@ describe('ItAutocomplete', () => {
     const input = el.shadowRoot!.querySelector('input');
     expect(input).to.exist;
     expect(input?.getAttribute('placeholder')).to.equal('Cerca...');
-    expect(input?.hasAttribute('required')).to.be.true;
+    // Verifica che il componente abbia la proprietà required
+    expect(el.required).to.be.true;
   });
 
   it('filters options when typing', async () => {
     const el = await fixture<ItAutocomplete>(html`
-      <it-autocomplete .source="${['Apple', 'Banana', 'Cherry']}">
+      <it-autocomplete
+        .source="${[
+          { value: 'apple', label: 'Apple' },
+          { value: 'banana', label: 'Banana' },
+          { value: 'cherry', label: 'Cherry' },
+        ]}"
+      >
         <span slot="label">Fruit</span>
       </it-autocomplete>
     `);
@@ -59,7 +66,14 @@ describe('ItAutocomplete', () => {
 
   it('respects minLength property', async () => {
     const el = await fixture<ItAutocomplete>(html`
-      <it-autocomplete min-length="3" .source="${['Apple', 'Banana', 'Cherry']}">
+      <it-autocomplete
+        min-length="3"
+        .source="${[
+          { value: 'apple', label: 'Apple' },
+          { value: 'banana', label: 'Banana' },
+          { value: 'cherry', label: 'Cherry' },
+        ]}"
+      >
         <span slot="label">Fruit</span>
       </it-autocomplete>
     `);
@@ -85,13 +99,18 @@ describe('ItAutocomplete', () => {
 
   it('emits change event when value changes', async () => {
     const el = await fixture<ItAutocomplete>(html`
-      <it-autocomplete .source="${['Apple', 'Banana']}">
+      <it-autocomplete
+        .source="${[
+          { value: 'apple', label: 'Apple' },
+          { value: 'banana', label: 'Banana' },
+        ]}"
+      >
         <span slot="label">Test</span>
       </it-autocomplete>
     `);
 
     let eventFired = false;
-    el.addEventListener('it-autocomplete-change', () => {
+    el.addEventListener('it-autocomplete-search', () => {
       eventFired = true;
     });
 
@@ -116,7 +135,13 @@ describe('ItAutocomplete', () => {
   describe('Keyboard Navigation', () => {
     it('ArrowDown opens menu and navigates to first option when input is empty', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Banana', 'Cherry']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+            { value: 'cherry', label: 'Cherry' },
+          ]}"
+        >
           <span slot="label">Fruit</span>
         </it-autocomplete>
       `);
@@ -145,7 +170,13 @@ describe('ItAutocomplete', () => {
 
     it('ArrowDown navigates through options with wrap', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Apricot', 'Avocado']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'apricot', label: 'Apricot' },
+            { value: 'avocado', label: 'Avocado' },
+          ]}"
+        >
           <span slot="label">Fruit</span>
         </it-autocomplete>
       `);
@@ -185,7 +216,13 @@ describe('ItAutocomplete', () => {
 
     it('ArrowUp from combobox goes to last option', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Apricot', 'Avocado']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'apricot', label: 'Apricot' },
+            { value: 'avocado', label: 'Avocado' },
+          ]}"
+        >
           <span slot="label">Fruit</span>
         </it-autocomplete>
       `);
@@ -212,7 +249,13 @@ describe('ItAutocomplete', () => {
 
     it('Enter selects option only when listbox has focus', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Banana', 'Cherry']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+            { value: 'cherry', label: 'Cherry' },
+          ]}"
+        >
           <span slot="label">Fruit</span>
         </it-autocomplete>
       `);
@@ -239,12 +282,19 @@ describe('ItAutocomplete', () => {
 
       // Menu chiuso e valore impostato
       expect(el._isOpen).to.be.false;
-      expect(input.value).to.equal('Apple');
+      expect(input.value).to.equal('Apple'); // Display label
+      expect(el.value).to.equal('apple'); // Form value
     });
 
     it('Escape closes the menu', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Banana', 'Cherry']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+            { value: 'cherry', label: 'Cherry' },
+          ]}"
+        >
           <span slot="label">Fruit</span>
         </it-autocomplete>
       `);
@@ -269,7 +319,12 @@ describe('ItAutocomplete', () => {
   describe('ARIA Attributes', () => {
     it('has correct ARIA attributes on input', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Banana']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+          ]}"
+        >
           <span slot="label">Test</span>
         </it-autocomplete>
       `);
@@ -283,7 +338,12 @@ describe('ItAutocomplete', () => {
 
     it('updates aria-expanded when menu opens', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Banana']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+          ]}"
+        >
           <span slot="label">Test</span>
         </it-autocomplete>
       `);
@@ -300,7 +360,12 @@ describe('ItAutocomplete', () => {
 
     it('sets aria-activedescendant when option is active', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Banana']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+          ]}"
+        >
           <span slot="label">Test</span>
         </it-autocomplete>
       `);
@@ -322,21 +387,15 @@ describe('ItAutocomplete', () => {
       expect(activeDescendant).to.include('option-0');
     });
 
-    it('has aria-live regions for announcements', async () => {
-      const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Banana']}">
-          <span slot="label">Test</span>
-        </it-autocomplete>
-      `);
-
-      // Should have two aria-live regions (bump pattern)
-      const liveRegions = el.shadowRoot!.querySelectorAll('[role="status"][aria-live="polite"]');
-      expect(liveRegions.length).to.equal(2);
-    });
-
     it('options have aria-posinset and aria-setsize', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Banana', 'Cherry']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+            { value: 'cherry', label: 'Cherry' },
+          ]}"
+        >
           <span slot="label">Fruit</span>
         </it-autocomplete>
       `);
@@ -361,7 +420,12 @@ describe('ItAutocomplete', () => {
   describe('Assistive Hint', () => {
     it('shows assistive hint initially', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Banana']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+          ]}"
+        >
           <span slot="label">Test</span>
         </it-autocomplete>
       `);
@@ -374,7 +438,12 @@ describe('ItAutocomplete', () => {
 
     it('removes assistive hint after first input', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Apple', 'Banana']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+          ]}"
+        >
           <span slot="label">Test</span>
         </it-autocomplete>
       `);
@@ -391,11 +460,118 @@ describe('ItAutocomplete', () => {
     });
   });
 
+  describe('Reactive Properties', () => {
+    it('updates options when source changes', async () => {
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete
+          .source="${[
+            { value: 'option1', label: 'Option1' },
+            { value: 'option2', label: 'Option2' },
+          ]}"
+        >
+          <span slot="label">Test</span>
+        </it-autocomplete>
+      `);
+
+      await el.updateComplete;
+
+      // Verifica le opzioni iniziali
+      expect(el._options).to.deep.equal([
+        { value: 'option1', label: 'Option1' },
+        { value: 'option2', label: 'Option2' },
+      ]);
+
+      // Cambia la source
+      el.source = [
+        { value: 'newoption1', label: 'NewOption1' },
+        { value: 'newoption2', label: 'NewOption2' },
+        { value: 'newoption3', label: 'NewOption3' },
+      ];
+      await el.updateComplete;
+
+      // Verifica che le opzioni siano aggiornate
+      expect(el._options).to.deep.equal([
+        { value: 'newoption1', label: 'NewOption1' },
+        { value: 'newoption2', label: 'NewOption2' },
+        { value: 'newoption3', label: 'NewOption3' },
+      ]);
+    });
+
+    it('filters new options after source change', async () => {
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete
+          .source="${[
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+          ]}"
+        >
+          <span slot="label">Test</span>
+        </it-autocomplete>
+      `);
+
+      await el.updateComplete;
+
+      // Cambia la source con nuove opzioni
+      el.source = [
+        { value: 'cherry', label: 'Cherry' },
+        { value: 'cranberry', label: 'Cranberry' },
+        { value: 'coconut', label: 'Coconut' },
+      ];
+      await el.updateComplete;
+
+      const input = el.shadowRoot!.querySelector('input') as HTMLInputElement;
+
+      // Digita 'c' per filtrare
+      input.value = 'c';
+      input.dispatchEvent(new Event('input'));
+      await el.updateComplete;
+
+      // Verifica che filtri le nuove opzioni
+      expect(el._filteredOptions.length).to.equal(3);
+      expect(el._filteredOptions).to.deep.equal([
+        { value: 'cherry', label: 'Cherry' },
+        { value: 'cranberry', label: 'Cranberry' },
+        { value: 'coconut', label: 'Coconut' },
+      ]);
+    });
+
+    it('emits ready event on connection', async () => {
+      let readyFired = false;
+      const container = document.createElement('div');
+      document.body.appendChild(container);
+
+      container.addEventListener('it-autocomplete-ready', () => {
+        readyFired = true;
+      });
+
+      const el = document.createElement('it-autocomplete') as ItAutocomplete;
+      el.source = [{ value: 'test', label: 'Test' }];
+      el.innerHTML = '<span slot="label">Test</span>';
+      container.appendChild(el);
+
+      await el.updateComplete;
+      // Aspetta il requestAnimationFrame
+      await nextFrame();
+
+      expect(readyFired).to.be.true;
+
+      document.body.removeChild(container);
+    });
+  });
+
   describe('Form Integration', () => {
     it('integrates with native form and validates required field', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <it-autocomplete name="region" required .source="${['Emilia Romagna', 'Lombardia', 'Lazio']}">
+          <it-autocomplete
+            name="region"
+            required
+            .source="${[
+              { value: 'emilia-romagna', label: 'Emilia Romagna' },
+              { value: 'lombardia', label: 'Lombardia' },
+              { value: 'lazio', label: 'Lazio' },
+            ]}"
+          >
             <span slot="label">Regione</span>
           </it-autocomplete>
         </form>
@@ -410,31 +586,47 @@ describe('ItAutocomplete', () => {
       el.value = 'Emilia';
       expect(el.checkValidity()).to.be.false;
 
-      // Valore nelle opzioni → valido
-      el.value = 'Emilia Romagna';
+      // Valore nelle opzioni (usa il value, non il label) → valido
+      el.value = 'emilia-romagna';
       expect(el.checkValidity()).to.be.true;
 
       // Valore parziale → invalido
-      el.value = 'Emilia Rom';
+      el.value = 'emilia';
       expect(el.checkValidity()).to.be.false;
     });
 
     it('accepts defaultValue as valid selection', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete required default-value="Lombardia" .source="${['Emilia Romagna', 'Lombardia', 'Lazio']}">
+        <it-autocomplete
+          required
+          default-value="lombardia"
+          .source="${[
+            { value: 'emilia-romagna', label: 'Emilia Romagna' },
+            { value: 'lombardia', label: 'Lombardia' },
+            { value: 'lazio', label: 'Lazio' },
+          ]}"
+        >
           <span slot="label">Regione</span>
         </it-autocomplete>
       `);
 
       await el.updateComplete;
 
-      expect(el.value).to.equal('Lombardia');
+      expect(el.value).to.equal('lombardia');
       expect(el.checkValidity()).to.be.true;
     });
 
     it('rejects defaultValue if not in options', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete required default-value="Invalid Option" .source="${['Emilia Romagna', 'Lombardia', 'Lazio']}">
+        <it-autocomplete
+          required
+          default-value="Invalid Option"
+          .source="${[
+            { value: 'emilia-romagna', label: 'Emilia Romagna' },
+            { value: 'lombardia', label: 'Lombardia' },
+            { value: 'lazio', label: 'Lazio' },
+          ]}"
+        >
           <span slot="label">Regione</span>
         </it-autocomplete>
       `);
@@ -446,7 +638,12 @@ describe('ItAutocomplete', () => {
 
     it('allows any value when not required', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Option1', 'Option2']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'option1', label: 'Option1' },
+            { value: 'option2', label: 'Option2' },
+          ]}"
+        >
           <span slot="label">Test</span>
         </it-autocomplete>
       `);
@@ -462,25 +659,47 @@ describe('ItAutocomplete', () => {
       expect(el.invalid).to.be.false;
     });
 
-    it('shows invalid state when validation fails', async () => {
-      const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete required .source="${['Option1', 'Option2']}">
-          <span slot="label">Test</span>
-        </it-autocomplete>
+    it('shows invalid state after submit when validation fails', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <it-autocomplete
+            name="test"
+            required
+            .source="${[
+              { value: 'option1', label: 'Option1' },
+              { value: 'option2', label: 'Option2' },
+            ]}"
+          >
+            <span slot="label">Test</span>
+          </it-autocomplete>
+        </form>
       `);
 
+      const el = form.querySelector('it-autocomplete') as ItAutocomplete;
       const input = el.shadowRoot!.querySelector('input') as HTMLInputElement;
 
-      // Campo vuoto required è invalido
+      // Campo vuoto required NON è invalido prima della submit
+      await el.updateComplete;
+      expect(el.invalid).to.be.false;
+
+      // Simula submit del form
+      form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       await el.updateComplete;
 
+      // Dopo submit, il campo vuoto required è invalido
       expect(el.invalid).to.be.true;
       expect(input.classList.contains('is-invalid')).to.be.true;
     });
 
     it('typing does not set value, only selection does', async () => {
       const el = await fixture<ItAutocomplete>(html`
-        <it-autocomplete .source="${['Emilia Romagna', 'Lombardia', 'Lazio']}">
+        <it-autocomplete
+          .source="${[
+            { value: 'emilia-romagna', label: 'Emilia Romagna' },
+            { value: 'lombardia', label: 'Lombardia' },
+            { value: 'lazio', label: 'Lazio' },
+          ]}"
+        >
           <span slot="label">Regione</span>
         </it-autocomplete>
       `);
@@ -502,14 +721,22 @@ describe('ItAutocomplete', () => {
       input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
       await el.updateComplete;
 
-      // Ora value deve avere l'opzione selezionata
-      expect(el.value).to.equal('Emilia Romagna');
+      // Ora value deve avere l'opzione selezionata (il value, non il label)
+      expect(el.value).to.equal('emilia-romagna');
+      // Ma l'input mostra il label
+      expect(input.value).to.equal('Emilia Romagna');
     });
 
     it('submits form with selected autocomplete value', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <it-autocomplete name="test-field" .source="${['Value1', 'Value2']}">
+          <it-autocomplete
+            name="test-field"
+            .source="${[
+              { value: 'value1', label: 'Value1' },
+              { value: 'value2', label: 'Value2' },
+            ]}"
+          >
             <span slot="label">Test</span>
           </it-autocomplete>
         </form>
@@ -530,13 +757,20 @@ describe('ItAutocomplete', () => {
       await el.updateComplete;
 
       const formData = new FormData(form);
-      expect(formData.get('test-field')).to.equal('Value1');
+      expect(formData.get('test-field')).to.equal('value1');
     });
 
     it('resets value when form is reset', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <it-autocomplete name="test" .source="${['A', 'B', 'C']}">
+          <it-autocomplete
+            name="test"
+            .source="${[
+              { value: 'a', label: 'A' },
+              { value: 'b', label: 'B' },
+              { value: 'c', label: 'C' },
+            ]}"
+          >
             <span slot="label">Test</span>
           </it-autocomplete>
         </form>
@@ -556,13 +790,96 @@ describe('ItAutocomplete', () => {
       input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
       await el.updateComplete;
 
-      expect(el.value).to.equal('A');
+      expect(el.value).to.equal('a');
 
       // Reset form
       form.reset();
       await el.updateComplete;
 
       expect(el.value).to.equal('');
+    });
+  });
+
+  describe('Async source function', () => {
+    it('calls source function with query and populateResults callback', async () => {
+      const mockData = [
+        { value: 'apple', label: 'Apple' },
+        { value: 'apricot', label: 'Apricot' },
+        { value: 'avocado', label: 'Avocado' },
+      ];
+      let calledQuery = '';
+      let calledCallback: ((results: AutocompleteOption[]) => void) | null = null;
+
+      const sourceFunction = (query: string, populateResults: (results: AutocompleteOption[]) => void) => {
+        calledQuery = query;
+        calledCallback = populateResults;
+        // Simula ricerca asincrona
+        setTimeout(() => {
+          const filtered = mockData.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()));
+          populateResults(filtered);
+        }, 10);
+      };
+
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete .source="${sourceFunction}">
+          <span slot="label">Test</span>
+        </it-autocomplete>
+      `);
+
+      const input = el.shadowRoot!.querySelector('input') as HTMLInputElement;
+
+      // Digita 'ap'
+      input.value = 'ap';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      await el.updateComplete;
+
+      expect(calledQuery).to.equal('ap');
+      expect(calledCallback).to.not.be.null;
+
+      // Aspetta che la callback venga chiamata
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      await el.updateComplete;
+
+      // Verifica che le opzioni siano state filtrate
+      expect(el._filteredOptions.length).to.equal(2); // Apple, Apricot
+      expect(el._isOpen).to.be.true;
+    });
+
+    it('works with async function that simulates API call', async () => {
+      const asyncSource = (query: string, populateResults: (results: AutocompleteOption[]) => void) => {
+        // Simula chiamata API con Promise
+        Promise.resolve().then(() => {
+          const cities = [
+            { value: 'milano', label: 'Milano' },
+            { value: 'modena', label: 'Modena' },
+            { value: 'messina', label: 'Messina' },
+            { value: 'roma', label: 'Roma' },
+            { value: 'napoli', label: 'Napoli' },
+          ];
+          const filtered = cities.filter((city) => city.label.toLowerCase().includes(query.toLowerCase())).slice(0, 3);
+          populateResults(filtered);
+        });
+      };
+
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete .source="${asyncSource}" min-length="1">
+          <span slot="label">Città</span>
+        </it-autocomplete>
+      `);
+
+      const input = el.shadowRoot!.querySelector('input') as HTMLInputElement;
+
+      // Digita 'm'
+      input.value = 'm';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      await el.updateComplete;
+
+      // Aspetta che la Promise si risolva
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      await el.updateComplete;
+
+      expect(el._filteredOptions.length).to.equal(3); // Milano, Modena, Messina
+      expect(el._isOpen).to.be.true;
     });
   });
 });

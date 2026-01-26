@@ -4,7 +4,8 @@ import { html, nothing } from 'lit';
 import { customElement, property, state, query, queryAssignedElements } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { classMap } from 'lit/directives/class-map.js';
-import type { AutocompleteSource } from './types.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import type { AutocompleteOption, AutocompleteSource } from './types.js';
 import it from './locales/it.js';
 import en from './locales/en.js';
 import styles from './autocomplete.scss';
@@ -25,9 +26,9 @@ export class ItAutocomplete extends FormControl {
   @queryAssignedElements({ slot: 'label' })
   labelElements!: HTMLElement[];
 
-  @state() private _options: string[] = [];
+  @state() private _options: AutocompleteOption[] = [];
 
-  @state() public _filteredOptions: string[] = [];
+  @state() public _filteredOptions: AutocompleteOption[] = [];
 
   @state() public _isOpen = false;
 
@@ -36,13 +37,6 @@ export class ItAutocomplete extends FormControl {
   @state() private _inputValue = '';
 
   @state() public _listboxHasVisualFocus = false;
-
-  @state() public _showAssistiveHint = true;
-
-  // Bump pattern
-  private _statusBump = false;
-
-  private _statusDebounceTimer?: ReturnType<typeof setTimeout>;
 
   private _typingDebounceTimer?: ReturnType<typeof setTimeout>;
 
@@ -58,6 +52,8 @@ export class ItAutocomplete extends FormControl {
   @property({ type: String, reflect: true })
   placeholder = '';
 
+  @property({ type: Boolean, reflect: true }) _showAssistiveHint = false;
+
   @property({ type: String, attribute: 'support-text', reflect: true })
   supportText = '';
 
@@ -71,16 +67,11 @@ export class ItAutocomplete extends FormControl {
   labelHidden = false;
 
   public get invalid(): boolean {
-    // Usa il controller per verificare l'interazione dell'utente come fanno gli altri form control
-    if (!this.formControlController.userInteracted()) {
+    // Mostra lo stato invalido solo dopo una submit, come fanno gli altri form control
+    if (!this.formControlController.submittedOnce && !this.customValidation) {
       return false;
     }
     return this.validationMessage?.length > 0 || (!this.customValidation && !this.checkValidity());
-  }
-
-  public get validity(): ValidityState {
-    if (!this.inputElement) return { valid: true } as ValidityState;
-    return this.inputElement.validity;
   }
 
   override checkValidity(): boolean {
@@ -90,26 +81,31 @@ export class ItAutocomplete extends FormControl {
 
     // Required: valido solo se value esiste ed è nelle opzioni
     if (!this.value) return false;
-    return this._options.includes(this.value);
+    return this._options.some((o) => o.value === this.value);
   }
 
   /**
    * Override: Report validity for autocomplete
    */
   override reportValidity(): boolean {
+    // Imposta i messaggi personalizzati PRIMA di controllare la validità
+    // altrimenti il browser mostra il messaggio nativo per un attimo
     const isValid = this.checkValidity();
-    this._handleValidationMessages();
+    this.handleValidationMessages();
     return isValid;
+  }
+
+  /** Gets the validity state object */
+  override get validity(): ValidityState {
+    return { valid: this.checkValidity() } as ValidityState;
   }
 
   /**
    * Handle validation messages based on validity state
    */
-  private _handleValidationMessages() {
+  protected override handleValidationMessages() {
     if (!this.customValidation) {
       if (this.required && !this.value) {
-        this.setCustomValidity(this.$t('validityRequired'));
-      } else if (this.required && !this._options.includes(this.value)) {
         this.setCustomValidity(this.$t('validityRequired'));
       } else {
         this.setCustomValidity('');
@@ -119,6 +115,7 @@ export class ItAutocomplete extends FormControl {
 
   connectedCallback() {
     super.connectedCallback?.();
+    this._handleReady();
     if (this.defaultValue) {
       this._inputValue = this.defaultValue;
       // Imposta value solo se è nelle opzioni (sarà validato dopo in firstUpdated)
@@ -129,27 +126,45 @@ export class ItAutocomplete extends FormControl {
   firstUpdated() {
     if (Array.isArray(this.source)) {
       this._options = this.source;
-      // Se defaultValue non è nelle opzioni, resetta value
-      if (this.defaultValue && !this._options.includes(this.defaultValue)) {
-        this.value = '';
+
+      if (this.defaultValue) {
+        const match = this._options.find((o) => o.value === this.defaultValue);
+        if (match) {
+          this.value = match.value;
+          this._inputValue = match.label;
+        } else {
+          this.value = '';
+        }
+      } else if (this.value) {
+        // Se value è già impostato (es: da attributo HTML), trova il label corrispondente
+        const match = this._options.find((o) => o.value === this.value);
+        if (match) {
+          this._inputValue = match.label;
+        }
       }
     }
   }
 
   updated(changedProps: Map<PropertyKey, unknown>) {
+    // Aggiorna le opzioni quando source cambia
+    if (changedProps.has('source')) {
+      if (Array.isArray(this.source)) {
+        this._options = this.source;
+      }
+    }
+
     // Aggiorna validazione quando value cambia (come FormControl base)
     if (changedProps.has('value')) {
-      this._handleValidationMessages();
-      // Aggiorna la validità nel controller se l'utente ha interagito
-      if (this.formControlController.userInteracted()) {
-        this.formControlController.updateValidity();
+      //   // Aggiorna la validità nel controller se il form è stato sottomesso almeno una volta
+      if (!this.customValidation && this.formControlController.submittedOnce) {
+        this.handleValidationMessages();
       }
     }
 
     if (changedProps.has('_filteredOptions') || changedProps.has('_isOpen')) {
+      const count = this._filteredOptions.length;
       if (!this._isOpen) return;
 
-      const count = this._filteredOptions.length;
       let content = '';
 
       if (count === 0) {
@@ -162,9 +177,7 @@ export class ItAutocomplete extends FormControl {
 
       if (content) {
         // bump pattern: metti in una region vuota e svuota l’altra
-        this._statusBump = !this._statusBump;
         this._currentStatusContent = content;
-        // this.requestUpdate();
       }
     }
   }
@@ -178,9 +191,11 @@ export class ItAutocomplete extends FormControl {
     this._listboxHasVisualFocus = false;
 
     this.dispatchEvent(
-      new CustomEvent('it-autocomplete-change', { bubbles: true, composed: true, detail: { value: input.value } }),
+      new CustomEvent('it-autocomplete-search', { bubbles: true, composed: true, detail: { value: input.value } }),
     );
-
+    if (this._inputValue.length === 0) {
+      this.value = '';
+    }
     if (this._inputValue.length < this.minLength) {
       this._isOpen = false;
       this._filteredOptions = [];
@@ -191,7 +206,7 @@ export class ItAutocomplete extends FormControl {
     if (Array.isArray(this.source)) {
       this._filterOptions(this._inputValue);
     } else if (typeof this.source === 'function') {
-      this.source(this._inputValue, (results: string[]) => {
+      this.source(this._inputValue, (results) => {
         this._filteredOptions = results;
         this._isOpen = results.length > 0;
         this._activeIndex = -1;
@@ -200,12 +215,14 @@ export class ItAutocomplete extends FormControl {
 
     // Debounce annunci mentre digita
     if (this._typingDebounceTimer) clearTimeout(this._typingDebounceTimer);
-    this._typingDebounceTimer = setTimeout(() => this._announceStatus(), 400);
+    this._typingDebounceTimer = setTimeout(() => {
+      this._announceStatus();
+    }, 400);
   }
 
   private _filterOptions(_query: string) {
     const lower = _query.toLowerCase();
-    this._filteredOptions = this._options.filter((o) => o.toLowerCase().includes(lower));
+    this._filteredOptions = this._options.filter((o) => o.label.toLowerCase().includes(lower));
     this._isOpen = this._filteredOptions.length > 0;
     this._activeIndex = -1;
   }
@@ -247,7 +264,7 @@ export class ItAutocomplete extends FormControl {
       case 'Enter':
         e.preventDefault();
         if (this._listboxHasVisualFocus && this._activeIndex >= 0)
-          this._selectOption(this._filteredOptions[this._activeIndex]);
+          this._selectOption(this._filteredOptions[this._activeIndex].value);
         break;
       case 'Escape':
       case 'Tab':
@@ -266,9 +283,13 @@ export class ItAutocomplete extends FormControl {
     option?.scrollIntoView({ block: 'nearest' });
   }
 
-  private _selectOption(option: string) {
-    this._inputValue = option;
-    this.value = option;
+  private _selectOption(optionValue: string) {
+    // Find the full option object to get the label
+    const selectedOption = this._filteredOptions.find((opt) => opt.value === optionValue);
+    const label = selectedOption ? selectedOption.label : optionValue;
+
+    this._inputValue = label; // Display the label in the input
+    this.value = optionValue; // Store the value for form submission
     this._isOpen = false;
     this._activeIndex = -1;
     this._listboxHasVisualFocus = false;
@@ -277,10 +298,7 @@ export class ItAutocomplete extends FormControl {
     // Emetti eventi nativi sull'input per compatibilità form
     // this.inputElement.dispatchEvent(new Event('change', { bubbles: true, composed: true, detail: { value: option } }));
 
-    this.dispatchEvent(new CustomEvent('it-change', { bubbles: true, composed: true, detail: { value: option } }));
-    // this.dispatchEvent(
-    //   new CustomEvent('it-autocomplete-change', { bubbles: true, composed: true, detail: { value: option } }),
-    // );
+    this.dispatchEvent(new CustomEvent('it-change', { bubbles: true, composed: true, detail: { value: optionValue } }));
 
     // Aggiorna status solo per cambio finale
     this._announceStatus(true);
@@ -301,14 +319,26 @@ export class ItAutocomplete extends FormControl {
     }
   }
 
+  protected override _handleReady() {
+    requestAnimationFrame(() => {
+      this.dispatchEvent(new CustomEvent('it-autocomplete-ready', { bubbles: true, detail: { el: this } }));
+    });
+  }
+
   protected _handleBlur(e: Event) {
     // Chiama il blur del parent per gestire _touched e validazione
     super._handleBlur(e);
 
-    // setTimeout(() => {
-    this._isOpen = false;
-    this._activeIndex = -1;
-    // }, 200);
+    // Usa setTimeout per permettere al click sull'opzione di essere processato
+    // prima di chiudere il menu
+    setTimeout(() => {
+      this._isOpen = false;
+      this._activeIndex = -1;
+    }, 150);
+  }
+
+  protected _handleFocus(e: Event): void {
+    super._handleFocus(e);
   }
 
   private _announceStatus(force = false) {
@@ -328,35 +358,29 @@ export class ItAutocomplete extends FormControl {
           ? this.$t('autocomplete_statusOneResult')
           : this.$t('autocomplete_statusManyResults').replace('{count}', count.toString());
     }
-
+    console.log('annuncio', content, this._currentStatusContent);
     // annuncia solo se cambia contenuto
     if (content !== this._currentStatusContent) {
-      if (this._statusDebounceTimer) clearTimeout(this._statusDebounceTimer);
-      this._statusDebounceTimer = setTimeout(() => {
-        this._currentStatusContent = content;
-        this._statusBump = !this._statusBump;
-        // this.requestUpdate();
-      }, 800); // 800ms debounce: abbastanza per screen reader, non troppo lungo
+      this._currentStatusContent = content;
     }
   }
 
-  private _getStatusAnnouncement(): { a: string; b: string } {
-    return this._statusBump ? { a: this._currentStatusContent, b: '' } : { a: '', b: this._currentStatusContent };
+  private _getStatusAnnouncement(): string {
+    return this._currentStatusContent;
   }
 
   render() {
-    const hasLabel = this.labelElements.length > 0;
-    const inputId = this.id || `autocomplete-${Math.random().toString(36).substr(2, 9)}`;
+    const showValidation = this.formControlController.submittedOnce || this.customValidation;
+    const inputId = this.id || this.generateId('it-autocomplete');
     const labelId = `${inputId}-label`;
     const listboxId = `${inputId}-listbox`;
     const assistiveHintId = `${inputId}-assistiveHint`;
-    const statusIdA = `${inputId}-status-a`;
-    const statusIdB = `${inputId}-status-b`;
+    const statusId = `${inputId}-status-a`;
     const status = this._getStatusAnnouncement();
-
+    console.log('porco', status);
     return html`
       <div class="form-group autocomplete-wrapper">
-        <label id="${labelId}" for="${inputId}" class="${classMap({ 'visually-hidden': this.labelHidden })}">
+        <label id="${labelId}" for="${inputId}" class="${this.composeClass({ 'visually-hidden': this.labelHidden })}">
           <slot name="label"></slot>
           ${this.required ? html`<span class="required" aria-hidden="true">*</span>` : nothing}
         </label>
@@ -364,26 +388,34 @@ export class ItAutocomplete extends FormControl {
         <div class="autocomplete-input-wrapper">
           <input
             id="${inputId}"
+            part="autocomplete-input"
             type="text"
-            class="form-control it-form__control ${classMap({ 'is-invalid': this.invalid })}"
+            class="${this.composeClass('form-control it-form__control', {
+              'is-invalid': showValidation && this.invalid,
+              'just-validate-success-field': showValidation && !this.invalid,
+            })}"
             .value="${live(this._inputValue)}"
             placeholder="${this.placeholder}"
-            ?required="${this.required}"
             ?disabled="${this.disabled}"
+            ?required="${this.required}"
+            minlength="${this.minLength}"
+            ?formNoValidate="${true}"
+            aria-invalid=${ifDefined(this.invalid ? 'true' : undefined)}
             role="combobox"
             aria-autocomplete="list"
-            aria-expanded="${this._isOpen}"
+            aria-expanded="${this._isOpen ? 'true' : 'false'}"
             aria-controls="${this._isOpen ? listboxId : nothing}"
-            aria-owns="${this._isOpen ? listboxId : nothing}"
             aria-haspopup="listbox"
-            aria-labelledby="${hasLabel ? labelId : inputId}"
+            aria-labelledby="${labelId}"
             aria-describedby="${[
               this.supportText ? `${inputId}-support` : '',
               this._showAssistiveHint ? assistiveHintId : '',
             ]
               .filter(Boolean)
               .join(' ') || nothing}"
-            aria-activedescendant="${this._activeIndex >= 0 ? `${inputId}-option-${this._activeIndex}` : ''}"
+            aria-activedescendant=${ifDefined(
+              this._activeIndex >= 0 ? `${inputId}-option-${this._activeIndex}` : undefined,
+            )}
             @input="${this._handleInput}"
             @keydown="${this._handleKeyDown}"
             @blur="${this._handleBlur}"
@@ -393,6 +425,7 @@ export class ItAutocomplete extends FormControl {
             ? html`<ul
                 id="${listboxId}"
                 class="autocomplete-listbox"
+                part="autocomplete-list"
                 role="listbox"
                 aria-label="${this.$t('autocomplete_listboxLabel')}"
               >
@@ -401,15 +434,19 @@ export class ItAutocomplete extends FormControl {
                     html` <li
                       id="${inputId}-option-${index}"
                       role="option"
+                      part="autocomplete-option"
                       aria-selected="${index === this._activeIndex ? 'true' : 'false'}"
                       aria-posinset="${index + 1}"
                       aria-setsize="${this._filteredOptions.length}"
                       class="autocomplete-option ${classMap({ active: index === this._activeIndex })}"
-                      @click="${() => this._handleOptionClick(option)}"
-                      @keydown="${(e: KeyboardEvent) => this._handleOptionKeyDown(e, option)}"
+                      @click="${() => this._handleOptionClick(option.value)}"
+                      @keydown="${(e: KeyboardEvent) => this._handleOptionKeyDown(e, option.value)}"
                       @mouseenter="${() => this._handleOptionHover(index)}"
                     >
-                      ${option}
+                      <span>${option.label}</span>
+                      ${index === this._activeIndex
+                        ? html`<span class="visually-hidden">, ${this.$t('autocomplete_option_selected')}</span>`
+                        : nothing}
                     </li>`,
                 )}
               </ul>`
@@ -420,11 +457,8 @@ export class ItAutocomplete extends FormControl {
           ? html`<div id="${assistiveHintId}" class="visually-hidden">${this.$t('autocomplete_assistiveHint')}</div>`
           : nothing}
 
-        <div id="${statusIdA}" role="status" aria-live="polite" aria-atomic="true" class="visually-hidden">
-          ${status.a}
-        </div>
-        <div id="${statusIdB}" role="status" aria-live="polite" aria-atomic="true" class="visually-hidden">
-          ${status.b}
+        <div id="${statusId}" role="status" aria-live="polite" aria-atomic="true" class="visually-hidden">
+          ${status}
         </div>
 
         ${this.supportText

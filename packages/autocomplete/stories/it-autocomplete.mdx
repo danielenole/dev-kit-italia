@@ -8,12 +8,12 @@ import * as Stories from './it-autocomplete.stories';
 <description>Elementi e stili per la creazione di input con autocompletamento</description>
 
 ## Cosa fa
-Il componente `it-autocomplete` aiuta gli utenti a scegliere le risposte da un elenco fornito mentre digitano. 
-Implementa il pattern ARIA per combobox con autocompletamento, garantendo una piena accessibilità per tutti gli utenti, 
+Il componente `it-autocomplete` aiuta gli utenti a scegliere le risposte da un elenco fornito mentre digitano.
+Implementa il pattern ARIA per combobox con autocompletamento, garantendo una piena accessibilità per tutti gli utenti,
 inclusi quelli che utilizzano tecnologie assistive.
 
 ## Anteprima e attributi del componente
-Modifica gli attributi nella tabella per personalizzare in tempo reale l'aspetto e il comportamento del componente. 
+Modifica gli attributi nella tabella per personalizzare in tempo reale l'aspetto e il comportamento del componente.
 Per vedere come cambia il codice, clicca su **Show code**.
 
 <Canvas of={Stories.EsempioInterattivo} />
@@ -21,7 +21,7 @@ Per vedere come cambia il codice, clicca su **Show code**.
 
 ## Esempio di autocompletamento
 
-Il completamento automatico è un componente che aiuta gli utenti a scegliere le risposte da un elenco fornito. 
+Il completamento automatico è un componente che aiuta gli utenti a scegliere le risposte da un elenco fornito.
 Il componente è stato creato seguendo le linee guida ARIA APG per garantire la massima accessibilità.
 
 <Canvas of={Stories.EsempioBase} />
@@ -36,7 +36,7 @@ Il componente `it-autocomplete` supporta:
 
 ## Accessibilità
 
-Il componente implementa il pattern [ARIA Combobox with List Autocomplete](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/) 
+Il componente implementa il pattern [ARIA Combobox with List Autocomplete](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/)
 che garantisce:
 - Corretti attributi ARIA per la navigazione assistita
 - Annunci vocali per screen reader
@@ -51,7 +51,7 @@ Puoi abbinare al componente un testo segnaposto (placeholder) per fornire indica
 
 ## Testo di supporto
 
-In caso di necessità, puoi utilizzare un ulteriore contenuto testuale sotto il campo, indicando nell'attributo `support-text` 
+In caso di necessità, puoi utilizzare un ulteriore contenuto testuale sotto il campo, indicando nell'attributo `support-text`
 il testo da visualizzare o usando lo slot `support-text`.
 
 <Canvas of={Stories.TestoDiSupporto} />
@@ -64,7 +64,7 @@ Per rendere il campo obbligatorio, aggiungi l'attributo `required`.
 
 ## Lunghezza minima per i suggerimenti
 
-L'opzione `min-length` impedisce la visualizzazione dei suggerimenti se vengono digitati meno di N caratteri. 
+L'opzione `min-length` impedisce la visualizzazione dei suggerimenti se vengono digitati meno di N caratteri.
 Questo è particolarmente utile quando si lavora con grandi quantità di dati.
 
 <Canvas of={Stories.ConMinLength} />
@@ -83,17 +83,17 @@ Se vuoi nascondere l'etichetta (ad esempio nei campi di ricerca), utilizza l'att
 
 ## Cambiare i valori dinamicamente
 
-In questo esempio viene mostrato come popolare il componente con dati che cambiano a fronte di un altro input, 
+In questo esempio viene mostrato come popolare il componente con dati che cambiano a fronte di un altro input,
 ad esempio il valore di un altro elemento di un form (come una select nell'esempio che segue).
 
 <Canvas of={Stories.DatiDinamici} />
 
 ## Ricerca asincrona
 
-È possibile passare come opzione `source` una funzione per filtrare i dati e popolare il componente dinamicamente. 
+È possibile passare come opzione `source` una funzione per filtrare i dati e popolare il componente dinamicamente.
 La funzione riceve come parametri la query di ricerca e una callback per popolare i risultati.
 
-<Canvas of={Stories.RicercaAsincrona} />
+{/* <Canvas of={Stories.RicercaAsincrona} /> */}
 
 ## Esempio Regioni e Comuni
 
@@ -133,7 +133,7 @@ Il componente emette due eventi personalizzati:
 
 ## Internazionalizzazione (i18n)
 
-Il componente è internazionalizzabile. La configurazione per Bootstrap Italia è stata settata in italiano. 
+Il componente è internazionalizzabile. La configurazione per Bootstrap Italia è stata settata in italiano.
 È possibile personalizzare le stringhe utilizzando l'[utility di internazionalizzazione](/docs/i18n-internazionalizzazione--documentazione).
 
 ```js

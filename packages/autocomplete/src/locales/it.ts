@@ -4,6 +4,7 @@ const translation: DefaultTranslation = {
   $code: 'it',
   $name: 'Italiano',
   $dir: 'ltr',
+  autocomplete_option_selected: 'opzione sottolineata',
   autocomplete_noResults: 'Nessun risultato trovato',
   autocomplete_statusQueryTooShort: 'Digita almeno {minLength} caratteri per vedere i risultati',
   autocomplete_statusNoResults: 'Nessun risultato trovato',
