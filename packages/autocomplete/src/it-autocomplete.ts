@@ -358,7 +358,6 @@ export class ItAutocomplete extends FormControl {
           ? this.$t('autocomplete_statusOneResult')
           : this.$t('autocomplete_statusManyResults').replace('{count}', count.toString());
     }
-    console.log('annuncio', content, this._currentStatusContent);
     // annuncia solo se cambia contenuto
     if (content !== this._currentStatusContent) {
       this._currentStatusContent = content;
@@ -377,7 +376,6 @@ export class ItAutocomplete extends FormControl {
     const assistiveHintId = `${inputId}-assistiveHint`;
     const statusId = `${inputId}-status-a`;
     const status = this._getStatusAnnouncement();
-    console.log('porco', status);
     return html`
       <div class="form-group autocomplete-wrapper">
         <label id="${labelId}" for="${inputId}" class="${this.composeClass({ 'visually-hidden': this.labelHidden })}">
