@@ -4,7 +4,7 @@ import '@italia/icon';
 
 const meta = {
   title: 'Componenti/Overlay',
-  tags: ['documentation', 'new'],
+  tags: ['documentation', 'beta'],
 
   //   parameters: {
   //     docs: {
