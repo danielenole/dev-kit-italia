@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { type InputType, INPUT_SIZES, type Sizes } from '../src/types.js';
 
-interface InputCalendarProps {
+interface InputNumberProps {
   id: string;
   label: string;
   type: InputType;
@@ -25,23 +25,11 @@ interface InputCalendarProps {
   step?: number;
 }
 
-const today = new Date();
-const defaultMin = today.toISOString().split('T')[0];
-const _defaultMax = new Date(today);
-_defaultMax.setDate(today.getDate() + 3);
-const defaultMax = _defaultMax.toISOString().split('T')[0];
-
-const dayOfWeek = today.getDay();
-const daysUntilNextMonday = (8 - dayOfWeek) % 7 || 7;
-const _nextMonday = new Date(today);
-_nextMonday.setDate(today.getDate() + daysUntilNextMonday);
-const nextMonday = _nextMonday.toISOString().split('T')[0];
-
 // Renderizza il wc it-input configurato per input numerico
-const renderCalendarInput = (params: any) =>
-  html`<it-input
+const renderTimeInput = (params: any) =>
+  html` <it-input
     id="${ifDefined(params.id || undefined)}"
-    type="date"
+    type="time"
     name="${ifDefined(params.name || undefined)}"
     value="${ifDefined(params.value || undefined)}"
     ?disabled="${params.disabled}"
@@ -56,22 +44,21 @@ const renderCalendarInput = (params: any) =>
     placeholder="${ifDefined(params.placeholder || undefined)}"
     support-text="${ifDefined(params.supportText || undefined)}"
     size="${ifDefined(params.size || undefined)}"
-    ?adaptive="${params.adaptive}"
   >
     <span slot="label">${params.label}</span>${ifDefined(params.children || undefined)}
   </it-input>`;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
-  title: 'Componenti/Form/Input Calendario',
-  tags: ['a11y-ok', 'web-component', 'beta'],
+  title: 'Componenti/Form/Input Ora',
+  tags: ['autodocs', 'a11y-ok', 'web-component'],
   component: 'it-input',
   args: {
     id: '',
-    label: 'Datepicker',
-    type: 'date',
-    name: 'inputDate',
-    value: undefined,
+    label: 'Input Ora',
+    type: 'time',
+    name: 'timepicker',
+    value: '',
     disabled: false,
     customValidation: false,
     validityMessage: '',
@@ -92,17 +79,16 @@ const meta = {
     },
     type: {
       control: 'select',
-      options: ['date'],
+      options: ['time'],
       fixed: true,
-      table: { defaultValue: { summary: 'date' } },
+      table: { defaultValue: { summary: 'time' } },
     },
     name: {
       control: 'text',
     },
     value: {
       control: 'text',
-      description: 'Valore del campo (nel formato YYYY-MM-DD)',
-      type: 'string',
+      description: 'Valore del campo',
     },
     disabled: {
       control: 'boolean',
@@ -125,18 +111,18 @@ const meta = {
     },
     min: {
       control: 'text',
-      description: 'Valore minimo consentito (nel formato YYYY-MM-DD)',
+      description: 'Valore minimo consentito nel formato HH:MM. Es: 08:00',
       type: 'string',
     },
     max: {
       control: 'text',
-      description: 'Valore massimo consentito (nel formato YYYY-MM-DD)',
+      description: 'Valore massimo consentito nel formato HH:MM. Es: 15:30',
       type: 'string',
     },
     step: {
       control: 'number',
-      description: 'Incremento per ogni step (utilizzato dai pulsanti +/-)',
-      type: 'string',
+      description: 'Incremento per ogni step (utilizzato dai pulsanti +/-), in secondi',
+      type: 'number',
     },
     required: {
       control: 'boolean',
@@ -153,7 +139,7 @@ const meta = {
       type: 'boolean',
       table: { defaultValue: { summary: 'false' } },
       description:
-        "Se il campo è readonly, con l'attributo 'plaintext' il campo assume l'aspetto di testo normalizzato.",
+        "Se il campo è `readonly`, con l'attributo 'plaintext' il campo assume l'aspetto di testo normalizzato.",
     },
     placeholder: {
       control: 'text',
@@ -172,14 +158,15 @@ const meta = {
       type: 'string',
     },
   },
-} satisfies Meta<InputCalendarProps>;
+} satisfies Meta<InputNumberProps>;
 
 export default meta;
-type Story = StoryObj<InputCalendarProps>;
+type Story = StoryObj<InputNumberProps>;
 
 export const EsempioInterattivo: Story = {
   ...meta,
   name: 'Esempio interattivo',
+  tags: ['!autodocs', '!dev'],
   parameters: {
     docs: {
       canvas: {
@@ -188,41 +175,95 @@ export const EsempioInterattivo: Story = {
     },
   },
   render: (params) =>
-    html`${renderCalendarInput({
+    html`${renderTimeInput({
       ...params,
+      label: 'Input Ora',
+      name: 'timepicker',
+      id: 'exampleTimepicker',
+      value: '10:00',
     })}`,
 };
 
-export const MinMax: Story = {
+export const LimitiEStep: Story = {
   ...meta,
-  name: 'Restringere il periodo di validità',
+  name: 'Limiti e Step',
   parameters: {
     docs: {
-      canvas: {
-        sourceState: 'shown',
+      description: {
+        story: `
+Aggiungendo gli attributi HTML \`min=""\`, \`max=""\` o \`step=""\` all'input, puoi limitare il valore minimo e massimo del campo e decidere un intervallo orario valido.
+
+Questi attributi sono utili solo ai fini della validazione, e non modificano l'interfaccia del selettore.
+
+Gli attributi \`min=""\`, \`max=""\` accettano valori nel formato HH:MM.
+
+L'attributo \`step=""\` prevede l'inserimento di un intervallo in secondi.
+`,
       },
     },
   },
-  args: { ...meta.args, min: defaultMin, max: defaultMax, label: 'Scegli una data nel periodo' },
-  render: (params) =>
-    html`${renderCalendarInput({
+  args: {
+    value: '10:00',
+    min: '09:00',
+    max: '12:00',
+    step: 1800,
+  },
+  render: (params) => html`
+    ${renderTimeInput({
       ...params,
-    })}`,
+      label: 'Min, Max & Step',
+      name: 'inputTimeLimits',
+      id: 'inputTimeLimits',
+    })}
+  `,
 };
 
-export const Step: Story = {
-  ...meta,
-  name: 'Impostare intervalli di date regolari',
-  parameters: {
-    docs: {
-      canvas: {
-        sourceState: 'shown',
-      },
-    },
-  },
-  args: { ...meta.args, min: nextMonday, step: 7, label: 'Scegli una data' },
-  render: (params) =>
-    html`${renderCalendarInput({
-      ...params,
-    })}`,
-};
+// export const Disabilitato: Story = {
+//   ...meta,
+//   parameters: {
+//     docs: {
+//       description: {
+//         story: `
+// Per disabilitare un Input Ora, aggiungi l'attributo \`disabled\` al componente \`<it-input>\`.
+// `,
+//       },
+//     },
+//   },
+//   args: {
+//     value: '11:00',
+//     disabled: true,
+//   },
+//   render: (params) => html`
+//     ${renderTimeInput({
+//       ...params,
+//       label: 'Disabled',
+//       name: 'inputTimeDisabled',
+//       id: 'inputTimeDisabled',
+//     })}
+//   `,
+// };
+
+// export const Readonly: Story = {
+//   ...meta,
+//   parameters: {
+//     docs: {
+//       description: {
+//         story: `
+// Per rendere un Input Ora \`readonly\`, aggiungi l'attributo \`readonly\` al componente \`<it-input>\`.
+// `,
+//       },
+//     },
+//   },
+//   args: {
+//     value: '12:30',
+//     readonly: true,
+//   },
+//   render: (params) => html`
+//     ${renderTimeInput({
+//       ...params,
+//       label: 'Contenuto in sola lettura',
+//       name: 'inputTimeReadonly',
+//       id: 'inputTimeReadonly',
+//     })}
+//   `,
+// };
