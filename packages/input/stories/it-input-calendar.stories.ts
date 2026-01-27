@@ -64,7 +64,7 @@ const renderCalendarInput = (params: any) =>
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: 'Componenti/Form/Input Calendario',
-  tags: ['a11y-ok', 'web-component', 'beta'],
+  tags: ['a11y-ok', 'web-component', 'new'],
   component: 'it-input',
   args: {
     id: '',

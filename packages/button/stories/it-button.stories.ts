@@ -372,7 +372,7 @@ Le icone sono di default puramente decorative. Nel caso in cui l'icona non debba
   },
   render: (params) => {
     const slot = params.slot?.length > 0 ? params.slot : null;
-    return html` <div class="flex">
+    return html` <div class="flex align-items-center">
       <it-button
         variant="success"
         size="lg"
@@ -448,9 +448,8 @@ export const ConIconaCerchiata: Story = {
   },
   render: (params) => {
     const slot = params.slot?.length > 0 ? params.slot : null;
-    return html`
+    return html` <div class="flex align-items-center">
       <it-button
-        class="me-2"
         variant="success"
         size="lg"
         icon
@@ -466,7 +465,6 @@ export const ConIconaCerchiata: Story = {
       </it-button>
 
       <it-button
-        class="me-2"
         variant="primary"
         icon
         ?outline="${params.outline}"
@@ -481,7 +479,6 @@ export const ConIconaCerchiata: Story = {
       </it-button>
 
       <it-button
-        class="me-2"
         variant="danger"
         icon
         ?outline="${params.outline}"
@@ -496,7 +493,6 @@ export const ConIconaCerchiata: Story = {
       </it-button>
 
       <it-button
-        class="me-2"
         variant="secondary"
         size="xs"
         icon
@@ -510,6 +506,6 @@ export const ConIconaCerchiata: Story = {
         </span>
         <span>${slot ?? 'Pulsante Link Extra Small con icona'}</span>
       </it-button>
-    `;
+    </div>`;
   },
 };

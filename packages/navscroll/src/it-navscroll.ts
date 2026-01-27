@@ -347,11 +347,11 @@ export class ItNavscroll extends BaseComponent {
       const sectionTop = section.offsetTop;
 
       // se la sezione supera il 25% del viewport del container
-      console.log(
-        { scrollTop, viewportHeight, sectionTop },
-        'scrollTop + viewportHeight * 0.25 >= sectionTop=',
-        scrollTop + viewportHeight * 0.25 >= sectionTop,
-      );
+      // console.log(
+      //   { scrollTop, viewportHeight, sectionTop },
+      //   'scrollTop + viewportHeight * 0.25 >= sectionTop=',
+      //   scrollTop + viewportHeight * 0.25 >= sectionTop,
+      // );
       if (scrollTop + viewportHeight * 0.25 >= sectionTop) {
         currentSection = section;
       } else {
