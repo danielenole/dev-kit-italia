@@ -4,6 +4,7 @@ import Avatar from './pages/Avatar.svelte';
 import BackToTop from './pages/BackToTop.svelte';
 import Badge from './pages/Badge.svelte';
 import Button from './pages/Button.svelte';
+import Callout from './pages/Callout.svelte';
 import Checkbox from './pages/Checkbox.svelte';
 import Chip from './pages/Chip.svelte';
 import Collapse from './pages/Collapse.svelte';
@@ -27,6 +28,7 @@ export const AppRoutes = [
   { path: '/back-to-top', element: BackToTop, title: 'Back to Top' },
   { path: '/badge', element: Badge, title: 'Badge' },
   { path: '/button', element: Button, title: 'Button' },
+  { path: '/callout', element: Callout, title: 'Callout' },
   { path: '/checkbox', element: Checkbox, title: 'Checkbox' },
   { path: '/chip', element: Chip, title: 'Chip' },
   { path: '/collapse', element: Collapse, title: 'Collapse' },

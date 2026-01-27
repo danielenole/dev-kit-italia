@@ -5,6 +5,7 @@ import Affix from './components/Affix.vue';
 import BackToTop from './components/BackToTop.vue';
 import Badge from './components/Badge.vue';
 import Button from './components/Button.vue';
+import Callout from './pages/Callout.vue';
 import Chip from './components/Chip.vue';
 import Collapse from './components/Collapse.vue';
 import Dropdown from './components/Dropdown.vue';
@@ -29,6 +30,7 @@ const routes = [
   { path: '/back-to-top', name: 'BackToTop', component: BackToTop },
   { path: '/badge', name: 'Badge', component: Badge },
   { path: '/button', name: 'Button', component: Button },
+  { path: '/callout', name: 'Callout', component: Callout },
   { path: '/checkbox', name: 'Checkbox', component: Checkbox },
   { path: '/chip', name: 'Chip', component: Chip },
   { path: '/collapse', name: 'Collapse', component: Collapse },
