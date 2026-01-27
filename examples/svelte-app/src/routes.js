@@ -15,12 +15,14 @@ import Form from './pages/Form.svelte';
 import Icon from './pages/Icon.svelte';
 import Input from './pages/Input.svelte';
 import Modal from './pages/Modal.svelte';
+import Navscroll from './pages/Navscroll.svelte';
 import Overlay from './pages/Overlay.svelte';
 import Popover from './pages/Popover.svelte';
 import Radio from './pages/Radio.svelte';
 import Rating from './pages/Rating.svelte';
 import Section from './pages/Section.svelte';
 import Select from './pages/Select.svelte';
+import Sidebar from './components/Sidebar.svelte';
 import Skiplinks from './pages/Skiplinks.svelte';
 import Sticky from './pages/Sticky.svelte';
 import Video from './pages/Video.svelte';
@@ -42,12 +44,14 @@ export const AppRoutes = [
   { path: '/icon', element: Icon, title: 'Icon' },
   { path: '/input', element: Input, title: 'Input' },
   { path: '/modal', element: Modal, title: 'Modal' },
+  { path: '/navscroll', element: Navscroll, title: 'Navscroll' },
   { path: '/overlay', element: Overlay, title: 'Overlay' },
   { path: '/popover', element: Popover, title: 'Popover' },
   { path: '/radio', element: Radio, title: 'Radio' },
   { path: '/rating', element: Rating, title: 'Rating' },
   { path: '/section', element: Section, title: 'Section' },
   { path: '/select', element: Section, title: 'Select' },
+  { path: '/sidebar', element: Sidebar, title: 'Sidebar' },
   { path: '/skiplinks', element: Skiplinks, title: 'Skiplinks' },
   { path: '/sticky', element: Sticky, title: 'Sticky' },
   { path: '/video', element: Video, title: 'Video' },

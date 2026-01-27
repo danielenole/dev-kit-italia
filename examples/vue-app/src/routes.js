@@ -16,12 +16,14 @@ import Form from './components/Form.vue';
 import Icon from './components/Icon.vue';
 import Input from './components/Input.vue';
 import Modal from './components/Modal.vue';
+import Navscroll from './components/Navscroll.vue';
 import Overlay from './components/Overlay.vue';
 import Popover from './components/Popover.vue';
 import Radio from './components/Radio.vue';
 import Rating from './components/Rating.vue';
 import Section from './components/Section.vue';
 import Select from './components/Select.vue';
+import Sidebar from './components/Sidebar.vue';
 import Sticky from './components/Sticky.vue';
 import Video from './components/Video.vue';
 import Skiplinks from './components/Skiplinks.vue';
@@ -43,12 +45,14 @@ const routes = [
   { path: '/icon', name: 'Icon', component: Icon },
   { path: '/input', name: 'Input', component: Input },
   { path: '/modal', name: 'Modal', component: Modal },
+  { path: '/navscroll', name: 'Navscroll', component: Navscroll },
   { path: '/overlay', name: 'Overlay', component: Overlay },
   { path: '/popover', name: 'Popover', component: Popover },
   { path: '/radio', name: 'Radio', component: Radio },
   { path: '/rating', name: 'Rating', component: Rating },
   { path: '/section', name: 'Section', component: Section },
   { path: '/select', name: 'Select', component: Select },
+  { path: '/sidebar', name: 'Sidebar', component: Sidebar },
   { path: '/skiplinks', name: 'Skiplinks', component: Skiplinks },
   { path: '/sticky', name: 'Sticky', component: Sticky },
   { path: '/video', name: 'Video', component: Video },

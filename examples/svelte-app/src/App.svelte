@@ -33,6 +33,7 @@
       <a href="#/icon">Icon</a>
       <a href="#/input">Input</a>
       <a href="#/modal">Modal</a>
+      <a href="#/navscroll">Navscroll</a>
       <a href="#/overlay">Overlay</a>
       <a href="#/popover">Popover</a>
       <a href="#/radio">Radio</a>

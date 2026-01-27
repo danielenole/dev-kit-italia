@@ -1,7 +1,5 @@
 import javascriptLogo from './javascript.svg';
 
-// import '@italia/dev-kit-italia/fonts.css';
-// import '@italia/dev-kit-italia/styles.css';
 import '@italia/dev-kit-italia/elements.js';
 // pagina-specific scripts (es. examples per componenti)
 import './js/popover.js';
@@ -82,6 +80,9 @@ document.querySelector('#app-header').innerHTML = `
       <a href="/src/modal">
         Modal
       </a>
+      <a href="/src/navscroll">
+        Navscroll
+      </a>
       <a href="/src/overlay">
         Overlay
       </a>
@@ -99,6 +100,9 @@ document.querySelector('#app-header').innerHTML = `
       </a>
       <a href="/src/select">
         Select
+      </a>
+      <a href="/src/sidebar">
+        Sidebar
       </a>
       <a href="/src/skiplinks">
         Skiplinks

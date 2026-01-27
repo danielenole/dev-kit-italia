@@ -67,6 +67,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/modal.component').then((c) => c.ModalComponent),
   },
   {
+    path: 'navscroll',
+    loadComponent: () => import('./pages/navscroll.component').then((c) => c.NavscrollComponent),
+  },
+  {
     path: 'overlay',
     loadComponent: () => import('./pages/overlay.component').then((c) => c.OverlayComponent),
   },
@@ -90,6 +94,10 @@ export const routes: Routes = [
   {
     path: 'select',
     loadComponent: () => import('./pages/select.component').then((c) => c.SelectComponent),
+  },
+  {
+    path: 'sidebar',
+    loadComponent: () => import('./components/sidebar.component').then((c) => c.SidebarComponent),
   },
   {
     path: 'skiplinks',

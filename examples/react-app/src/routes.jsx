@@ -14,6 +14,7 @@ import Form from './pages/Form';
 import Icon from './pages/Icon';
 import Input from './pages/Input';
 import Modal from './pages/Modal';
+import Navscroll from './pages/Navscroll';
 import Overlay from './pages/Overlay';
 import Popover from './pages/Popover';
 import Radio from './pages/Radio';
@@ -41,6 +42,7 @@ export const AppRoutes = [
   { path: '/icon', element: <Icon />, title: 'Icon' },
   { path: '/input', element: <Input />, title: 'Input' },
   { path: '/modal', element: <Modal />, title: 'Modal' },
+  { path: '/navscroll', element: <Navscroll />, title: 'Navscroll' },
   { path: '/overlay', element: <Overlay />, title: 'Overlay' },
   { path: '/popover', element: <Popover />, title: 'Popover' },
   { path: '/radio', element: <Radio />, title: 'Radio' },
