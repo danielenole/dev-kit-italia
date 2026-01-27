@@ -23,6 +23,7 @@
       <a href="#/back-to-top">Back to Top</a>
       <a href="#/badge">Badge</a>
       <a href="#/button">Button</a>
+      <a href="#/breadcrumbs">Breadcrumbs</a>
       <a href="#/callout">Callout</a>
       <a href="#/checkbox">Checkbox</a>
       <a href="#/chip">Chip</a>

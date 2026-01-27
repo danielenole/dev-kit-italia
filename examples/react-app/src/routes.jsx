@@ -1,4 +1,6 @@
 import Accordion from './pages/Accordion';
+import Avatar from './pages/Avatar';
+import Breadcrumbs from './pages/Breadcrumbs';
 import Affix from './pages/Affix';
 import BackToTop from './pages/BackToTop';
 import Badge from './pages/Badge';
@@ -19,7 +21,6 @@ import Section from './pages/Section';
 import Skiplinks from './pages/Skiplinks';
 import Sticky from './pages/Sticky';
 import Video from './pages/Video';
-import Avatar from './pages/Avatar';
 
 export const AppRoutes = [
   { path: '/accordion', element: <Accordion />, title: 'Accordion' },
@@ -27,6 +28,7 @@ export const AppRoutes = [
   { path: '/avatar', element: <Avatar />, title: 'Avatar' },
   { path: '/back-to-top', element: <BackToTop />, title: 'Back to Top' },
   { path: '/badge', element: <Badge />, title: 'Badge' },
+  { path: '/breadcrumbs', element: <Breadcrumbs />, title: 'Breadcrumbs' },
   { path: '/button', element: <Button />, title: 'Button' },
   { path: '/callout', element: <Callout />, title: 'Callout' },
   { path: '/checkbox', element: <Checkbox />, title: 'Checkbox' },

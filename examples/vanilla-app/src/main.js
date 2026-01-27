@@ -47,6 +47,9 @@ document.querySelector('#app-header').innerHTML = `
       <a href="/src/badge">
         Badge
       </a>
+      <a href="/src/breadcrumbs">
+        Breadcrumbs
+      </a>
       <a href="/src/button">
         Button
       </a>

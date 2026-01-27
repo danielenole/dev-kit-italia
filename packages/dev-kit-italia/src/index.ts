@@ -16,5 +16,6 @@ export * from '@italia/section';
 export * from '@italia/skiplinks';
 export * from '@italia/sticky';
 export * from '@italia/video';
+export * from '@italia/breadcrumbs';
 
 export { registerTranslation };

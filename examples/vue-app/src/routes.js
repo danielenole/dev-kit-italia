@@ -1,10 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Accordion from './components/Accordion.vue';
+import Avatar from './components/Avatar.vue';
+import Breadcrumbs from './components/Breadcrumbs.vue';
 import Affix from './components/Affix.vue';
 import BackToTop from './components/BackToTop.vue';
 import Badge from './components/Badge.vue';
 import Button from './components/Button.vue';
+import Checkbox from './components/Checkbox.vue';
 import Callout from './pages/Callout.vue';
 import Chip from './components/Chip.vue';
 import Collapse from './components/Collapse.vue';
@@ -19,8 +22,6 @@ import Rating from './components/Rating.vue';
 import Section from './components/Section.vue';
 import Sticky from './components/Sticky.vue';
 import Video from './components/Video.vue';
-import Checkbox from './components/Checkbox.vue';
-import Avatar from './components/Avatar.vue';
 import Skiplinks from './components/Skiplinks.vue';
 
 const routes = [
@@ -29,6 +30,7 @@ const routes = [
   { path: '/avatar', name: 'Avatar', component: Avatar },
   { path: '/back-to-top', name: 'BackToTop', component: BackToTop },
   { path: '/badge', name: 'Badge', component: Badge },
+  { path: '/breadcrumbs', name: 'Breadcrumbs', component: Breadcrumbs },
   { path: '/button', name: 'Button', component: Button },
   { path: '/callout', name: 'Callout', component: Callout },
   { path: '/checkbox', name: 'Checkbox', component: Checkbox },
