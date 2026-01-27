@@ -101,7 +101,7 @@ $it-components: (
     border-radius: 50%,
   ),
   'it-back-to-top': (
-    border-radius: var(--bs-radius-circle, 100%),
+    border-radius: var(--#{$prefix}radius-circle, 100%),
     height: 56px,
     width: 56px,
   ),
