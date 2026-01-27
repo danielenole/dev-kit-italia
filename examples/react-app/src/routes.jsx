@@ -1,5 +1,7 @@
 import Accordion from './pages/Accordion';
 import Affix from './pages/Affix';
+import Autocomplete from './pages/Autocomplete';
+import Avatar from './pages/Avatar';
 import Badge from './pages/Badge';
 import Button from './pages/Button';
 import Checkbox from './pages/Checkbox';
@@ -14,11 +16,11 @@ import Section from './pages/Section';
 import Skiplinks from './pages/Skiplinks';
 import Sticky from './pages/Sticky';
 import Video from './pages/Video';
-import Avatar from './pages/Avatar';
 
 export const AppRoutes = [
   { path: '/accordion', element: <Accordion />, title: 'Accordion' },
   { path: '/affix', element: <Affix />, title: 'Affix' },
+  { path: '/autocomplete', element: <Autocomplete />, title: 'Autocomplete' },
   { path: '/avatar', element: <Avatar />, title: 'Avatar' },
   { path: '/badge', element: <Badge />, title: 'Badge' },
   { path: '/button', element: <Button />, title: 'Button' },

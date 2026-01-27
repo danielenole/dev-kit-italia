@@ -19,6 +19,7 @@
     <nav class="app-nav">
       <a href="#/accordion">Accordion</a>
       <a href="#/affix">Affix</a>
+      <a href="#/autocomplete">Autocomplete</a>
       <a href="#/avatar">Avatar</a>
       <a href="#/badge">Badge</a>
       <a href="#/button">Button</a>

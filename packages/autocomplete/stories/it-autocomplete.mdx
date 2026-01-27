@@ -3,14 +3,19 @@ import * as Stories from './it-autocomplete.stories';
 
 <Meta of={Stories} />
 
-# Autocompletamento
+# Autocomplete
 
-<description>Elementi e stili per la creazione di input con autocompletamento</description>
+<description>Campo di input che suggerisce automaticamente opzioni di completamento man mano che l'utente digita</description>
 
 ## Cosa fa
-Il componente `it-autocomplete` aiuta gli utenti a scegliere le risposte da un elenco fornito mentre digitano.
-Implementa il pattern ARIA per combobox con autocompletamento, garantendo una piena accessibilità per tutti gli utenti,
-inclusi quelli che utilizzano tecnologie assistive.
+Il componente Autocomplete consiste in un campo input con funzione di autocompletamento dei dati che fornisce all'utente suggerimenti pertinenti mentre inizia a digitare. Questi suggerimenti si basano sul testo inserito e aiutano l'utente a completare rapidamente il campo senza dover scrivere il testo per intero.
+
+Usa il componente `it-autocomplete` nei seguenti casi:
+
+- quando il numero di opzioni disponibili è molto elevato e risulterebbe difficile per l'utente scorrerle tutte manualmente;
+- per migliorare l'esperienza d'uso, riducendo il tempo necessario per trovare e selezionare un'opzione;
+- quando è necessario fornire suggerimenti basati su input parziali dell'utente, come nei campi di ricerca o nei moduli di registrazione;
+- per aiutare l'utente a evitare errori di digitazione, mostrando opzioni predefinite che possono essere selezionate rapidamente.
 
 ## Anteprima e attributi del componente
 Modifica gli attributi nella tabella per personalizzare in tempo reale l'aspetto e il comportamento del componente.
@@ -19,20 +24,6 @@ Per vedere come cambia il codice, clicca su **Show code**.
 <Canvas of={Stories.EsempioInterattivo} />
 <Controls of={Stories.EsempioInterattivo} />
 
-## Esempio di autocompletamento
-
-Il completamento automatico è un componente che aiuta gli utenti a scegliere le risposte da un elenco fornito.
-Il componente è stato creato seguendo le linee guida ARIA APG per garantire la massima accessibilità.
-
-<Canvas of={Stories.EsempioBase} />
-
-## Indicazioni generali
-
-Il componente `it-autocomplete` supporta:
-- **Navigazione da tastiera**: usa le frecce ↑/↓ per navigare tra le opzioni, Invio per selezionare, Esc per chiudere
-- **Screen reader**: annunci automatici del numero di risultati e dell'opzione selezionata
-- **Ricerca dinamica**: filtraggio in tempo reale dei risultati mentre l'utente digita
-- **Ricerca asincrona**: supporto per caricamento dinamico dei dati da API o altre fonti
 
 ## Accessibilità
 
@@ -43,16 +34,18 @@ che garantisce:
 - Gestione completa da tastiera
 - Focus management appropriato
 
+Ricordati di includere sempre un'etichetta descrittiva, in modo che gli utenti comprendano chiaramente la sua funzione, dichiarandola nello slot `label`.
+
 ## Testo segnaposto
 
-Puoi abbinare al componente un testo segnaposto (placeholder) per fornire indicazioni sul tipo di contenuto atteso.
+Puoi abbinare al componente un testo segnaposto per fornire indicazioni sul tipo di contenuto atteso valorizzando l'attributo `placeholder`.
 
 <Canvas of={Stories.Placeholder} />
 
 ## Testo di supporto
 
 In caso di necessità, puoi utilizzare un ulteriore contenuto testuale sotto il campo, indicando nell'attributo `support-text`
-il testo da visualizzare o usando lo slot `support-text`.
+il testo da visualizzare.
 
 <Canvas of={Stories.TestoDiSupporto} />
 
@@ -75,75 +68,55 @@ Aggiungi l'attributo `disabled` per impedire l'interazione con il campo.
 
 <Canvas of={Stories.Disabilitato} />
 
+## Valore di default
+Puoi impostare un valore iniziale utilizzando l'attributo `default-value`.
+Impostare un valore iniziale richiede un approccio diverso a seconda di come carichi i dati relativi alle opzioni (`source`).
+
+1. **Opzioni statiche: Usa una stringa**. Se passi un array statico alla `source`, setta `default-value` alla stringa del `value` corrispondente. Il componente troverà da solo l'etichetta corretta.
+
+2. **Opzioni dinamiche: Usa un oggetto completo**. Se usi una funzione per caricare i dati nell'attributo `source`, il componente non conosce le opzioni all'avvio. Popola l'attributo `default-value` con un oggetto che contenga sia `value` che `label`.
+
+Esamina gli esempi sottostanti per vedere i diversi comportamenti, clicca su Show code ed espandi il codice per vedere l'esempio implementativo.
+<Canvas of={Stories.MatriceComportamento} />
+
 ## Etichetta nascosta
 
 Se vuoi nascondere l'etichetta (ad esempio nei campi di ricerca), utilizza l'attributo `label-hidden`.
 
 <Canvas of={Stories.LabelHidden} />
 
-## Cambiare i valori dinamicamente
+## Opzioni dinamiche
+
+Attraverso manipolazioni JavaScript e/o definendo una funzione da associare all'attributo `source` via JS, puoi popolare dinamicamente le opzioni del componente `it-autocomplete`.
+
+Il formato delle opzioni deve essere un array di oggetti con le proprietà `value` e `label`.
+
+### Dati dipendenti da un altro input
 
 In questo esempio viene mostrato come popolare il componente con dati che cambiano a fronte di un altro input,
 ad esempio il valore di un altro elemento di un form (come una select nell'esempio che segue).
 
+Espandi il codice per vedere un esempio di come implementare questa funzionalità.
+
 <Canvas of={Stories.DatiDinamici} />
 
-## Ricerca asincrona
+### Ricerca asincrona
 
-È possibile passare come opzione `source` una funzione per filtrare i dati e popolare il componente dinamicamente.
+Puoi passare come opzione `source` una funzione per filtrare i dati e popolare il componente dinamicamente.
 La funzione riceve come parametri la query di ricerca e una callback per popolare i risultati.
 
-{/* <Canvas of={Stories.RicercaAsincrona} /> */}
-
-## Esempio Regioni e Comuni
-
-Esempio di autocompletamento annidato dove la selezione di una regione popola dinamicamente l'elenco dei comuni.
+Espandi il codice dell'esempio per vedere un esempio di come implementare questa funzionalità.
 
 <Canvas of={Stories.RegioniEComuni} />
 
-## Gestione degli eventi
+## {Stories.MetodiEPropPubblici.name}
+<Description of={Stories.MetodiEPropPubblici}/>
 
-Il componente emette due eventi personalizzati:
-- `it-autocomplete-change`: emesso quando cambia il valore del campo
-- `it-autocomplete-select`: emesso quando viene selezionata un'opzione dalla lista
-
-<Canvas of={Stories.GestioneEventi} />
-
-## Opzioni
-
-| Proprietà | Tipo | Default | Descrizione |
-|-----------|------|---------|-------------|
-| `source` | `Array \| Function` | `[]` | Sorgente di dati dell'autocomplete. Se è una funzione, gli argomenti sono: `(query: string, populateResults: Function)` |
-| `id` | `string` | - | Id dell'elemento |
-| `name` | `string` | - | Nome del campo di input, da utilizzare con un form |
-| `min-length` | `number` | `0` | Numero minimo di caratteri prima di mostrare i suggerimenti |
-| `default-value` | `string` | - | Valore di default inserito nell'input |
-| `placeholder` | `string` | - | Testo segnaposto |
-| `support-text` | `string` | - | Testo di supporto |
-| `required` | `boolean` | `false` | Il campo sarà obbligatorio |
-| `disabled` | `boolean` | `false` | Il campo sarà disabilitato |
-| `label-hidden` | `boolean` | `false` | Nasconde visivamente l'etichetta |
-
-## Eventi
-
-| Nome | Dettagli | Descrizione |
-|------|----------|-------------|
-| `it-autocomplete-change` | `{ value: string }` | Emesso quando cambia il valore del campo |
-| `it-autocomplete-select` | `{ value: string }` | Emesso quando viene selezionata un'opzione |
-
-## Internazionalizzazione (i18n)
-
-Il componente è internazionalizzabile. La configurazione per Bootstrap Italia è stata settata in italiano.
-È possibile personalizzare le stringhe utilizzando l'[utility di internazionalizzazione](/docs/i18n-internazionalizzazione--documentazione).
+## i18n
+Per questo componente sono disponibili alcune stringhe traducibili tramite l'[utility di internazionalizzazione](/docs/i18n-internazionalizzazione--documentazione).
 
 ```js
 const translation = {
-  "autocomplete": {
-    "noResults": "Nessun risultato trovato",
-    "statusNoResults": "Nessun risultato trovato",
-    "statusSelectedOption": "{option} selezionato",
-    "statusResults": "{length, plural, =0 {Nessun risultato trovato} one {# risultato disponibile} other {# risultati disponibili}}",
-    "assistiveHint": "Quando i risultati di completamento automatico sono disponibili, utilizza le frecce su e giù per scorrere e premi invio per selezionare."
-  }
+  ${JSON.stringify(i18nIT).replaceAll('{"', '"').replaceAll('",', '",\n\t').replaceAll('"}', '"')}
 }
 ```

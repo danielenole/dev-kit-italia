@@ -61,44 +61,10 @@ $utilities: (
   input {
     flex: 1;
   }
+}
 
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    padding: 0;
-    border: 1px solid var(--#{$prefix}color-border-subtle);
-    border-left: none;
-    margin: 0;
-    background-color: var(--#{$prefix}color-background-inverse);
-    color: var(--#{$prefix}color-text-secondary);
-    cursor: pointer;
-    transition:
-      background-color var(--#{$prefix}transition-instant),
-      color var(--#{$prefix}transition-instant),
-      border-color var(--#{$prefix}transition-instant);
-
-    &:hover:not(:disabled) {
-      background-color: var(--#{$prefix}color-background-primary-lighter);
-      color: var(--#{$prefix}color-text-primary);
-    }
-
-    &:focus {
-      outline: 2px solid var(--#{$prefix}color-outline-focus);
-      outline-offset: -2px;
-      z-index: 1;
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-
-    svg {
-      pointer-events: none;
-    }
-  }
+.autocomplete-input-wrapper {
+  position: relative;
 }
 
 .autocomplete-listbox {
@@ -138,22 +104,6 @@ $utilities: (
   &:focus {
     outline: 2px solid var(--#{$prefix}color-outline-focus);
     outline-offset: -2px;
-  }
-}
-
-.form-control {
-  &:focus {
-    border-color: var(--#{$prefix}color-outline-focus);
-    box-shadow: 0 0 0 0.2rem rgba(var(--#{$prefix}primary-rgb), 0.25);
-  }
-
-  &.is-invalid {
-    border-color: var(--#{$prefix}color-border-danger);
-
-    &:focus {
-      border-color: var(--#{$prefix}color-border-danger);
-      box-shadow: 0 0 0 0.2rem rgba(var(--#{$prefix}danger-rgb), 0.25);
-    }
   }
 }
 

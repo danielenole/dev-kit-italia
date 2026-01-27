@@ -21,9 +21,13 @@
           <h2>Esempio di autocompletamento</h2>
           <p>Autocomplete base con regioni italiane</p>
           <div class="form-group">
-            <it-autocomplete id="autocomplete-base" name="regione">
+            <it-autocomplete
+              id="autocomplete-regione"
+              name="regione"
+              placeholder="Seleziona una regione..."
+              source='[{"value":"abruzzo","label":"Abruzzo"},{"value":"basilicata","label":"Basilicata"},{"value":"calabria","label":"Calabria"},{"value":"campania","label":"Campania"},{"value":"emilia-romagna","label":"Emilia Romagna"},{"value":"friuli-venezia-giulia","label":"Friuli Venezia Giulia"},{"value":"lazio","label":"Lazio"},{"value":"liguria","label":"Liguria"},{"value":"lombardia","label":"Lombardia"},{"value":"marche","label":"Marche"},{"value":"molise","label":"Molise"},{"value":"piemonte","label":"Piemonte"},{"value":"puglia","label":"Puglia"},{"value":"sardegna","label":"Sardegna"},{"value":"sicilia","label":"Sicilia"},{"value":"toscana","label":"Toscana"},{"value":"trentino-alto-adige","label":"Trentino Alto Adige"},{"value":"umbria","label":"Umbria"},{"value":"valle-aosta","label":"Valle d&apos;Aosta"},{"value":"veneto","label":"Veneto"}]'
+            >
               <span slot="label">Regione</span>
-              <span slot="support-text">Seleziona una regione italiana</span>
             </it-autocomplete>
           </div>
         </section>
@@ -44,7 +48,6 @@
           <form id="form-required">
             <it-autocomplete id="autocomplete-required" name="regione" required>
               <span slot="label">Regione</span>
-              <span slot="support-text">Questo campo è obbligatorio</span>
             </it-autocomplete>
             <it-button type="submit" variant="primary" class="mt-3">Valida</it-button>
           </form>
@@ -56,7 +59,6 @@
           <p>Mostra suggerimenti solo dopo 3 caratteri</p>
           <it-autocomplete id="autocomplete-minlength" name="regione" min-length="3">
             <span slot="label">Regione</span>
-            <span slot="support-text">Digita almeno 3 caratteri per vedere i suggerimenti</span>
           </it-autocomplete>
         </section>
 
@@ -77,13 +79,41 @@
             <span slot="label">Cerca regione</span>
           </it-autocomplete>
         </section>
+
+        <!-- Valore predefinito (stringa) -->
+        <section class="example-section">
+          <h2>Valore predefinito (stringa)</h2>
+          <p>Autocomplete con valore predefinito come stringa</p>
+          <it-autocomplete
+            id="autocomplete-default-string"
+            name="regione-default"
+            default-value="lombardia"
+            source='[{"value":"abruzzo","label":"Abruzzo"},{"value":"basilicata","label":"Basilicata"},{"value":"calabria","label":"Calabria"},{"value":"campania","label":"Campania"},{"value":"emilia-romagna","label":"Emilia Romagna"},{"value":"friuli-venezia-giulia","label":"Friuli Venezia Giulia"},{"value":"lazio","label":"Lazio"},{"value":"liguria","label":"Liguria"},{"value":"lombardia","label":"Lombardia"},{"value":"marche","label":"Marche"},{"value":"molise","label":"Molise"},{"value":"piemonte","label":"Piemonte"},{"value":"puglia","label":"Puglia"},{"value":"sardegna","label":"Sardegna"},{"value":"sicilia","label":"Sicilia"},{"value":"toscana","label":"Toscana"},{"value":"trentino-alto-adige","label":"Trentino Alto Adige"},{"value":"umbria","label":"Umbria"},{"value":"valle-aosta","label":"Valle d&apos;Aosta"},{"value":"veneto","label":"Veneto"}]'
+          >
+            <span slot="label">Regione</span>
+          </it-autocomplete>
+        </section>
+
+        <!-- Valore predefinito (oggetto) -->
+        <section class="example-section">
+          <h2>Valore predefinito (oggetto)</h2>
+          <p>Autocomplete con valore predefinito come oggetto (utile per source asincrone)</p>
+          <it-autocomplete
+            id="autocomplete-default-object"
+            name="regione-default-obj"
+            default-value='{"value":"lazio","label":"Lazio"}'
+            source='[{"value":"abruzzo","label":"Abruzzo"},{"value":"basilicata","label":"Basilicata"},{"value":"calabria","label":"Calabria"},{"value":"campania","label":"Campania"},{"value":"emilia-romagna","label":"Emilia Romagna"},{"value":"friuli-venezia-giulia","label":"Friuli Venezia Giulia"},{"value":"lazio","label":"Lazio"},{"value":"liguria","label":"Liguria"},{"value":"lombardia","label":"Lombardia"},{"value":"marche","label":"Marche"},{"value":"molise","label":"Molise"},{"value":"piemonte","label":"Piemonte"},{"value":"puglia","label":"Puglia"},{"value":"sardegna","label":"Sardegna"},{"value":"sicilia","label":"Sicilia"},{"value":"toscana","label":"Toscana"},{"value":"trentino-alto-adige","label":"Trentino Alto Adige"},{"value":"umbria","label":"Umbria"},{"value":"valle-aosta","label":"Valle d&apos;Aosta"},{"value":"veneto","label":"Veneto"}]'
+          >
+            <span slot="label">Regione</span>
+          </it-autocomplete>
+        </section>
+
         <!-- Ricerca asincrona -->
         <section class="example-section">
           <h2>Ricerca asincrona</h2>
           <p>Usa una funzione per ricerche asincrone (API, database, ecc.)</p>
           <it-autocomplete id="autocomplete-async" name="citta" min-length="2">
             <span slot="label">Cerca città</span>
-            <span slot="support-text">Digita almeno 2 caratteri per vedere i suggerimenti</span>
           </it-autocomplete>
         </section>
         <!-- Dati dinamici -->
@@ -120,18 +150,16 @@
               <div class="col-12 col-md-6 mb-3">
                 <it-autocomplete name="regione" required>
                   <span slot="label">Regione</span>
-                  <span slot="support-text">Campo obbligatorio</span>
                 </it-autocomplete>
               </div>
               <div class="col-12 col-md-6 mb-3">
                 <it-autocomplete name="provincia">
                   <span slot="label">Provincia</span>
-                  <span slot="support-text">Campo facoltativo</span>
                 </it-autocomplete>
               </div>
             </div>
             <it-button type="submit" variant="primary">Invia</it-button>
-            <button type="reset" class="btn btn-secondary ms-2">Reset</button>
+            <it-button type="reset" variant="secondary" class="ms-2">Reset</it-button>
             <div id="form-output" class="mt-3"></div>
           </form>
         </section>
@@ -144,13 +172,11 @@
             <div class="col-12 col-md-6 mb-3">
               <it-autocomplete id="autocomplete-regione" name="regione">
                 <span slot="label">Regione</span>
-                <span slot="support-text">Seleziona una regione italiana</span>
               </it-autocomplete>
             </div>
             <div class="col-12 col-md-6">
               <it-autocomplete id="autocomplete-comune" name="comune" disabled min-length="2">
                 <span slot="label">Comune</span>
-                <span slot="support-text">Prima seleziona una regione</span>
               </it-autocomplete>
             </div>
           </div>
@@ -212,8 +238,22 @@
       ];
 
       // ========== ESEMPIO BASE ==========
-      const autocompleteBase = document.getElementById('autocomplete-base');
-      autocompleteBase.source = italianRegions;
+      const autocompleteRegione = document.getElementById('autocomplete-regione');
+      if (autocompleteRegione && !autocompleteRegione.source) {
+        autocompleteRegione.source = italianRegions;
+      }
+
+      // ========== VALORE PREDEFINITO STRINGA ==========
+      const autocompleteDefaultString = document.getElementById('autocomplete-default-string');
+      if (autocompleteDefaultString && !autocompleteDefaultString.source) {
+        autocompleteDefaultString.source = italianRegions;
+      }
+
+      // ========== VALORE PREDEFINITO OGGETTO ==========
+      const autocompleteDefaultObject = document.getElementById('autocomplete-default-object');
+      if (autocompleteDefaultObject && !autocompleteDefaultObject.source) {
+        autocompleteDefaultObject.source = italianRegions;
+      }
 
       // ========== PLACEHOLDER ==========
       const autocompletePlaceholder = document.getElementById('autocomplete-placeholder');
@@ -385,7 +425,6 @@
         if (autocomplete) {
           autocomplete.source = categories[category];
           autocomplete.value = '';
-          autocomplete.focus();
         }
       }
 
@@ -434,6 +473,9 @@
       let comuniData = [];
       let regioniUniche = [];
 
+      const regioneAutocompleteNested = document.getElementById('autocomplete-regione');
+      const comuneAutocomplete = document.getElementById('autocomplete-comune');
+
       // Carica i dati dei comuni
       fetch('/assets/comuni.json')
         .then((response) => response.json())
@@ -450,16 +492,11 @@
             }));
 
           // Imposta le regioni nell'autocomplete
-          // const regioneAutocomplete = document.getElementById('autocomplete-regione');
-          regioneAutocomplete.source = regioniUniche;
+          regioneAutocompleteNested.source = regioniUniche;
         })
         .catch((error) => {
           console.error('Errore caricamento comuni:', error);
         });
-
-      // Setup listener quando l'autocomplete regione è pronto
-      const regioneAutocompleteNested = document.getElementById('autocomplete-regione');
-      const comuneAutocomplete = document.getElementById('autocomplete-comune');
 
       // Reset del valore comune quando si seleziona una regione
       regioneAutocompleteNested.addEventListener('it-autocomplete-ready', () => {

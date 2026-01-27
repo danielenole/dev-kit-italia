@@ -1,11 +1,16 @@
+/* eslint-disable no-useless-escape */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import type { AutocompleteOption } from '../src/types';
 
 interface AutocompleteProps {
   id: string;
   label: string;
   name: string;
+  form: string;
+  customValidation: boolean;
+  validityMessage: string;
   value: string;
   disabled?: boolean;
   required: boolean;
@@ -15,7 +20,7 @@ interface AutocompleteProps {
   minLength: number;
   defaultValue: string;
   showArrow: boolean;
-  source: string[] | ((query: string, populateResults: (results: string[]) => void) => void);
+  source: AutocompleteOption[] | ((query: string, populateResults: (results: AutocompleteOption[]) => void) => void);
 }
 
 const italianRegions = [
@@ -46,16 +51,18 @@ const renderComponent = (params: any) =>
   html`<it-autocomplete
     id="${ifDefined(params.id || undefined)}"
     name="${ifDefined(params.name || undefined)}"
-    value="${ifDefined(params.value || undefined)}"
+    .value="${params.value}"
     ?disabled="${params.disabled}"
     ?required="${params.required}"
+    form="${ifDefined(params.form || undefined)}"
+    ?custom-validation="${params.customValidation}"
+    validity-message="${ifDefined(params.validityMessage || undefined)}"
     placeholder="${ifDefined(params.placeholder || undefined)}"
     support-text="${ifDefined(params.supportText || undefined)}"
     ?label-hidden="${params.labelHidden}"
-    ?show-arrow="${params.showArrow}"
     min-length="${ifDefined(params.minLength || undefined)}"
-    default-value="${ifDefined(params.defaultValue || undefined)}"
-    .source="${params.source}"
+    default-value="${params.defaultValue ? JSON.stringify(params.defaultValue) : nothing}"
+    source="${params.source ? JSON.stringify(params.source) : nothing}"
   >
     <span slot="label">${params.label}</span>
   </it-autocomplete>`;
@@ -64,17 +71,23 @@ const meta = {
   title: 'Componenti/Form/Autocomplete',
   tags: ['a11y-ok', 'web-component'],
   component: 'it-autocomplete',
+  parameters: {
+    layout: 'padded',
+  },
   args: {
     id: 'autocomplete-regione',
     label: 'Regione',
     name: 'regione',
     value: '',
+    form: '',
+    customValidation: false,
+    validityMessage: '',
+
     disabled: false,
     required: false,
     placeholder: '',
     supportText: '',
     labelHidden: false,
-    showArrow: true,
     minLength: 0,
     defaultValue: '',
     source: italianRegions,
@@ -93,8 +106,9 @@ const meta = {
       description: 'Nome del campo',
     },
     value: {
-      control: 'text',
-      description: 'Valore corrente del campo',
+      control: false,
+      description:
+        'Valore corrente del campo: non modificare direttamente, usare gli eventi e/o default-value per inizializzazione con valore preimpostato.',
     },
     disabled: {
       control: 'boolean',
@@ -103,6 +117,25 @@ const meta = {
     required: {
       control: 'boolean',
       table: { defaultValue: { summary: 'false' } },
+    },
+    form: {
+      control: 'text',
+      type: 'string',
+      description: "ID html del form a cui è associato il campo, se il campo non si trova all'interno di una form ",
+    },
+    customValidation: {
+      name: 'custom-validation',
+      control: 'boolean',
+      type: 'boolean',
+      table: { defaultValue: { summary: 'false' } },
+      description:
+        'Se la validazione del campo è fatta esternamente (lato server o con plugin js - validazione custom), impostare questo attributo a `true`.',
+    },
+    validityMessage: {
+      name: 'validity-message',
+      control: 'text',
+      description:
+        "Messaggio da mostrare quando il campo è invalido nel caso di validazione esterna (validazione custom). Se impostato a '' (stringa vuota) il campo viene considerato valido.",
     },
     placeholder: {
       control: 'text',
@@ -119,12 +152,7 @@ const meta = {
       table: { defaultValue: { summary: 'false' } },
       description: "Nasconde visivamente l'etichetta",
     },
-    showArrow: {
-      name: 'show-arrow',
-      control: 'boolean',
-      table: { defaultValue: { summary: 'true' } },
-      description: 'Mostra la freccia per aprire/chiudere il menu',
-    },
+
     minLength: {
       name: 'min-length',
       control: 'number',
@@ -134,31 +162,35 @@ const meta = {
     defaultValue: {
       name: 'default-value',
       control: 'text',
-      description: 'Valore di default',
+      description: 'Valore di default, deve corrispondere a uno dei valori delle opzioni (option.value)',
     },
     source: {
       control: 'object',
-      description: 'Sorgente di dati: array di stringhe o funzione',
+      description: 'Sorgente di dati: array di oggetti {value, label} o funzione asincrona',
+      table: {
+        type: {
+          summary:
+            'AutocompleteOption[] | ((query: string, callback: (results: AutocompleteOption[]) => void) => void)',
+        },
+      },
     },
   },
-  render: renderComponent,
+  decorators: [(Story) => html` <div style="min-height: 400px;">${Story()}</div>`],
 } satisfies Meta<AutocompleteProps>;
 
 export default meta;
 type Story = StoryObj<AutocompleteProps>;
 
 // Esempio interattivo
-export const EsempioInterattivo: Story = {};
-
-// Esempio base con regioni italiane
-export const EsempioBase: Story = {
-  name: 'Esempio di autocompletamento',
-  args: {
-    label: 'Regione',
-    placeholder: 'Inizia a digitare...',
-    supportText: 'Seleziona una regione italiana',
+export const EsempioInterattivo: Story = {
+  render: (args) => html`${renderComponent({ ...args, placeholder: 'Seleziona una regione...' })}`,
+  parameters: {
+    docs: {
+      canvas: {
+        sourceState: 'shown',
+      },
+    },
   },
-  render: (args) => html` <div class="form-group">${renderComponent(args)}</div> `,
 };
 
 // Placeholder
@@ -168,6 +200,7 @@ export const Placeholder: Story = {
     label: 'Cerca regione',
     placeholder: 'Es: Lombardia',
   },
+  render: (args) => renderComponent(args),
 };
 
 // Testo di supporto
@@ -177,6 +210,7 @@ export const TestoDiSupporto: Story = {
     label: 'Regione di residenza',
     supportText: 'Seleziona la regione in cui risiedi',
   },
+  render: (args) => renderComponent(args),
 };
 
 // Campo obbligatorio
@@ -187,6 +221,7 @@ export const CampoObbligatorio: Story = {
     required: true,
     supportText: 'Questo campo è obbligatorio',
   },
+  render: (args) => renderComponent(args),
 };
 
 // Con minLength
@@ -197,6 +232,7 @@ export const ConMinLength: Story = {
     minLength: 3,
     supportText: 'Digita almeno 3 caratteri per vedere i suggerimenti',
   },
+  render: (args) => renderComponent(args),
 };
 
 // Disabilitato
@@ -207,9 +243,160 @@ export const Disabilitato: Story = {
     disabled: true,
     defaultValue: 'Lombardia',
   },
+  render: (args) => renderComponent(args),
 };
 
-// Etichetta nascosta
+export const MatriceComportamento: Story = {
+  name: 'Valore di default',
+  parameters: {
+    docs: {
+      description: {
+        story: `Questa griglia dimostra come il componente reagisce alle combinazioni di **Source** e **Default Value**.
+        <br>Notare come il **Caso 3** (Async + Stringa) fallisca visivamente (input vuoto) perché il componente non può risolvere la label "Roma" dall'ID "rm" senza una source statica.
+        Il **Caso 2** mostra come un Oggetto venga accettato anche se non presente nella source ("Fiducia").`,
+      },
+      source: {
+        language: 'html',
+        code: `<div class="row g-4">
+
+  <div class="col-12 col-md-6">
+    <h6>1. Source Statica + Default Stringa</h6>
+    <it-autocomplete id="matrix-1" label="Città" default-value="rm" source="[{&quot;value&quot;:&quot;rm&quot;,&quot;label&quot;:&quot;Roma&quot;},{&quot;value&quot;:&quot;mi&quot;,&quot;label&quot;:&quot;Milano&quot;}]" >
+      <span slot="label">Città</span>
+    </it-autocomplete>
+  </div>
+
+  <div class="col-12 col-md-6">
+    <h6>2. Source Statica + Default Oggetto</h6>
+    <it-autocomplete id="matrix-2" label="Città" source="[{&quot;value&quot;:&quot;rm&quot;,&quot;label&quot;:&quot;Roma&quot;},{&quot;value&quot;:&quot;mi&quot;,&quot;label&quot;:&quot;Milano&quot;}]">
+      <span slot="label">Città</span>
+    </it-autocomplete>
+  </div>
+
+  <div class="col-12 col-md-6">
+    <h6>3. Source Function + Default Stringa</h6>
+    <it-autocomplete id="matrix-3" label="Città" default-value="rm">
+      <span slot="label">Città</span>
+    </it-autocomplete>
+  </div>
+
+  <div class="col-12 col-md-6">
+    <h6>4. Source Function + Default Oggetto</h6>
+    <it-autocomplete id="matrix-4" label="Città">
+      <span slot="label">Città</span>
+    </it-autocomplete>
+  </div>
+
+</div>
+
+<script>
+  // Dati statici
+  const staticSource = [
+    { value: 'rm', label: 'Roma' },
+    { value: 'mi', label: 'Milano' }
+  ];
+
+  // Funzione asincrona simulata
+  const asyncSource = (query, populateResults) => {
+    setTimeout(() => {
+      const filtered = staticSource.filter(i =>
+        i.label.toLowerCase().includes(query.toLowerCase())
+      );
+      populateResults(filtered);
+    }, 500);
+  };
+
+  // --- CONFIGURAZIONE JS ---
+
+
+  // CASO 3: Async + Stringa
+  // Qui il componente ha value="rm", ma non avendo la lista (è una funzione),
+  // non sa che "rm" corrisponde a "Roma". L'input apparirà VUOTO.
+  document.getElementById('matrix-3').source = asyncSource;
+
+  // CASO 4: Async + Oggetto
+  // La pratica corretta per dati asincroni: forniamo value e label esplicitamente.
+  const el4 = document.getElementById('matrix-4');
+  el4.source = asyncSource;
+</script>`,
+      },
+    },
+  },
+  render: () => {
+    // Source Statica (Manca "Torino")
+    const staticSource = [
+      { value: 'rm', label: 'Roma' },
+      { value: 'mi', label: 'Milano' },
+    ];
+    // Source Async (Simulata)
+    const asyncSource = (query: string, populateResults: any) => {
+      setTimeout(
+        () => populateResults(staticSource.filter((i) => i.label.toLowerCase().includes(query.toLowerCase()))),
+        500,
+      );
+    };
+
+    return html`
+      <div class="row g-4" style-"height: 600px;">
+        <div class="col-12 col-md-6">
+          <div class="p-3 border rounded">
+            <h6 class="fw-bold">1. Source Statica + Default value Stringa</h6>
+            <p class="small text-muted mb-2">Il default value "rm" è presente nelle source statiche. Trova e mostra "Roma".</p>
+            <span class="badge bg-success mb-3">BEST PRACTICE</span>
+            ${renderComponent({
+              label: 'Città',
+              name: 'matrix-1',
+              defaultValue: 'rm',
+              source: staticSource,
+            })}
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="p-3 border rounded">
+            <h6 class="fw-bold">2. Source Statica + Default value Oggetto</h6>
+            <p class="small text-muted mb-2">Il default value "to/Torino" non è in source, il componente suppone che source sia una funzione asincrona.</p>
+                       <span class="badge bg-danger mb-3">ERRORE IMPLEMENTATORE</span>
+
+            ${renderComponent({
+              label: 'Città',
+              name: 'matrix-2',
+              defaultValue: { value: 'to', label: 'Torino' },
+              source: staticSource,
+            })}
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="p-3 border rounded bg-light border-warning">
+            <h6 class="fw-bold">3. Source Function + Default value Stringa</h6>
+            <p class="small text-muted mb-2">Essendo la source una funzione asincrona, non è possibile risolvere la label associata al valore "rm".</p>
+            <span class="badge bg-danger mb-3">ERRORE IMPLEMENTATORE</span>
+            <it-autocomplete label="Città" name="matrix-3" default-value="rm" .source="${asyncSource}">
+              <span slot="label">Città</span>
+            </it-autocomplete>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="p-3 border rounded border-success">
+            <h6 class="fw-bold">4. Source Function + Default value Oggetto</h6>
+            <p class="small text-muted mb-2">Passiamo un default value con Label e Value esplicitamente. A caricamento avvenuto questo oggetto è incluso nella source.</p>
+            <span class="badge bg-success mb-3">BEST PRACTICE</span>
+            <it-autocomplete
+              label="Città"
+              name="matrix-4"
+              default-value="${JSON.stringify({ value: 'rm', label: 'Roma' })}"
+              .source="${asyncSource}"
+            >
+              <span slot="label">Città</span>
+            </it-autocomplete>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+};
 export const LabelHidden: Story = {
   name: 'Etichetta nascosta',
   args: {
@@ -217,6 +404,7 @@ export const LabelHidden: Story = {
     labelHidden: true,
     placeholder: 'Cerca regione...',
   },
+  render: (args) => renderComponent(args),
 };
 
 // Ricerca asincrona con funzione
@@ -646,7 +834,7 @@ export const IntegrazioneForm: Story = {
     </div>
   </div>
   <it-button type="submit" variant="primary">Invia</it-button>
-  <button type="reset" class="btn btn-secondary ms-2">Reset</button>
+  <it-button type="reset" variant="secondary" class="ms-2">Reset</it-button>
   <div id="form-output" class="mt-3"></div>
 </form>
 
@@ -761,7 +949,7 @@ export const IntegrazioneForm: Story = {
           </div>
         </div>
         <it-button type="submit" variant="primary">Invia</it-button>
-        <button type="reset" class="btn btn-secondary ms-2">Reset</button>
+        <it-button type="reset" variant="secondary" class="ms-2">Reset</it-button>
         <div id="form-output" class="mt-3"></div>
       </form>
     `;
@@ -832,7 +1020,7 @@ export const RegioniEComuni: Story = {
       // Il valore ora è il kebab-case value, dobbiamo trovare la label corrispondente
       const selectedRegione = regioniUniche.find(r => r.value === e.detail.value);
       const regione = selectedRegione ? selectedRegione.label : e.detail.value;
-      
+
       comuneAutocomplete.disabled = false;
 
       // Filtra i comuni per la regione selezionata
@@ -869,9 +1057,11 @@ export const RegioniEComuni: Story = {
 
         // Estrai le regioni uniche e convertile in oggetti {value, label}
         const regioniSet = new Set(data.map((item: { regione: string }) => item.regione));
+        // @ts-ignore
         regioniUniche = Array.from(regioniSet)
           .sort()
           .map((regione) => ({
+            // @ts-ignore
             value: regione.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
             label: regione,
           }));
@@ -892,7 +1082,8 @@ export const RegioniEComuni: Story = {
       const comuneAutocomplete = document.getElementById('autocomplete-comune-nested') as any;
 
       if (regioneAutocomplete && comuneAutocomplete) {
-        regioneAutocomplete.addEventListener('it-autocomplete-select', (e: CustomEvent) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        regioneAutocomplete.addEventListener('it-autocomplete-select', (_e: CustomEvent) => {
           comuneAutocomplete.value = '';
         });
       }
@@ -927,7 +1118,7 @@ export const RegioniEComuni: Story = {
             id="autocomplete-regione-nested"
             name="regione"
             support-text="Seleziona una regione italiana"
-            .source="${regioniUniche}"
+            source="${regioniUniche}"
             @it-autocomplete-ready="${handleRegioneReady}"
             @it-change="${handleRegioneChange}"
           >
@@ -1102,5 +1293,51 @@ export const GestioneEventi: Story = {
         </div>
       </div>
     `;
+  },
+};
+
+export const MetodiEPropPubblici: Story = {
+  name: 'Proprietà, Metodi, ed Eventi accessibili via js',
+  tags: ['!dev'],
+  render: () => html`<div class="hide-preview"></div>`,
+  parameters: {
+    viewMode: 'docs', // assicura che si apra la tab Docs anziché Canvas
+    docs: {
+      description: {
+        story: `
+Il componente espone delle proprietà, metodi, ed eventi, utili per eventuali interazioni via js.
+
+
+
+<br/>
+<h4>Proprietà accessibili dall'esterno</h4>
+| Nome | Descrizione |
+|------|-------------|
+|\`validity\`| Ritorna l'oggetto di validazione effettuata dal browser.|
+|\`validationMessage\`| Ritorna il messaggio di errore in caso di validazione fallita.|
+
+<h4>Metodi</h4>
+| Nome | Descrizione | Argomenti |
+|------|-------------|-----------|
+|\`getForm()\`| Ritorna l'elemento del DOM corrispondente alla form di riferimento dell'input. | - |
+|\`checkValidity()\`| Triggera la validazione nativa del browser sul campo, e restituisce true o false a seconda che l'input sia valido o meno. | - |
+|\`reportValidity()\`| Controlla se l'elemento è valido secondo le regole di validazione del browser. Se non è valido, mostra un messaggio di errore (tooltip nativo del browser) e restituisce \`false\`. Se è valido, restituisce \`true\`. | - |
+|\`setCustomValidity('')\`| Permette di impostare un messaggio di errore personalizzato passato come parametro. Se il messaggio non è vuoto, rende invalido l'elemento. Se invece il messaggio è vuoto (''), rende valido l'elemento. | message: String |
+
+
+<h4>Eventi</h4>
+| Nome | Descrizione |
+|------|-------------|
+|\`it-autocomplete-ready\`|  Emesso quando il componente è stato inizializzato |
+|\`it-autocomplete-search\`| Emesso quando l'utente digita nel campo di ricerca |
+|\`it-blur\`| Quando l'input perde il focus (blur) |
+|\`it-blur\`| Quando l'input perde il focus (blur) |
+|\`it-focus\`| Quando l'input riceve il focus (focus) |
+|\`it-change\`| Quando il valore dell’input viene modificato e il browser emette \`change\` |
+|\`invalid\`| Emesso dal browser quando la validazione fallisce.|
+
+`,
+      },
+    },
   },
 };

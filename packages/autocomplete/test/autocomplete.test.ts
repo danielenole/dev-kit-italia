@@ -616,11 +616,47 @@ describe('ItAutocomplete', () => {
       expect(el.checkValidity()).to.be.true;
     });
 
-    it('rejects defaultValue if not in options', async () => {
+    it('accepts defaultValue as AutocompleteOption object', async () => {
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete required .defaultValue="${{ value: 'lombardia', label: 'Lombardia' }}">
+          <span slot="label">Regione</span>
+        </it-autocomplete>
+      `);
+
+      await el.updateComplete;
+
+      // Anche senza source, value e label sono impostati
+      expect(el.value).to.equal('lombardia');
+      const input = el.shadowRoot!.querySelector('input') as HTMLInputElement;
+      expect(input.value).to.equal('Lombardia');
+    });
+
+    it('validates defaultValue object against source when available', async () => {
       const el = await fixture<ItAutocomplete>(html`
         <it-autocomplete
           required
-          default-value="Invalid Option"
+          .defaultValue="${{ value: 'lombardia', label: 'Lombardia' }}"
+          .source="${[
+            { value: 'emilia-romagna', label: 'Emilia Romagna' },
+            { value: 'lombardia', label: 'Lombardia' },
+            { value: 'lazio', label: 'Lazio' },
+          ]}"
+        >
+          <span slot="label">Regione</span>
+        </it-autocomplete>
+      `);
+
+      await el.updateComplete;
+
+      expect(el.value).to.equal('lombardia');
+      expect(el.checkValidity()).to.be.true;
+    });
+
+    it('resets defaultValue object if source is static and not in source', async () => {
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete
+          required
+          .defaultValue="invalid"
           .source="${[
             { value: 'emilia-romagna', label: 'Emilia Romagna' },
             { value: 'lombardia', label: 'Lombardia' },
@@ -634,6 +670,26 @@ describe('ItAutocomplete', () => {
       await el.updateComplete;
 
       expect(el.value).to.equal('');
+      expect(el.checkValidity()).to.be.false;
+    });
+
+    // QUESTO È IL TEST CHE MANCAVA (Caso Source Dinamica -> Accetta tutto)
+    it('keeps defaultValue object blindly if source is a function (Async mode)', async () => {
+      // Funzione dummy per simulare source dinamica
+      const asyncSource = (query: string, cb: any) => cb([]);
+
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete .defaultValue="${{ value: 'umbria', label: 'Umbria' }}" .source="${asyncSource}">
+          <span slot="label">Regione</span>
+        </it-autocomplete>
+      `);
+
+      await el.updateComplete;
+
+      // Qui ci aspettiamo che il valore RESTI, perché con source dinamica ci fidiamo
+      expect(el.value).to.equal('umbria');
+      const input = el.shadowRoot!.querySelector('input') as HTMLInputElement;
+      expect(input.value).to.equal('Umbria');
     });
 
     it('allows any value when not required', async () => {
@@ -658,7 +714,89 @@ describe('ItAutocomplete', () => {
       // Dovrebbe essere valido perché non è required
       expect(el.invalid).to.be.false;
     });
+    it('accepts defaultValue as valid selection (String match in source)', async () => {
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete
+          required
+          default-value="lombardia"
+          .source="${[
+            { value: 'emilia-romagna', label: 'Emilia Romagna' },
+            { value: 'lombardia', label: 'Lombardia' },
+          ]}"
+        >
+          <span slot="label">Regione</span>
+        </it-autocomplete>
+      `);
 
+      await el.updateComplete;
+      expect(el.value).to.equal('lombardia');
+
+      const input = el.shadowRoot!.querySelector('input') as HTMLInputElement;
+      expect(input.value).to.equal('Lombardia'); // Lookup riuscito
+    });
+
+    it('accepts defaultValue as Object (Trust Mode)', async () => {
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete required .defaultValue="${{ value: 'lombardia', label: 'Lombardia' }}">
+          <span slot="label">Regione</span>
+        </it-autocomplete>
+      `);
+
+      await el.updateComplete;
+      expect(el.value).to.equal('lombardia');
+
+      const input = el.shadowRoot!.querySelector('input') as HTMLInputElement;
+      expect(input.value).to.equal('Lombardia'); // Popolato direttamente
+    });
+
+    it('RESETS defaultValue STRING if not in STATIC source', async () => {
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete required default-value="invalid" .source="${[{ value: 'lombardia', label: 'Lombardia' }]}">
+          <span slot="label">Regione</span>
+        </it-autocomplete>
+      `);
+
+      await el.updateComplete;
+      expect(el.value).to.equal(''); // Reset avvenuto
+    });
+
+    it('KEEPS defaultValue OBJECT even if not in STATIC source (Trust Mode)', async () => {
+      // Questo comportamento permette di mantenere valori "storici" o "legacy"
+      // che non sono più selezionabili nella lista corrente
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete
+          .defaultValue="${{ value: 'umbria', label: 'Umbria' }}"
+          .source="${[
+            { value: 'lazio', label: 'Lazio' },
+            // Umbria NON c'è
+          ]}"
+        >
+          <span slot="label">Regione</span>
+        </it-autocomplete>
+      `);
+
+      await el.updateComplete;
+
+      expect(el.value).to.equal('umbria');
+      const input = el.shadowRoot!.querySelector('input') as HTMLInputElement;
+      expect(input.value).to.equal('Umbria');
+    });
+
+    it('KEEPS defaultValue OBJECT with ASYNC source (Trust Mode)', async () => {
+      const asyncSource = (query: string, cb: any) => cb([]);
+
+      const el = await fixture<ItAutocomplete>(html`
+        <it-autocomplete .defaultValue="${{ value: 'umbria', label: 'Umbria' }}" .source="${asyncSource}">
+          <span slot="label">Regione</span>
+        </it-autocomplete>
+      `);
+
+      await el.updateComplete;
+
+      expect(el.value).to.equal('umbria');
+      const input = el.shadowRoot!.querySelector('input') as HTMLInputElement;
+      expect(input.value).to.equal('Umbria');
+    });
     it('shows invalid state after submit when validation fails', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
@@ -837,7 +975,9 @@ describe('ItAutocomplete', () => {
       expect(calledCallback).to.not.be.null;
 
       // Aspetta che la callback venga chiamata
-      await new Promise((resolve) => setTimeout(resolve, 50));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
       await el.updateComplete;
 
       // Verifica che le opzioni siano state filtrate
@@ -875,7 +1015,9 @@ describe('ItAutocomplete', () => {
       await el.updateComplete;
 
       // Aspetta che la Promise si risolva
-      await new Promise((resolve) => setTimeout(resolve, 10));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 10);
+      });
       await el.updateComplete;
 
       expect(el._filteredOptions.length).to.equal(3); // Milano, Modena, Messina

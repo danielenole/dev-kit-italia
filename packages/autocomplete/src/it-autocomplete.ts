@@ -1,6 +1,6 @@
-import { setAttributes, FormControl } from '@italia/globals';
+import { FormControl } from '@italia/globals';
 import { registerTranslation } from '@italia/i18n';
-import { html, nothing } from 'lit';
+import { html, nothing, PropertyValues } from 'lit';
 import { customElement, property, state, query, queryAssignedElements } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -60,14 +60,40 @@ export class ItAutocomplete extends FormControl {
   @property({ type: Number, attribute: 'min-length', reflect: true })
   minLength = 0;
 
-  @property({ type: String, attribute: 'default-value', reflect: true })
-  defaultValue = '';
+  @property({
+    type: Object,
+    attribute: 'default-value',
+    reflect: true,
+    converter: {
+      fromAttribute: (value: string | null) => {
+        if (value === null) return undefined;
+        try {
+          // 1. Prova a trattarlo come JSON (Oggetto o stringa quotata '"roma"')
+          const parsed = JSON.parse(value);
+          // Sicurezza extra: se il parse ha successo ma esce un numero/bool, convertilo.
+          if (typeof parsed === 'object' || typeof parsed === 'string') {
+            return parsed;
+          }
+          return String(parsed);
+        } catch (e) {
+          // 2. Se esplode (es. value="roma" senza virgolette JSON), trattalo come stringa semplice
+          return value;
+        }
+      },
+      toAttribute: (value: AutocompleteOption | string) => {
+        if (typeof value === 'object' && value !== null) {
+          return JSON.stringify(value);
+        }
+        return String(value);
+      },
+    },
+  })
+  defaultValue: AutocompleteOption['value'] | AutocompleteOption = '';
 
   @property({ type: Boolean, attribute: 'label-hidden', reflect: true })
   labelHidden = false;
 
   public get invalid(): boolean {
-    // Mostra lo stato invalido solo dopo una submit, come fanno gli altri form control
     if (!this.formControlController.submittedOnce && !this.customValidation) {
       return false;
     }
@@ -76,33 +102,28 @@ export class ItAutocomplete extends FormControl {
 
   override checkValidity(): boolean {
     if (!this.required) {
-      return true; // Non required: sempre valido
+      return true;
     }
-
-    // Required: valido solo se value esiste ed è nelle opzioni
     if (!this.value) return false;
-    return this._options.some((o) => o.value === this.value);
+
+    // Se la source è statica, validiamo contro la lista
+    if (Array.isArray(this.source) && this.source.length > 0) {
+      return this._options.some((o) => o.value === this.value);
+    }
+    // Se la source è async, ci fidiamo che se c'è un value, è valido
+    return true;
   }
 
-  /**
-   * Override: Report validity for autocomplete
-   */
   override reportValidity(): boolean {
-    // Imposta i messaggi personalizzati PRIMA di controllare la validità
-    // altrimenti il browser mostra il messaggio nativo per un attimo
     const isValid = this.checkValidity();
     this.handleValidationMessages();
     return isValid;
   }
 
-  /** Gets the validity state object */
   override get validity(): ValidityState {
     return { valid: this.checkValidity() } as ValidityState;
   }
 
-  /**
-   * Handle validation messages based on validity state
-   */
   protected override handleValidationMessages() {
     if (!this.customValidation) {
       if (this.required && !this.value) {
@@ -116,57 +137,67 @@ export class ItAutocomplete extends FormControl {
   connectedCallback() {
     super.connectedCallback?.();
     this._handleReady();
+
+    // Inizializzazione Default Value
     if (this.defaultValue) {
-      this._inputValue = this.defaultValue;
-      // Imposta value solo se è nelle opzioni (sarà validato dopo in firstUpdated)
-      this.value = this.defaultValue;
+      if (typeof this.defaultValue === 'object' && this.defaultValue !== null) {
+        // CASO OGGETTO: Fiducia cieca. Impostiamo Value e Label subito.
+        this.value = this.defaultValue.value;
+        this._inputValue = this.defaultValue.label;
+      } else {
+        // CASO STRINGA: Impostiamo il Value. La Label verrà risolta in willUpdate (se possibile).
+        this.value = this.defaultValue;
+      }
     }
   }
 
-  firstUpdated() {
-    if (Array.isArray(this.source)) {
-      this._options = this.source;
+  /**
+   * Logica di sincronizzazione dati: KISS Principle
+   * 1. Se stringa -> Cerca nella source statica. Se non trova -> Reset.
+   * 2. Se oggetto -> Fidati (già gestito in connectedCallback, _inputValue è pieno).
+   */
+  protected override willUpdate(changedProps: PropertyValues<this>): void {
+    super.willUpdate(changedProps);
 
-      if (this.defaultValue) {
-        const match = this._options.find((o) => o.value === this.defaultValue);
+    // 1. Sincronizza options se la source è statica
+    if (changedProps.has('source') && Array.isArray(this.source)) {
+      this._options = this.source;
+    }
+
+    // 2. Riconciliazione Label (Solo se manca)
+    // Se abbiamo un value ma _inputValue è vuoto, significa che siamo nel caso "Stringa"
+    if (this.value && !this._inputValue) {
+      // Possiamo risolvere la label SOLO se abbiamo una source statica caricata
+      if (Array.isArray(this.source) && this.source.length > 0) {
+        const match = this._options.find((o) => o.value === this.value);
+
         if (match) {
-          this.value = match.value;
+          // Trovato! Impostiamo la label corretta
           this._inputValue = match.label;
         } else {
+          // Non trovato in una lista statica -> Il valore è invalido -> Reset
           this.value = '';
         }
-      } else if (this.value) {
-        // Se value è già impostato (es: da attributo HTML), trova il label corrispondente
-        const match = this._options.find((o) => o.value === this.value);
-        if (match) {
-          this._inputValue = match.label;
-        }
       }
+      // Se la source è Async (funzione), non possiamo fare nulla.
+      // L'input resterà vuoto visivamente, ma manteniamo il value interno (fiducia).
     }
   }
 
   updated(changedProps: Map<PropertyKey, unknown>) {
-    // Aggiorna le opzioni quando source cambia
-    if (changedProps.has('source')) {
-      if (Array.isArray(this.source)) {
-        this._options = this.source;
-      }
-    }
-
-    // Aggiorna validazione quando value cambia (come FormControl base)
+    // Validazione standard FormControl
     if (changedProps.has('value')) {
-      //   // Aggiorna la validità nel controller se il form è stato sottomesso almeno una volta
       if (!this.customValidation && this.formControlController.submittedOnce) {
         this.handleValidationMessages();
       }
     }
 
+    // Annunci Screen Reader
     if (changedProps.has('_filteredOptions') || changedProps.has('_isOpen')) {
       const count = this._filteredOptions.length;
       if (!this._isOpen) return;
 
       let content = '';
-
       if (count === 0) {
         content = this._inputValue.length >= this.minLength ? this.$t('autocomplete_statusNoResults') : '';
       } else if (count === 1) {
@@ -176,7 +207,6 @@ export class ItAutocomplete extends FormControl {
       }
 
       if (content) {
-        // bump pattern: metti in una region vuota e svuota l’altra
         this._currentStatusContent = content;
       }
     }
@@ -185,8 +215,7 @@ export class ItAutocomplete extends FormControl {
   protected _handleInput(e: Event) {
     const input = e.target as HTMLInputElement;
     this._inputValue = input.value;
-    // NON settiamo this.value qui - value è solo per selezioni valide dalla lista
-    // Se l'utente digita qualcosa che non è un'opzione, value rimane vuoto/precedente
+
     this._showAssistiveHint = false;
     this._listboxHasVisualFocus = false;
 
@@ -213,7 +242,6 @@ export class ItAutocomplete extends FormControl {
       });
     }
 
-    // Debounce annunci mentre digita
     if (this._typingDebounceTimer) clearTimeout(this._typingDebounceTimer);
     this._typingDebounceTimer = setTimeout(() => {
       this._announceStatus();
@@ -284,23 +312,17 @@ export class ItAutocomplete extends FormControl {
   }
 
   private _selectOption(optionValue: string) {
-    // Find the full option object to get the label
     const selectedOption = this._filteredOptions.find((opt) => opt.value === optionValue);
     const label = selectedOption ? selectedOption.label : optionValue;
 
-    this._inputValue = label; // Display the label in the input
-    this.value = optionValue; // Store the value for form submission
+    this._inputValue = label;
+    this.value = optionValue;
     this._isOpen = false;
     this._activeIndex = -1;
     this._listboxHasVisualFocus = false;
     this.inputElement.focus();
 
-    // Emetti eventi nativi sull'input per compatibilità form
-    // this.inputElement.dispatchEvent(new Event('change', { bubbles: true, composed: true, detail: { value: option } }));
-
     this.dispatchEvent(new CustomEvent('it-change', { bubbles: true, composed: true, detail: { value: optionValue } }));
-
-    // Aggiorna status solo per cambio finale
     this._announceStatus(true);
   }
 
@@ -326,11 +348,7 @@ export class ItAutocomplete extends FormControl {
   }
 
   protected _handleBlur(e: Event) {
-    // Chiama il blur del parent per gestire _touched e validazione
     super._handleBlur(e);
-
-    // Usa setTimeout per permettere al click sull'opzione di essere processato
-    // prima di chiudere il menu
     setTimeout(() => {
       this._isOpen = false;
       this._activeIndex = -1;
@@ -342,7 +360,7 @@ export class ItAutocomplete extends FormControl {
   }
 
   private _announceStatus(force = false) {
-    if (!this._isOpen && !force) return; // solo se aperto o forzato
+    if (!this._isOpen && !force) return;
     const count = this._filteredOptions.length;
     const queryLength = this._inputValue.length;
 
@@ -358,7 +376,6 @@ export class ItAutocomplete extends FormControl {
           ? this.$t('autocomplete_statusOneResult')
           : this.$t('autocomplete_statusManyResults').replace('{count}', count.toString());
     }
-    // annuncia solo se cambia contenuto
     if (content !== this._currentStatusContent) {
       this._currentStatusContent = content;
     }

@@ -1,0 +1,75 @@
+<div class="container my-4">
+  <h1>it-autocomplete</h1>
+
+  <section class="example-section">
+    <h2>Esempio di autocompletamento</h2>
+    <div class="form-group">
+      <it-autocomplete #autoBase name="regione" placeholder="Seleziona una regione...">
+        <span slot="label">Regione</span>
+      </it-autocomplete>
+    </div>
+  </section>
+
+  <section class="example-section">
+    <h2>Valore predefinito</h2>
+    <it-autocomplete #autoDefaultStr name="regione-default">
+      <span slot="label">Regione</span>
+    </it-autocomplete>
+  </section>
+
+  <!-- <section class="example-section">
+    <h2>Valore predefinito (oggetto)</h2>
+    <p>Questo risolve il problema <code>[object Object]</code> passando l'oggetto via JS.</p>
+    <it-autocomplete #autoDefaultObj name="regione-default-obj">
+      <span slot="label">Regione</span>
+    </it-autocomplete>
+  </section> -->
+
+  <section class="example-section">
+    <h2>Ricerca Asincrona</h2>
+    <it-autocomplete #autoAsync name="citta" min-length="1">
+      <span slot="label">Cerca città (Async)</span>
+    </it-autocomplete>
+  </section>
+
+  <section class="example-section">
+    <h2>Integrazione con form</h2>
+    <form (submit)="handleFormSubmit($event)">
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+          <it-autocomplete #autoForm name="regione" required>
+            <span slot="label">Regione</span>
+          </it-autocomplete>
+        </div>
+      </div>
+      <it-button type="submit" variant="primary">Invia</it-button>
+
+      <div *ngIf="formOutput" class="mt-3">
+        <div class="alert alert-success">
+          <strong>Form valido!</strong>
+          <pre>{{ formOutput }}</pre>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="example-section">
+    <h2>Regioni e Comuni</h2>
+    <div class="row">
+      <div class="col-12 col-md-6 mb-3">
+        <it-autocomplete
+          #autoRegioneNested
+          name="regione"
+          (it-change)="handleRegioneChange($event)"
+        >
+          <span slot="label">Regione</span>
+        </it-autocomplete>
+      </div>
+      <div class="col-12 col-md-6">
+        <it-autocomplete #autoComuneNested name="comune" disabled min-length="2">
+          <span slot="label">Comune</span>
+        </it-autocomplete>
+      </div>
+    </div>
+  </section>
+</div>

@@ -3,6 +3,8 @@ it-autocomplete {
   display: var(--it-host-display);
 
   &:not(:defined) {
-    margin-bottom: var(--bs-spacing-m, 24px);
+    [slot='label'] {
+      display: block;
+    }
   }
 }

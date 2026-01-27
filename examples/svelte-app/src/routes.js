@@ -1,5 +1,7 @@
 import Accordion from './pages/Accordion.svelte';
 import Affix from './pages/Affix.svelte';
+import Autocomplete from './pages/Autocomplete.svelte';
+import Avatar from './pages/Avatar.svelte';
 import Badge from './pages/Badge.svelte';
 import Button from './pages/Button.svelte';
 import Checkbox from './pages/Checkbox.svelte';
@@ -14,11 +16,12 @@ import Section from './pages/Section.svelte';
 import Skiplinks from './pages/Skiplinks.svelte';
 import Sticky from './pages/Sticky.svelte';
 import Video from './pages/Video.svelte';
-import Avatar from './pages/Avatar.svelte';
 
 export const AppRoutes = [
   { path: '/accordion', element: Accordion, title: 'Accordion' },
   { path: '/affix', element: Affix, title: 'Affix' },
+  { path: '/autocomplete', element: Autocomplete, title: 'Autocomplete' },
+  { path: '/avatar', element: Avatar, title: 'Avatar' },
   { path: '/badge', element: Badge, title: 'Badge' },
   { path: '/button', element: Button, title: 'Button' },
   { path: '/checkbox', element: Checkbox, title: 'Checkbox' },
@@ -33,7 +36,6 @@ export const AppRoutes = [
   { path: '/skiplinks', element: Skiplinks, title: 'Skiplinks' },
   { path: '/sticky', element: Sticky, title: 'Sticky' },
   { path: '/video', element: Video, title: 'Video' },
-  { path: '/avatar', element: Avatar, title: 'Avatar' },
 ];
 
 export const routes = AppRoutes.reduce((acc, route) => {
