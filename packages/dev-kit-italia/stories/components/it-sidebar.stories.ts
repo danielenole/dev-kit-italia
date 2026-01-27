@@ -127,25 +127,25 @@ export const SidebarConIcone: Story = {
         <nav aria-label="Navigazione laterale principale" class="link-list-wrapper">
           <ul class="link-list">
             <li>
-              <a class="list-item medium active left-icon" aria-current="page" href="#">
+              <a class="list-item medium active icon-left" aria-current="page" href="#">
                 <it-icon name="it-calendar" color="primary" size="sm" class="left"></it-icon>
                 <span>Link lista 1 (attivo)</span>
               </a>
             </li>
             <li>
-              <a class="list-item medium disabled left-icon" href="#" aria-disabled="true">
+              <a class="list-item medium disabled icon-left" href="#" aria-disabled="true">
                 <it-icon name="it-comment" color="primary" size="sm" class="left"></it-icon>
                 <span>Link lista 2 (disabilitato)</span>
               </a>
             </li>
             <li>
-              <a class="list-item medium left-icon" href="#">
+              <a class="list-item medium icon-left" href="#">
                 <it-icon name="it-camera" color="primary" size="sm" class="left"></it-icon>
                 <span>Link lista 3</span>
               </a>
             </li>
             <li>
-              <a class="list-item medium left-icon" href="#">
+              <a class="list-item medium icon-left" href="#">
                 <it-icon name="it-file" color="primary" size="sm" class="left"></it-icon>
                 <span>Link lista 4</span>
               </a>
@@ -157,17 +157,17 @@ export const SidebarConIcone: Story = {
         <nav aria-label="Navigazione laterale secondaria" class="link-list-wrapper">
           <ul class="link-list">
             <li>
-              <a class="list-item left-icon" href="#">
+              <a class="list-item icon-left" href="#">
                 <span>Link secondario 1</span>
               </a>
             </li>
             <li>
-              <a class="list-item active left-icon" aria-current="page" href="#">
+              <a class="list-item active icon-left" aria-current="page" href="#">
                 <span>Link secondario 2 (attivo)</span>
               </a>
             </li>
             <li>
-              <a class="list-item disabled left-icon" href="#" aria-disabled="true">
+              <a class="list-item disabled icon-left" href="#" aria-disabled="true">
                 <span>Link secondario 3 (disabilitato)</span>
               </a>
             </li>
