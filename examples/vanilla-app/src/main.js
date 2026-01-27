@@ -114,7 +114,6 @@ document.querySelector('#app-header').innerHTML = `
         Video
       </a>
     </nav>
-
   </div>
 `;
 

@@ -21,7 +21,7 @@ import Radio from './pages/Radio';
 import Rating from './pages/Rating';
 import Section from './pages/Section';
 import Select from './pages/Select';
-import Sidebar from './components/Sidebar';
+import Sidebar from './pages/Sidebar';
 import Skiplinks from './pages/Skiplinks';
 import Sticky from './pages/Sticky';
 import Video from './pages/Video';

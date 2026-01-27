@@ -2,7 +2,7 @@ import React from 'react';
 
 const Video = () => {
   return (
-    <div style={{ width: '600px', marginLeft: 'auto', marginRight: 'auto' }}>
+    <div>
       <h1>it-video</h1>
       <div className="mb-5">
         <it-video src="https://vjs.zencdn.net/v/oceans.webm"></it-video>

@@ -14,7 +14,7 @@
 </script>
 
 <div class="container" style="padding: 2rem">
-  <h1>Esempi Radio Button - Svelte</h1>
+  <h1>Radio Button</h1>
 
   <!-- Esempio base -->
   <section style="margin-bottom: 3rem">
@@ -39,11 +39,7 @@
     <h2>Testo di Supporto</h2>
     <it-radio-group name="gruppo-support">
       <span slot="label">Esempio con testo di supporto</span>
-      <it-radio
-        id="radio-support1"
-        value="opzione1"
-        support-text="Questo è un testo di supporto per il radio button"
-      >
+      <it-radio id="radio-support1" value="opzione1" support-text="Questo è un testo di supporto per il radio button">
         <span slot="label">Radio con testo di supporto</span>
       </it-radio>
       <it-radio id="radio-support2" value="opzione2">
@@ -55,7 +51,12 @@
   <!-- Radio inline -->
   <section style="margin-bottom: 3rem">
     <h2>Radio Inline</h2>
-    <it-radio-group name="gruppo-inline" inline value={selectedInline} on:change={(e) => (selectedInline = e.target.value)}>
+    <it-radio-group
+      name="gruppo-inline"
+      inline
+      value={selectedInline}
+      on:change={(e) => (selectedInline = e.target.value)}
+    >
       <span slot="label">Esempio inline</span>
       <it-radio id="radio-inline1" value="opzione1">
         <span slot="label">Radio inline 1</span>
@@ -109,7 +110,12 @@
     <h2>Raggruppati Visivamente</h2>
     <div class="row">
       <div class="col-12 col-md-6">
-        <it-radio-group name="gruppo-visual" grouped value={selectedGrouped} on:change={(e) => (selectedGrouped = e.target.value)}>
+        <it-radio-group
+          name="gruppo-visual"
+          grouped
+          value={selectedGrouped}
+          on:change={(e) => (selectedGrouped = e.target.value)}
+        >
           <span slot="label">Esempio grouped senza testo di supporto</span>
           <it-radio id="radio-group1" value="opzione1">
             <span slot="label">Opzione 1</span>

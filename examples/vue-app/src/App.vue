@@ -4,20 +4,23 @@ import Footer from './components/Footer.vue';
 </script>
 
 <template>
-  <div class="app-header">
-    <div>
-      <a href="https://vite.dev" target="_blank">
-        <img src="/vite.svg" class="logo" alt="Vite logo" />
-      </a>
-      <a href="https://vuejs.org/" target="_blank">
-        <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-      </a>
+  <div class="container">
+    <div class="app-header">
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src="/vite.svg" class="logo" alt="Vite logo" />
+        </a>
+        <a href="https://vuejs.org/" target="_blank">
+          <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
+        </a>
+      </div>
+
+      <nav class="app-nav">
+        <router-link v-for="route in AppRoutes" :key="route.path" :to="route.path">
+          {{ route.name }}
+        </router-link>
+      </nav>
     </div>
-    <nav class="app-nav">
-      <router-link v-for="route in AppRoutes" :key="route.path" :to="route.path">
-        {{ route.name }}
-      </router-link>
-    </nav>
   </div>
   <router-view></router-view>
   <Footer />

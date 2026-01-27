@@ -83,14 +83,14 @@
         </div>
         <div class="col-12 col-lg-6 col-xl-4">
           <p>
-            Eget egestas purus viverra accumsan. Diam maecenas ultricies mi eget mauris pharetra et. Etiam dignissim diam
-            quis enim. Eu nisl nunc mi ipsum faucibus.
+            Eget egestas purus viverra accumsan. Diam maecenas ultricies mi eget mauris pharetra et. Etiam dignissim
+            diam quis enim. Eu nisl nunc mi ipsum faucibus.
           </p>
         </div>
         <div class="col-12 col-lg-6 col-xl-4">
           <p>
-            Euismod lacinia at quis risus sed vulputate. Scelerisque purus semper eget duis at tellus at urna condimentum.
-            Mattis enim ut tellus elementum sagittis.
+            Euismod lacinia at quis risus sed vulputate. Scelerisque purus semper eget duis at tellus at urna
+            condimentum. Mattis enim ut tellus elementum sagittis.
           </p>
         </div>
       </div>
