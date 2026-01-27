@@ -21,6 +21,7 @@ import Radio from './pages/Radio';
 import Rating from './pages/Rating';
 import Section from './pages/Section';
 import Select from './pages/Select';
+import Sidebar from './components/Sidebar';
 import Skiplinks from './pages/Skiplinks';
 import Sticky from './pages/Sticky';
 import Video from './pages/Video';
@@ -49,6 +50,7 @@ export const AppRoutes = [
   { path: '/rating', element: <Rating />, title: 'Rating' },
   { path: '/section', element: <Section />, title: 'Section' },
   { path: '/select', element: <Select />, title: 'Select' },
+  { path: '/sidebar', element: <Sidebar />, title: 'Sidebar' },
   { path: '/skiplinks', element: <Skiplinks />, title: 'Skiplinks' },
   { path: '/sticky', element: <Sticky />, title: 'Sticky' },
   { path: '/video', element: <Video />, title: 'Video' },
