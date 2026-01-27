@@ -14,6 +14,7 @@ import '../packages/popover/dist/src';
 import '../packages/radio/dist/src';
 import '../packages/rating/dist/src';
 import '../packages/section/dist/src';
+import '../packages/select/dist/src';
 import '../packages/skiplinks/dist/src';
 import '../packages/sticky/dist/src';
 import '../packages/video/dist/src';

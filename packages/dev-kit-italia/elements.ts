@@ -19,6 +19,8 @@ import '@italia/input/it-input.js';
 import '@italia/modal/it-modal.js';
 import '@italia/skiplinks/it-skiplinks.js';
 import '@italia/popover/it-popover.js';
+import '@italia/section/it-section.js';
+import '@italia/select/it-select.js';
 import '@italia/sticky/it-sticky.js';
 import '@italia/video/it-video.js';
 import '@italia/radio/it-radio.js';

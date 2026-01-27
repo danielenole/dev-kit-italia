@@ -20,6 +20,7 @@ import Popover from './pages/Popover.svelte';
 import Radio from './pages/Radio.svelte';
 import Rating from './pages/Rating.svelte';
 import Section from './pages/Section.svelte';
+import Select from './pages/Select.svelte';
 import Skiplinks from './pages/Skiplinks.svelte';
 import Sticky from './pages/Sticky.svelte';
 import Video from './pages/Video.svelte';
@@ -46,6 +47,7 @@ export const AppRoutes = [
   { path: '/radio', element: Radio, title: 'Radio' },
   { path: '/rating', element: Rating, title: 'Rating' },
   { path: '/section', element: Section, title: 'Section' },
+  { path: '/select', element: Section, title: 'Select' },
   { path: '/skiplinks', element: Skiplinks, title: 'Skiplinks' },
   { path: '/sticky', element: Sticky, title: 'Sticky' },
   { path: '/video', element: Video, title: 'Video' },

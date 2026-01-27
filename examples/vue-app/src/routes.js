@@ -21,6 +21,7 @@ import Popover from './components/Popover.vue';
 import Radio from './components/Radio.vue';
 import Rating from './components/Rating.vue';
 import Section from './components/Section.vue';
+import Select from './components/Select.vue';
 import Sticky from './components/Sticky.vue';
 import Video from './components/Video.vue';
 import Skiplinks from './components/Skiplinks.vue';
@@ -47,6 +48,7 @@ const routes = [
   { path: '/radio', name: 'Radio', component: Radio },
   { path: '/rating', name: 'Rating', component: Rating },
   { path: '/section', name: 'Section', component: Section },
+  { path: '/select', name: 'Select', component: Select },
   { path: '/skiplinks', name: 'Skiplinks', component: Skiplinks },
   { path: '/sticky', name: 'Sticky', component: Sticky },
   { path: '/video', name: 'Video', component: Video },
