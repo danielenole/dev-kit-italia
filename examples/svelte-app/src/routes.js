@@ -16,6 +16,7 @@ import Icon from './pages/Icon.svelte';
 import Input from './pages/Input.svelte';
 import Modal from './pages/Modal.svelte';
 import Overlay from './pages/Overlay.svelte';
+import Popover from './pages/Popover.svelte';
 import Radio from './pages/Radio.svelte';
 import Rating from './pages/Rating.svelte';
 import Section from './pages/Section.svelte';
@@ -41,6 +42,7 @@ export const AppRoutes = [
   { path: '/input', element: Input, title: 'Input' },
   { path: '/modal', element: Modal, title: 'Modal' },
   { path: '/overlay', element: Overlay, title: 'Overlay' },
+  { path: '/popover', element: Popover, title: 'Popover' },
   { path: '/radio', element: Radio, title: 'Radio' },
   { path: '/rating', element: Rating, title: 'Rating' },
   { path: '/section', element: Section, title: 'Section' },

@@ -34,6 +34,7 @@
       <a href="#/input">Input</a>
       <a href="#/modal">Modal</a>
       <a href="#/overlay">Overlay</a>
+      <a href="#/popover">Popover</a>
       <a href="#/radio">Radio</a>
       <a href="#/rating">Rating</a>
       <a href="#/section">Section</a>

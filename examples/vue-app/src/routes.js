@@ -17,6 +17,7 @@ import Icon from './components/Icon.vue';
 import Input from './components/Input.vue';
 import Modal from './components/Modal.vue';
 import Overlay from './components/Overlay.vue';
+import Popover from './components/Popover.vue';
 import Radio from './components/Radio.vue';
 import Rating from './components/Rating.vue';
 import Section from './components/Section.vue';
@@ -42,6 +43,7 @@ const routes = [
   { path: '/input', name: 'Input', component: Input },
   { path: '/modal', name: 'Modal', component: Modal },
   { path: '/overlay', name: 'Overlay', component: Overlay },
+  { path: '/popover', name: 'Popover', component: Popover },
   { path: '/radio', name: 'Radio', component: Radio },
   { path: '/rating', name: 'Rating', component: Rating },
   { path: '/section', name: 'Section', component: Section },

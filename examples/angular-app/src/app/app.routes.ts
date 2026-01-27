@@ -71,6 +71,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/overlay.component').then((c) => c.OverlayComponent),
   },
   {
+    path: 'popover',
+    loadComponent: () => import('./pages/popover.component').then((c) => c.PopoverComponent),
+  },
+  {
     path: 'radio',
     loadComponent: () =>
       import('./pages/radio-examples.component').then((c) => c.RadioExamplesComponent),
