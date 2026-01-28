@@ -3,6 +3,7 @@ import React from 'react';
 export default function BadgeDemo() {
   return (
     <div>
+      <h1>Badge</h1>
       <section>
         <h2>Badge - dimensione</h2>
 

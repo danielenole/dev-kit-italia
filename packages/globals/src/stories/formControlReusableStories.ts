@@ -34,14 +34,14 @@ myInput.setCustomValidity("Messaggio di errore");
 \`\`\`
 
 <br/>
-<h4>Proprietà accessibili dall'esterno</h4>
+<h3>Proprietà accessibili dall'esterno</h3>
 | Nome | Descrizione |
 |------|-------------|
 |\`validity\`| Ritorna l'oggetto di validazione effettuata dal browser.|
 |\`validationMessage\`| Ritorna il messaggio di errore in caso di validazione fallita.|
 ${otherProps}
 
-<h4>Metodi</h4>
+<h3>Metodi</h3>
 | Nome | Descrizione | Argomenti |
 |------|-------------|-----------|
 |\`getForm()\`| Ritorna l'elemento del DOM corrispondente alla form di riferimento dell'input. | - |
@@ -51,7 +51,7 @@ ${otherProps}
 ${otherMethods}
 
 
-<h4>Eventi</h4>
+<h3>Eventi</h3>
 | Nome | Descrizione |
 |------|-------------|
 |\`it-input-ready\`| Quando il componente è montato e l'elemento input interno è pronto. |

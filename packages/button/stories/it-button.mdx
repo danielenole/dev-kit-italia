@@ -13,11 +13,11 @@ Non dovrebbero essere usati per attivare la navigazione verso altre pagine o lin
 
 [Approfondisci come e quando usare il componente Button](https://designers.italia.it/design-system/componenti/buttons/)
 
-## Anteprima del componente
+## Anteprima e attributi del componente
+
+Modifica gli attributi nella tabella per personalizzare in tempo reale l'aspetto e il comportamento del componente. Per vedere come cambia il codice, clicca su **Show code**.
 
 <Canvas of={Stories.EsempioInterattivo} />
-
-<div class="small">Questi sono gli attributi che definiscono l’aspetto, il comportamento e il contenuto del componente. Puoi modificare questi valori per personalizzare il componente. L’anteprima e il codice si aggiornano in tempo reale, così puoi vedere subito il risultato delle tue modifiche.</div>
 
 <Controls of={Stories.EsempioInterattivo} />
 
@@ -36,10 +36,6 @@ Qualora non fosse possibile, è necessario applicare in modo appropriato l’att
 
 Tutti gli attributi `it-aria-*` passati a `<it-button>` vengono applicati al button generato come attributi `aria-*`.
 Anche l'attributo `it-role` viene passato al button come attributo `role`.
-
-## Personalizzazone degli stili
-
-Per la personalizzazione degli stili puoi usare il selettore `::part` passando il valore `button`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
 
 
 ## Varianti di colore
@@ -99,3 +95,8 @@ In questo caso, la dimensione dell'icona deve sempre essere  `xs`, quindi `<it-i
 
 
 <Canvas of={Stories.ConIconaCerchiata} />
+
+
+## Personalizzazione degli stili
+
+Per la personalizzazione degli stili puoi usare il selettore `::part` passando il valore `button`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
