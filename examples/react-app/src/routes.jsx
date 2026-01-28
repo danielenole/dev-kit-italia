@@ -1,3 +1,4 @@
+import Home from './pages/Home';
 import Accordion from './pages/Accordion';
 import Avatar from './pages/Avatar';
 import Breadcrumbs from './pages/Breadcrumbs';
@@ -27,6 +28,7 @@ import Sticky from './pages/Sticky';
 import Video from './pages/Video';
 
 export const AppRoutes = [
+  { path: '/', element: <Home />, title: 'Homepage' },
   { path: '/accordion', element: <Accordion />, title: 'Accordion' },
   { path: '/affix', element: <Affix />, title: 'Affix' },
   { path: '/avatar', element: <Avatar />, title: 'Avatar' },

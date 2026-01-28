@@ -1,3 +1,4 @@
+import Home from './pages/Home.svelte';
 import Accordion from './pages/Accordion.svelte';
 import Affix from './pages/Affix.svelte';
 import Avatar from './pages/Avatar.svelte';
@@ -27,6 +28,7 @@ import Sticky from './pages/Sticky.svelte';
 import Video from './pages/Video.svelte';
 
 export const AppRoutes = [
+  { path: '/', element: Home, title: 'Homepage' },
   { path: '/accordion', element: Accordion, title: 'Accordion' },
   { path: '/affix', element: Affix, title: 'Affix' },
   { path: '/avatar', element: Avatar, title: 'Avatar' },

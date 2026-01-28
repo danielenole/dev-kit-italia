@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+import Home from './components/Home.vue';
 import Accordion from './components/Accordion.vue';
 import Avatar from './components/Avatar.vue';
 import Breadcrumbs from './components/Breadcrumbs.vue';
@@ -29,6 +30,7 @@ import Video from './components/Video.vue';
 import Skiplinks from './components/Skiplinks.vue';
 
 const routes = [
+  { path: '/', name: 'Homepage', component: Home },
   { path: '/accordion', name: 'Accordion', component: Accordion },
   { path: '/affix', name: 'Affix', component: Affix },
   { path: '/avatar', name: 'Avatar', component: Avatar },
