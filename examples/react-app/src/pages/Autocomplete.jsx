@@ -373,9 +373,6 @@ export default function Autocomplete() {
           <it-button type="submit" variant="primary">
             Invia
           </it-button>
-          <it-button type="reset" variant="secondary" className="ms-2">
-            Reset
-          </it-button>
           {formOutput && (
             <div className="mt-3">
               <div className="alert alert-success" role="alert">

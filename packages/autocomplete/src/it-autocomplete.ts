@@ -52,7 +52,7 @@ export class ItAutocomplete extends FormControl {
   @property({ type: String, reflect: true })
   placeholder = '';
 
-  @property({ type: Boolean, reflect: true }) _showAssistiveHint = false;
+  @property({ type: Boolean, reflect: true }) _showAssistiveHint = true;
 
   @property({ type: String, attribute: 'support-text', reflect: true })
   supportText = '';
@@ -134,7 +134,7 @@ export class ItAutocomplete extends FormControl {
     }
   }
 
-  connectedCallback() {
+  override connectedCallback() {
     super.connectedCallback?.();
     this._handleReady();
 
@@ -184,7 +184,7 @@ export class ItAutocomplete extends FormControl {
     }
   }
 
-  updated(changedProps: Map<PropertyKey, unknown>) {
+  override updated(changedProps: Map<PropertyKey, unknown>) {
     // Validazione standard FormControl
     if (changedProps.has('value')) {
       if (!this.customValidation && this.formControlController.submittedOnce) {
@@ -192,24 +192,24 @@ export class ItAutocomplete extends FormControl {
       }
     }
 
-    // Annunci Screen Reader
-    if (changedProps.has('_filteredOptions') || changedProps.has('_isOpen')) {
-      const count = this._filteredOptions.length;
-      if (!this._isOpen) return;
+    // // Annunci Screen Reader
+    // if (changedProps.has('_filteredOptions') || changedProps.has('_isOpen')) {
+    //   const count = this._filteredOptions.length;
+    //   if (!this._isOpen) return;
 
-      let content = '';
-      if (count === 0) {
-        content = this._inputValue.length >= this.minLength ? this.$t('autocomplete_statusNoResults') : '';
-      } else if (count === 1) {
-        content = this.$t('autocomplete_statusOneResult');
-      } else if (count > 1) {
-        content = this.$t('autocomplete_statusManyResults').replace('{count}', count.toString());
-      }
+    //   let content = '';
+    //   if (count === 0) {
+    //     content = this._inputValue.length >= this.minLength ? this.$t('autocomplete_statusNoResults') : '';
+    //   } else if (count === 1) {
+    //     content = this.$t('autocomplete_statusOneResult');
+    //   } else if (count > 1) {
+    //     content = this.$t('autocomplete_statusManyResults').replace('{count}', count.toString());
+    //   }
 
-      if (content) {
-        this._currentStatusContent = content;
-      }
-    }
+    //   if (content) {
+    //     this._currentStatusContent = content;
+    //   }
+    // }
   }
 
   protected _handleInput(e: Event) {
@@ -245,7 +245,7 @@ export class ItAutocomplete extends FormControl {
     if (this._typingDebounceTimer) clearTimeout(this._typingDebounceTimer);
     this._typingDebounceTimer = setTimeout(() => {
       this._announceStatus();
-    }, 400);
+    }, 500);
   }
 
   private _filterOptions(_query: string) {
@@ -323,7 +323,6 @@ export class ItAutocomplete extends FormControl {
     this.inputElement.focus();
 
     this.dispatchEvent(new CustomEvent('it-change', { bubbles: true, composed: true, detail: { value: optionValue } }));
-    this._announceStatus(true);
   }
 
   private _handleOptionClick(option: string) {

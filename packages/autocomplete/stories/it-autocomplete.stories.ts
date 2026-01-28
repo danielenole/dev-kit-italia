@@ -834,7 +834,6 @@ export const IntegrazioneForm: Story = {
     </div>
   </div>
   <it-button type="submit" variant="primary">Invia</it-button>
-  <it-button type="reset" variant="secondary" class="ms-2">Reset</it-button>
   <div id="form-output" class="mt-3"></div>
 </form>
 
@@ -949,7 +948,6 @@ export const IntegrazioneForm: Story = {
           </div>
         </div>
         <it-button type="submit" variant="primary">Invia</it-button>
-        <it-button type="reset" variant="secondary" class="ms-2">Reset</it-button>
         <div id="form-output" class="mt-3"></div>
       </form>
     `;
