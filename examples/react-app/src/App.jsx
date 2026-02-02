@@ -17,14 +17,16 @@ function App() {
             <img src={reactLogo} className="logo react" alt="React logo" />
           </a>
         </div>
-        <div>Vite + React</div>
-        <nav className="app-nav">
-          {AppRoutes.map((route) => (
-            <Link key={route.path + 'link'} to={route.path}>
-              {route.title}
-            </Link>
-          ))}
-        </nav>
+        <div class="container">
+          <div>Vite + React</div>
+          <nav className="app-nav">
+            {AppRoutes.map((route) => (
+              <Link key={route.path + 'link'} to={route.path}>
+                {route.title}
+              </Link>
+            ))}
+          </nav>
+        </div>
       </div>
       <div className="container mb-4">
         <Routes>
@@ -34,6 +36,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
+      <it-back-to-top it-aria-label="Torna su"></it-back-to-top>
     </BrowserRouter>
   );
 }

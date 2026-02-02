@@ -1,8 +1,8 @@
 import javascriptLogo from './javascript.svg';
 
-// import '@italia/dev-kit-italia/fonts.css';
-// import '@italia/dev-kit-italia/styles.css';
 import '@italia/dev-kit-italia/elements.js';
+// pagina-specific scripts (es. examples per componenti)
+import './js/popover.js';
 
 const it = {
   $code: 'it',
@@ -25,69 +25,100 @@ registerTranslation(en);
 
 document.querySelector('#app-header').innerHTML = `
   <div class="app-header">
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <nav class="app-nav">
-      <a href="/src/accordion">
-        Accordion
+    <div class="container">
+      <a href="https://vite.dev" target="_blank">
+        <img src="/vite.svg" class="logo" alt="Vite logo" />
       </a>
-      <a href="/src/affix">
-        Affix
+      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
+        <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
       </a>
-      <a href="/src/alert">
-        Alert
-      </a>
-      <a href="/src/avatar">
-        Avatar
-      </a>
-      <a href="/src/badge">
-        Badge
-      </a>
-      <a href="/src/button">
-        Button
-      </a>
-      <a href="/src/checkbox">
-        Checkbox
-      </a>
-      <a href="/src/chip">
-        Chip
-      </a>
-      <a href="/src/collapse">
-        Collapse
-      </a>
-      <a href="/src/dropdown">
-        Dropdown
-      </a>
-      <a href="/src/form">
-        Form
-      </a>
-      <a href="/src/icon">
-        Icon
-      </a>
-      <a href="/src/input">
-        Input
-      </a>
-      <a href="/src/radio-examples.html">
-        Radio
-      </a>
-      <a href="/src/section">
-        Section
-      </a>
-      <a href="/src/skiplinks">
-        Skiplinks
-      </a>
-      <a href="/src/sticky">
-        Sticky
-      </a>
-      <a href="/src/video">
-        Video
-      </a>
-    </nav>
-
+      <nav class="app-nav">
+        <a href="/src/accordion">
+          Accordion
+        </a>
+        <a href="/src/affix">
+          Affix
+        </a>
+        <a href="/src/alert">
+          Alert
+        </a>
+        <a href="/src/avatar">
+          Avatar
+        </a>
+        <a href="/src/back-to-top">
+          Back to Top
+        </a>
+        <a href="/src/badge">
+          Badge
+        </a>
+        <a href="/src/breadcrumbs">
+          Breadcrumbs
+        </a>
+        <a href="/src/button">
+          Button
+        </a>
+        <a href="/src/callout">
+          Callout
+        </a>
+        <a href="/src/checkbox">
+          Checkbox
+        </a>
+        <a href="/src/chip">
+          Chip
+        </a>
+        <a href="/src/collapse">
+          Collapse
+        </a>
+        <a href="/src/dropdown">
+          Dropdown
+        </a>
+        <a href="/src/form">
+          Form
+        </a>
+        <a href="/src/icon">
+          Icon
+        </a>
+        <a href="/src/input">
+          Input
+        </a>
+        <a href="/src/modal">
+          Modal
+        </a>
+        <a href="/src/navscroll">
+          Navscroll
+        </a>
+        <a href="/src/overlay">
+          Overlay
+        </a>
+        <a href="/src/popover">
+          Popover
+        </a>
+        <a href="/src/radio-examples.html">
+          Radio
+        </a>
+        <a href="/src/rating.html">
+          Rating
+        </a>
+        <a href="/src/section">
+          Section
+        </a>
+        <a href="/src/select">
+          Select
+        </a>
+        <a href="/src/sidebar">
+          Sidebar
+        </a>
+        <a href="/src/skiplinks">
+          Skiplinks
+        </a>
+        <a href="/src/sticky">
+          Sticky
+        </a>
+        <a href="/src/video">
+          Video
+        </a>
+      </nav>
+    </div>
   </div>
 `;
 

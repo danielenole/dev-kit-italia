@@ -12,7 +12,7 @@ const imageAvatars = [
 </script>
 
 <template>
-  <div>
+   <div class="container my-4">
     <!-- Avatar con immagine -->
     <section>
       <h2>Avatar con immagine</h2>
