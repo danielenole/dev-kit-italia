@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 const meta = {
   title: 'Componenti/Form',
-  tags: ['documentation'],
+  tags: ['documentation', 'a11y-ok'],
 
   parameters: {
     docs: {

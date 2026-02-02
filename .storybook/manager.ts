@@ -79,9 +79,9 @@ addons.setConfig({
       display: BADGE_SIDEBAR_DISPLAY,
     },
     {
-      tags: 'beta',
+      tags: 'alpha',
       badge: {
-        text: 'Beta',
+        text: 'Alpha',
         style: {
           ...BADGE_COMMON_STYLE,
           backgroundColor: IT_DOCS_COLORS.beta,

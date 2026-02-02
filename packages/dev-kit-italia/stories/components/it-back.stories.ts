@@ -6,7 +6,7 @@ import '@italia/button';
 const meta = {
   title: 'Componenti/Torna indietro',
   component: 'it-back',
-  tags: ['beta', 'documentation'],
+  tags: ['alpha', 'documentation', 'a11y-ok'],
   render: () => html`<div class="hide-preview"></div>`,
   parameters: {
     docs: {
