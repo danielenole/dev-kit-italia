@@ -26,7 +26,7 @@ type Story = StoryObj<PopoverProps>;
 const meta = {
   title: 'Componenti/Popover',
   component: 'it-popover',
-  tags: ['beta', 'web-component'],
+  tags: ['alpha', 'web-component'],
   args: {
     placement: 'right',
   },
