@@ -82,7 +82,7 @@ export const EsempioBase: Story = {
           </a>
         </div>
 
-        <div style="height: 400px; background: linear-gradient(to bottom, #f0f6fc, #e6f0fa); padding: 2rem;">
+        <div style="height: 400px; background-color: #f0f6fc; padding: 2rem;">
           <h3>Contenuto intermedio</h3>
           <p>
             Questo è un contenuto che separa il link Forward dalla sezione di destinazione. L'animazione scorrerà
