@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 const meta = {
   title: 'Componenti/Forward',
-  tags: ['documentation'],
+  tags: ['alpha', 'documentation', 'a11y-ok'],
 } satisfies Meta;
 
 export default meta;
