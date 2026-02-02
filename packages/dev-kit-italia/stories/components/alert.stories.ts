@@ -3,7 +3,7 @@ import { html } from 'lit';
 
 const meta = {
   title: 'Componenti/Alert',
-  tags: ['beta', 'a11y-ok', 'documentation'],
+  tags: ['alpha', 'a11y-ok', 'documentation'],
   parameters: {
     layout: 'padded',
     docs: {
