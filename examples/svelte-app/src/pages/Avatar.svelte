@@ -11,6 +11,8 @@
   ];
 </script>
 
+<h1>Avatar</h1>
+
 <!-- Avatar con immagine -->
 <section>
   <h2>Avatar con immagine</h2>

@@ -1,7 +1,7 @@
 <template>
-  <h1>it-video</h1>
+  <div class="container my-4">
+    <h1>it-video</h1>
 
-  <div :style="{ width: '600px' }">
     <div class="mb-5">
       <it-video src="https://vjs.zencdn.net/v/oceans.webm"></it-video>
     </div>
