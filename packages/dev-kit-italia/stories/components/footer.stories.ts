@@ -264,7 +264,7 @@ const smallContent = html` <footer class="it-footer">
 const meta = {
   title: 'Componenti/Footer',
   component: 'footer',
-  tags: ['documentation'],
+  tags: ['documentation', 'a11y-ok'],
 };
 
 export default meta;
