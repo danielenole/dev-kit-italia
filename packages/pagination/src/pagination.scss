@@ -8,8 +8,6 @@
 // @import 'bootstrap-italia/src/scss/components/pagination';
 // Styles from bsi components is unusable as-is in web components, due to the Shadow DOM scoping.
 // Therefore, we redefine here the necessary styles, adapting them to web components structure.
-// If bsi changes, good luck. Pre 2019 css abounds, half of it unused/wrong variables naming as of today.
-// Lots of cherrypicking from inspector and bsi sass.
 $prefix: bsi- !default;
 $pagination-color: var(--#{$prefix}color-link);
 
