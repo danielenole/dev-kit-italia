@@ -52,13 +52,13 @@ it-pagination:not(:defined) {
       height: 3rem;
       align-items: center;
       justify-content: center;
-      padding: var(--bs-spacing-xxs, 4px) var(--bs-spacing-s, 12px);
+      padding: var(--#{$prefix}spacing-xxs, 4px) var(--#{$prefix}spacing-s, 12px);
       border: 2px solid transparent;
       border-radius: 4px;
-      color: var(--bs-color-link, #0066cc);
+      color: var(--#{$prefix}color-link, #0066cc);
       content: '';
-      font-size: var(--bs-label-font-size, 16px);
-      font-weight: var(--bs-font-weight-solid, 600);
+      font-size: var(--#{$prefix}label-font-size, 16px);
+      font-weight: var(--#{$prefix}font-weight-solid, 600);
     }
   }
 }
@@ -71,12 +71,12 @@ it-pagination-item:not(:defined) {
   height: 3rem;
   align-items: center;
   justify-content: center;
-  padding: var(--bs-spacing-xxs, 4px) var(--bs-spacing-s, 12px);
+  padding: var(--#{$prefix}spacing-xxs, 4px) var(--#{$prefix}spacing-s, 12px);
   border: 2px solid transparent;
   border-radius: 4px;
-  color: var(--bs-color-link, #0066cc);
-  font-size: var(--bs-label-font-size, 16px);
-  font-weight: var(--bs-font-weight-solid, 600);
+  color: var(--#{$prefix}color-link, #0066cc);
+  font-size: var(--#{$prefix}label-font-size, 16px);
+  font-weight: var(--#{$prefix}font-weight-solid, 600);
 
   /* Show slotted link content with proper styling */
   a {
@@ -87,8 +87,8 @@ it-pagination-item:not(:defined) {
   /* Simulate active state for specific pages if needed */
   &[page='1']:first-of-type,
   &[current] {
-    border-color: var(--bs-color-border-primary-active, #0059b3);
-    color: var(--bs-color-link-active, #0059b3);
+    border-color: var(--#{$prefix}color-border-primary-active, #0059b3);
+    color: var(--#{$prefix}color-link-active, #0059b3);
   }
 }
 
@@ -157,8 +157,8 @@ it-pagination it-pagination-item a.pagination-generated-link:focus-visible {
 }
 
 .page-link[aria-current] {
-  --bs-pagination-border-color: var(--bs-color-border-primary-active);
-  --bs-pagination-link-color: var(--bs-color-link-active);
+  --#{$prefix}pagination-border-color: var(--#{$prefix}color-border-primary-active);
+  --#{$prefix}pagination-link-color: var(--#{$prefix}color-link-active);
   pointer-events: none;
 }
 
