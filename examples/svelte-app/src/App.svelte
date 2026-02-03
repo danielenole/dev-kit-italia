@@ -6,7 +6,7 @@
 </script>
 
 <main>
-  <div class="app-header">
+  <header class="app-header">
     <div>
       <a href="https://vite.dev" target="_blank">
         <img src={viteLogo} class="logo" alt="Vite logo" />
@@ -41,15 +41,16 @@
         <a href="#/radio">Radio</a>
         <a href="#/rating">Rating</a>
         <a href="#/section">Section</a>
+        <a href="#/sidebar">Sidebar</a>
         <a href="#/skiplinks">Skiplinks</a>
         <a href="#/sticky">Sticky</a>
         <a href="#/video">Video</a>
       </nav>
     </div>
-  </div>
-  <div class="container mb-4">
+  </header>
+  <main class="container mb-4">
     <Router />
-  </div>
+  </main>
   <Footer />
   <it-back-to-top it-aria-label="Torna su"></it-back-to-top>
 </main>

@@ -5,7 +5,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <h1>it-callout</h1>
+    <h1>Callout</h1>
 
     <section>
       <h2>Callout Base</h2>

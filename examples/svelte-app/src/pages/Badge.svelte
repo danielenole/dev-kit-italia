@@ -1,7 +1,7 @@
 <h1>Badge</h1>
 <div>
   <section>
-    <h2>Badge - dimensione</h2>
+    <h2>Dimensioni</h2>
 
     <div class="h1">Titolo di esempio h1<span class="badge badge-secondary">New</span></div>
     <div class="h2">Titolo di esempio h2<span class="badge badge-secondary">New</span></div>

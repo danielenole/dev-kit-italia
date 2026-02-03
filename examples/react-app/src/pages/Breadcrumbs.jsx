@@ -2,8 +2,8 @@ import React from 'react';
 
 const Breadcrumbs = () => {
   return (
-    <div className="container my-4">
-      <h1>it-breadcrumbs</h1>
+    <>
+      <h1>Breadcrumbs</h1>
 
       {/* Breadcrumb con link */}
       <section>
@@ -122,7 +122,7 @@ const Breadcrumbs = () => {
         <it-breadcrumbs label="Percorso di navigazione 2" dark className="mt-3">
           <it-breadcrumb-item>
             <a href="#">Home</a>
-              <it-icon
+            <it-icon
               name="it-chevron-right"
               color="inverse"
               size="sm"
@@ -159,7 +159,7 @@ const Breadcrumbs = () => {
           <it-breadcrumb-item>Voce corrente</it-breadcrumb-item>
         </it-breadcrumbs>
       </section>
-    </div>
+    </>
   );
 };
 

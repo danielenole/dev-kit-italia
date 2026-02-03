@@ -7,5 +7,5 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   standalone: true,
 })
 export class AccordionComponent {
-  title = 'it-accordion';
+  title = 'Accordion';
 }

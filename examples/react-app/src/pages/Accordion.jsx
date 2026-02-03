@@ -9,8 +9,8 @@ const Accordion = () => {
   };
 
   return (
-    <div className="container my-4" onKeyDown={handleTabKey}>
-      <h1>it-accordion</h1>
+    <div onKeyDown={handleTabKey}>
+      <h1>Accordion</h1>
 
       {/* Accordion Base */}
       <section>

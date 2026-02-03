@@ -31,7 +31,7 @@
   }
 </script>
 
-<h1>it-chip</h1>
+<h1>Chip</h1>
 
 <it-chip label="Etichetta" size="sm" variant="primary"></it-chip>
 
@@ -70,7 +70,14 @@
 <section>
   <h2>Chip con avatar</h2>
   <div class="flex p-0">
-    <it-chip label="Etichetta" size="sm" variant="primary" avatar="https://randomuser.me/api/portraits/men/46.jpg" avatar-alt="Avatar alt" id="chip-dismissable">
+    <it-chip
+      label="Etichetta"
+      size="sm"
+      variant="primary"
+      avatar="https://randomuser.me/api/portraits/men/46.jpg"
+      avatar-alt="Avatar alt"
+      id="chip-dismissable"
+    >
       <it-button
         slot="dismiss-button"
         icon
@@ -83,7 +90,14 @@
         <it-icon name="it-close" size="sm"></it-icon>
       </it-button>
     </it-chip>
-    <it-chip label="Etichetta" size="lg" variant="primary" avatar="https://randomuser.me/api/portraits/men/46.jpg" avatar-alt="Avatar alt" id="chip-dismissable">
+    <it-chip
+      label="Etichetta"
+      size="lg"
+      variant="primary"
+      avatar="https://randomuser.me/api/portraits/men/46.jpg"
+      avatar-alt="Avatar alt"
+      id="chip-dismissable"
+    >
       <it-button
         slot="dismiss-button"
         icon
@@ -102,13 +116,7 @@
 <section>
   <h2>Chip con chiusura</h2>
   <div class="flex p-0">
-    <it-chip
-      label="Rimuovibile"
-      size="sm"
-      variant="primary"
-      dismissable
-      id="chip-dismissable-1"
-    >
+    <it-chip label="Rimuovibile" size="sm" variant="primary" dismissable id="chip-dismissable-1">
       <it-button
         slot="dismiss-button"
         icon
@@ -121,13 +129,7 @@
       </it-button>
     </it-chip>
 
-    <it-chip
-      label="Altra rimuovibile"
-      size="sm"
-      variant="danger"
-      dismissable
-      id="chip-dismissable-2"
-    >
+    <it-chip label="Altra rimuovibile" size="sm" variant="danger" dismissable id="chip-dismissable-2">
       <it-button
         slot="dismiss-button"
         icon
