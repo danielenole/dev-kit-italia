@@ -1,4 +1,4 @@
-<h1>it-back-to-top</h1>
+<h1>Back totop</h1>
 
 <section style="height: 2000px; background: linear-gradient(white, lightgray); margin-top: 20px;">
   <p>Scrolla la pagina per vedere il pulsante "Torna su" apparire nell'angolo in basso a destra.</p>

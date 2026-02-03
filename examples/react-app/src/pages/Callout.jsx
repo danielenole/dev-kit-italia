@@ -3,7 +3,7 @@ import React from 'react';
 const Callout = () => {
   return (
     <>
-      <h1>it-callout</h1>
+      <h1>Callout</h1>
 
       <section>
         <h2>Callout Base</h2>

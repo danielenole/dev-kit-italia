@@ -3,7 +3,7 @@ import React from 'react';
 const Input = () => {
   return (
     <>
-      <h1>it-navscroll</h1>
+      <h1>Navscroll</h1>
 
       <div class="row row-column-border border-light row-column-menu-left">
         <aside class="col-lg-4" aria-label="Indice della pagina">

@@ -1,4 +1,4 @@
-<h1>it-video</h1>
+<h1>Video</h1>
 
 <div style="width: 600px; margin-left: auto; margin-right: auto;">
   <div class="mb-5">
