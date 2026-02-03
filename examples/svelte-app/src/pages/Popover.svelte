@@ -39,7 +39,7 @@
   };
 </script>
 
-<h1>it-popover</h1>
+<h1>Popover</h1>
 
 <!-- Base -->
 <section style="margin-bottom: 2rem">
@@ -179,18 +179,38 @@
     Per maggiori informazioni sulla privacy e su come trattiamo i tuoi dati,
     <it-popover placement="top">
       <!-- svelte-ignore a11y-invalid-attribute -->
-      <a href="#" slot="trigger" style="text-decoration: underline; color: var(--bs-primary)"> consulta le nostre policy </a>
+      <a href="#" slot="trigger" style="text-decoration: underline; color: var(--bs-primary)">
+        consulta le nostre policy
+      </a>
       <div slot="content" class="popover">
         <div class="popover-inner">
           <h3 class="popover-header">Informazioni sulla privacy</h3>
           <div class="popover-body">
             <div style="display: flex; flex-direction: column; gap: 8px">
               <!-- svelte-ignore a11y-invalid-attribute -->
-              <a href="#" on:click={(e) => handleAction(e, 'Privacy Policy')} style="color: var(--bs-primary); text-decoration: none"> 🔒 Privacy Policy </a>
+              <a
+                href="#"
+                on:click={(e) => handleAction(e, 'Privacy Policy')}
+                style="color: var(--bs-primary); text-decoration: none"
+              >
+                🔒 Privacy Policy
+              </a>
               <!-- svelte-ignore a11y-invalid-attribute -->
-              <a href="#" on:click={(e) => handleAction(e, 'Cookie Policy')} style="color: var(--bs-primary); text-decoration: none"> 🍪 Cookie Policy </a>
+              <a
+                href="#"
+                on:click={(e) => handleAction(e, 'Cookie Policy')}
+                style="color: var(--bs-primary); text-decoration: none"
+              >
+                🍪 Cookie Policy
+              </a>
               <!-- svelte-ignore a11y-invalid-attribute -->
-              <a href="#" on:click={(e) => handleAction(e, 'Gestisci consensi')} style="color: var(--bs-primary); text-decoration: none"> ⚙️ Gestisci consensi </a>
+              <a
+                href="#"
+                on:click={(e) => handleAction(e, 'Gestisci consensi')}
+                style="color: var(--bs-primary); text-decoration: none"
+              >
+                ⚙️ Gestisci consensi
+              </a>
             </div>
           </div>
         </div>
@@ -209,9 +229,7 @@
     <div slot="content" class="popover">
       <div class="popover-inner">
         <h3 class="popover-header" style="margin-bottom: 0">Eventi del Popover</h3>
-        <div class="popover-body">
-          Apri e chiudi questo popover per vedere gli eventi nella console.
-        </div>
+        <div class="popover-body">Apri e chiudi questo popover per vedere gli eventi nella console.</div>
       </div>
     </div>
   </it-popover>

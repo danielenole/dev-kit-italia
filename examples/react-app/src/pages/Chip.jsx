@@ -34,7 +34,7 @@ const Chip = () => {
 
   return (
     <>
-      <h1>it-chip</h1>
+      <h1>Chip</h1>
 
       <it-chip label="Etichetta" size="sm" variant="primary"></it-chip>
 

@@ -1,7 +1,7 @@
 <script>
 </script>
 
-<h1>it-section</h1>
+<h1>Section</h1>
 
 <it-section>
   <div class="container">

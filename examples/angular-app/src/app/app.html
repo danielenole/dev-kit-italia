@@ -39,7 +39,7 @@
 
   }
 
-  main {
+  .main-body {
     width: 100%;
     min-height: 100%;
     display: flex;
@@ -56,9 +56,9 @@
 
 </style>
 
-<main class="main">
-  <div class="container mb-4">
-    <div class="app-header">
+<div class="main-body">
+  <header class="app-header">
+    <div class="container">
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +125,7 @@
         <a routerLink="/modal">Modal</a>
         <a routerLink="/navscroll">Navscroll</a>
         <a routerLink="/overlay">Overlay</a>
-        <a routerLink="/popover">Video</a>
+        <a routerLink="/popover">Popover</a>
         <a routerLink="/rating">Rating</a>
         <a routerLink="/radio">Radio</a>
         <a routerLink="/section">Section</a>
@@ -136,20 +136,9 @@
         <a routerLink="/video">Video</a>
       </nav>
     </div>
-
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-
-<router-outlet />
+  </header>
+  <main class="container">
+    <router-outlet />
+  </main>
+  <app-footer />
 </div>
-<app-footer />
-
-</main>
-

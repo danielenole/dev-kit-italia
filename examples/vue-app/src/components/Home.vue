@@ -1,8 +1,6 @@
 <template>
-  <div class="container my-4">
-   <h1>Homepage</h1>
-      <p>
-        Benvenuto nell'applicazione di esempio Vue per l'utilizzo dei componenti di <strong>dev-kit-italia</strong>.
-      </p>
-  </div>
+  <h1>Homepage</h1>
+  <p>
+    Benvenuto nell'applicazione di esempio Vue per l'utilizzo dei componenti di <strong>dev-kit-italia</strong>.
+  </p>
 </template>

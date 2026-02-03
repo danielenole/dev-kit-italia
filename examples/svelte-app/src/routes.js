@@ -22,7 +22,7 @@ import Radio from './pages/Radio.svelte';
 import Rating from './pages/Rating.svelte';
 import Section from './pages/Section.svelte';
 import Select from './pages/Select.svelte';
-import Sidebar from './components/Sidebar.svelte';
+import Sidebar from './pages/Sidebar.svelte';
 import Skiplinks from './pages/Skiplinks.svelte';
 import Sticky from './pages/Sticky.svelte';
 import Video from './pages/Video.svelte';

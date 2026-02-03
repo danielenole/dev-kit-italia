@@ -3,7 +3,7 @@ import React from 'react';
 const Skiplinks = () => {
   return (
     <>
-      <h1>it-skiplinks</h1>
+      <h1>Skiplinks</h1>
 
       <it-skiplinks it-aria-label="Vai a:">
         <a href="#menu">Vai al menu</a>

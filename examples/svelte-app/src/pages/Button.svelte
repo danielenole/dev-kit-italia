@@ -1,4 +1,4 @@
-<h1>it-button</h1>
+<h1>Button</h1>
 
 <it-button variant="primary" size="sm" type="button"> Testo del pulsante </it-button>
 <section>
@@ -58,9 +58,7 @@
     <div class="flex">
       <it-button variant="danger" outline={true} size="sm" type="button"> Danger outline </it-button>
 
-      <it-button variant="danger" outline={true} size="sm" disabled type="button">
-        Danger outline disabled
-      </it-button>
+      <it-button variant="danger" outline={true} size="sm" disabled type="button"> Danger outline disabled </it-button>
     </div>
   </div>
   <div class="flex p-0">
