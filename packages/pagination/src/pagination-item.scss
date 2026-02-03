@@ -93,7 +93,7 @@
 }
 
 .page-link[aria-current] {
-  --bs-pagination-border-color: var(--bs-color-border-primary-active);
-  --bs-pagination-link-color: var(--bs-color-link-active);
+  --#{$prefix}pagination-border-color: var(--#{$prefix}color-border-primary-active);
+  --#{$prefix}pagination-link-color: var(--#{$prefix}color-link-active);
   pointer-events: none;
 }

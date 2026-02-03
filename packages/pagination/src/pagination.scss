@@ -10,7 +10,7 @@
 // Therefore, we redefine here the necessary styles, adapting them to web components structure.
 // If bsi changes, good luck. Pre 2019 css abounds, half of it unused/wrong variables naming as of today.
 // Lots of cherrypicking from inspector and bsi sass.
-$prefix: bs- !default;
+$prefix: bsi- !default;
 $pagination-color: var(--#{$prefix}color-link);
 
 // Define CSS custom properties at :host level so they inherit to it-pagination-item
@@ -43,7 +43,7 @@ $pagination-color: var(--#{$prefix}color-link);
   --#{$prefix}pagination-border-color: transparent;
   --#{$prefix}pagination-border-radius: 4px;
   --#{$prefix}pagination-item-size: 3rem;
-  --#{$prefix}pagination-font-size: var(--bs-label-font-size);
+  --#{$prefix}pagination-font-size: var(--#{$prefix}label-font-size);
   display: flex;
   @include list-unstyled();
   width: 100%;
@@ -203,8 +203,8 @@ $pagination-color: var(--#{$prefix}color-link);
 }
 
 .page-link[aria-current] {
-  --bs-pagination-border-color: var(--bs-color-border-primary-active);
-  --bs-pagination-link-color: var(--bs-color-link-active);
+  --#{$prefix}pagination-border-color: var(--#{$prefix}color-border-primary-active);
+  --#{$prefix}pagination-link-color: var(--#{$prefix}color-link-active);
   pointer-events: none;
 }
 
