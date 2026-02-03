@@ -27,10 +27,10 @@ Per vedere come cambia il codice, clicca su **Show code**.
 
 Il componente implementa il pattern [ARIA Combobox with List Autocomplete](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/)
 che garantisce:
-- Corretti attributi ARIA per la navigazione assistita
-- Annunci vocali per screen reader
-- Gestione completa da tastiera
-- Focus management appropriato
+- corretti attributi ARIA per la navigazione assistita
+- annunci vocali per screen reader
+- gestione completa da tastiera
+- focus management appropriato
 
 Ricordati di includere sempre un'etichetta descrittiva, in modo che gli utenti comprendano chiaramente la sua funzione, dichiarandola nello slot `label`.
 
@@ -71,6 +71,8 @@ Aggiungi l'attributo `disabled` per impedire l'interazione con il campo.
 
 Se vuoi nascondere l'etichetta (ad esempio nei campi di ricerca), utilizza l'attributo `label-hidden`.
 
+L'etichetta sarà nascosta visivamente ma verrà letta dai lettori di schermo.
+
 <Canvas of={Stories.LabelHidden} />
 
 ## Opzioni dinamiche
@@ -94,7 +96,7 @@ Espandi il codice degli esempi sottostanti per vedere un esempio di come impleme
 Puoi passare come opzione `source` una funzione per filtrare i dati e popolare il componente dinamicamente.
 La funzione riceve come parametri la query di ricerca e una callback per popolare i risultati.
 
-Espandi il codice dell'esempio sottostante per vedere un esempio di come implementare questa funzionalità.
+Espandi il codice dell'esempio sottostante per vedere come implementare questa funzionalità.
 
 <Canvas of={Stories.RicercaAsincrona} />
 
@@ -102,7 +104,7 @@ Espandi il codice dell'esempio sottostante per vedere un esempio di come impleme
 Puoi impostare un valore iniziale utilizzando l'attributo `default-value`.
 Impostare un valore iniziale richiede un approccio diverso a seconda di come carichi i dati relativi alle opzioni (`source`).
 
-1. **Opzioni statiche: Usa una stringa**. Se passi un array statico alla `source`, setta `default-value` alla stringa del `value` corrispondente. Il componente troverà da solo l'etichetta corretta.
+1. **Opzioni statiche: Usa una stringa**. Se passi un array statico alla `source`, imposta l'attributo `default-value` con il valore stringa del `value` corrispondente. Il componente troverà da solo l'etichetta corretta da mostrare.
 
 2. **Opzioni dinamiche: Usa un oggetto completo**. Se usi una funzione per caricare i dati nell'attributo `source`, il componente potrebbe non conoscere le opzioni all'avvio. Popola l'attributo `default-value` con un oggetto che contenga sia `value` che `label`.
 

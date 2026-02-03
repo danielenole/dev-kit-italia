@@ -184,6 +184,10 @@ type Story = StoryObj<AutocompleteProps>;
 // Esempio interattivo
 export const EsempioInterattivo: Story = {
   render: (args) => html`${renderComponent({ ...args, placeholder: 'Seleziona una regione...' })}`,
+args:{
+...meta.args,
+placeholder: "Seleziona una regione...."
+},
   parameters: {
     docs: {
       canvas: {
