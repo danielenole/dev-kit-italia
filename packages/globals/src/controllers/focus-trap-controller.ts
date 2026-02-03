@@ -197,6 +197,8 @@ export class FocusTrapController implements ReactiveController {
     this._focusableElements = Array.from(new Set(candidates)).filter((el) => {
       // Escludi esplicitamente il container/dialog stesso
       if (el === this.config.getContainer()) return false;
+      // Escludi esplicitamente il trigger
+      if (el === trigger) return false;
       return FocusTrapController.isFocusable(el);
     });
 

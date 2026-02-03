@@ -84,6 +84,15 @@ export class ItModal extends BaseComponent {
 
   private readonly _backdropAnimationDuration = 150; // ms - standard fade
 
+  // eslint-disable-next-line class-methods-use-this
+  private _isIOSSafari(): boolean {
+    const ua = navigator.userAgent;
+    const iOS = /iPad|iPhone|iPod/.test(ua);
+    const webkit = /WebKit/.test(ua);
+    const notChrome = !/CriOS|Chrome/.test(ua);
+    return iOS && webkit && notChrome;
+  }
+
   private _focusTrap = new FocusTrapController(this, {
     getContainer: () => this._modalElement,
     initialFocus: () => this._modalElement,
@@ -194,6 +203,30 @@ export class ItModal extends BaseComponent {
     this.open = !this.open;
   }
 
+  private _activateModalFocus(): void {
+    // Only activate focus trap if modal is still open
+    if (!this.open) return;
+
+    try {
+      // Per iOS Safari, focus esplicito sul dialog e delay
+      if (this._isIOSSafari()) {
+        // Focus manuale sul dialog element per iOS Safari
+        if (this._modalElement && typeof this._modalElement.focus === 'function') {
+          this._modalElement.focus();
+        }
+        // Delay per permettere a VoiceOver di riconoscere il dialog
+        setTimeout(() => {
+          this._focusTrap.activate();
+        }, 150);
+      } else {
+        // Altri browser: attiva immediatamente (focuserà automaticamente il dialog)
+        this._focusTrap.activate();
+      }
+    } catch {
+      // Swallow errors if focus trap fails
+    }
+  }
+
   private _showModal(): void {
     if (this.isAnimating) return;
 
@@ -241,14 +274,7 @@ export class ItModal extends BaseComponent {
 
         this._dialogAnimation.finished
           .then(() => {
-            // Only activate focus trap if modal is still open
-            if (this.open) {
-              try {
-                this._focusTrap.activate();
-              } catch {
-                // Swallow errors if focus trap fails
-              }
-            }
+            this._activateModalFocus();
           })
           .catch(() => {
             // Animation cancelled or failed
@@ -258,13 +284,7 @@ export class ItModal extends BaseComponent {
           });
       } else {
         // No dialog element or no animation, just finish
-        if (this.open) {
-          try {
-            this._focusTrap.activate();
-          } catch {
-            // Swallow errors if focus trap fails
-          }
-        }
+        this._activateModalFocus();
         this.isAnimating = false;
       }
     });
@@ -282,6 +302,9 @@ export class ItModal extends BaseComponent {
     if (this.isAnimating) return;
 
     this.isAnimating = true;
+
+    // Salva il trigger element prima di disattivare il focus trap
+    const triggerToRestore = this._triggerElement;
 
     // Deactivate focus trap immediately to prevent focus issues
     this._focusTrap.deactivate();
@@ -311,6 +334,14 @@ export class ItModal extends BaseComponent {
       WindowManager.unlockBodyScroll();
       // Set open to false after animation completes
       this.open = false;
+
+      // Ripristina focus sul trigger in modo esplicito per iOS Safari
+      if (triggerToRestore && typeof triggerToRestore.focus === 'function') {
+        // Usa setTimeout per garantire che il focus avvenga dopo il completamento del ciclo di rendering
+        setTimeout(() => {
+          triggerToRestore.focus();
+        }, 50);
+      }
     };
 
     // Animate dialog and backdrop in parallel for smoother close
@@ -451,7 +482,7 @@ export class ItModal extends BaseComponent {
         aria-describedby="${ifDefined(ariaDescribedBy)}"
         aria-label="${ifDefined(ariaLabel)}"
         aria-hidden="${!this.open}"
-        tabindex="-1"
+        tabindex="0"
         @click="${this._handleBackdropClick}"
         part="modal"
       >
