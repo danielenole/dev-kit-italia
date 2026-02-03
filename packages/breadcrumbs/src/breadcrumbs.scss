@@ -8,7 +8,6 @@
 .breadcrumb {
   &.dark {
     --#{$prefix}breadcrumb-padding: var(--#{$prefix}spacing-3xs) var(--#{$prefix}spacing-s);
-    --#{$prefix}breadcrumb-background: hsl(210, 25%, 35.2%);
 
     ::slotted(it-breadcrumb-item) {
       --#{$prefix}breadcrumb-link-color: #fff;
