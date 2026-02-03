@@ -2,7 +2,7 @@ import React from 'react';
 
 const Affix = () => {
   return (
-    <div class="container my-4">
+    <>
       <h1>Affix</h1>
 
       {/* Affix top  */}
@@ -186,7 +186,7 @@ const Affix = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

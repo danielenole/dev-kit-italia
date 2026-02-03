@@ -1,4 +1,4 @@
-<h1>it-dropdown</h1>
+<h1>Dropdown</h1>
 
 <!-- Base -->
 <section>
@@ -14,8 +14,8 @@
 <section>
   <h2>Ruolo list</h2>
   <p style="max-width: 75ch">
-    Esempio di dropdown con <code>it-role="list"</code> per presentare elementi come semplice elenco invece che
-    come menu applicativo.
+    Esempio di dropdown con <code>it-role="list"</code> per presentare elementi come semplice elenco invece che come menu
+    applicativo.
   </p>
   <it-dropdown label="Elenco azioni" variant="primary" it-role="list">
     <it-dropdown-item href="#">Elemento 1</it-dropdown-item>
@@ -88,9 +88,7 @@
 <section>
   <h2>Menu con voci attive</h2>
   <it-dropdown label="Dropdown" variant="primary">
-    <it-dropdown-item href="#" active>
-      Attivo
-    </it-dropdown-item>
+    <it-dropdown-item href="#" active> Attivo </it-dropdown-item>
     <it-dropdown-item href="#">Non attivo</it-dropdown-item>
     <it-dropdown-item href="#">Non attivo</it-dropdown-item>
   </it-dropdown>
@@ -111,9 +109,7 @@
   <h2>Menu con voci disabilitate</h2>
   <it-dropdown label="Dropdown" variant="primary">
     <it-dropdown-item href="#">Azione 1</it-dropdown-item>
-    <it-dropdown-item href="#" disabled>
-      Azione 2 disabilitata
-    </it-dropdown-item>
+    <it-dropdown-item href="#" disabled> Azione 2 disabilitata </it-dropdown-item>
     <it-dropdown-item href="#">Azione 3</it-dropdown-item>
   </it-dropdown>
 </section>
@@ -122,9 +118,7 @@
 <section>
   <h2>Menu con intestazioni e separatori</h2>
   <it-dropdown label="Item con separatore e header" variant="primary">
-    <h4 slot="header" class="link-list-heading dropdown-header">
-      Intestazione
-    </h4>
+    <h4 slot="header" class="link-list-heading dropdown-header">Intestazione</h4>
     <it-dropdown-item href="#">Prima voce</it-dropdown-item>
     <it-dropdown-item separator></it-dropdown-item>
     <it-dropdown-item href="#">Dopo separatore</it-dropdown-item>
@@ -192,9 +186,7 @@
 <section>
   <h2>Menu scuro</h2>
   <it-dropdown label="Dropdown" variant="primary" dark>
-    <h4 slot="header" class="link-list-heading dropdown-header">
-      Intestazione
-    </h4>
+    <h4 slot="header" class="link-list-heading dropdown-header">Intestazione</h4>
     <it-dropdown-item href="#">Azione 1</it-dropdown-item>
     <it-dropdown-item href="#">Azione 2</it-dropdown-item>
     <it-dropdown-item separator></it-dropdown-item>

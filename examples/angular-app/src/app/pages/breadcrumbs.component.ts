@@ -7,5 +7,5 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   standalone: true,
 })
 export class BreadcrumbsComponent {
-  title = 'it-breadcrumbs';
+  title = 'Breadcrumbs';
 }

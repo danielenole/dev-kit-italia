@@ -1,4 +1,4 @@
-<h1>Overlay panel</h1>
+<h1>Overlay</h1>
 
 <section>
   <h2>Esempio</h2>

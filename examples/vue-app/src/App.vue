@@ -5,7 +5,7 @@ import Footer from './components/Footer.vue';
 
 <template>
   <div class="container">
-    <div class="app-header">
+    <header class="app-header">
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src="/vite.svg" class="logo" alt="Vite logo" />
@@ -20,9 +20,11 @@ import Footer from './components/Footer.vue';
           {{ route.name }}
         </router-link>
       </nav>
-    </div>
+    </header>
   </div>
-  <router-view></router-view>
+  <main class="container my-4">
+    <router-view></router-view>
+  </main>
   <Footer />
   <it-back-to-top it-aria-label="Torna su"></it-back-to-top>
 </template>

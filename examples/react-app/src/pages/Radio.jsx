@@ -17,8 +17,8 @@ function Radio() {
   };
 
   return (
-    <div className="container" style={{ padding: '2rem' }}>
-      <h1>Esempi Radio Button</h1>
+    <>
+      <h1>Radio</h1>
 
       {/* Esempio base */}
       <section style={{ marginBottom: '3rem' }}>
@@ -191,7 +191,7 @@ function Radio() {
           <p className="form-text mt-2">Prova a inviare il form senza selezionare nulla per vedere la validazione.</p>
         </form>
       </section>
-    </div>
+    </>
   );
 }
 

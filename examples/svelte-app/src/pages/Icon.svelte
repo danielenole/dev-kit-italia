@@ -1,4 +1,4 @@
-<h1>it-icon</h1>
+<h1>Icon</h1>
 
 <it-icon name="it-star-full" align="middle"></it-icon>
 <section>
@@ -62,10 +62,7 @@
       label="Stemma 1"
       src="https://upload.wikimedia.org/wikipedia/commons/1/12/Palermo-Stemma_%281999%29.svg"
     ></it-icon>
-    <it-icon
-      size="xl"
-      label="Stemma 2"
-      src="https://upload.wikimedia.org/wikipedia/commons/3/31/Roma-Stemma-2.svg"
+    <it-icon size="xl" label="Stemma 2" src="https://upload.wikimedia.org/wikipedia/commons/3/31/Roma-Stemma-2.svg"
     ></it-icon>
     <it-icon
       size="xl"

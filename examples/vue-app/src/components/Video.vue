@@ -1,12 +1,10 @@
 <template>
-  <div class="container my-4">
-    <h1>it-video</h1>
+  <h1>it-video</h1>
 
-    <div class="mb-5">
-      <it-video src="https://vjs.zencdn.net/v/oceans.webm"></it-video>
-    </div>
-    <div>
-      <it-video src="https://youtu.be/_0j7ZQ67KtY"></it-video>
-    </div>
+  <div class="mb-5">
+    <it-video src="https://vjs.zencdn.net/v/oceans.webm"></it-video>
+  </div>
+  <div>
+    <it-video src="https://youtu.be/_0j7ZQ67KtY"></it-video>
   </div>
 </template>

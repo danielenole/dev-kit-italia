@@ -3,7 +3,7 @@ import React from 'react';
 const Button = () => {
   return (
     <>
-      <h1>it-button</h1>
+      <h1>Button</h1>
       <it-button variant="primary" size="sm" type="button">
         Testo del pulsante
       </it-button>
