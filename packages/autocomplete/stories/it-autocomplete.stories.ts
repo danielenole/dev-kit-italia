@@ -889,7 +889,7 @@ export const IntegrazioneForm: Story = {
 
     output.innerHTML = \`
       <div class="alert alert-success" role="alert">
-        <strong>Form valido!</strong> Dati inviati:
+        Dati inviati:
         <pre>\${JSON.stringify(data, null, 2)}</pre>
       </div>
     \`;
@@ -914,7 +914,7 @@ export const IntegrazioneForm: Story = {
 
         output.innerHTML = `
             <div class="alert alert-success" role="alert">
-              <strong>Form valido!</strong> Dati inviati:
+              Dati inviati:
               <pre>${JSON.stringify(data, null, 2)}</pre>
             </div>
           `;
