@@ -23,8 +23,8 @@ export default function Rating() {
   };
 
   return (
-    <div className="container my-5">
-      <h1 className="mb-4">Rating</h1>
+    <>
+      <h1>Rating</h1>
 
       <section className="mb-5">
         <h2>Con valore preimpostato</h2>
@@ -189,6 +189,6 @@ export default function Rating() {
           </form>
         </div>
       </section>
-    </div>
+    </>
   );
 }

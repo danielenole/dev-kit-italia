@@ -96,6 +96,15 @@ Espandi il codice degli esempi sottostanti per vedere un esempio di come impleme
 Puoi passare come opzione `source` una funzione per filtrare i dati e popolare il componente dinamicamente.
 La funzione riceve come parametri la query di ricerca e una callback per popolare i risultati.
 
+```ts
+source: AutocompleteOption[]
+  | ((
+        query: string,
+        callback: (results: AutocompleteOption[]) => void
+      ) => void)
+```
+
+
 Espandi il codice dell'esempio sottostante per vedere come implementare questa funzionalità.
 
 <Canvas of={Stories.RicercaAsincrona} />

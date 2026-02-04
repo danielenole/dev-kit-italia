@@ -33,7 +33,7 @@ const renderComponent = (params: Partial<CollapseProps & { slot?: any }>) => htm
 
 const meta: Meta<CollapseProps> = {
   title: 'Componenti/Collapse',
-  tags: ['new', 'component'],
+  tags: ['new', 'web-component', 'a11y-ok'],
   component: 'it-collapse',
   args: {
     // label: 'Toggle collapse',

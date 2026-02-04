@@ -166,13 +166,8 @@ const meta = {
     },
     source: {
       control: 'object',
-      description: 'Sorgente di dati: array di oggetti {value, label} o funzione asincrona',
-      table: {
-        type: {
-          summary:
-            'AutocompleteOption[] | ((query: string, callback: (results: AutocompleteOption[]) => void) => void)',
-        },
-      },
+      description:
+        'Sorgente di dati: array di oggetti `{value:string, label:string}` o funzione asincrona. Consulta la sezione "Opzioni dinamiche" per maggiori dettagli.',
     },
   },
   decorators: [(Story) => html` <div style="min-height: 400px;">${Story()}</div>`],
@@ -183,11 +178,11 @@ type Story = StoryObj<AutocompleteProps>;
 
 // Esempio interattivo
 export const EsempioInterattivo: Story = {
-  render: (args) => html`${renderComponent({ ...args, placeholder: 'Seleziona una regione...' })}`,
-args:{
-...meta.args,
-placeholder: "Seleziona una regione...."
-},
+  render: (args) => html`${renderComponent({ ...args })}`,
+  args: {
+    ...meta.args,
+    placeholder: 'Seleziona una regione...',
+  },
   parameters: {
     docs: {
       canvas: {

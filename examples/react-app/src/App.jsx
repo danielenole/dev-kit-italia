@@ -8,7 +8,7 @@ import './App.css';
 function App() {
   return (
     <BrowserRouter basename="react-app">
-      <div className="app-header">
+      <header className="app-header">
         <div>
           <a href="https://vite.dev" target="_blank">
             <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -27,14 +27,14 @@ function App() {
             ))}
           </nav>
         </div>
-      </div>
-      <div className="container mb-4">
+      </header>
+      <main className="container mb-4">
         <Routes>
           {AppRoutes.map((route) => (
             <Route key={route.path} path={route.path} element={route.element} />
           ))}
         </Routes>
-      </div>
+      </main>
       <Footer />
       <it-back-to-top it-aria-label="Torna su"></it-back-to-top>
     </BrowserRouter>

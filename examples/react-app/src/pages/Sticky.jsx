@@ -3,7 +3,7 @@ import React from 'react';
 const Sticky = () => {
   return (
     <>
-      <h1>it-sticky</h1>
+      <h1>Sticky</h1>
       <div style={{ background: 'linear-gradient(#eee, #ccc)' }}>
         <section>
           <h2>Esempio componente it-sticky</h2>

@@ -40,12 +40,6 @@ export class AutocompleteComponent implements AfterViewInit {
 
   @ViewChild('autoFormProvincia') autoFormProvincia!: ElementRef;
 
-  @ViewChild('autoRegioneNested') autoRegioneNested!: ElementRef;
-
-  @ViewChild('autoComuneNested') autoComuneNested!: ElementRef;
-
-  @ViewChild('autoEventi') autoEventi!: ElementRef;
-
   formOutput = '';
 
   // Dati
@@ -212,11 +206,6 @@ export class AutocompleteComponent implements AfterViewInit {
   };
 
   selectedCategory = 'frutta';
-  eventLog: string[] = [];
-
-  comuniData: any[] = [];
-
-  regioniUniche: any[] = [];
 
   ngAfterViewInit() {
     // Usiamo setTimeout per assicurarci che il custom element sia "upgradato"
@@ -275,7 +264,9 @@ export class AutocompleteComponent implements AfterViewInit {
       this.autoAsync.nativeElement.source = (query: string, populateResults: any) => {
         setTimeout(() => {
           const lower = query.toLowerCase();
-          const results = this.cities.filter((c) => c.label.toLowerCase().includes(lower)).slice(0, 10);
+          const results = this.cities
+            .filter((c) => c.label.toLowerCase().includes(lower))
+            .slice(0, 10);
           populateResults(results);
         }, 800);
       };
@@ -295,51 +286,11 @@ export class AutocompleteComponent implements AfterViewInit {
     if (this.autoFormProvincia) {
       this.autoFormProvincia.nativeElement.source = this.provinces;
     }
-
-    // 13. Eventi
-    if (this.autoEventi) {
-      this.autoEventi.nativeElement.source = this.italianRegions;
-      
-      this.autoEventi.nativeElement.addEventListener('it-autocomplete-ready', () => {
-        this.eventLog.push('Evento inizializzazione');
-      });
-
-      this.autoEventi.nativeElement.addEventListener('it-autocomplete-search', (e: any) => {
-        this.eventLog.push(`Ricerca: ${e.detail.value}`);
-      });
-
-      this.autoEventi.nativeElement.addEventListener('it-change', (e: any) => {
-        this.eventLog.push(`Change: ${e.detail.value}`);
-      });
-    }
-
-    // 14. Nested (Regioni/Comuni)
-    this.initNestedData();
-  }
-
-  initNestedData() {
-    fetch('/assets/comuni.json')
-      .then((res) => res.json())
-      .then((data) => {
-        this.comuniData = data;
-        const setReg = new Set(data.map((i: any) => i.regione));
-        this.regioniUniche = Array.from(setReg)
-          .sort()
-          .map((r: any) => ({
-            value: r.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
-            label: r,
-          }));
-
-        if (this.autoRegioneNested) {
-          this.autoRegioneNested.nativeElement.source = this.regioniUniche;
-        }
-      })
-      .catch((e) => console.error(e));
   }
 
   handleRequiredSubmit(event: Event) {
     event.preventDefault();
-    alert('Form valido!');
+    // alert('Form valido!');
   }
 
   handleFormSubmit(event: Event) {
@@ -356,33 +307,6 @@ export class AutocompleteComponent implements AfterViewInit {
     if (this.autoAlimento) {
       this.autoAlimento.nativeElement.source = this.categories[this.selectedCategory];
       this.autoAlimento.nativeElement.value = '';
-    }
-  }
-
-  handleRegioneChange(event: any) {
-    const val = event.detail.value;
-    const comuneEl = this.autoComuneNested.nativeElement;
-
-    if (val && comuneEl) {
-      const regObj = this.regioniUniche.find((r) => r.value === val);
-      const label = regObj ? regObj.label : val;
-
-      comuneEl.disabled = false;
-      comuneEl.value = ''; // Reset
-
-      const filtrati = this.comuniData
-        .filter((c) => c.regione === label)
-        .map((c) => ({
-          value: c.comune.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
-          label: c.comune,
-        }))
-        .sort((a, b) => a.label.localeCompare(b.label));
-
-      comuneEl.source = filtrati;
-    } else if (comuneEl) {
-      comuneEl.disabled = true;
-      comuneEl.value = '';
-      comuneEl.source = [];
     }
   }
 }

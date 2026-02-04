@@ -9,7 +9,7 @@ const Modal = () => {
   };
 
   return (
-    <div className="container my-5">
+    <>
       <h1>Modal</h1>
       <p>Componente Modal per finestre di dialogo modali.</p>
 
@@ -383,7 +383,7 @@ const Modal = () => {
           </it-button>
         </it-modal>
       </section>
-    </div>
+    </>
   );
 };
 

@@ -40,7 +40,7 @@ const renderComponent = ({
 
 const meta = {
   title: 'Componenti/Callout',
-  tags: ['beta', 'a11y-ok', 'web-component'],
+  tags: ['alpha', 'a11y-ok', 'web-component'],
   component: 'it-callout',
   args: {
     variant: '',

@@ -1,6 +1,6 @@
 <template>
   <div class="container my-4">
-    <h1>it-autocomplete</h1>
+    <h1>Autocomplete</h1>
 
     <section class="example-section">
       <h2>Esempio di autocompletamento</h2>
@@ -116,63 +116,13 @@
           </div>
         </div>
         <it-button type="submit" variant="primary"> Invia </it-button>
-        <div v-if="formOutput" class="mt-3">
-          <div class="alert alert-success" role="alert">
-            <strong>Form valido!</strong> Dati inviati:
-            <pre>{{ formOutput }}</pre>
-          </div>
-        </div>
       </form>
-    </section>
-
-    <section class="example-section">
-      <h2>Regioni e Comuni</h2>
-      <div class="row">
-        <div class="col-12 col-md-6 mb-3">
-          <it-autocomplete name="regione" :source.prop="regioniUniche" @it-change="handleRegioneChange">
-            <span slot="label">Regione</span>
-          </it-autocomplete>
-        </div>
-        <div class="col-12 col-md-6">
-          <it-autocomplete
-            name="comune"
-            :disabled="comuneDisabled"
-            min-length="2"
-            :source.prop="comuniFiltrati"
-            :value="comuneValue"
-          >
-            <span slot="label">Comune</span>
-          </it-autocomplete>
-        </div>
-      </div>
-    </section>
-
-    <section class="example-section">
-      <h2>Gestione degli eventi</h2>
-      <div>
-        <it-autocomplete
-          name="regione"
-          :source.prop="italianRegions"
-          @it-autocomplete-ready="logEvent('Evento inizializzazione')"
-          @it-autocomplete-search="(e) => logEvent(`Ricerca: ${e.detail.value}`)"
-          @it-change="(e) => logEvent(`Change: ${e.detail.value}`)"
-        >
-          <span slot="label">Regione</span>
-        </it-autocomplete>
-
-        <div style="margin-top: 1rem; padding: 1rem; background: #f5f5f5; border-radius: 4px">
-          <div v-if="eventLog.length === 0">
-            <em>Digita o seleziona una regione per vedere gli eventi</em>
-          </div>
-          <div v-for="(event, index) in eventLog" :key="index">{{ event }}</div>
-        </div>
-      </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 // --- DATI STATICI ---
 const italianRegions = [
@@ -338,14 +288,6 @@ const categories = {
 // --- STATI ---
 const selectedCategory = ref('frutta');
 const formOutput = ref('');
-const eventLog = ref([]);
-
-// Stati per Nested
-const comuniData = ref([]);
-const regioniUniche = ref([]);
-const comuniFiltrati = ref([]);
-const comuneDisabled = ref(true);
-const comuneValue = ref('');
 
 // --- LOGICA ---
 
@@ -358,25 +300,8 @@ const asyncSearchFunction = (query, populateResults) => {
   }, 800);
 };
 
-// Caricamento dati iniziali
-onMounted(() => {
-  fetch('/assets/comuni.json')
-    .then((response) => response.json())
-    .then((data) => {
-      comuniData.value = data;
-      const regioniSet = new Set(data.map((item) => item.regione));
-      regioniUniche.value = Array.from(regioniSet)
-        .sort()
-        .map((regione) => ({
-          value: regione.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
-          label: regione,
-        }));
-    })
-    .catch((error) => console.error('Errore comuni:', error));
-});
-
-const handleRequiredSubmit = () => {
-  alert('Form valido!');
+const handleRequiredSubmit = (e) => {
+  e.preventDefault();
 };
 
 const handleFormSubmit = (e) => {
@@ -386,33 +311,5 @@ const handleFormSubmit = (e) => {
     data[key] = value;
   });
   formOutput.value = JSON.stringify(data, null, 2);
-};
-
-const handleRegioneChange = (e) => {
-  const selectedValue = e.detail.value;
-
-  if (selectedValue) {
-    const selectedRegione = regioniUniche.value.find((r) => r.value === selectedValue);
-    const regioneLabel = selectedRegione ? selectedRegione.label : selectedValue;
-
-    comuneDisabled.value = false;
-    comuneValue.value = ''; // Reset
-
-    comuniFiltrati.value = comuniData.value
-      .filter((item) => item.regione === regioneLabel)
-      .map((item) => ({
-        value: item.comune.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
-        label: item.comune,
-      }))
-      .sort((a, b) => a.label.localeCompare(b.label));
-  } else {
-    comuneDisabled.value = true;
-    comuniFiltrati.value = [];
-    comuneValue.value = '';
-  }
-};
-
-const logEvent = (msg) => {
-  eventLog.value.push(msg);
 };
 </script>

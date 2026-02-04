@@ -29,8 +29,8 @@ export function Sidebar() {
   }, []);
 
   return (
-    <div className="container my-4">
-      <h1 className="mb-4">Sidebar</h1>
+    <>
+      <h1>Sidebar</h1>
       <div className="row">
         <div className="col-md-4">
           <aside className="sidebar-wrapper" aria-labelledby="header">
@@ -101,7 +101,7 @@ export function Sidebar() {
           </p>
         </section>
       </div>
-    </div>
+    </>
   );
 }
 

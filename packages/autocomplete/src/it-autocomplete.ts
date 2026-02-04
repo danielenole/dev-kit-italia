@@ -191,25 +191,6 @@ export class ItAutocomplete extends FormControl {
         this.handleValidationMessages();
       }
     }
-
-    // // Annunci Screen Reader
-    // if (changedProps.has('_filteredOptions') || changedProps.has('_isOpen')) {
-    //   const count = this._filteredOptions.length;
-    //   if (!this._isOpen) return;
-
-    //   let content = '';
-    //   if (count === 0) {
-    //     content = this._inputValue.length >= this.minLength ? this.$t('autocomplete_statusNoResults') : '';
-    //   } else if (count === 1) {
-    //     content = this.$t('autocomplete_statusOneResult');
-    //   } else if (count > 1) {
-    //     content = this.$t('autocomplete_statusManyResults').replace('{count}', count.toString());
-    //   }
-
-    //   if (content) {
-    //     this._currentStatusContent = content;
-    //   }
-    // }
   }
 
   protected _handleInput(e: Event) {
@@ -396,7 +377,6 @@ export class ItAutocomplete extends FormControl {
       <div class="form-group autocomplete-wrapper">
         <label id="${labelId}" for="${inputId}" class="${this.composeClass({ 'visually-hidden': this.labelHidden })}">
           <slot name="label"></slot>
-          ${this.required ? html`<span class="required" aria-hidden="true">*</span>` : nothing}
         </label>
 
         <div class="autocomplete-input-wrapper">
@@ -430,6 +410,7 @@ export class ItAutocomplete extends FormControl {
             aria-activedescendant=${ifDefined(
               this._activeIndex >= 0 ? `${inputId}-option-${this._activeIndex}` : undefined,
             )}
+            @click=${this._handleClick}
             @input="${this._handleInput}"
             @keydown="${this._handleKeyDown}"
             @blur="${this._handleBlur}"
@@ -445,7 +426,7 @@ export class ItAutocomplete extends FormControl {
               >
                 ${this._filteredOptions.map(
                   (option, index) =>
-                    html` <li
+                    html`<li
                       id="${inputId}-option-${index}"
                       role="option"
                       part="autocomplete-option"

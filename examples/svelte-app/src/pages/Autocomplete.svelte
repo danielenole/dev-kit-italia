@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from 'svelte';
 
   const italianRegions = [
     { value: 'abruzzo', label: 'Abruzzo' },
@@ -163,16 +162,6 @@
 
   let formOutput = '';
   let selectedCategory = 'frutta';
-  let eventLog = [];
-
-  // Dati
-  let comuniData = [];
-  let regioniUniche = [];
-
-  // Stato per logica nested
-  let comuniFiltrati = [];
-  let comuneDisabilitato = true;
-  let comuneValore = ''; // Per il reset visivo
 
   // Funzione Source Asincrona
   const asyncSearchFunction = (query, populateResults) => {
@@ -183,22 +172,6 @@
     }, 800);
   };
 
-  onMount(() => {
-    fetch('/assets/comuni.json')
-      .then((response) => response.json())
-      .then((data) => {
-        comuniData = data;
-        const regioniSet = new Set(data.map((item) => item.regione));
-        regioniUniche = Array.from(regioniSet)
-          .sort()
-          .map((regione) => ({
-            value: regione.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
-            label: regione,
-          }));
-        // Svelte aggiornerà automaticamente <it-autocomplete source={regioniUniche}>
-      });
-  });
-
   function handleFormSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -208,35 +181,10 @@
     });
     formOutput = JSON.stringify(data, null, 2);
   }
-
-  function handleRegioneChange(e) {
-    const selectedValue = e.detail.value;
-
-    if (selectedValue) {
-      const selectedRegione = regioniUniche.find((r) => r.value === selectedValue);
-      const regioneLabel = selectedRegione ? selectedRegione.label : selectedValue;
-
-      comuneDisabilitato = false;
-      comuneValore = ''; // Reset one-way
-
-      // Aggiorniamo la variabile reattiva, Svelte passerà il nuovo array al componente
-      comuniFiltrati = comuniData
-        .filter((item) => item.regione === regioneLabel)
-        .map((item) => ({
-          value: item.comune.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
-          label: item.comune,
-        }))
-        .sort((a, b) => a.label.localeCompare(b.label));
-    } else {
-      comuneDisabilitato = true;
-      comuniFiltrati = [];
-      comuneValore = '';
-    }
-  }
 </script>
 
 <div class="container my-4">
-  <h1>it-autocomplete</h1>
+  <h1>Autocomplete</h1>
   <p class="lead">Esempi di utilizzo del componente autocomplete con Svelte</p>
 
   <section class="example-section">
@@ -260,7 +208,7 @@
   <section class="example-section">
     <h2>Campo obbligatorio</h2>
     <p>Campo con validazione required</p>
-    <form on:submit|preventDefault={() => alert('Form valido!')}>
+    <form on:submit|preventDefault={() => {}}>
       <it-autocomplete name="regione" required source={italianRegions}>
         <span slot="label">Regione</span>
       </it-autocomplete>
@@ -361,63 +309,7 @@
         </div>
       </div>
       <it-button type="submit" variant="primary">Invia</it-button>
-      {#if formOutput}
-        <div class="mt-3">
-          <div class="alert alert-success" role="alert">
-            <strong>Form valido!</strong> Dati inviati:
-            <pre>{formOutput}</pre>
-          </div>
-        </div>
-      {/if}
+
     </form>
-  </section>
-
-  <section class="example-section">
-    <h2>Regioni e Comuni</h2>
-    <p>Autocomplete collegati con dati reali da file JSON (circa 7.800 comuni italiani)</p>
-    <div class="row">
-      <div class="col-12 col-md-6 mb-3">
-        <it-autocomplete name="regione" source={regioniUniche} on:it-change={handleRegioneChange}>
-          <span slot="label">Regione</span>
-        </it-autocomplete>
-      </div>
-      <div class="col-12 col-md-6">
-        <it-autocomplete
-          name="comune"
-          disabled={comuneDisabilitato}
-          min-length="2"
-          source={comuniFiltrati}
-          value={comuneValore}
-        >
-          <span slot="label">Comune</span>
-        </it-autocomplete>
-      </div>
-    </div>
-  </section>
-
-  <section class="example-section">
-    <h2>Gestione degli eventi</h2>
-    <p>Ascolta gli eventi custom del componente</p>
-    <div>
-      <it-autocomplete
-        name="regione"
-        source={italianRegions}
-        on:it-autocomplete-ready={() => (eventLog = [...eventLog, 'Evento inizializzazione'])}
-        on:it-autocomplete-search={(e) => (eventLog = [...eventLog, `Ricerca: ${e.detail.value}`])}
-        on:it-change={(e) => (eventLog = [...eventLog, `Change: ${e.detail.value}`])}
-      >
-        <span slot="label">Regione</span>
-      </it-autocomplete>
-
-      <div style="margin-top: 1rem; padding: 1rem; background: #f5f5f5; border-radius: 4px">
-        {#if eventLog.length === 0}
-          <div><em>Digita o seleziona una regione per vedere gli eventi</em></div>
-        {:else}
-          {#each eventLog as event}
-            <div>{event}</div>
-          {/each}
-        {/if}
-      </div>
-    </div>
   </section>
 </div>

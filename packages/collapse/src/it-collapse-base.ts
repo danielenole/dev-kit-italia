@@ -3,6 +3,8 @@ import { html } from 'lit';
 import { property, query, queryAssignedElements } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { html as staticHtml, unsafeStatic } from 'lit/static-html.js';
+// The button package does not export Sizes/Variants types in this workspace
+// so use simple string-typed properties here to avoid type errors.
 import { isKeyboardEvent, isMouseEvent, PressEvent } from './types.js';
 import styles from './collapse.scss';
 
@@ -98,10 +100,10 @@ export class ItCollapseBase extends BaseComponent {
     if (this.contentElement) {
       if (this.expanded) {
         this.contentElement.style.height = 'auto';
-        this.contentElement.style.overflow = 'initial';
+        this.contentElement.style.visibility = 'visible';
       } else {
         this.contentElement.style.height = '0px';
-        this.contentElement.style.overflow = 'hidden';
+        this.contentElement.style.visibility = 'hidden';
       }
     }
   }
@@ -190,6 +192,7 @@ export class ItCollapseBase extends BaseComponent {
 
     // Ensure overflow is hidden during animation
     this.contentElement.style.overflow = 'hidden';
+    this.contentElement.style.visibility = 'visible';
     const startHeight = this.contentElement.offsetHeight;
     const endHeight = this.contentElement.scrollHeight;
     const duration = this.prefersReducedMotion ? 0 : this.animationDuration;
@@ -202,7 +205,8 @@ export class ItCollapseBase extends BaseComponent {
     this.animation.finished
       .then(() => {
         this.contentElement.style.height = 'auto';
-        this.contentElement.style.overflow = 'initial';
+        // Keep overflow hidden as per CSS
+        this.contentElement.style.overflow = 'hidden';
       })
       .catch(() => {
         // Animation cancelled
@@ -235,6 +239,7 @@ export class ItCollapseBase extends BaseComponent {
     this.animation.finished
       .then(() => {
         el.style.height = '0px';
+        el.style.visibility = 'hidden';
         el.style.overflow = 'hidden';
       })
       .catch(() => {

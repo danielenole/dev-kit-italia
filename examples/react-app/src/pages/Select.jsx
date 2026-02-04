@@ -3,7 +3,7 @@ import React from 'react';
 const Select = () => {
   return (
     <>
-      <h1>it-select</h1>
+      <h1>Select</h1>
 
       <it-select name="select-input" placeholder="Seleziona un'opzione">
         <span slot="label">Select semplice</span>

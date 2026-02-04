@@ -3,7 +3,7 @@ import React from 'react';
 const Dropdown = () => {
   return (
     <>
-      <h1>it-dropdown</h1>
+      <h1>Dropdown</h1>
 
       {/* Base */}
       <section>

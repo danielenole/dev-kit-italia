@@ -163,14 +163,6 @@ const categories = {
 export default function Autocomplete() {
   const [formOutput, setFormOutput] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('frutta');
-  const [eventLog, setEventLog] = useState([]);
-
-  // Stati per esempio Regioni e Comuni
-  const [comuniData, setComuniData] = useState([]);
-  const [regioniUniche, setRegioniUniche] = useState([]);
-  const [comuniFiltrati, setComuniFiltrati] = useState([]);
-  const [isComuneDisabled, setIsComuneDisabled] = useState(true);
-  const [comuneValue, setComuneValue] = useState('');
 
   // Source Function per ricerca asincrona
   const asyncSourceFunction = (query, populateResults) => {
@@ -180,26 +172,6 @@ export default function Autocomplete() {
       populateResults(results);
     }, 800);
   };
-
-  // Caricamento dati iniziali (Fetch reale)
-  useEffect(() => {
-    fetch('/assets/comuni.json')
-      .then((response) => response.json())
-      .then((data) => {
-        setComuniData(data);
-        const regioniSet = new Set(data.map((item) => item.regione));
-        const regioni = Array.from(regioniSet)
-          .sort()
-          .map((regione) => ({
-            value: regione.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
-            label: regione,
-          }));
-        setRegioniUniche(regioni);
-      })
-      .catch((error) => {
-        console.error('Errore caricamento comuni:', error);
-      });
-  }, []);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -211,36 +183,9 @@ export default function Autocomplete() {
     setFormOutput(JSON.stringify(data, null, 2));
   };
 
-  const handleRegioneChange = (e) => {
-    // React 19 passa l'evento CustomEvent nativo
-    const selectedValue = e.detail?.value;
-
-    if (selectedValue) {
-      const selectedRegione = regioniUniche.find((r) => r.value === selectedValue);
-      const regioneLabel = selectedRegione ? selectedRegione.label : selectedValue;
-
-      setIsComuneDisabled(false);
-      setComuneValue(''); // Reset del comune
-
-      const comuniDellaRegione = comuniData
-        .filter((item) => item.regione === regioneLabel)
-        .map((item) => ({
-          value: item.comune.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
-          label: item.comune,
-        }))
-        .sort((a, b) => a.label.localeCompare(b.label));
-
-      setComuniFiltrati(comuniDellaRegione);
-    } else {
-      setIsComuneDisabled(true);
-      setComuniFiltrati([]);
-      setComuneValue('');
-    }
-  };
-
   return (
     <div className="container my-4">
-      <h1>it-autocomplete</h1>
+      <h1>Autocomplete</h1>
 
       <section className="example-section">
         <h2>Esempio di autocompletamento</h2>
@@ -264,7 +209,6 @@ export default function Autocomplete() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            alert(`Form valido!`);
           }}
         >
           <it-autocomplete name="regione" required source={italianRegions}>
@@ -373,63 +317,7 @@ export default function Autocomplete() {
           <it-button type="submit" variant="primary">
             Invia
           </it-button>
-          {formOutput && (
-            <div className="mt-3">
-              <div className="alert alert-success" role="alert">
-                <strong>Form valido!</strong> Dati inviati:
-                <pre>{formOutput}</pre>
-              </div>
-            </div>
-          )}
         </form>
-      </section>
-
-      <section className="example-section">
-        <h2>Regioni e Comuni</h2>
-        <div className="row">
-          <div className="col-12 col-md-6 mb-3">
-            {/* React 19: Listener nativi per eventi Custom (on[Evento]) */}
-            <it-autocomplete name="regione" source={regioniUniche} onIt-change={handleRegioneChange}>
-              <span slot="label">Regione</span>
-            </it-autocomplete>
-          </div>
-          <div className="col-12 col-md-6">
-            <it-autocomplete
-              name="comune"
-              disabled={isComuneDisabled}
-              min-length="2"
-              source={comuniFiltrati}
-              value={comuneValue} // Controllo one-way per reset
-            >
-              <span slot="label">Comune</span>
-            </it-autocomplete>
-          </div>
-        </div>
-      </section>
-
-      <section className="example-section">
-        <h2>Gestione degli eventi</h2>
-        <div>
-          <it-autocomplete
-            name="regione"
-            source={italianRegions}
-            onIt-autocomplete-ready={() => setEventLog((p) => [...p, 'Evento inizializzazione'])}
-            onIt-autocomplete-search={(e) => setEventLog((p) => [...p, `Ricerca: ${e.detail.value}`])}
-            onIt-change={(e) => setEventLog((p) => [...p, `Change: ${e.detail.value}`])}
-          >
-            <span slot="label">Regione</span>
-          </it-autocomplete>
-
-          <div style={{ marginTop: '1rem', padding: '1rem', background: '#f5f5f5', borderRadius: '4px' }}>
-            {eventLog.length === 0 ? (
-              <div>
-                <em>Digita o seleziona una regione per vedere gli eventi</em>
-              </div>
-            ) : (
-              eventLog.map((event, index) => <div key={index}>{event}</div>)
-            )}
-          </div>
-        </div>
       </section>
     </div>
   );

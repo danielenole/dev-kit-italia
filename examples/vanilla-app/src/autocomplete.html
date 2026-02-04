@@ -13,7 +13,7 @@
     <div id="root">
       <div id="app-header"></div>
       <div class="container my-4">
-        <h1>it-autocomplete</h1>
+        <h1>Autocomplete</h1>
         <p class="lead">Esempi di utilizzo del componente autocomplete con JavaScript vanilla</p>
 
         <!-- Esempio Base -->
@@ -162,38 +162,6 @@
             <div id="form-output" class="mt-3"></div>
           </form>
         </section>
-
-        <!-- Regioni e Comuni -->
-        <section class="example-section">
-          <h2>Regioni e Comuni</h2>
-          <p>Autocomplete collegati con dati reali da file JSON (circa 7.800 comuni italiani)</p>
-          <div class="row">
-            <div class="col-12 col-md-6 mb-3">
-              <it-autocomplete id="autocomplete-regione" name="regione">
-                <span slot="label">Regione</span>
-              </it-autocomplete>
-            </div>
-            <div class="col-12 col-md-6">
-              <it-autocomplete id="autocomplete-comune" name="comune" disabled min-length="2">
-                <span slot="label">Comune</span>
-              </it-autocomplete>
-            </div>
-          </div>
-        </section>
-
-        <!-- Gestione eventi -->
-        <section class="example-section">
-          <h2>Gestione degli eventi</h2>
-          <p>Ascolta gli eventi custom del componente</p>
-          <div>
-            <it-autocomplete id="autocomplete-eventi" name="regione">
-              <span slot="label">Regione</span>
-            </it-autocomplete>
-            <div id="event-output" style="margin-top: 1rem; padding: 1rem; background: #f5f5f5; border-radius: 4px">
-              <div><em>Digita o seleziona una regione per vedere gli eventi</em></div>
-            </div>
-          </div>
-        </section>
       </div>
       <div id="app-footer"></div>
     </div>
@@ -265,7 +233,6 @@
 
       formRequired.addEventListener('submit', (e) => {
         e.preventDefault();
-        alert(`Form valido! Regione: ${autocompleteRequired.value}`);
       });
 
       // ========== CON MINLENGTH ==========
@@ -460,104 +427,10 @@
           data[key] = value;
         });
 
-        formOutput.innerHTML = `
-          <div class="alert alert-success" role="alert">
-            <strong>Form valido!</strong> Dati inviati:
-            <pre>${JSON.stringify(data, null, 2)}</pre>
-          </div>
-        `;
-      });
 
-      // ========== REGIONI E COMUNI ==========
-      let comuniData = [];
-      let regioniUniche = [];
-
-      const regioneAutocompleteNested = document.getElementById('autocomplete-regione');
-      const comuneAutocomplete = document.getElementById('autocomplete-comune');
-
-      // Carica i dati dei comuni
-      fetch('/assets/comuni.json')
-        .then((response) => response.json())
-        .then((data) => {
-          comuniData = data;
-
-          // Estrai le regioni uniche e ordinale
-          const regioniSet = new Set(data.map((item) => item.regione));
-          regioniUniche = Array.from(regioniSet)
-            .sort()
-            .map((regione) => ({
-              value: regione.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
-              label: regione,
-            }));
-
-          // Imposta le regioni nell'autocomplete
-          regioneAutocompleteNested.source = regioniUniche;
-        })
-        .catch((error) => {
-          console.error('Errore caricamento comuni:', error);
-        });
-
-      // Reset del valore comune quando si seleziona una regione
-      regioneAutocompleteNested.addEventListener('it-autocomplete-ready', () => {
-        regioneAutocompleteNested.addEventListener('it-autocomplete-select', (e) => {
-          comuneAutocomplete.value = '';
-        });
-      });
-
-      // Quando cambia il valore della regione, abilita e popola i comuni
-      regioneAutocompleteNested.addEventListener('it-change', (e) => {
-        if (e.detail.value) {
-          // Il valore ora è il kebab-case value, dobbiamo trovare la label corrispondente
-          const selectedRegione = regioniUniche.find((r) => r.value === e.detail.value);
-          const regione = selectedRegione ? selectedRegione.label : e.detail.value;
-
-          comuneAutocomplete.disabled = false;
-
-          console.log('Regione selezionata:', regione);
-
-          // Filtra i comuni per la regione selezionata
-          const comuniDellaRegione = comuniData
-            .filter((item) => item.regione === regione)
-            .map((item) => ({
-              value: item.comune.toLowerCase().replace(/\s+/g, '-').replace(/'/g, ''),
-              label: item.comune,
-            }))
-            .sort((a, b) => a.label.localeCompare(b.label));
-
-          console.log('Comuni trovati:', comuniDellaRegione.length);
-
-          // Imposta direttamente l'array dei comuni filtrati
-          comuneAutocomplete.source = comuniDellaRegione;
-        }
       });
 
       // ========== GESTIONE EVENTI ==========
-      const autocompleteEventi = document.getElementById('autocomplete-eventi');
-      const eventOutput = document.getElementById('event-output');
-
-      // Imposta la sorgente dati
-      autocompleteEventi.source = italianRegions;
-
-      // Ascolta l'evento 'it-autocomplete-ready' (quando il componente è inizializzato)
-      autocompleteEventi.addEventListener('it-autocomplete-ready', (e) => {
-        const newDiv = document.createElement('div');
-        newDiv.textContent = 'Evento inizializzazione';
-        eventOutput.appendChild(newDiv);
-      });
-
-      // Ascolta l'evento 'it-autocomplete-search' (quando l'utente digita)
-      autocompleteEventi.addEventListener('it-autocomplete-search', (e) => {
-        const newDiv = document.createElement('div');
-        newDiv.textContent = `Evento ricerca nell'autocomplete: testo ${e.detail.value}`;
-        eventOutput.appendChild(newDiv);
-      });
-
-      // Ascolta l'evento 'it-change' (quando il valore cambia)
-      autocompleteEventi.addEventListener('it-change', (e) => {
-        const newDiv = document.createElement('div');
-        newDiv.textContent = `Evento change: selezionato ${e.detail.value}`;
-        eventOutput.appendChild(newDiv);
-      });
     </script>
   </body>
 </html>

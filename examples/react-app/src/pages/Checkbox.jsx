@@ -4,7 +4,7 @@ import { registerTranslation } from '@italia/dev-kit-italia/elements.js';
 const Checkbox = () => {
   return (
     <>
-      <h1>it-checkbox</h1>
+      <h1>Checkbox</h1>
 
       <it-checkbox id="chExample" name="esempio">
         <span slot="label">Checkbox di esempio</span>

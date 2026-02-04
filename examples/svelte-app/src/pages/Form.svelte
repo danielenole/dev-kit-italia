@@ -31,7 +31,7 @@
   };
 </script>
 
-<h1>it-form</h1>
+<h1>Form</h1>
 
 <form id="form" on:submit={handleSubmit}>
   <it-input id="nome-basic" name="nome"><span slot="label">Nome</span></it-input>

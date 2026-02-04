@@ -3,7 +3,7 @@ import React from 'react';
 const Section = () => {
   return (
     <>
-      <h1>it-section</h1>
+      <h1>Section</h1>
 
       <it-section>
         <div className="container">
@@ -15,20 +15,20 @@ const Section = () => {
           <div className="row">
             <div className="col-12 col-lg-6 col-xl-4">
               <p>
-                Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo
-                donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus.
+                Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet
+                justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus.
               </p>
             </div>
             <div className="col-12 col-lg-6 col-xl-4">
               <p>
-                Eget egestas purus viverra accumsan. Diam maecenas ultricies mi eget mauris pharetra et. Etiam dignissim diam
-                quis enim. Eu nisl nunc mi ipsum faucibus.
+                Eget egestas purus viverra accumsan. Diam maecenas ultricies mi eget mauris pharetra et. Etiam dignissim
+                diam quis enim. Eu nisl nunc mi ipsum faucibus.
               </p>
             </div>
             <div className="col-12 col-lg-6 col-xl-4">
               <p>
-                Euismod lacinia at quis risus sed vulputate. Scelerisque purus semper eget duis at tellus at urna condimentum.
-                Mattis enim ut tellus elementum sagittis.
+                Euismod lacinia at quis risus sed vulputate. Scelerisque purus semper eget duis at tellus at urna
+                condimentum. Mattis enim ut tellus elementum sagittis.
               </p>
             </div>
           </div>
@@ -79,20 +79,20 @@ const Section = () => {
             <div className="row">
               <div className="col-12 col-lg-6 col-xl-4">
                 <p>
-                  Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo
-                  donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus.
+                  Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet
+                  justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus.
                 </p>
               </div>
               <div className="col-12 col-lg-6 col-xl-4">
                 <p>
-                  Eget egestas purus viverra accumsan. Diam maecenas ultricies mi eget mauris pharetra et. Etiam dignissim diam
-                  quis enim. Eu nisl nunc mi ipsum faucibus.
+                  Eget egestas purus viverra accumsan. Diam maecenas ultricies mi eget mauris pharetra et. Etiam
+                  dignissim diam quis enim. Eu nisl nunc mi ipsum faucibus.
                 </p>
               </div>
               <div className="col-12 col-lg-6 col-xl-4">
                 <p>
-                  Euismod lacinia at quis risus sed vulputate. Scelerisque purus semper eget duis at tellus at urna condimentum.
-                  Mattis enim ut tellus elementum sagittis.
+                  Euismod lacinia at quis risus sed vulputate. Scelerisque purus semper eget duis at tellus at urna
+                  condimentum. Mattis enim ut tellus elementum sagittis.
                 </p>
               </div>
             </div>
@@ -106,7 +106,9 @@ const Section = () => {
           <div className="container">
             <div className="row">
               <div className="col">
-                <h2 id="section-heading-card" className="mb-4">Morbi fermentum amet</h2>
+                <h2 id="section-heading-card" className="mb-4">
+                  Morbi fermentum amet
+                </h2>
               </div>
             </div>
             <div className="row gy-3">
