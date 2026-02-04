@@ -42,6 +42,8 @@ export class ItAutocomplete extends FormControl {
 
   @state() private _currentStatusContent = '';
 
+  private _boundClickOutside?: (e: MouseEvent) => void;
+
   get label(): string {
     return this.labelElements.length > 0 ? this.labelElements[0].innerText.trim() : '';
   }
@@ -149,6 +151,27 @@ export class ItAutocomplete extends FormControl {
         this.value = this.defaultValue;
       }
     }
+
+    // Click outside handler per chiudere l'autocomplete
+    this._boundClickOutside = this._handleClickOutside.bind(this);
+    document.addEventListener('click', this._boundClickOutside);
+  }
+
+  override disconnectedCallback() {
+    super.disconnectedCallback?.();
+    if (this._boundClickOutside) {
+      document.removeEventListener('click', this._boundClickOutside);
+    }
+  }
+
+  private _handleClickOutside(e: MouseEvent) {
+    if (!this._isOpen) return;
+    const target = e.target as Node;
+    if (!this.contains(target)) {
+      this._isOpen = false;
+      this._activeIndex = -1;
+      this._listboxHasVisualFocus = false;
+    }
   }
 
   /**
@@ -225,7 +248,7 @@ export class ItAutocomplete extends FormControl {
 
     if (this._typingDebounceTimer) clearTimeout(this._typingDebounceTimer);
     this._typingDebounceTimer = setTimeout(() => {
-      this._announceStatus();
+      this._announceStatus(true);
     }, 500);
   }
 
@@ -327,18 +350,6 @@ export class ItAutocomplete extends FormControl {
     });
   }
 
-  protected _handleBlur(e: Event) {
-    super._handleBlur(e);
-    setTimeout(() => {
-      this._isOpen = false;
-      this._activeIndex = -1;
-    }, 150);
-  }
-
-  protected _handleFocus(e: Event): void {
-    super._handleFocus(e);
-  }
-
   private _announceStatus(force = false) {
     if (!this._isOpen && !force) return;
     const count = this._filteredOptions.length;
@@ -397,8 +408,8 @@ export class ItAutocomplete extends FormControl {
             aria-invalid=${ifDefined(this.invalid ? 'true' : undefined)}
             role="combobox"
             aria-autocomplete="list"
+            aria-controls="${listboxId}"
             aria-expanded="${this._isOpen ? 'true' : 'false'}"
-            aria-controls="${this._isOpen ? listboxId : nothing}"
             aria-haspopup="listbox"
             aria-labelledby="${labelId}"
             aria-describedby="${[
@@ -414,6 +425,7 @@ export class ItAutocomplete extends FormControl {
             @input="${this._handleInput}"
             @keydown="${this._handleKeyDown}"
             @blur="${this._handleBlur}"
+            @focus="${this._handleFocus}"
           />
 
           ${this._isOpen && this._filteredOptions.length > 0
@@ -424,26 +436,33 @@ export class ItAutocomplete extends FormControl {
                 role="listbox"
                 aria-label="${this.$t('autocomplete_listboxLabel')}"
               >
-                ${this._filteredOptions.map(
-                  (option, index) =>
-                    html`<li
-                      id="${inputId}-option-${index}"
-                      role="option"
-                      part="autocomplete-option"
-                      aria-selected="${index === this._activeIndex ? 'true' : 'false'}"
-                      aria-posinset="${index + 1}"
-                      aria-setsize="${this._filteredOptions.length}"
-                      class="autocomplete-option ${classMap({ active: index === this._activeIndex })}"
-                      @click="${() => this._handleOptionClick(option.value)}"
-                      @keydown="${(e: KeyboardEvent) => this._handleOptionKeyDown(e, option.value)}"
-                      @mouseenter="${() => this._handleOptionHover(index)}"
-                    >
-                      <span>${option.label}</span>
-                      ${index === this._activeIndex
-                        ? html`<span class="visually-hidden">, ${this.$t('autocomplete_option_selected')}</span>`
-                        : nothing}
-                    </li>`,
-                )}
+                ${this._filteredOptions.map((option, index) => {
+                  const position = `${index + 1} ${this.$t('autocomplete_of')} ${this._filteredOptions.length}`;
+                  const ariaLabel =
+                    index === this._activeIndex
+                      ? `${option.label}, ${position}, ${this.$t('autocomplete_option_selected')}`
+                      : `${option.label}, ${position}`;
+
+                  return html`<li
+                    id="${inputId}-option-${index}"
+                    role="option"
+                    part="autocomplete-option"
+                    tabindex="-1"
+                    aria-selected="${index === this._activeIndex ? 'true' : 'false'}"
+                    aria-posinset="${index + 1}"
+                    aria-setsize="${this._filteredOptions.length}"
+                    aria-label="${ariaLabel}"
+                    class="autocomplete-option ${classMap({ active: index === this._activeIndex })}"
+                    @click="${() => this._handleOptionClick(option.value)}"
+                    @keydown="${(e: KeyboardEvent) => this._handleOptionKeyDown(e, option.value)}"
+                    @mouseenter="${() => this._handleOptionHover(index)}"
+                  >
+                    <span>${option.label}</span>
+                    ${index === this._activeIndex
+                      ? html`<span class="visually-hidden">, ${this.$t('autocomplete_option_selected')}</span>`
+                      : nothing}
+                  </li>`;
+                })}
               </ul>`
             : nothing}
         </div>
