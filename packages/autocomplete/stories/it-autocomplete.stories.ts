@@ -342,7 +342,7 @@ export const MatriceComportamento: Story = {
           <div class="p-3 border rounded">
             <h6 class="fw-bold">1. Source Statica + Default value Stringa</h6>
             <p class="small text-muted mb-2">Il default value "rm" è presente nelle source statiche. Trova e mostra "Roma".</p>
-            <span class="badge bg-success mb-3">BEST PRACTICE</span>
+            <span class="badge badge-success mb-3">BEST PRACTICE</span>
             ${renderComponent({
               label: 'Città',
               name: 'matrix-1',
@@ -356,7 +356,7 @@ export const MatriceComportamento: Story = {
           <div class="p-3 border rounded">
             <h6 class="fw-bold">2. Source Statica + Default value Oggetto</h6>
             <p class="small text-muted mb-2">Il default value "to/Torino" non è in source, il componente suppone che source sia una funzione asincrona.</p>
-                       <span class="badge bg-danger mb-3">ERRORE IMPLEMENTATORE</span>
+                       <span class="badge badge-danger mb-3">ERRORE IMPLEMENTATORE</span>
 
             ${renderComponent({
               label: 'Città',
@@ -371,7 +371,7 @@ export const MatriceComportamento: Story = {
           <div class="p-3 border rounded bg-light border-warning">
             <h6 class="fw-bold">3. Source Function + Default value Stringa</h6>
             <p class="small text-muted mb-2">Essendo la source una funzione asincrona, non è possibile risolvere la label associata al valore "rm".</p>
-            <span class="badge bg-danger mb-3">ERRORE IMPLEMENTATORE</span>
+            <span class="badge badge-danger mb-3">ERRORE IMPLEMENTATORE</span>
             <it-autocomplete label="Città" name="matrix-3" default-value="rm" .source="${asyncSource}">
               <span slot="label">Città</span>
             </it-autocomplete>
@@ -382,7 +382,7 @@ export const MatriceComportamento: Story = {
           <div class="p-3 border rounded border-success">
             <h6 class="fw-bold">4. Source Function + Default value Oggetto</h6>
             <p class="small text-muted mb-2">Passiamo un default value con Label e Value esplicitamente. A caricamento avvenuto questo oggetto è incluso nella source.</p>
-            <span class="badge bg-success mb-3">BEST PRACTICE</span>
+            <span class="badge badge-success mb-3">BEST PRACTICE</span>
             <it-autocomplete
               label="Città"
               name="matrix-4"
