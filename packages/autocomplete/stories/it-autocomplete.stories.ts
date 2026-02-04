@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import type { AutocompleteOption } from '../src/types';
+import i18nIT from '../src/locales/it.js';
 
 interface AutocompleteProps {
   id: string;
@@ -1328,11 +1329,31 @@ Il componente espone delle proprietà, metodi, ed eventi, utili per eventuali in
 |\`it-autocomplete-ready\`|  Emesso quando il componente è stato inizializzato |
 |\`it-autocomplete-search\`| Emesso quando l'utente digita nel campo di ricerca |
 |\`it-blur\`| Quando l'input perde il focus (blur) |
-|\`it-blur\`| Quando l'input perde il focus (blur) |
+|\`it-click\`| Quando l'utente fa click sull'input dell'autocomplete |
 |\`it-focus\`| Quando l'input riceve il focus (focus) |
 |\`it-change\`| Quando il valore dell’input viene modificato e il browser emette \`change\` |
 |\`invalid\`| Emesso dal browser quando la validazione fallisce.|
 
+`,
+      },
+    },
+  },
+};
+
+export const I18n: Story = {
+  name: 'i18n',
+  tags: ['!dev'],
+  render: () => html`<div class="hide-preview"></div>`,
+  parameters: {
+    viewMode: 'docs',
+    docs: {
+      description: {
+        story: `
+Per questo componente sono disponibili alcune stringhe traducibili tramite l'[utility di internazionalizzazione](/docs/i18n-internazionalizzazione--documentazione).
+
+\`\`\`js
+const translation = ${JSON.stringify(i18nIT, null, 2)}
+\`\`\`
 `,
       },
     },
