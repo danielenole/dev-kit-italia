@@ -132,6 +132,9 @@ importers:
       storybook-addon-tag-badges:
         specifier: ^2.0.4
         version: 2.0.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.17(@testing-library/dom@10.4.1)(prettier@3.8.1)(vite@7.3.1(@types/node@25.0.10)(sass@1.97.3)(yaml@2.8.2)))
+      storybook-version:
+        specifier: ^0.1.4
+        version: 0.1.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.17(@testing-library/dom@10.4.1)(prettier@3.8.1)(vite@7.3.1(@types/node@25.0.10)(sass@1.97.3)(yaml@2.8.2)))
       stylelint:
         specifier: ^16.20.0
         version: 16.26.1(typescript@5.9.3)
@@ -4850,7 +4853,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   global-modules@2.0.0:
     resolution: {integrity: sha512-NGbfmJBp9x8IxyJSd1P+otYK8vonoJactOogrVfFRIAEY1ukil8RSKDz2Yo7wh1oihl51l/r6W4epkeKJHqL8A==}
@@ -6505,6 +6508,18 @@ packages:
     engines: {node: '>=20'}
     peerDependencies:
       storybook: ^9.0.0
+
+  storybook-version@0.1.4:
+    resolution: {integrity: sha512-1hI7/uqEkkwuKhhgj67asJ6VGJdS6KBa6MC51wtxh4FFg5bqxDLmgBCNmQjskwwj9qx+H6Ql9T6sR0keG1fuUg==}
+    peerDependencies:
+      react: 19.2.0
+      react-dom: 19.2.0
+      storybook: ^9.0.15
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   storybook@9.1.17:
     resolution: {integrity: sha512-kfr6kxQAjA96ADlH6FMALJwJ+eM80UqXy106yVHNgdsAP/CdzkkicglRAhZAvUycXK9AeadF6KZ00CWLtVMN4w==}
@@ -12347,6 +12362,13 @@ snapshots:
     transitivePeerDependencies:
       - react
       - react-dom
+
+  storybook-version@0.1.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.17(@testing-library/dom@10.4.1)(prettier@3.8.1)(vite@7.3.1(@types/node@25.0.10)(sass@1.97.3)(yaml@2.8.2))):
+    dependencies:
+      storybook: 9.1.17(@testing-library/dom@10.4.1)(prettier@3.8.1)(vite@7.3.1(@types/node@25.0.10)(sass@1.97.3)(yaml@2.8.2))
+    optionalDependencies:
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
 
   storybook@9.1.17(@testing-library/dom@10.4.1)(prettier@3.8.1)(vite@7.3.1(@types/node@25.0.10)(sass@1.97.3)(yaml@2.8.2)):
     dependencies:
