@@ -1,0 +1,100 @@
+import { Meta, Story, Canvas, Controls, Description, Subtitle } from '@storybook/addon-docs/blocks';
+import * as HeroStories from './it-hero.stories';
+
+<Meta of={HeroStories} />
+
+# Hero
+
+<description>Sezione a tutta larghezza per mettere in evidenza combinazioni di contenuti testuali, immagini e pulsanti</description>
+
+
+## Cosa fa
+
+Il componente Hero puoi usarlo per guidare l'utente verso un contenuto in evidenza e una call to action, oppure come apertura di grande impatto visivo della pagina che possa invogliare gli utenti a scorrere ulteriori contenuti.
+
+[Approfondisci quando e come usare il componente Hero](https://designers.italia.it/design-system/componenti/hero/)
+
+
+## Anteprima e attributi del componente
+
+Modifica gli attributi nella tabella per personalizzare in tempo reale l’aspetto e il comportamento del componente. Per vedere come cambia il codice, clicca su <strong>Show code</strong>.
+
+<Canvas of={HeroStories.EsempioInterattivo} />
+<Controls of={HeroStories.EsempioInterattivo} />
+
+## Indicazioni generali
+
+Puoi facoltativamente estendere la larghezza del componente Hero all’intera finestra, per mostrare messaggi in evidenza sul tuo sito.
+
+
+<div class="callout callout-warning">
+  <div class="callout-inner">
+    <div class="callout-title">
+      <span class="text">Accessibilità e semantica</span>
+    </div>
+    <p>
+    Valuta attentamente l'utilizzo di più hero nella stessa pagina
+    </p>
+  </div>
+</div>
+
+## Accessibilità
+
+Il componente Breadcrumbs implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.2 breadcrumbs](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) per garantire un'esperienza accessibile a tutti gli utenti:
+- Fornisce automaticamente l'attributo `aria-current="page"` sull'ultimo elemento per indicare la pagina corrente agli screen reader.
+- Il separatore viene nascosto agli screen reader tramite `aria-hidden="true"` per evitare annunci ridondanti.
+- Usa elementi semantici (`<nav>`, `<ol>`, `<li>`) per una corretta struttura del documento.
+
+<div class="callout callout-warning">
+  <div class="callout-inner">
+    <div class="callout-title">
+      <span class="text">Nota sui test di accessibilità</span>
+    </div>
+    <p>
+      Axe e altri strumenti di analisi statica possono segnalare falsi positivi quando analizzano il componente `it-hero` a causa del limitato supporto per i Web Components. La struttura accessibile effettiva è corretta, come confermato dall'Accessibility Tree e dai test manuali con screen reader.
+    </p>
+  </div>
+</div>
+
+
+## Con icona
+
+Puoi aggiungere un'icona a un elemento `it-breadcrumb-item` inserendo un componente `it-icon` all'interno del tag `<a>`.
+
+<Canvas of={HeroStories.ConIcona} />
+
+## Separatore personalizzato
+
+Di default, il componente Breadcrumbs usa `/` come separatore tra gli elementi. Puoi personalizzarlo in due modi:
+- utilizzando l'attributo `separator` su `it-hero` (es. `>`)
+- inserendo un elemento personalizzato (come un'icona) nello slot `separator` di ogni `it-breadcrumb-item`.
+
+<Canvas of={HeroStories.SeparatorePersonalizzato} />
+
+## Sfondo scuro
+
+Aggiungi l'attributo `dark` per utilizzare la versione su sfondo scuro delle breadcrumbs.
+
+<div class="callout callout-warning">
+  <div class="callout-inner">
+    <div class="callout-title">
+      <span class="text">Accessibilità e icone</span>
+    </div>
+    <p>
+      Quando usi icone negli slot `separator` o come contenuto di un `it-breadcrumb-item` ricorda di impostare manualmente il colore appropriato in modo da garantire un contrasto che rispetti le linee guida di accessibilità.
+    </p>
+  </div>
+</div>
+
+<Canvas of={HeroStories.Sfondo} />
+
+## Personalizzazione degli stili
+
+Per la personalizzazione degli stili puoi usare i selettori `::part` dedicati:
+
+- `::part(breadcrumbs-container)` - elemento `nav` che contiene le breadcrumbs
+- `::part(breadcrumbs)` - elemento `ol` che contiene le voci
+- `::part(breadcrumb-item)` - ogni singolo elemento `li` della lista
+- `::part(separator)` - elemento usato come separatore tra le voci
+
+[Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
