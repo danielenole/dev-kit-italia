@@ -1,9 +1,13 @@
 // @import 'bootstrap-italia/src/scss/base/functions';
 // @import 'bootstrap-italia/src/scss/base/variables';
-// // TODO: refactor once BSI styles are fixed and updated
-// it-hero:not(:defined) {
-//   --it-host-display: flex;
-//   --it-breadcrumb-background-color: transparent;
-//   --it-breadcrumb-text-color: inherit;
-//   display: var(--it-host-display);
-// }
+
+@import 'bootstrap-italia/src/scss/components/hero';
+
+it-hero:not(:defined) {
+  --it-host-display: block;
+  display: var(--it-host-display);
+}
+
+it-hero {
+  display: block;
+}

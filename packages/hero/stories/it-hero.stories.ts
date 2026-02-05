@@ -1,13 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '@italia/breadcrumbs';
-import '@italia/icon';
+import '@italia/hero';
 
 interface HeroProps {
   'it-aria-label'?: string;
-  dark?: boolean;
-  separator?: string;
 }
 
 const meta = {
@@ -16,21 +13,28 @@ const meta = {
   component: 'it-hero',
 
   args: {
-    'it-aria-label': 'Percorso di navigazione',
-    dark: false,
+    'it-aria-label': 'In evidenza',
   },
   argTypes: {
     'it-aria-label': {
       control: 'text',
-      description: 'Testo usato come `aria-label` sul contenitore di navigazione (es. "Percorso di navigazione").',
-    },
-    dark: {
-      control: 'boolean',
-      description: 'Imposta la variante a tema scuro.',
+      description:
+        "Testo usato come `aria-label` sul contenitore dell'Hero (es. \"In evidenza\"). Obbligatorio quando l'hero contiene solamente un'immagine.",
+      table: { defaultValue: { summary: 'In evidenza' } },
     },
   },
 } satisfies Meta<HeroProps>;
 
+const renderComponentWithImage = (args: any) => html`
+  <it-hero it-aria-label=${args['it-aria-label']}>
+    <img
+      title="titolo immagine"
+      alt="descrizione immagine"
+      slot="background"
+      src="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+    />
+  </it-hero>
+`;
 export default meta;
 type Story = StoryObj<HeroProps>;
 
@@ -38,119 +42,32 @@ export const EsempioInterattivo: Story = {
   name: 'Esempio interattivo',
   tags: ['!autodocs', '!dev'],
   parameters: { docs: { canvas: { sourceState: 'hidden' } } },
-  render: (args) => html`
-    <it-hero it-aria-label=${args['it-aria-label']} ?dark="${ifDefined(args.dark)}">
-      <it-breadcrumb-item><a href="#">Home</a></it-breadcrumb-item>
-      <it-breadcrumb-item><a href="#">Sezione</a></it-breadcrumb-item>
-      <it-breadcrumb-item>Voce corrente</it-breadcrumb-item>
-    </it-hero>
-  `,
+  render: (args) =>
+    html`${renderComponentWithImage({
+      ...args,
+    })}`,
 };
 
-export const ConLink: Story = {
-  tags: ['!autodocs', '!dev'],
-  args: {
-    'it-aria-label': 'Breadcrumb con link',
-  },
-  render: (args) => html`
-    <it-hero it-aria-label=${args['it-aria-label']}>
-      <it-breadcrumb-item><a href="#">Home</a></it-breadcrumb-item>
-      <it-breadcrumb-item><a href="#">Sezione</a></it-breadcrumb-item>
-      <it-breadcrumb-item>Voce corrente</it-breadcrumb-item>
-    </it-hero>
-  `,
+export const ConImmagine: Story = {
+  name: 'Con immagine',
+  render: (args) =>
+    html`${renderComponentWithImage({
+      ...args,
+    })}`,
 };
 
-export const ConIcona: Story = {
-  name: 'Con icona',
-  render: () => html`
-    <it-hero it-aria-label="Percorso di navigazione">
-      <it-breadcrumb-item>
-        <a href="#"><it-icon name="it-link" color="secondary" size="sm" class="me-1"></it-icon>Home</a>
-      </it-breadcrumb-item>
-      <it-breadcrumb-item>
-        <a href="#"><it-icon name="it-link" color="secondary" size="sm" class="me-1"></it-icon>Sezione</a>
-      </it-breadcrumb-item>
-      <it-breadcrumb-item>
-        <a href="#"><it-icon name="it-link" color="secondary" size="sm" class="me-1"></it-icon>Voce corrente</a>
-      </it-breadcrumb-item>
-    </it-hero>
-  `,
-};
-
-export const SeparatorePersonalizzato: Story = {
-  args: {
-    'it-aria-label': 'Breadcrumb con separatore personalizzato',
-    separator: '>',
-  },
-  render: (args) => html`
-    <it-hero label=${args['it-aria-label']} separator=${args.separator}>
-      <it-breadcrumb-item><a href="#">Home</a></it-breadcrumb-item>
-      <it-breadcrumb-item><a href="#">Sezione</a></it-breadcrumb-item>
-      <it-breadcrumb-item>Voce corrente</it-breadcrumb-item>
-    </it-hero>
-
-    <it-hero it-aria-label="Percorso di navigazione con icona come separatore" class="mt-3">
-      <it-breadcrumb-item>
-        <a href="#">Home</a>
-        <it-icon name="it-chevron-right" color="secondary" size="sm" slot="separator" class="my-separator"></it-icon>
-      </it-breadcrumb-item>
-      <it-breadcrumb-item>
-        <a href="#">Sezione</a>
-        <it-icon name="it-chevron-right" color="secondary" size="sm" slot="separator" class="my-separator"></it-icon>
-      </it-breadcrumb-item>
-      <it-breadcrumb-item>Voce corrente</it-breadcrumb-item>
-    </it-hero>
-
-    <style>
-      .my-separator {
-        margin-inline: -4px;
-      }
-    </style>
-  `,
-};
-
-export const Sfondo: Story = {
-  name: 'Sfondo scuro',
-  render: () => html`
-    <it-hero it-aria-label="Percorso di navigazione" dark>
-      <it-breadcrumb-item><a href="#">Home</a></it-breadcrumb-item>
-      <it-breadcrumb-item><a href="#">Sezione</a></it-breadcrumb-item>
-      <it-breadcrumb-item>Voce corrente</it-breadcrumb-item>
-    </it-hero>
-    <it-hero it-aria-label="Percorso di navigazione2" dark>
-      <it-breadcrumb-item>
-        <a href="#">Home</a>
-        <it-icon name="it-chevron-right" color="inverse" size="sm" slot="separator" class="my-separator"></it-icon>
-      </it-breadcrumb-item>
-      <it-breadcrumb-item>
-        <a href="#">Sezione</a>
-        <it-icon name="it-chevron-right" color="inverse" size="sm" slot="separator" class="my-separator"></it-icon>
-      </it-breadcrumb-item>
-      <it-breadcrumb-item>Voce corrente</it-breadcrumb-item>
-    </it-hero>
-    <it-hero it-aria-label="Percorso di navigazione3" dark>
-      <it-breadcrumb-item>
-        <a href="#">
-          <it-icon name="it-link" color="inverse" size="sm" class="me-1"></it-icon>
-          Home
-        </a>
-      </it-breadcrumb-item>
-      <it-breadcrumb-item>
-        <a href="#">
-          <it-icon name="it-link" color="inverse" size="sm" class="me-1"></it-icon>
-          Sezione
-        </a>
-      </it-breadcrumb-item>
-      <it-breadcrumb-item>
-        <it-icon name="it-link" color="inverse" size="sm" class="me-1"></it-icon>
-        Voce corrente
-      </it-breadcrumb-item>
-    </it-hero>
-    <style>
-      .my-separator {
-        margin-inline: -4px;
-      }
-    </style>
-  `,
+export const ConContenutiTestuali: Story = {
+  name: 'Con contenuti testuali',
+  render: (args) =>
+    html` <it-hero>
+      <div slot="content">
+        <span class="it-category">Titolo occhiello</span>
+        <h1>Titolo della sezione</h1>
+        <p class="d-none d-lg-block">
+          Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo
+          donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus.
+        </p>
+        <div class="my-btn-container"><a class="btn btn-sm btn-outline-primary" href="#">Azione primaria </a></div>
+      </div>
+    </it-hero>`,
 };

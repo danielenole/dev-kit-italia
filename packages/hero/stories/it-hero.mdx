@@ -26,67 +26,30 @@ Modifica gli attributi nella tabella per personalizzare in tempo reale l’aspet
 
 Puoi facoltativamente estendere la larghezza del componente Hero all’intera finestra, per mostrare messaggi in evidenza sul tuo sito.
 
-
-<div class="callout callout-warning">
-  <div class="callout-inner">
-    <div class="callout-title">
-      <span class="text">Accessibilità e semantica</span>
-    </div>
-    <p>
-    Valuta attentamente l'utilizzo di più hero nella stessa pagina
-    </p>
-  </div>
-</div>
+### Attenzione a
+- Non usare più hero sulla stessa pagina.
+- Usa il componente Hero con moderazione, consideralo come fosse una copertina o un banner molto in evidenza. Difficilmente avrai bisogno di troppe copertine o banner nell'ambito dello stesso sito o servizio.
+- Fai attenzione al corretto contrasto (minimo) tra testo e sfondo nella variante "Con testo e immagine di sfondo"
+- Scegli il corretto livello di heading `h1`-`h6` per il titolo a seconda del contesto e della struttura di pagina.
+- Usa la corretta semantica html per le call to action laddove presenti: `<a>` per link di navigazione o ancore, `<it-button>` per azioni.
+- Quando usi il componente Hero con approccio "fullwidth", sfrutta tutta la larghezza della viewport.
 
 ## Accessibilità
 
-Il componente Breadcrumbs implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.2 breadcrumbs](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) per garantire un'esperienza accessibile a tutti gli utenti:
-- Fornisce automaticamente l'attributo `aria-current="page"` sull'ultimo elemento per indicare la pagina corrente agli screen reader.
-- Il separatore viene nascosto agli screen reader tramite `aria-hidden="true"` per evitare annunci ridondanti.
-- Usa elementi semantici (`<nav>`, `<ol>`, `<li>`) per una corretta struttura del documento.
+- Valuta attentamente l'utilizzo di più hero nella stessa pagina.
+- Nel caso in cui utilizzi il componente Hero con sola immagine, imposta sempre l'attributo `it-aria-label` sul componente `<it-hero>` per annunciare tramite i lettori di schermo di cosa si tratta.
+- Nel caso in cui inserisci contenuti testuali, utilizza per il titolo il livello `h` corretto a seconda del contesto.
+- Nel caso in cui utilizzi il componente Hero nella versione con testo e immagine di sfondo, verifica che l’immagine utilizzata assicuri sempre un adeguato contrasto rispetto al testo.
 
-<div class="callout callout-warning">
-  <div class="callout-inner">
-    <div class="callout-title">
-      <span class="text">Nota sui test di accessibilità</span>
-    </div>
-    <p>
-      Axe e altri strumenti di analisi statica possono segnalare falsi positivi quando analizzano il componente `it-hero` a causa del limitato supporto per i Web Components. La struttura accessibile effettiva è corretta, come confermato dall'Accessibility Tree e dai test manuali con screen reader.
-    </p>
-  </div>
-</div>
+## Con immagine
+Per mostrare una immagine di sfondo nel componente `it-hero`, inserisci l'immagine nello slot `background` dedicato.
 
+Ricordati di impostare l'attributo `it-aria-label` sul componente `<it-hero>` per annunciare tramite lettori di schermo di cosa si tratta.
 
-## Con icona
+<Canvas of={HeroStories.ConImmagine} />
 
-Puoi aggiungere un'icona a un elemento `it-breadcrumb-item` inserendo un componente `it-icon` all'interno del tag `<a>`.
+## Con contenuti testuali
 
-<Canvas of={HeroStories.ConIcona} />
-
-## Separatore personalizzato
-
-Di default, il componente Breadcrumbs usa `/` come separatore tra gli elementi. Puoi personalizzarlo in due modi:
-- utilizzando l'attributo `separator` su `it-hero` (es. `>`)
-- inserendo un elemento personalizzato (come un'icona) nello slot `separator` di ogni `it-breadcrumb-item`.
-
-<Canvas of={HeroStories.SeparatorePersonalizzato} />
-
-## Sfondo scuro
-
-Aggiungi l'attributo `dark` per utilizzare la versione su sfondo scuro delle breadcrumbs.
-
-<div class="callout callout-warning">
-  <div class="callout-inner">
-    <div class="callout-title">
-      <span class="text">Accessibilità e icone</span>
-    </div>
-    <p>
-      Quando usi icone negli slot `separator` o come contenuto di un `it-breadcrumb-item` ricorda di impostare manualmente il colore appropriato in modo da garantire un contrasto che rispetti le linee guida di accessibilità.
-    </p>
-  </div>
-</div>
-
-<Canvas of={HeroStories.Sfondo} />
 
 ## Personalizzazione degli stili
 
@@ -97,4 +60,4 @@ Per la personalizzazione degli stili puoi usare i selettori `::part` dedicati:
 - `::part(breadcrumb-item)` - ogni singolo elemento `li` della lista
 - `::part(separator)` - elemento usato come separatore tra le voci
 
-[Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
+[Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part). */}

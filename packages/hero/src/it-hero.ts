@@ -1,39 +1,59 @@
 /* eslint-disable lit-a11y/list */
-import { BaseComponent } from '@italia/globals';
+import { BaseComponent, setAttributes } from '@italia/globals';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, queryAssignedElements, state } from 'lit/decorators.js';
 
 import styles from './hero.scss';
 
-/**
- * Simple breadcrumbs component following repository conventions.
- * - Renders a list of slotted anchors or items
- * - Dark mode variant
- */
 @customElement('it-hero')
 export class ItHero extends BaseComponent {
   static styles = styles;
 
-  @property({ type: String, reflect: true, attribute: 'it-aria-label' }) itAriaLabel = 'Breadcrumbs';
+  @state() private _hasBackground = false;
 
-  @property({ type: String, reflect: true }) separator = '/';
+  @state() private _hasContent = false;
 
-  @property({ type: Boolean, reflect: true }) dark = false;
+  @property({ type: String, reflect: true, attribute: 'it-aria-label' }) itAriaLabel = 'In evidenza';
 
-  private _setChildrenProperties() {
-    const slot = this.shadowRoot?.querySelector('slot');
-    const assignedElements = slot?.assignedElements({ flatten: true }) || [];
-    assignedElements.forEach((el, index) => {});
+  @queryAssignedElements({ slot: 'background', flatten: true }) private _backgroundItems!: Array<HTMLElement>;
+
+  @queryAssignedElements({ slot: 'content', flatten: true }) private _contentItems!: Array<HTMLElement>;
+
+  private _handleSlotBackgroundChange() {
+    // Verifichiamo se l'array degli elementi assegnati è popolato
+    this._hasBackground = this._backgroundItems.length > 0;
+  }
+
+  private _handleSlotContentChange() {
+    // Verifichiamo se l'array degli elementi assegnati è popolato
+    this._hasContent = this._contentItems.length > 0;
   }
 
   override render() {
-    const olClasses = this.dark ? 'breadcrumb dark' : 'breadcrumb';
     return html`
-      <nav aria-label="${this.itAriaLabel}" part="breadcrumbs-container" class="breadcrumb-container">
-        <ol class="${olClasses}" part="breadcrumbs">
-          <slot @slotchange=${this._setChildrenProperties}></slot>
-        </ol>
-      </nav>
+      <section class="it-hero-wrapper" ${setAttributes(this._ariaAttributes)}>
+        ${this._hasBackground
+          ? html`
+              <div class="img-responsive-wrapper">
+                <div class="img-responsive">
+                  <div class="img-wrapper">
+                    <slot name="background" @slotchange=${this._handleSlotBackgroundChange}></slot>
+                  </div>
+                </div>
+              </div>
+            `
+          : html` <slot name="background" @slotchange=${this._handleSlotBackgroundChange}></slot> `}
+        ${this._hasContent
+          ? html`
+              <div class="container">
+                <div class="it-hero-text-wrapper bg-dark">
+                    <slot  name="content" @slotchange=${this._handleSlotContentChange}></slot>
+                  </div>
+                </div>
+              </div>
+            `
+          : html` <slot name="content" @slotchange=${this._handleSlotContentChange}></slot> `}
+      </section>
     `;
   }
 }
