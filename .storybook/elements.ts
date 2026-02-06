@@ -4,6 +4,7 @@ import '../packages/accordion/dist/src';
 import '../packages/avatar/dist/src';
 import '../packages/back-to-top/dist/src';
 import '../packages/button/dist/src';
+import '../packages/card/dist/src';
 import '../packages/checkbox/dist/src';
 import '../packages/chip/dist/src';
 import '../packages/dropdown/dist/src';

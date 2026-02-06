@@ -5,6 +5,7 @@ import '@italia/breadcrumbs/it-breadcrumbs.js';
 import '@italia/breadcrumbs/it-breadcrumb-item.js';
 import '@italia/back-to-top/it-back-to-top.js';
 import '@italia/button/it-button.js';
+import '@italia/card/it-card.js';
 import '@italia/callout/it-callout.js';
 import '@italia/callout/it-callout-more.js';
 import '@italia/callout/it-callout-more-collapse.js';

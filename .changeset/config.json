@@ -14,6 +14,7 @@
       "@italia/breadcrumbs",
       "@italia/back-to-top",
       "@italia/button",
+      "@italia/card",
       "@italia/checkbox",
       "@italia/chip",
       "@italia/collapse",

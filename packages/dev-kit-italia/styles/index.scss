@@ -24,6 +24,7 @@
 
 @import 'bootstrap-italia/src/scss/forms/forms'; //perchè ci sono delle variabile definite nella :root
 
+@import 'bootstrap-italia/src/scss/components/images';
 @import 'bootstrap-italia/src/scss/components/linklist';
 @import 'bootstrap-italia/src/scss/components/dropdown';
 @import 'bootstrap-italia/src/scss/components/nav';
@@ -60,6 +61,7 @@
 @import '@italia/radio/styles/globals';
 @import '@italia/rating/styles/globals';
 @import '@italia/modal/styles/globals';
+@import '@italia/card/styles/globals';
 
 // Footer
 @import 'bootstrap-italia/src/scss/components/footer';
