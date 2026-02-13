@@ -20,7 +20,7 @@ Usa le modali con moderazione: un uso eccessivo interrompe il normale flusso di 
 
 ## Anteprima e attributi del componente
 
-Nella tabella trovi gli per personalizzare l'aspetto e il comportamento del componente. Data la complessità, l'anteprima non verrà aggiornata in tempo reale al variare degli attributi. 
+Nella tabella trovi gli attributi per personalizzare l'aspetto e il comportamento del componente. Data la complessità, l'anteprima non verrà aggiornata in tempo reale al variare degli attributi. 
 
 Per comprendere appieno le funzionalità del componente e delle sue varianti, consulta gli esempi interattivi contenuti nelle altre sezioni di questa pagina.
 
@@ -30,15 +30,15 @@ Per comprendere appieno le funzionalità del componente e delle sue varianti, co
 <Controls of={Stories.EsempioInterattivo} />
 
 ## Informazioni generali
-Per la creazione di una modale usa il componente `<it-modal>` e inserisci al suo interno contenuto desiderato, intestazione ed eventuali azioni.
+Per creare una modale, usa il componente `<it-modal>` e inserisci al suo interno contenuto desiderato, intestazione ed eventuali azioni.
 
 Il componente `<it-modal>` è composto dai seguenti slot:
-- `trigger`: obbligatorio. Utilizza questo slot per definire il pulsante o l'elemento interattivo che, quando cliccato, apre la modale.
-- `header`: per personalizzare l'intestazione della modale. Il contenuto di questo slot, in modo analogo all'attributo `modal-title` verrà associato all'attributo `aria-labelledby` della modale.
-- `header-icon`: per inserire un'icona nell'header della modale. Il contenuto di questo slot viene solitamente utilizzato per aggiungere un'icona decorativa o informativa accanto al titolo della modale ed è disponibile per la variante `alert`.
-- `description`: per una descrizione aggiuntiva della modale. Il contenuto di questo slot, in modo analogo all'attributo `modal-description` verrà associato all'attributo `aria-describedby` della modale.
-- `content`: obbligatorio. Utilizza questo slot per definire il contenuto principale della modale.
-- `footer`: per le azioni della modale, come pulsanti di conferma o cancellazione ed eventuali elementi aggiuntivi che ritieni necessari.
+- `trigger` (**obbligatorio**), per definire il pulsante o l'elemento interattivo che apre la modale al clic;
+- `header`, per personalizzare l'intestazione della modale. Il contenuto di questo slot, come per l'attributo `modal-title`, verrà associato all'attributo `aria-labelledby` della modale;
+- `header-icon`: per inserire un'icona accanto all'intestazione nell'header della modale, disponibile per la variante `alert`;
+- `description`: per inserire una descrizione aggiuntiva. Il contenuto di questo slot, come per l'attributo `modal-description`, verrà associato all'attributo `aria-describedby` della modale;
+- `content` (**obbligatorio**), per inserire il contenuto principale della modale;
+- `footer`, per le azioni della modale come pulsanti di conferma o cancellazione ed eventuali elementi aggiuntivi.
 
 Dovrai inserire il trigger per l'apertura della modale nello slot `trigger`, negli esempi viene mostrato l'utilizzo con il componente `it-button`.
 
