@@ -74,10 +74,10 @@ Per realizzare modali accessibili a tutti gli utenti, assicurati di:
 - Si consiglia sempre di includere un pulsante di chiusura all'interno della modale, che può essere aggiunto facilmente tramite l'attributo `close-button`, o implementato manualmente nello slot `footer` tramite, ad esempio, un pulsante `it-button`.
 
 ## Con pulsante di chiusura
-Puoi mostrare o nascondere il pulsante di chiusura predefinito della modale tramite l'attributo `close-button`.
-Il pulsante di chiusura viene posizionato nell'angolo in alto a destra della modale e permette agli utenti di chiudere facilmente la finestra modale.
 
-Il valore di default è `true`, che mostra il pulsante di chiusura. Impostandolo a `false`, il pulsante non verrà visualizzato.
+Il pulsante di chiusura è posizionato nell'angolo in alto a destra della modale. 
+
+Imposta il valore dell'attributo `close-button` su `true` (valore di default) per mostrarlo o su `false` per nasconderlo.
 
 Fornisci un'etichetta accessibile al pulsante di chiusura tramite l'attributo `close-label`.
 
@@ -85,13 +85,17 @@ Fornisci un'etichetta accessibile al pulsante di chiusura tramite l'attributo `c
 
 ## Con footer personalizzato
 Puoi personalizzare il footer della modale inserendo il contenuto desiderato nello slot `footer`.
-Questo ti permette di aggiungere pulsanti di azione, link o qualsiasi altro elemento HTML che ritieni opportuno per il footer della modale.
+
+Questo ti permette di aggiungere pulsanti di azione, link o qualsiasi altro elemento HTML che ritieni opportuno.
 
 <Canvas of={Stories.FooterCustom} />
 
 ## Modale con elementi form
 
-Puoi inserire elementi Form all’interno della modale. Di seguito una modale con un elenco di radio button.
+Puoi inserire elementi Form all’interno della modale. 
+
+Ad esempio, una modale con un elenco di radio button:
+
 <Canvas of={Stories.ConForm} />
 
 ## Varianti
@@ -104,13 +108,14 @@ Per dare enfasi visiva, puoi aggiungere un'icona nell'header inserendo un compon
 
 <Canvas of={Stories.ConIcona} />
 
-### Modale con Link list
-Puoi inserire Liste di link all’interno della modale. Per formattare correttamente il contenuto di questa modale, valorizza l'attributo `variation` con valore `link-list` per ottenere il layout corretto.
+### Modale con liste di link
+Per inserire liste di link all’interno della modale, valorizza l'attributo `variation` con valore `link-list`.
+
 <Canvas of={Stories.ConLinkList} />
 
 
 ### Modale popconfirm
-La modale di tipo popconfirm può essere utilizzata per brevi messaggi di conferma. Puoi ottenere questo layout valorizzando l'attributo `variant` con valore `popconfirm`.
+La modale di tipo popconfirm è utile per brevi messaggi di conferma. Per ottenere questo layout, valorizza l'attributo `variant` con valore `popconfirm`.
 
 Il titolo della modale è facoltativo: nel caso non fosse necessario non devi né popolare lo slot `header` né valorizzare l'attributo `modal-title`, ma devi fornire un titolo alternativo tramite l'attributo `it-aria-label` per garantire accessibilità.
 
@@ -121,6 +126,7 @@ Il titolo della modale è facoltativo: nel caso non fosse necessario non devi n�
 Quando le modali diventano troppo lunghe per il viewport o il dispositivo dell’utente, scorrono indipendentemente dalla pagina stessa.
 
 Puoi utilizzare l'attributo `footer-shadow` per aggiungere un'ombra al footer della modale per distinguere l'elemento footer.
+
 <Canvas of={Stories.ScrollLungo} />
 
 ## Scroll interno alla modale
