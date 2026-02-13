@@ -40,13 +40,13 @@ Il componente `<it-modal>` è composto dai seguenti slot:
 - `content` (**obbligatorio**), per inserire il contenuto principale della modale;
 - `footer`, per le azioni della modale come pulsanti di conferma o cancellazione ed eventuali elementi aggiuntivi.
 
-Dovrai inserire il trigger per l'apertura della modale nello slot `trigger`, negli esempi viene mostrato l'utilizzo con il componente `it-button`.
+Inserisci il trigger per l'apertura della modale nello slot `trigger`, come mostrato negli esempi con il componente `it-button`.
 
-Dovrai specificare un titolo tramite lo slot `header`, l'attributo `modal-title` o, in caso tu non voglia mostrare il titolo della modale, un'etichetta accessibile tramite l'attributo `it-aria-label`.
+Definisci il titolo della modale tramite lo slot `header` o l’attributo `modal-title`. Se non vuoi mostrare un titolo, fornisci un’etichetta accessibile tramite l’attributo it-aria-label.
 
-Eventuali azioni come pulsanti di conferma o cancellazione andranno inserite nello slot `footer`, e dovranno essere implementate manualmente le funzionalità di chiusura della modale, oltre ad eventuali altre funzionalità.
+Imposta manualmente nello slot `footer` eventuali azioni di conferma, cancellazione e chiusura della modale. Tutti gli esempi includono un’implementazione di base per la chiusura della modale al clic sui pulsanti, realizzata tramite event listener nello slot `footer`, come mostrato di seguito:
 
-Tutti gli esempi forniscono un'implementazione di base per la chiusura della modale, analoga alla seguente, attraverso event listener sul click dei pulsanti appartenenti allo slot `footer` dei vari esempi:
+
 
 
 ```js
@@ -57,7 +57,7 @@ const closeModal = (event: Event) => {
 };
 ```
 
-Il metodo `hide()` è disponibile come metodo pubblico e chiude la modale. Vedi la sezione "Proprietà, Metodi, ed Eventi accessibili via js" per maggiori dettagli sui metodi e gli eventi esposti dal componente.
+Il metodo `hide()` è disponibile come metodo pubblico e chiude la modale. Per maggiori dettagli sui metodi e gli eventi esposti dal componente, vai alla sezione "Proprietà, Metodi, ed Eventi accessibili via js".
 
 ## Accessibilità
 
