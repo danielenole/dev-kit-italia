@@ -8,22 +8,21 @@ import * as Stories from './it-modal.stories';
 <description>Finestra di interazione a comparsa in sovrapposizione sul contenuto principale per focalizzare l'attenzione su un'azione specifica o un messaggio importante.</description>
 
 ## Cosa fa
-Il componente modal, in italiano modale, è utile per focalizzare l'attenzione dell'utente su informazioni cruciali o richiedere un'azione precisa, rimanendo nella pagina attuale.
+Il componente Modal (`<it-modal>`), in italiano modale, è una finestra che si apre in sovrapposizione per permettere all'utente di leggere informazioni cruciali o svolgere azioni senza lasciare la pagina su cui si trova. È utile per conferme di azioni, form di accesso o registrazione e approfondimenti di contenuti specifici.
 
-È il caso di conferme di azioni, form di accesso o registrazione, approfondimento di uno specifico contenuto.
-
-Tuttavia, un uso eccessivo delle modali interrompe il normale flusso di navigazione, quindi è raccomandato usarle con moderazione.
+Usa le modali con moderazione: un uso eccessivo interrompe il normale flusso di navigazione.
 
 [Approfondisci quando e come usare il componente Modal](https://designers.italia.it/design-system/componenti/modal/)
 
 ### Alternative a questo componente
-Tooltip e popover (in lavorazione): per spiegare una funzione specifica o fornire informazioni aggiuntive, sono meno invasive di una finestra modale e si possono attivare in diversi modi.
+- Tooltip e popover (in lavorazione): per spiegare una funzione specifica o fornire informazioni aggiuntive, sono meno invasive di una finestra modale e si possono attivare in diversi modi.
 
 
 ## Anteprima e attributi del componente
 
-Data la complessità del componente, si consiglia di esplorare i vari esempi interattivi per comprendere appieno le funzionalità. Vengono di seguito elencati gli attributi del componente: l'anteprima non verrà aggiornata in tempo reale al variare degli attributi.
+Nella tabella trovi gli per personalizzare l'aspetto e il comportamento del componente. Data la complessità, l'anteprima non verrà aggiornata in tempo reale al variare degli attributi. 
 
+Per comprendere appieno le funzionalità del componente e delle sue varianti, consulta gli esempi interattivi contenuti nelle altre sezioni di questa pagina.
 
 
 <Canvas of={Stories.EsempioInterattivo} />
@@ -31,7 +30,7 @@ Data la complessità del componente, si consiglia di esplorare i vari esempi int
 <Controls of={Stories.EsempioInterattivo} />
 
 ## Informazioni generali
-Per la creazione di una modale usa il componente `<it-modal>`, avendo cura di inserire al suo interno il contenuto desiderato, intestazione e eventuali azioni.
+Per la creazione di una modale usa il componente `<it-modal>` e inserisci al suo interno contenuto desiderato, intestazione ed eventuali azioni.
 
 Il componente `<it-modal>` è composto dai seguenti slot:
 - `trigger`: obbligatorio. Utilizza questo slot per definire il pulsante o l'elemento interattivo che, quando cliccato, apre la modale.
