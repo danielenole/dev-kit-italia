@@ -61,18 +61,15 @@ Il metodo `hide()` è disponibile come metodo pubblico e chiude la modale. Per m
 
 ## Accessibilità
 
-Il componente `it-modal` implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 dialog pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/), e gestisce automaticamente gli attributi ARIA necessari per garantire l'accessibilità della modale.
+Il componente `it-modal`:
+- implementa le specifiche ARIA [WAI-ARIA Authoring Practices 1.1 dialog pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/) e gestisce automaticamente gli attributi ARIA necessari per garantire l'accessibilità della modale;
+- rispetta le preferenze di riduzione del movimento impostate dall'utente a livello di sistema operativo, disabilitando le animazioni se l'impostazione è rilevata a livello di browser;
+- gestisce automaticamente il focus all'interno della modale quando viene aperta, spostandolo sul primo elemento interattivo disponibile e ciclando poi il focus all'interno della modale stessa attraverso una focus trap;
+- supporta la chiusura della modale tramite il tasto ESC e/o cliccando sul backdrop, a meno che non venga specificato l'attributo `static-backdrop`;
+- ripristina il focus sull'elemento trigger una volta che la modale viene chiusa.
 
-Il componente rispetta le preferenze di riduzione del movimento impostate dall'utente a livello di sistema operativo, disabilitando le animazioni se l'impostazione è rilevata a livello di browser.
-
-Il componente gestisce automaticamente il focus all'interno della modale quando questa viene aperta, spostandolo sul primo elemento interattivo disponibile, e ciclando poi il focus all'interno della modale stessa attraverso una focus trap.
-
-Il componente supporta la chiusura della modale tramite il tasto ESC e/o cliccando sul backdrop, a meno che non venga specificato l'attributo `static-backdrop`.
-
-Il focus viene ripristinato sull'elemento di trigger una volta che la modale viene chiusa.
-
-Segui le indicazioni sottostanti per assicurarti che la modale sia accessibile a tutti gli utenti:
-- Ricordati di popolare lo slot `header` o uno tra gli attributi `modal-title` e `it-aria-label` per fornire un'etichetta accessibile alla modale. Se non vuoi mostrare il titolo, al fine di garantire piena accessibilità, diventa obbligatorio l'uso dell'attributo `it-aria-label`.
+Per realizzare modali accessibili a tutti gli utenti, assicurati di:
+- popolare lo slot `header` o uno tra gli attributi `modal-title` e `it-aria-label` per fornire un'etichetta accessibile alla modale. Se non vuoi mostrare il titolo, al fine di garantire piena accessibilità, diventa obbligatorio l'uso dell'attributo `it-aria-label`.
 - In caso di contenuti che includono strutture semantiche, come liste, tabelle, paragrafi multipli, non valorizzare l'attributo `modal-description` e/o non inserire contenuto nello slot `description`. Maggiori informazioni [qui](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/#wai-ariaroles,states,andproperties).
 - Si consiglia sempre di includere un pulsante di chiusura all'interno della modale, che può essere aggiunto facilmente tramite l'attributo `close-button`, o implementato manualmente nello slot `footer` tramite, ad esempio, un pulsante `it-button`.
 
